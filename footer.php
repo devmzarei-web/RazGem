@@ -5,7 +5,7 @@
         
         <div class="footer-widget footer-brand-widget">
             <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/Razgem-Logo-NoBg.png" alt="RazGem Logo" class="footer-logo-img" onerror="this.style.display='none'">
-            <p class="footer-about-text">گالری طلا و جواهرات رازگِم؛ تلفیقی چشم‌نواز از طلای ۱۸ عیار دست‌ساز، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با طراحی مینیمال و ارگانیک.</p>
+            <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری طلا و مروارید رازجم؛ تلفیقی چشم‌نواز از طلای ۱۸ عیار دست‌ساز، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با طراحی مینیمال و ارگانیک.' ) ); ?></p>
             
             <?php
             $social_instagram = get_theme_mod('social_instagram', '#');
@@ -14,17 +14,17 @@
             ?>
             <div class="social-icons">
                 <?php if ($social_instagram) : ?>
-                    <a href="<?php echo esc_url($social_instagram); ?>" aria-label="اینستاگرام رازگِم" target="_blank" rel="noopener noreferrer">
+                    <a href="<?php echo esc_url($social_instagram); ?>" aria-label="اینستاگرام رازجم" target="_blank" rel="noopener noreferrer">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
                 <?php endif; ?>
                 <?php if ($social_telegram) : ?>
-                    <a href="<?php echo esc_url($social_telegram); ?>" aria-label="تلگرام رازگِم" target="_blank" rel="noopener noreferrer">
+                    <a href="<?php echo esc_url($social_telegram); ?>" aria-label="تلگرام رازجم" target="_blank" rel="noopener noreferrer">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     </a>
                 <?php endif; ?>
                 <?php if ($social_whatsapp) : ?>
-                    <a href="<?php echo esc_url($social_whatsapp); ?>" aria-label="واتس‌اپ رازگِم" target="_blank" rel="noopener noreferrer">
+                    <a href="<?php echo esc_url($social_whatsapp); ?>" aria-label="واتس‌اپ رازجم" target="_blank" rel="noopener noreferrer">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                     </a>
                 <?php endif; ?>
@@ -92,9 +92,16 @@
             </ul>
             
             <div class="trust-seals">
-<div class="footer-trust-seal">
-    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P' alt='' style='cursor:pointer' code='eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'></a>
-</div>
+                <?php 
+                $enamad_custom = get_theme_mod( 'enamad_code', '' );
+                if ( ! empty( $enamad_custom ) ) {
+                    echo wp_kses_post( $enamad_custom );
+                } else {
+                ?>
+                <div class="footer-trust-seal">
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P' alt='' style='cursor:pointer' code='eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'></a>
+                </div>
+                <?php } ?>
             </div>
         </div>
 
@@ -102,7 +109,7 @@
 
     <div class="footer-bottom">
         <div class="site-container">
-            <p>&copy; <?php echo date('Y'); ?> تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری طلا و جواهرات رازگِم (RazGem) می‌باشد.</p>
+            <p>&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'footer_copyright', 'تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری طلا و مروارید رازجم (RazGem) می‌باشد.' ) ); ?></p>
         </div>
     </div>
 </footer>

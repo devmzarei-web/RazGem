@@ -1,7 +1,7 @@
 <section class="product-carousel-section">
     <div class="site-container">
         <div class="section-header section-header--flex">
-            <h2>جدیدترین زیورآلات رازگِم</h2>
+            <h2>جدیدترین زیورآلات رازجم</h2>
             <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '/shop'); ?>" class="view-all-link">مشاهده همه <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
         </div>
         

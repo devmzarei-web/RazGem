@@ -4,7 +4,7 @@
             <div class="highlight-sidebar">
                 <span class="highlight-tag">% پیشنهاد ویژه</span>
                 <h2>تخفیف‌های کالکشن طلا</h2>
-                <p>پیشنهادهای استثنایی بر روی شاهکارهای منتخب طلا و مروارید رازگِم.</p>
+                <p>پیشنهادهای استثنایی بر روی شاهکارهای منتخب طلا و مروارید رازجم.</p>
                 <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '/shop'); ?>?on_sale=1" class="btn-highlight">مشاهده همه تخفیف‌ها</a>
             </div>
             

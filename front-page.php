@@ -5,75 +5,15 @@
 defined( 'ABSPATH' ) || exit;
 get_header(); ?>
 
-<?php
-// Fetch Customizer Data (with fallbacks)
-$hero_badge           = get_theme_mod('hero_badge', 'کالکشن فاخر زیورآلات دست‌ساز');
-$hero_title_main      = get_theme_mod('hero_title_main', 'درخشش اصالت و هنر دست <br>در تلفیق طلا و مروارید');
-$hero_title_highlight = get_theme_mod('hero_title_highlight', 'گالری رازگِم');
-$hero_desc            = get_theme_mod('hero_desc', 'طراحی و ساخت دست‌سازه‌های اختصاصی طلای ۱۸ عیار، مرواریدهای باروک طبیعی و سنگ‌های قیمتی با الهام از ظرافت‌های طبیعت.');
-$hero_btn1_text       = get_theme_mod('hero_btn1_text', 'مشاهده کالکشن زیورآلات');
-$hero_btn1_url        = get_theme_mod('hero_btn1_url', '/shop');
-$hero_btn2_text       = get_theme_mod('hero_btn2_text', 'جدیدترین دست‌سازه‌ها');
-$hero_btn2_url        = get_theme_mod('hero_btn2_url', '#new-arrivals');
-
-// Image Fallbacks
-$hero_img_1 = get_theme_mod('hero_image_1') ? get_theme_mod('hero_image_1') : get_template_directory_uri() . '/assets/images/hero-main.jpg';
-$hero_img_2 = get_theme_mod('hero_image_2') ? get_theme_mod('hero_image_2') : get_template_directory_uri() . '/assets/images/hero-sub.jpg';
-$hero_img_3 = get_theme_mod('hero_image_3') ? get_theme_mod('hero_image_3') : get_template_directory_uri() . '/assets/images/hero-3.jpg';
-$hero_img_4 = get_theme_mod('hero_image_4') ? get_theme_mod('hero_image_4') : get_template_directory_uri() . '/assets/images/hero-4.jpg';
-
-// URL Links for the Images (Link these to promos/categories via Customizer later)
-$hero_url_1 = get_theme_mod('hero_url_1', '/shop');
-$hero_url_2 = get_theme_mod('hero_url_2', '/shop');
-$hero_url_3 = get_theme_mod('hero_url_3', '/shop');
-$hero_url_4 = get_theme_mod('hero_url_4', '/shop');
-?>
-
 <main id="primary" class="site-main" role="main">
 
-    <section class="hero-section" aria-label="معرفی گالری زیورآلات رازگِم">
-        <div class="site-container hero-grid">
-            <div class="hero-content">
-                <span class="hero-badge"><?php echo esc_html($hero_badge); ?></span>
-                <h1 class="hero-title"><?php echo wp_kses_post($hero_title_main); ?> <span><?php echo esc_html($hero_title_highlight); ?></span></h1>
-                <p class="hero-description"><?php echo esc_html($hero_desc); ?></p>
-                <div class="hero-actions">
-                    <a href="<?php echo esc_url($hero_btn1_url); ?>" class="btn-primary"><?php echo esc_html($hero_btn1_text); ?></a>
-                    <a href="<?php echo esc_url($hero_btn2_url); ?>" class="btn-secondary"><?php echo esc_html($hero_btn2_text); ?></a>
-                </div>
-            </div>
-            
-            <div class="hero-3d-slider" id="autoHeroSlider">
-                <div class="hero-slide slide-active">
-                    <a href="/shop" style="display:block;width:100%;height:100%;position:relative;">
-                        <img src="<?php echo esc_url($hero_img_1); ?>" alt="گردنبند طلا و مروارید باروک" onerror="this.style.display='none'">
-                        <span class="hero-slide-badge">طلای ۱۸ عیار دست‌ساز</span>
-                    </a>
-                </div>
-                <div class="hero-slide slide-next-1">
-                    <a href="/shop" style="display:block;width:100%;height:100%;position:relative;">
-                        <img src="<?php echo esc_url($hero_img_2); ?>" alt="انگشتر دست‌ساز مروارید" onerror="this.style.display='none'">
-                        <span class="hero-slide-badge">مروارید طبیعی باروک</span>
-                    </a>
-                </div>
-                <div class="hero-slide slide-next-2">
-                    <a href="/shop" style="display:block;width:100%;height:100%;position:relative;">
-                        <img src="<?php echo esc_url($hero_img_3); ?>" alt="گوشواره فاخر طلا" onerror="this.style.display='none'">
-                        <span class="hero-slide-badge">طراحی اختصاصی رازگِم</span>
-                    </a>
-                </div>
-                <div class="hero-slide slide-hidden">
-                    <a href="/shop" style="display:block;width:100%;height:100%;position:relative;">
-                        <img src="<?php echo esc_url($hero_img_4); ?>" alt="دستبند و کالکشن صدف" onerror="this.style.display='none'">
-                        <span class="hero-slide-badge">سنگ‌های قیمتی اصل</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <?php
+    // --- 1. HAUTE-JOAILLERIE SPOTLIGHT HERO & INTERACTIVE SHOWCASE ---
+    get_template_part( 'template-parts/hero' );
+    ?>
 
     <?php
-    // --- 2. SUGGESTED PRODUCTS CAROUSEL (پیشنهاد گالری رازگِم) ---
+    // --- 2. SUGGESTED PRODUCTS CAROUSEL (پیشنهاد گالری رازجم) ---
     $suggested_products = array();
 
     if ( function_exists( 'wc_get_products' ) ) {
@@ -140,7 +80,7 @@ $hero_url_4 = get_theme_mod('hero_url_4', '/shop');
         <div class="site-container">
             <div class="section-header section-header--flex">
                 <div>
-                    <h2>پیشنهاد گالری رازگِم</h2>
+                    <h2>پیشنهاد گالری رازجم</h2>
                     <p>شاهکارهای دست‌ساز برگزیده از طلا و مروارید باروک</p>
                 </div>
                 <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="view-all-link">مشاهده همه فروشگاه <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
@@ -207,7 +147,7 @@ $hero_url_4 = get_theme_mod('hero_url_4', '/shop');
             <div class="section-header section-header--flex">
                 <div>
                     <h2>جدیدترین دست‌سازه‌ها</h2>
-                    <p>درخشش بی‌بدیل طلا و مروارید در تازه‌ترین آثار کارگاه رازگِم</p>
+                    <p>درخشش بی‌بدیل طلا و مروارید در تازه‌ترین آثار کارگاه رازجم</p>
                 </div>
                 <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="view-all-link">مشاهده همه فروشگاه <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
             </div>
@@ -362,77 +302,19 @@ $hero_url_4 = get_theme_mod('hero_url_4', '/shop');
         </div>
     </section>
 
-    <section class="categories-section">
-        <div class="site-container">
-            <div class="section-header">
-                <h2>کالکشن‌های جواهرات رازگِم</h2>
-                <p>انتخاب بر اساس سبک و نوع دست‌سازه</p>
-            </div>
-            <div class="categories-grid">
-                <?php
-                $final_categories = array();
-                
-                $parent_terms = get_terms( array(
-                    'taxonomy'   => 'product_cat',
-                    'hide_empty' => false,
-                    'parent'     => 0,
-                    'orderby'    => 'count',
-                    'order'      => 'DESC',
-                ) );
-                
-                if ( ! is_wp_error( $parent_terms ) && count($parent_terms) >= 3 ) {
-                    $final_categories = $parent_terms;
-                } else {
-                    $all_terms = get_terms( array(
-                        'taxonomy'   => 'product_cat',
-                        'hide_empty' => false,
-                        'orderby'    => 'count',
-                        'order'      => 'DESC',
-                    ) );
-                    if ( ! is_wp_error( $all_terms ) ) {
-                        $final_categories = $all_terms;
-                    }
-                }
-                
-                $final_categories = array_slice($final_categories, 0, 3);
+    <?php
+    // --- 5. CURATED ASYMMETRIC LUXURY CATEGORY MOSAIC ---
+    get_template_part( 'template-parts/categories' );
 
-                if ( ! empty( $final_categories ) ) :
-                    foreach ( $final_categories as $category ) :
-                        $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
-                        if ( $thumbnail_id ) {
-                            $image_url = wp_get_attachment_image_url( $thumbnail_id, 'large' );
-                        } else {
-                            $image_url = esc_url( razgem_placeholder_img_src( 'woocommerce_single' ) );
-                        }
-                        ?>
-                        
-                        <a href="<?php echo esc_url( get_term_link( $category ) ); ?>" class="category-block" style="background-image: url('<?php echo esc_url( $image_url ); ?>');">
-                            <div class="category-block__title"><?php echo esc_html( $category->name ); ?></div>
-                        </a>
-
-                        <?php
-                    endforeach;
-                else : 
-                ?>
-                    <a href="#" class="category-block" style="background-image: url('<?php echo esc_url( razgem_placeholder_img_src( 'woocommerce_single' ) ); ?>');">
-                        <div class="category-block__title">گردنبند و مدال طلا</div>
-                    </a>
-                    <a href="#" class="category-block" style="background-image: url('<?php echo esc_url( razgem_placeholder_img_src( 'woocommerce_single' ) ); ?>');">
-                        <div class="category-block__title">انگشتر و حلقه دست‌ساز</div>
-                    </a>
-                    <a href="#" class="category-block" style="background-image: url('<?php echo esc_url( razgem_placeholder_img_src( 'woocommerce_single' ) ); ?>');">
-                        <div class="category-block__title">گوشواره و مروارید باروک</div>
-                    </a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
+    // --- 6. ARTISAN ATELIER STORY & BESPOKE COMMISSION ---
+    get_template_part( 'template-parts/atelier' );
+    ?>
 
     <section class="promo-banner-section">
         <div class="site-container promo-grid">
             <div class="promo-card promo-card--delivery">
                 <h3>ارسال رایگان و بیمه شده</h3>
-                <p>تمامی سفارش‌های گالری رازگِم با بسته‌بندی نفیس هدیه و بیمه کامل ارسال می‌شوند.</p>
+                <p>تمامی سفارش‌های گالری رازجم با بسته‌بندی نفیس هدیه و بیمه کامل ارسال می‌شوند.</p>
                 <a href="/terms" class="promo-btn">شرایط ارسال و بیمه</a>
             </div>
             <div class="promo-card promo-card--consult">

@@ -1,7 +1,7 @@
 <section class="magazine-section">
     <div class="site-container">
         <div class="section-header">
-            <h2>مجله تخصصی طلا و جواهر رازگِم</h2>
+            <h2>مجله تخصصی طلا و جواهر رازجم</h2>
             <p>راهنمای انتخاب طلا، نگهداری از مروارید طبیعی و داستان سنگ‌های اصیل</p>
         </div>
         <div class="magazine-grid">

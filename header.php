@@ -13,21 +13,21 @@
     <?php
     $page_title = wp_get_document_title();
     $page_url   = is_front_page() ? home_url('/') : get_permalink();
-    $site_name  = 'گالری طلا و جواهرات رازگِم';
+    $site_name  = 'گالری طلا و مروارید رازجم';
     
     if ( is_front_page() ) {
-        $page_desc = 'گالری طلا و جواهرات دست‌ساز رازگِم - طراحی و ساخت زیورآلات فاخر طلا، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با اصالت ایرانی و هنر دست';
+        $page_desc = 'گالری طلا و مروارید دست‌ساز رازجم - طراحی و ساخت زیورآلات فاخر طلا، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با اصالت ایرانی و هنر دست';
         $og_type   = 'website';
         $og_image  = get_site_icon_url() ? get_site_icon_url() : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     } elseif ( is_singular() ) {
         global $post;
         $page_desc = has_excerpt($post->ID) ? wp_strip_all_tags(get_the_excerpt($post->ID)) : wp_strip_all_tags(wp_trim_words($post->post_content, 30));
-        $page_desc = !empty($page_desc) ? $page_desc : 'خرید آنلاین زیورآلات دست‌ساز فاخر طلا و مروارید با ضمانت اصالت و ارسال رایگان و بیمه شده از گالری رازگِم';
+        $page_desc = !empty($page_desc) ? $page_desc : 'خرید آنلاین زیورآلات دست‌ساز فاخر طلا و مروارید با ضمانت اصالت و ارسال رایگان و بیمه شده از گالری رازجم';
         $og_type   = is_singular('product') ? 'product' : 'article';
         $thumb_id  = get_post_thumbnail_id($post->ID);
         $og_image  = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     } else {
-        $page_desc = get_bloginfo('description') ? get_bloginfo('description') : 'گالری طلا و جواهرات دست‌ساز رازگِم - زیورآلات طلا و مرواریدهای دست‌ساز طبیعی';
+        $page_desc = get_bloginfo('description') ? get_bloginfo('description') : 'گالری طلا و مروارید دست‌ساز رازجم - زیورآلات طلا و مرواریدهای دست‌ساز طبیعی';
         $og_type   = 'website';
         $og_image  = get_site_icon_url() ? get_site_icon_url() : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     }
@@ -51,7 +51,7 @@
     <meta name="twitter:title" content="<?php echo esc_attr( $page_title ); ?>" />
     <meta name="twitter:description" content="<?php echo esc_attr( $page_desc ); ?>" />
     <?php if ( $og_image ) : ?>
-        <meta name="twitter:image" content="<?php echo esc_url( $og_image ); ?>" />
+        <meta property="og:image" content="<?php echo esc_url( $og_image ); ?>" />
     <?php endif; ?>
 
     <?php wp_head(); ?>
@@ -59,12 +59,14 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( get_theme_mod( 'top_bar_enable', true ) ) : ?>
 <div class="top-bar">
     <div class="site-container top-bar__wrapper">
-        <span><?php echo esc_html(get_theme_mod('top_bar_announcement', 'ارسال رایگان و بیمه شده تمامی سفارش‌ها به سراسر کشور')); ?></span>
-        <span>مشاوره و پشتیبانی اختصاصی: <?php echo esc_html(get_theme_mod('contact_phone', '۰۲۱-۹۱۰۰XXXX')); ?></span>
+        <span><?php echo esc_html( get_theme_mod( 'top_bar_announcement', 'ارسال رایگان و بیمه‌شده سفارش‌ها به سراسر کشور' ) ); ?></span>
+        <span>مشاوره و پشتیبانی: <a href="tel:<?php echo esc_attr( razgem_clean_phone( get_theme_mod( 'contact_phone', '۰۲۱-۹۱۰۰XXXX' ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'contact_phone', '۰۲۱-۹۱۰۰XXXX' ) ); ?></a><?php if ( get_theme_mod( 'contact_phone_2', '' ) ) : ?> | <a href="tel:<?php echo esc_attr( razgem_clean_phone( get_theme_mod( 'contact_phone_2' ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'contact_phone_2' ) ); ?></a><?php endif; ?></span>
     </div>
 </div>
+<?php endif; ?>
 
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <nav class="mobile-drawer" id="mobileDrawer" aria-label="منوی موبایل">
@@ -104,7 +106,7 @@
         <a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">مجموعه برگزیده</a>
         <a href="/track-order">پیگیری سفارش</a>
         <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله جواهرات</a>
-        <a href="/about-us">داستان برند رازگِم</a>
+        <a href="/about-us">داستان برند رازجم</a>
         <a href="/contact">ارتباط با ما</a>
     </div>
 </nav>
@@ -118,8 +120,8 @@
             </button>
 
             <div class="header-logo">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری طلا و جواهرات رازگِم">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری طلا و جواهرات رازگِم" class="site-logo-img">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری طلا و مروارید رازجم">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری طلا و مروارید رازجم" class="site-logo-img">
                 </a>
             </div>
 
@@ -153,14 +155,14 @@
                     <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">مجموعه برگزیده</a></li>
                     <li><a href="/track-order">پیگیری سفارش</a></li>
                     <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله جواهرات</a></li>
-                    <li><a href="/about-us">داستان برند رازگِم</a></li>
+                    <li><a href="/about-us">داستان برند رازجم</a></li>
                     <li><a href="/contact">ارتباط با ما</a></li>
                 </ul>
             </nav>
 
             <div class="header-search">
                 <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-form" role="search">
-                    <input type="text" placeholder="جستجو در زیورآلات طلا و مروارید رازگِم..." name="s" class="search-input" aria-label="Search" autocomplete="off">
+                    <input type="text" placeholder="جستجو در زیورآلات طلا و مروارید رازجم..." name="s" class="search-input" aria-label="Search" autocomplete="off">
                     <button type="submit" class="search-submit" aria-label="جستجو">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                     </button>

@@ -1,7 +1,7 @@
 <section class="products-section">
     <div class="site-container">
         <div class="section-header">
-            <h2>جدیدترین زیورآلات فاخر رازگِم</h2>
+            <h2>جدیدترین زیورآلات فاخر رازجم</h2>
             <p>طراحی مینیمال، اصالت طلای ۱۸ عیار و درخشش مرواریدهای طبیعی باروک</p>
         </div>
         <div class="products-grid">

@@ -1,157 +1,181 @@
+/**
+ * RazGem Luxury Jewelry Theme JavaScript
+ * Zero-CDN Architecture with Local GSAP 3.12.5 Animations
+ *
+ * @package RazGem
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================================
-     1. GSAP Scroll Animations
+     1. GSAP Scroll Animations & Luxury Viewport Reveals (T019 / US3)
      ========================================================================= */
   if (typeof gsap !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-    let prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+    if (typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
     ).matches;
 
     if (!prefersReducedMotion) {
-      const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      heroTl.to(".hero-3d-slider", { opacity: 1, x: 0, duration: 1.4 });
-      heroTl.to(".hero-content", { opacity: 1, y: 0, duration: 1 }, "-=1");
+      // 1.1 Haute-Joaillerie Hero Entrance Timeline
+      const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      gsap.from(".feature-card", {
-        scrollTrigger: { trigger: ".features-section", start: "top 80%" },
-        opacity: 0,
-        y: 20,
-        stagger: 0.15,
-        duration: 0.6,
-      });
-      gsap.from(".category-block", {
-        scrollTrigger: { trigger: ".categories-section", start: "top 80%" },
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.8,
-      });
-      gsap.from(".product-card", {
-        scrollTrigger: { trigger: ".products-section", start: "top 80%" },
-        opacity: 0,
-        y: 20,
-        stagger: 0.15,
-        duration: 0.8,
-      });
-    } else {
-      gsap.set(".hero-content, .hero-3d-slider", { opacity: 1, y: 0, x: 0 });
-    }
-  }
+      if (document.querySelector(".razgem-hero-spotlight")) {
+        heroTl
+          .fromTo(
+            ".razgem-spotlight-frame",
+            { opacity: 0, scale: 0.92, y: 30 },
+            { opacity: 1, scale: 1, y: 0, duration: 1.2 }
+          )
+          .fromTo(
+            ".razgem-spotlight-halo",
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, duration: 1.4 },
+            "-=1.0"
+          )
+          .fromTo(
+            ".razgem-hero-badge, .razgem-hero-title, .razgem-hero-subtitle, .razgem-hero-cta-group, .razgem-hero-trust-bar",
+            { opacity: 0, y: 25 },
+            { opacity: 1, y: 0, stagger: 0.12, duration: 0.9 },
+            "-=1.0"
+          )
+          .fromTo(
+            ".razgem-hotspot-pin",
+            { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1, stagger: 0.2, ease: "back.out(2)", duration: 0.6 },
+            "-=0.4"
+          );
+      }
 
-  /* =========================================================================
-     2. 3D Hero Slider Controller (T032 / FR-016)
-     ========================================================================= */
-  const sliderContainer = document.querySelector(".hero-3d-slider");
-  if (sliderContainer) {
-    const slides = Array.from(sliderContainer.querySelectorAll(".hero-slide"));
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    let slideInterval = null;
-    let isPaused = false;
+      // 1.2 ScrollTrigger: Section Titles & Eyebrows
+      if (typeof ScrollTrigger !== "undefined") {
+        gsap.utils.toArray(".section-header, .razgem-section-heading").forEach((header) => {
+          gsap.from(header, {
+            scrollTrigger: {
+              trigger: header,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+        });
 
-    function updateSlides() {
-      if (window.innerWidth <= 768) {
-        // Mobile layout: scroll snap to active item
-        if (slides[currentIndex]) {
-          const scrollTarget = slides[currentIndex].offsetLeft - sliderContainer.offsetLeft;
-          sliderContainer.scrollTo({ left: scrollTarget, behavior: "smooth" });
+        // 1.3 ScrollTrigger: Category Mosaic Cards
+        if (document.querySelector(".razgem-category-mosaic")) {
+          gsap.from(".mosaic-card", {
+            scrollTrigger: {
+              trigger: ".razgem-category-mosaic",
+              start: "top 80%",
+            },
+            opacity: 0,
+            y: 35,
+            stagger: 0.18,
+            duration: 0.9,
+            ease: "power2.out",
+          });
         }
-      } else {
-        // Desktop 3D stacked perspective transform
-        slides.forEach((slide, index) => {
-          slide.classList.remove("slide-active", "slide-next-1", "slide-next-2", "slide-hidden");
-          const position = (index - currentIndex + totalSlides) % totalSlides;
 
-          if (position === 0) {
-            slide.classList.add("slide-active");
-          } else if (position === 1) {
-            slide.classList.add("slide-next-1");
-          } else if (position === 2) {
-            slide.classList.add("slide-next-2");
-          } else {
-            slide.classList.add("slide-hidden");
+        // 1.4 ScrollTrigger: Artisan Atelier Section
+        if (document.querySelector(".razgem-atelier-section")) {
+          gsap.from(".razgem-atelier-frame", {
+            scrollTrigger: {
+              trigger: ".razgem-atelier-section",
+              start: "top 75%",
+            },
+            opacity: 0,
+            x: -30,
+            duration: 1,
+            ease: "power3.out",
+          });
+
+          gsap.from(".razgem-atelier-content > *", {
+            scrollTrigger: {
+              trigger: ".razgem-atelier-section",
+              start: "top 75%",
+            },
+            opacity: 0,
+            x: 30,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+        }
+
+        // 1.5 ScrollTrigger: Product Cards & Feature Pills
+        gsap.utils.toArray(".product-carousel-section").forEach((section) => {
+          const cards = section.querySelectorAll(".product-card");
+          if (cards.length > 0) {
+            gsap.from(cards, {
+              scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+              },
+              opacity: 0,
+              y: 25,
+              stagger: 0.08,
+              duration: 0.6,
+              ease: "power2.out",
+            });
           }
         });
 
-        // If GSAP is present, add subtle micro-animation to the newly active slide
-        if (typeof gsap !== "undefined") {
-          const activeSlide = sliderContainer.querySelector(".slide-active");
-          if (activeSlide) {
-            gsap.fromTo(
-              activeSlide,
-              { scale: 0.96, opacity: 0.9 },
-              { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }
-            );
-          }
-        }
+        gsap.from(".feature-card", {
+          scrollTrigger: { trigger: ".features-section", start: "top 85%" },
+          opacity: 0,
+          y: 20,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power2.out",
+        });
       }
+    } else {
+      // Reduced motion fallback: instantly reveal all elements
+      gsap.set(
+        ".razgem-spotlight-frame, .razgem-spotlight-halo, .razgem-hero-badge, .razgem-hero-title, .razgem-hero-subtitle, .razgem-hero-cta-group, .razgem-hero-trust-bar, .razgem-hotspot-pin, .mosaic-card, .razgem-atelier-frame, .razgem-atelier-content > *, .product-card, .feature-card",
+        { opacity: 1, y: 0, x: 0, scale: 1 }
+      );
     }
-
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      updateSlides();
-    }
-
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-      updateSlides();
-    }
-
-    function startAutoSlide() {
-      if (slideInterval) clearInterval(slideInterval);
-      slideInterval = setInterval(() => {
-        if (!isPaused) nextSlide();
-      }, 3800);
-    }
-
-    updateSlides();
-    startAutoSlide();
-
-    // Pause auto-rotation on mouse hover
-    sliderContainer.addEventListener("mouseenter", () => {
-      isPaused = true;
-    });
-    sliderContainer.addEventListener("mouseleave", () => {
-      isPaused = false;
-    });
-
-    // Advance to next slide on click
-    sliderContainer.addEventListener("click", (e) => {
-      if (e.target.closest("a") && !e.target.closest(".slide-active")) {
-        // Clicking non-active preview card advances to it
-        e.preventDefault();
-      }
-      nextSlide();
-      startAutoSlide();
-    });
-
-    // Touch Swipe support for Mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    sliderContainer.addEventListener("touchstart", (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      isPaused = true;
-    }, { passive: true });
-
-    sliderContainer.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      isPaused = false;
-      const diffX = touchStartX - touchEndX;
-      if (Math.abs(diffX) > 40) {
-        if (diffX > 0) {
-          nextSlide(); // Swiped left
-        } else {
-          prevSlide(); // Swiped right
-        }
-        startAutoSlide();
-      }
-    }, { passive: true });
   }
 
   /* =========================================================================
-     3. Drag to Scroll functionality for Carousels
+     2. Interactive Hotspot Pins with Expandable Tooltips (T020 / US2 & US3)
+     ========================================================================= */
+  const hotspotPins = document.querySelectorAll(".razgem-hotspot-pin");
+  if (hotspotPins.length > 0) {
+    hotspotPins.forEach((pin) => {
+      // Click/Tap toggle for touchscreens and desktop inspection
+      pin.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isActive = pin.classList.contains("is-active");
+        // Close other active pins
+        hotspotPins.forEach((p) => p.classList.remove("is-active"));
+        if (!isActive) {
+          pin.classList.add("is-active");
+        }
+      });
+
+      // Keyboard accessibility (Enter & Space)
+      pin.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          pin.click();
+        }
+      });
+    });
+
+    // Close any active tooltip when clicking elsewhere
+    document.addEventListener("click", () => {
+      hotspotPins.forEach((p) => p.classList.remove("is-active"));
+    });
+  }
+
+  /* =========================================================================
+     3. Smooth Drag-to-Scroll for Horizontal Carousels
      ========================================================================= */
   const sliders = document.querySelectorAll(".carousel-wrapper");
   sliders.forEach((slider) => {
@@ -206,9 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================================
      4. Mobile Drawer Accordion Toggle
      ========================================================================= */
-  const accordions = document.querySelectorAll(
-    ".mobile-drawer-accordion-toggle",
-  );
+  const accordions = document.querySelectorAll(".mobile-drawer-accordion-toggle");
   accordions.forEach((toggle) => {
     toggle.addEventListener("click", function (e) {
       e.preventDefault();

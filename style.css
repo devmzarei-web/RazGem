@@ -1,15 +1,15 @@
 /*
-Theme Name: RazGem Luxury Handcrafted Jewelry
+Theme Name: RazGem Luxury Handcrafted Jewelry (گالری طلا و مروارید رازجم)
 Theme URI: https://razgem.ir
-Author: RazGem
+Author: RazGem Gallery (گالری رازجم)
 Author URI: https://razgem.ir
-Description: Bespoke artisanal jewelry theme inspired by nature, handcrafted with pearls, shells, and precious metals.
-Version: 1.0.0
+Description: پوسته اختصاصی طلا، مروارید و زیورآلات دست‌ساز رازجم با هویت بصری لوکس، پشتیبانی کامل از ووکامرس و تایپوگرافی اصیل پیدا و ایران‌یکان.
+Version: 1.1.0
 Text Domain: razgem
 */
 
 /* =========================================================================
-   1. FONTS & DESIGN TOKENS (Warm Ivory, Royal Gold & Mother-of-Pearl)
+   1. FONTS & DESIGN TOKENS (Logo-Derived Champagne Gold & Pearlescent Ivory)
    ========================================================================= */
 @font-face {
   font-family: "IranYekanX";
@@ -26,6 +26,41 @@ Text Domain: razgem
   font-display: swap;
 }
 @font-face {
+  font-family: "Peyda";
+  src: url("assets/fonts/PeydaWebFaNum-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Peyda";
+  src: url("assets/fonts/PeydaWebFaNum-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Peyda";
+  src: url("assets/fonts/PeydaWebFaNum-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Peyda";
+  src: url("assets/fonts/PeydaWebFaNum-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Peyda";
+  src: url("assets/fonts/PeydaWebFaNum-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: "Morabba";
   src: url("assets/fonts/Morabba-Medium.woff2") format("woff2");
   font-weight: 500;
@@ -35,44 +70,44 @@ Text Domain: razgem
 
 :root {
   /* Surface & Base Colors */
-  --color-bg-base: #FBF8F2;          /* Warm ivory base */
-  --color-bg: #FBF8F2;
-  --color-surface: #F5EFEB;          /* Elevated card/panel */
-  --color-panel: #F5EFEB;
-  --color-surface-subtle: #EFE9E0;   /* Recessed surface */
-  --color-panel-dark: #2A2421;       /* Dark luxury contrast */
+  --color-bg-base: #FAF7F2;          /* Pearlescent silk ivory base */
+  --color-bg: #FAF7F2;
+  --color-surface: #FFFFFF;          /* Pure white card surface */
+  --color-panel: #FAF7F2;
+  --color-surface-subtle: #F5EFEB;   /* Recessed pearl surface */
+  --color-panel-dark: #1F1B18;       /* Deep obsidian luxury contrast */
 
-  /* Gold & Metallic Accents */
-  --color-gold: #D4AF37;             /* Royal handcrafted gold */
-  --color-gold-dark: #A67C1E;        /* Deep antique gold */
-  --color-gold-light: #F3E5AB;       /* Champagne highlight */
-  --color-gold-hover: #C5A059;
-  --color-accent: #D4AF37;           /* Accent matches gold */
-  --color-accent-hover: #C5A059;
+  /* Gold & Metallic Accents (Harmonized with Seashell Logo) */
+  --color-gold: #C5A059;             /* Warm artisan rose-gold / bronze */
+  --color-gold-dark: #9E7D3B;        /* Deep burnished antique bronze */
+  --color-gold-light: #E8D7B0;       /* Champagne pearl highlight */
+  --color-gold-hover: #B38746;       /* Rich gold hover */
+  --color-accent: #C5A059;           /* Accent matches gold */
+  --color-accent-hover: #B38746;
 
   /* Pearlescent Nuances */
   --color-pearl-surface: #FAF7F2;
-  --color-pearl-glow: rgba(255, 255, 255, 0.85);
-  --gradient-pearl: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(243,239,234,0.4) 50%, rgba(212,175,55,0.12) 100%);
-  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #A67C1E 100%);
+  --color-pearl-glow: rgba(255, 255, 255, 0.95);
+  --gradient-pearl: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(250,247,242,0.6) 50%, rgba(197,160,89,0.15) 100%);
+  --gradient-gold: linear-gradient(135deg, #C5A059 0%, #E8D7B0 50%, #9E7D3B 100%);
 
   /* Typography & Neutrals */
-  --color-text-primary: #2A2421;     /* Rich deep bronze charcoal */
-  --color-dark: #2A2421;
-  --color-text-secondary: #5A504B;   /* Secondary description */
-  --color-text-muted: #7A6F68;       /* Muted metadata */
-  --color-muted: #7A6F68;
-  --color-border: #E8E0D5;          /* Delicate gold-linen dividers */
-  --color-light-gray: #F9F6F0;
+  --color-text-primary: #1F1B18;     /* Deep obsidian charcoal */
+  --color-dark: #1F1B18;
+  --color-text-secondary: #6B635B;   /* Muted warm taupe */
+  --color-text-muted: #9E968D;       /* Gentle caption gray */
+  --color-muted: #9E968D;
+  --color-border: #EAE3D9;          /* Soft warm pearl contour */
+  --color-light-gray: #FAF7F2;
 
   /* Soft Button / Pill Colors */
   --color-soft-pink-btn: #F5EFEB;
-  --color-soft-pink-btn-hover: #EFE9E0;
-  --color-soft-pink-text: #2A2421;
-  --color-soft-pink-border: #E8E0D5;
+  --color-soft-pink-btn-hover: #EAE3D9;
+  --color-soft-pink-text: #1F1B18;
+  --color-soft-pink-border: #EAE3D9;
 
   /* Fonts */
-  --font-heading: "Morabba", "Tahoma", serif;
+  --font-heading: "Peyda", "Morabba", "Tahoma", serif;
   --font-body: "IranYekanX", "Tahoma", sans-serif;
 
   /* Elevation & Geometry */
@@ -80,9 +115,9 @@ Text Domain: razgem
   --radius-md: 10px;
   --radius-sm: 6px;
   --radius-pill: 9999px;
-  --shadow-subtle: 0 4px 20px rgba(42, 36, 33, 0.04);
-  --shadow-medium: 0 8px 30px rgba(42, 36, 33, 0.08);
-  --shadow-gold: 0 4px 25px rgba(212, 175, 55, 0.18);
+  --shadow-subtle: 0 4px 20px rgba(31, 27, 24, 0.04);
+  --shadow-medium: 0 8px 30px rgba(31, 27, 24, 0.08);
+  --shadow-gold: 0 4px 25px rgba(197, 160, 89, 0.22);
   --transition-lux: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -530,134 +565,643 @@ select {
   color: var(--color-accent);
 }
 
-.hero-section {
-  background: var(--color-panel);
-  padding: 2rem 0;
-  margin-bottom: 3rem;
-  border-bottom-left-radius: var(--radius-md);
-  border-bottom-right-radius: var(--radius-md);
+/* =========================================================================
+   4.1 HAUTE-JOAILLERIE SPOTLIGHT HERO & INTERACTIVE SHOWCASE
+   ========================================================================= */
+.razgem-hero-spotlight {
+  background: radial-gradient(circle at 75% 50%, rgba(250, 247, 242, 0.9) 0%, #FAF7F2 100%);
+  padding: 3.5rem 0 4rem 0;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
   overflow: hidden;
 }
-.hero-grid {
+.razgem-hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 3.5rem;
   align-items: center;
 }
-.hero-content {
-  opacity: 0;
-  transform: translateY(15px);
+
+/* Hero Editorial Narrative */
+.razgem-hero-narrative {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  z-index: 2;
+}
+.razgem-hero-badge-wrap {
+  margin-bottom: 1.2rem;
+}
+.razgem-hero-badge {
+  display: inline-flex;
   align-items: center;
-  text-align: center;
-}
-.hero-badge {
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  color: var(--color-accent);
+  gap: 0.5rem;
+  background: rgba(197, 160, 89, 0.12);
+  color: #8C6A2E;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
   font-weight: 700;
-  display: block;
-  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
 }
-.hero-title {
+.razgem-hero-title {
   font-family: var(--font-heading);
-  font-size: 3.2rem;
-  line-height: 1.3;
-  margin-bottom: 1rem;
-  text-align: center;
+  font-size: 2.85rem;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  margin-bottom: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
-.hero-title span {
-  color: var(--color-accent);
+.razgem-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  max-width: 92%;
 }
-.hero-description {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #4a4a4a;
-  margin: 0 auto 2rem auto;
-  text-align: center;
-  max-width: 90%;
-}
-.hero-actions {
+.razgem-hero-cta-group {
   display: flex;
+  align-items: center;
   gap: 1.2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+/* Luxury Action Buttons */
+.btn-luxury-gold {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-}
-.btn-primary {
-  background: var(--color-dark);
-  color: #fff;
-  padding: 0.7rem 1.8rem;
-  border-radius: var(--radius-sm);
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #C5A059 0%, #B38746 100%);
+  color: #FFFFFF !important;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 6px 20px rgba(179, 135, 70, 0.28);
+  transition: var(--transition-lux);
+  border: none;
+  cursor: pointer;
 }
-.btn-primary:hover {
-  background: var(--color-accent);
+.btn-luxury-gold:hover {
+  background: linear-gradient(135deg, #B38746 0%, #946B2C 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(211, 84, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(179, 135, 70, 0.38);
+  color: #FFFFFF !important;
 }
-.btn-secondary {
-  border: 1px solid var(--color-dark);
-  padding: 0.7rem 1.8rem;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
-  font-size: 0.9rem;
+.btn-luxury-contour {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  color: var(--color-text-primary) !important;
+  border: 1.5px solid var(--color-border);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-pill);
+  transition: var(--transition-lux);
+  cursor: pointer;
 }
-.btn-secondary:hover {
-  background: var(--color-dark);
-  color: #fff;
+.btn-luxury-contour:hover {
+  border-color: var(--color-gold);
+  background: #FAF7F2;
+  color: var(--color-gold-hover) !important;
   transform: translateY(-2px);
 }
 
-.hero-3d-slider {
-  position: relative;
-  height: 400px;
+/* Trust Metrics Bar */
+.razgem-hero-trust-bar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(234, 227, 217, 0.8);
   width: 100%;
-  opacity: 0;
-  transform: translateX(-20px);
 }
-.hero-slide {
+.razgem-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.razgem-trust-item .trust-icon {
+  font-size: 1.4rem;
+  background: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.razgem-trust-item .trust-text {
+  display: flex;
+  flex-direction: column;
+}
+.razgem-trust-item .trust-text strong {
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+.razgem-trust-item .trust-text span {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Hero Spotlight Showcase (Visual) */
+.razgem-hero-showcase {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.razgem-spotlight-halo {
   position: absolute;
-  border-radius: var(--radius-md);
-  background-color: var(--color-panel-dark);
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-}
-.slide-active {
-  right: 0;
-  bottom: 0;
-  width: 60%;
-  height: 100%;
-  z-index: 4;
-  filter: brightness(1);
-}
-.slide-next-1 {
-  right: 18%;
-  bottom: 5%;
-  width: 55%;
-  height: 90%;
-  z-index: 3;
-  filter: brightness(0.85);
-}
-.slide-next-2 {
-  right: 36%;
-  bottom: 10%;
-  width: 50%;
-  height: 80%;
-  z-index: 2;
-  filter: brightness(0.7);
-}
-.slide-hidden {
-  right: 54%;
-  bottom: 15%;
-  width: 45%;
-  height: 70%;
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(25px);
   z-index: 1;
-  opacity: 0;
   pointer-events: none;
+}
+.razgem-spotlight-frame {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(31, 27, 24, 0.12), 0 0 0 1px rgba(197, 160, 89, 0.25);
+  background: #FFFFFF;
+  z-index: 2;
+}
+.razgem-spotlight-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.razgem-spotlight-frame:hover .razgem-spotlight-img {
+  transform: scale(1.03);
+}
+
+/* Interactive Pulsing Hotspot Pins */
+.razgem-hotspot-pin {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  outline: none;
+}
+.hotspot-pulse {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(197, 160, 89, 0.45);
+  animation: razgem-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+.hotspot-core {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.razgem-hotspot-pin:hover .hotspot-core,
+.razgem-hotspot-pin.is-active .hotspot-core {
+  transform: scale(1.3);
+  background: var(--color-gold-hover);
+}
+
+/* Expandable Tooltip Card */
+.hotspot-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 50%;
+  transform: translateX(50%) translateY(8px);
+  background: rgba(31, 27, 24, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: center;
+}
+.hotspot-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(31, 27, 24, 0.92);
+}
+.tooltip-badge {
+  font-size: 0.68rem;
+  color: var(--color-gold-light);
+  letter-spacing: 0.5px;
+}
+.tooltip-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+.razgem-hotspot-pin:hover .hotspot-tooltip,
+.razgem-hotspot-pin:focus .hotspot-tooltip,
+.razgem-hotspot-pin.is-active .hotspot-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(50%) translateY(0);
+}
+
+@keyframes razgem-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* =========================================================================
+   4.2 ASYMMETRIC LUXURY CATEGORY MOSAIC
+   ========================================================================= */
+.razgem-categories-section {
+  padding: 2.5rem 0 4rem 0;
+}
+.razgem-section-heading {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.heading-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+}
+.heading-title {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+.heading-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary);
+}
+
+.razgem-category-mosaic {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  grid-template-rows: 250px 250px;
+  gap: 1.5rem;
+}
+.mosaic-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+}
+.mosaic-card--featured {
+  grid-row: 1 / span 2;
+}
+.mosaic-card__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.mosaic-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mosaic-card:hover .mosaic-card__img {
+  transform: scale(1.05);
+}
+.mosaic-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(31, 27, 24, 0.85) 0%, rgba(31, 27, 24, 0.2) 60%, rgba(31, 27, 24, 0) 100%);
+  transition: opacity 0.4s ease;
+}
+.mosaic-card:hover .mosaic-card__overlay {
+  background: linear-gradient(to top, rgba(31, 27, 24, 0.92) 0%, rgba(31, 27, 24, 0.3) 60%, rgba(31, 27, 24, 0) 100%);
+}
+
+/* Pearl Luster Sheen Sweep Effect (T021) */
+.mosaic-card__sheen {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  transition: left 0.85s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.mosaic-card:hover .mosaic-card__sheen {
+  left: 150%;
+}
+
+.mosaic-card__content {
+  position: relative;
+  z-index: 3;
+  padding: 1.8rem;
+  width: 100%;
+  color: #FFFFFF;
+}
+.mosaic-card__badge {
+  display: inline-block;
+  background: rgba(197, 160, 89, 0.25);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: var(--color-gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.6rem;
+  backdrop-filter: blur(4px);
+}
+.mosaic-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.6rem;
+}
+.mosaic-card--featured .mosaic-card__title {
+  font-size: 1.7rem;
+}
+.mosaic-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-gold-light);
+  font-weight: 600;
+  transition: gap 0.25s ease;
+}
+.mosaic-card:hover .mosaic-card__action {
+  gap: 0.75rem;
+}
+
+/* =========================================================================
+   4.3 ARTISAN ATELIER STORY SECTION
+   ========================================================================= */
+.razgem-atelier-section {
+  background: #FFFFFF;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4.5rem 0;
+  margin: 3.5rem 0;
+  position: relative;
+}
+.razgem-atelier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.razgem-atelier-media-wrap {
+  position: relative;
+}
+.razgem-atelier-frame {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 16px 45px rgba(31, 27, 24, 0.1);
+  border: 1px solid var(--color-border);
+  aspect-ratio: 4 / 3.2;
+}
+.razgem-atelier-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.razgem-atelier-badge-stamp {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(31, 27, 24, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.stamp-year {
+  font-size: 0.72rem;
+  color: var(--color-gold-light);
+  font-weight: 700;
+}
+.stamp-text {
+  font-size: 0.82rem;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.razgem-atelier-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+}
+.razgem-atelier-badge-wrap {
+  margin-bottom: 0.8rem;
+}
+.razgem-atelier-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.5px;
+}
+.razgem-atelier-title {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  line-height: 1.4;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 1.2rem;
+}
+.razgem-atelier-desc {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.8rem;
+}
+
+.razgem-atelier-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.2rem;
+  width: 100%;
+}
+.atelier-feature-pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--color-bg-base);
+  padding: 0.9rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+}
+.pill-body strong {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.pill-body p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+.razgem-atelier-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* =========================================================================
+   4.4 RESPONSIVE OVERRIDES FOR HERO & ATELIER
+   ========================================================================= */
+@media (max-width: 992px) {
+  .razgem-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .razgem-hero-narrative {
+    align-items: center;
+    text-align: center;
+  }
+  .razgem-hero-title {
+    font-size: 2.2rem;
+  }
+  .razgem-hero-subtitle {
+    margin: 0 auto 1.8rem auto;
+  }
+  .razgem-hero-cta-group {
+    justify-content: center;
+  }
+  .razgem-hero-trust-bar {
+    justify-content: center;
+  }
+  .razgem-category-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .mosaic-card--featured {
+    grid-row: auto;
+    min-height: 280px;
+  }
+  .mosaic-card {
+    min-height: 200px;
+  }
+  .razgem-atelier-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .razgem-hero-title {
+    font-size: 1.75rem;
+  }
+  .razgem-hero-trust-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .razgem-atelier-title {
+    font-size: 1.65rem;
+  }
+  .razgem-spotlight-frame {
+    border-radius: 20px;
+  }
+}
+
+/* =========================================================================
+   4.5 ACCESSIBILITY: REDUCED MOTION OVERRIDES (T021)
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hotspot-pulse {
+    animation: none !important;
+    display: none !important;
+  }
+  .mosaic-card__sheen {
+    display: none !important;
+  }
+  .mosaic-card:hover .mosaic-card__img,
+  .razgem-spotlight-frame:hover .razgem-spotlight-img {
+    transform: none !important;
+  }
 }
 
 .features-section {

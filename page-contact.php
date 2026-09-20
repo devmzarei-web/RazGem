@@ -22,7 +22,7 @@ $contact_address = get_theme_mod('contact_address', 'تهران، نیاوران
         <div class="contact-grid-layout">
             
             <div class="contact-info-panel">
-                <h3>اطلاعات تماس گالری رازگِم</h3>
+                <h3>اطلاعات تماس گالری رازجم</h3>
                 
                 <div class="utility-content-text">
                     <?php the_content(); ?>
@@ -103,7 +103,7 @@ $contact_address = get_theme_mod('contact_address', 'تهران، نیاوران
                     
                     <div id="contactFormResponse" style="margin-bottom: 1rem; font-weight: bold; font-size: 0.95rem; text-align: center; display: none;"></div>
                     
-                    <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width: 100%; border: none; cursor: pointer; padding: 1.2rem; font-family: var(--font-body); font-size: 1.1rem;">ارسال پیام به گالری رازگِم</button>
+                    <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width: 100%; border: none; cursor: pointer; padding: 1.2rem; font-family: var(--font-body); font-size: 1.1rem;">ارسال پیام به گالری رازجم</button>
                 </form>
             </div>
         </div>

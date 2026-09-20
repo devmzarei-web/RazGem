@@ -25,6 +25,9 @@ add_action('after_setup_theme', 'razgem_theme_setup');
 // Include dedicated asset enqueuing (Constitution Principle I: Zero-CDN)
 require_once get_template_directory() . '/inc/enqueue.php';
 
+// Include native WordPress Customizer settings module
+require_once get_template_directory() . '/inc/customizer.php';
+
 /* =========================================================================
    1.1 SAFE WOOCOMMERCE FALLBACK HELPERS (Defensive Theme Architecture)
    ========================================================================= */
@@ -412,126 +415,10 @@ function razgem_live_search_ajax() {
 }
 
 /* =========================================================================
-   9. CUSTOMIZER SETTINGS
+   9. CUSTOMIZER SETTINGS (Modularized in inc/customizer.php)
    ========================================================================= */
-function razgem_customize_register( $wp_customize ) {
-    $wp_customize->add_section( 'razgem_hero_section', array( 'title' => 'تنظیمات هدر اصلی (Hero Section)', 'priority' => 30 ) );
-    $wp_customize->add_setting( 'hero_badge', array( 'default' => 'PREMIUM INTERIOR COLLECTION', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'hero_badge', array( 'label' => 'متن نشان (Badge)', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_title_main', array( 'default' => 'تلفیق مدرنیته و اصالت <br>در چیدمان', 'sanitize_callback' => 'wp_kses_post' ) );
-    $wp_customize->add_control( 'hero_title_main', array( 'label' => 'متن اصلی عنوان', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_title_highlight', array( 'default' => 'لوکس خانه شما', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'hero_title_highlight', array( 'label' => 'بخش طلایی عنوان', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_desc', array( 'default' => 'جزئیات ظریف دکوراسیون داخلی برند رازگِم، روح هنری عمیق و فضایی آرام و مینیمال را به خانه‌تان هدیه می‌دهد.', 'sanitize_callback' => 'sanitize_textarea_field' ) );
-    $wp_customize->add_control( 'hero_desc', array( 'label' => 'توضیحات زیر عنوان', 'section' => 'razgem_hero_section', 'type' => 'textarea' ) );
-    $wp_customize->add_setting( 'hero_btn1_text', array( 'default' => 'ورود به فروشگاه رازگِم', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'hero_btn1_text', array( 'label' => 'متن دکمه اول', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_btn1_url', array( 'default' => '/shop', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'hero_btn1_url', array( 'label' => 'لینک دکمه اول', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_btn2_text', array( 'default' => 'مشاهده کالکشن جدید', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'hero_btn2_text', array( 'label' => 'متن دکمه دوم', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'hero_btn2_url', array( 'default' => '#new-arrivals', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'hero_btn2_url', array( 'label' => 'لینک دکمه دوم', 'section' => 'razgem_hero_section', 'type' => 'text' ) );
+// Native Customizer settings are loaded from inc/customizer.php
 
-    for ($i = 1; $i <= 4; $i++) {
-        $wp_customize->add_setting( 'hero_image_' . $i, array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
-        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_image_' . $i, array( 'label' => 'تصویر اسلایدر ' . $i, 'section' => 'razgem_hero_section', 'settings' => 'hero_image_' . $i ) ) );
-    }
-
-    $wp_customize->add_section( 'razgem_contact_section', array( 'title' => 'اطلاعات تماس (تماس با ما)', 'priority' => 31 ) );
-    $wp_customize->add_setting( 'contact_phone', array( 'default' => '۰۲۱ - ۹۱۰۰XXXX', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'contact_phone', array( 'label' => 'شماره تماس اول (اصلی)', 'section' => 'razgem_contact_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'contact_phone_2', array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'contact_phone_2', array( 'label' => 'شماره تماس دوم (اختیاری)', 'section' => 'razgem_contact_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'contact_phone_3', array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'contact_phone_3', array( 'label' => 'شماره تماس سوم (اختیاری)', 'section' => 'razgem_contact_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'contact_email', array( 'default' => 'info@razgem.ir', 'sanitize_callback' => 'sanitize_email' ) );
-    $wp_customize->add_control( 'contact_email', array( 'label' => 'آدرس ایمیل', 'section' => 'razgem_contact_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'contact_address', array( 'default' => 'تهران، نیاوران، خیابان عمار، پلاک ۱۲، واحد ۳', 'sanitize_callback' => 'sanitize_textarea_field' ) );
-    $wp_customize->add_control( 'contact_address', array( 'label' => 'آدرس فیزیکی', 'section' => 'razgem_contact_section', 'type' => 'textarea' ) );
-
-    $wp_customize->add_section( 'razgem_about_section', array( 'title' => 'ارزش‌های برند (درباره ما)', 'priority' => 32 ) );
-    $wp_customize->add_setting( 'about_v1_title', array( 'default' => 'طراحی مینیمال', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'about_v1_title', array( 'label' => 'عنوان ارزش اول', 'section' => 'razgem_about_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'about_v1_desc', array( 'default' => 'حذف زواید و تمرکز بر فرم خالص', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'about_v1_desc', array( 'label' => 'توضیح ارزش اول', 'section' => 'razgem_about_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'about_v2_title', array( 'default' => 'متریال ارگانیک', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'about_v2_title', array( 'label' => 'عنوان ارزش دوم', 'section' => 'razgem_about_section', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'about_v2_desc', array( 'default' => 'احترام به طبیعت و استفاده از مواد پایدار', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'about_v2_desc', array( 'label' => 'توضیح ارزش دوم', 'section' => 'razgem_about_section', 'type' => 'text' ) );
-
-    $wp_customize->add_section( 'razgem_enamad_section', array( 'title' => 'نماد اعتماد (e-Namad)', 'priority' => 35 ) );
-    $wp_customize->add_setting( 'enamad_code', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
-    $wp_customize->add_control( 'enamad_code', array( 'label' => 'کد اختصاصی اینماد (HTML)', 'section' => 'razgem_enamad_section', 'type' => 'textarea', 'description' => 'کد دریافتی از اینماد را اینجا قرار دهید تا در فوتر سایت نمایش داده شود.' ) );
-
-    $wp_customize->add_setting( 'top_bar_announcement', array(
-    'default'           => 'ارسال رایگان برای خرید‌های بالای ۳ میلیون تومان',
-    'sanitize_callback' => 'sanitize_text_field'
-    ) );
-    $wp_customize->add_control( 'top_bar_announcement', array(
-    'label'    => 'متن اطلاعیه بالای سایت (Top Bar)',
-    'section'  => 'razgem_contact_section', 
-    'type'     => 'text'
-    ) );
-    $wp_customize->add_section( 'razgem_shop_section', array( 'title' => 'تنظیمات ارسال و فروشگاه (Shop Settings)', 'priority' => 34 ) );
-    $wp_customize->add_setting( 'free_shipping_min_amount', array( 'default' => 3000000, 'sanitize_callback' => 'absint' ) );
-    $wp_customize->add_control( 'free_shipping_min_amount', array(
-        'label'       => 'حداقل مبلغ جهت ارسال رایگان (تومان)',
-        'section'     => 'razgem_shop_section',
-        'type'        => 'number',
-        'description' => 'مبلغ فاکتور خرید (به تومان) جهت محاسبه نوار پیشرفت ارسال رایگان در سبد خرید'
-    ) );
-
-    $wp_customize->add_section( 'razgem_social_section', array( 'title' => 'شبکه‌های اجتماعی (Social Media)', 'priority' => 33 ) );
-    $wp_customize->add_setting( 'social_instagram', array( 'default' => '#', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'social_instagram', array( 'label' => 'لینک اینستاگرام', 'section' => 'razgem_social_section', 'type' => 'url' ) );
-
-    $wp_customize->add_setting( 'social_telegram', array( 'default' => '#', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'social_telegram', array( 'label' => 'لینک تلگرام', 'section' => 'razgem_social_section', 'type' => 'url' ) );
-
-    $wp_customize->add_setting( 'social_whatsapp', array( 'default' => '#', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'social_whatsapp', array( 'label' => 'لینک واتس‌اپ', 'section' => 'razgem_social_section', 'type' => 'url' ) );
-
-    $wp_customize->add_section( 'razgem_bale_section', array( 'title' => 'اطلاع‌رسانی بله (Bale Bot)', 'priority' => 36 ) );
-    $wp_customize->add_setting( 'bale_bot_token', array( 'default' => '93568967:H8HZAqpo4QqddujZFHUm-W02PuJpqL9sojg', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'bale_bot_token', array( 'label' => 'توکن ربات بله (Bot Token)', 'section' => 'razgem_bale_section', 'type' => 'text' ) );
-
-    $wp_customize->add_setting( 'bale_chat_id', array( 'default' => '5595461321', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'bale_chat_id', array( 'label' => 'شناسه چت یا گروه بله (Chat ID)', 'section' => 'razgem_bale_section', 'type' => 'text', 'description' => 'شناسه کاربری یا گروه بله جهت دریافت نوتیفیکیشن سفارشات' ) );
-
-    // SPOTLIGHT PRODUCT SECTION (بخش محصول پیشنهادی صفحه اصلی)
-    $wp_customize->add_section( 'razgem_spotlight_section', array( 'title' => 'محصول پیشنهادی صفحه اصلی (Spotlight)', 'priority' => 30 ) );
-    
-    $wp_customize->add_setting( 'spotlight_enabled', array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'spotlight_enabled', array( 'label' => 'نمایش بخش محصول پیشنهادی', 'section' => 'razgem_spotlight_section', 'type' => 'checkbox' ) );
-
-    $wp_customize->add_setting( 'spotlight_badge', array( 'default' => 'پیشنهاد رازگِم', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'spotlight_badge', array( 'label' => 'متن برچسب (Badge)', 'section' => 'razgem_spotlight_section', 'type' => 'text' ) );
-
-    $wp_customize->add_setting( 'spotlight_title', array( 'default' => 'محصول منتخب رازگِم', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'spotlight_title', array( 'label' => 'عنوان فرعی / معرفی', 'section' => 'razgem_spotlight_section', 'type' => 'text' ) );
-
-    $wp_customize->add_setting( 'spotlight_desc', array( 'default' => 'انتخاب شده با تمرکز بر فرم خالص، کیفیت ساخت و اصالت متریال', 'sanitize_callback' => 'sanitize_textarea_field' ) );
-    $wp_customize->add_control( 'spotlight_desc', array( 'label' => 'توضیحات کوتاه زیر عنوان', 'section' => 'razgem_spotlight_section', 'type' => 'textarea' ) );
-
-    // Build Product Choices for Dropdown
-    $product_choices = array( '' => '— انتخاب خودکار (اولین محصول ویژه/جدید) —' );
-    if ( function_exists( 'wc_get_products' ) ) {
-        $recent_products = wc_get_products( array( 'status' => 'publish', 'limit' => 100, 'orderby' => 'date', 'order' => 'DESC' ) );
-        foreach ( $recent_products as $p ) {
-            $product_choices[ strval( $p->get_id() ) ] = $p->get_name() . ' (' . number_format((float)$p->get_price()) . ' تومان)';
-        }
-    }
-    $wp_customize->add_setting( 'spotlight_product_id', array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'spotlight_product_id', array(
-        'label'       => 'انتخاب محصول برای نمایش',
-        'section'     => 'razgem_spotlight_section',
-        'type'        => 'select',
-        'choices'     => $product_choices,
-        'description' => 'محصولی که می‌خواهید در این بخش ویژه نمایش داده شود را انتخاب کنید.'
-    ) );
-}
-add_action( 'customize_register', 'razgem_customize_register' );
 
 
 add_filter( 'woocommerce_reset_variations_link', '__return_empty_string' );
@@ -1145,7 +1032,7 @@ function razgem_frontend_otp_modal() {
             const loginCard = document.createElement('div');
             loginCard.className = 'app-login-card';
             loginCard.innerHTML = `
-                <h2>ورود به گالری رازگِم</h2>
+                <h2>ورود به گالری رازجم</h2>
                 <p>جهت پیگیری سفارشات و مدیریت حساب، وارد شوید.</p>
                 <button class="button open-otp-modal-btn" type="button" style="width:100%; height:52px; font-size:1.05rem;">ورود با شماره موبایل</button>
             `;
@@ -1867,7 +1754,7 @@ function razgem_mini_cart_item_qty_controls( $html, $cart_item, $cart_item_key )
    ========================================================================= */
 function razgem_output_structured_data() {
     $site_url  = home_url('/');
-    $site_name = 'گالری طلا و جواهرات رازگِم';
+    $site_name = 'گالری طلا و مروارید رازجم';
     $logo_url  = get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     $phone     = get_theme_mod('contact_phone', '۰۲۱-۹۱۰۰XXXX');
     $address   = get_theme_mod('contact_address', 'تهران، نیاوران، خیابان عمار، پلاک ۱۲');
@@ -1888,7 +1775,7 @@ function razgem_output_structured_data() {
         'url'             => $site_url,
         'logo'            => $logo_url,
         'image'           => $logo_url,
-        'description'     => 'گالری طلا و جواهرات دست‌ساز رازگِم؛ طراحی و ساخت زیورآلات فاخر طلا، مروارید باروک و سنگ‌های قیمتی اصیل.',
+        'description'     => 'گالری طلا و مروارید دست‌ساز رازجم؛ طراحی و ساخت زیورآلات فاخر طلا، مروارید باروک و سنگ‌های قیمتی اصیل.',
         'priceRange'      => '$$$',
         'currenciesAccepted' => 'IRT, IRR',
         'paymentAccepted' => 'شاپرک، کارت‌های عضو شبکه شتاب',
@@ -1993,7 +1880,7 @@ function razgem_output_structured_data() {
             $image_url    = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : $logo_url;
             $description  = has_excerpt($product_id) ? wp_strip_all_tags(get_the_excerpt($product_id)) : wp_strip_all_tags(wp_trim_words(get_the_content(), 30));
             if ( empty($description) ) {
-                $description = 'زیورآلات دست‌ساز فاخر طلا و مروارید طبیعی از گالری رازگِم با ضمانت اصالت و شناسنامه رسمی.';
+                $description = 'زیورآلات دست‌ساز فاخر طلا و مروارید طبیعی از گالری رازجم با ضمانت اصالت و شناسنامه رسمی.';
             }
 
             $product_schema = array(
@@ -2006,7 +1893,7 @@ function razgem_output_structured_data() {
                 'category'    => 'زیورآلات دست‌ساز و طلا',
                 'brand'       => array(
                     '@type' => 'Brand',
-                    'name'  => 'گالری رازگِم (RazGem)'
+                    'name'  => 'گالری رازجم (RazGem)'
                 ),
                 'offers'      => array(
                     '@type'         => 'Offer',
@@ -2018,7 +1905,7 @@ function razgem_output_structured_data() {
                     'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
                     'seller'        => array(
                         '@type' => 'JewelryStore',
-                        'name'  => 'گالری رازگِم'
+                        'name'  => 'گالری رازجم'
                     )
                 )
             );
@@ -2114,11 +2001,11 @@ add_action( 'wp_enqueue_scripts', function() {
 add_filter( 'document_title_parts', 'razgem_custom_seo_titles', 999 );
 function razgem_custom_seo_titles( $title ) {
     if ( is_front_page() ) {
-        $title['title']   = 'گالری طلا و جواهرات دست‌ساز رازگِم';
+        $title['title']   = 'گالری طلا و مروارید دست‌ساز رازجم';
         $title['tagline'] = 'خرید آنلاین خاص‌ترین زیورآلات طلا، مروارید باروک و سنگ‌های قیمتی دست‌ساز';
     } elseif ( function_exists( 'is_shop' ) && is_shop() ) {
-        $title['title']   = 'فروشگاه و کالکشن طلا و جواهرات رازگِم';
-        $title['site']    = 'گالری رازگِم';
+        $title['title']   = 'فروشگاه و کالکشن طلا و مروارید رازجم';
+        $title['site']    = 'گالری رازجم';
     }
     return $title;
 }
@@ -2262,7 +2149,7 @@ function razgem_bale_order_notification( $order_id ) {
     // Admin URL
     $admin_url = admin_url( 'admin.php?page=wc-orders&action=edit&id=' . $order_id );
 
-    $msg  = "🌿 *ثبت سفارش جدید در رازگِم!*\n";
+    $msg  = "✨ *ثبت سفارش جدید در رازجم!*\n";
     $msg .= "━━━━━━━━━━━━━━━━━━━\n";
     $msg .= "📦 *شماره سفارش:* #{$order_num}\n";
     $msg .= "📅 *تاریخ:* {$order_date}\n";
@@ -2372,8 +2259,8 @@ function razgem_add_suggested_checkbox() {
     echo '<div class="options_group show_if_simple show_if_variable show_if_external" style="background:#fcf9f6; border-top:1px solid #eee; padding:10px 12px; margin-top:10px;">';
     woocommerce_wp_checkbox( array(
         'id'            => '_razgem_is_suggested',
-        'label'         => 'پیشنهاد رازگِم (صفحه اصلی)',
-        'description'   => 'با فعال کردن این گزینه، این محصول در «پیشنهاد رازگِم» در بالای صفحه اصلی نمایش داده می‌شود.',
+        'label'         => 'پیشنهاد رازجم (صفحه اصلی)',
+        'description'   => 'با فعال کردن این گزینه، این محصول در «پیشنهاد رازجم» در بالای صفحه اصلی نمایش داده می‌شود.',
         'desc_tip'      => false,
     ) );
     echo '</div>';
@@ -2411,7 +2298,7 @@ function razgem_quick_edit_suggested_checkbox() {
     <div class="inline-edit-group">
         <label class="alignleft">
             <input type="checkbox" name="_razgem_is_suggested" value="yes">
-            <span class="checkbox-title" style="font-weight:700; color:#a85018;">★ پیشنهاد رازگِم (صفحه اصلی)</span>
+            <span class="checkbox-title" style="font-weight:700; color:#a85018;">★ پیشنهاد رازجم (صفحه اصلی)</span>
         </label>
     </div>
     <?php
@@ -2434,7 +2321,7 @@ function razgem_add_suggested_admin_column( $columns ) {
     foreach ( $columns as $k => $v ) {
         $new_cols[$k] = $v;
         if ( 'product_shortlink' === $k ) {
-            $new_cols['razgem_suggested'] = 'پیشنهاد رازگِم';
+            $new_cols['razgem_suggested'] = 'پیشنهاد رازجم';
         }
     }
     return $new_cols;
