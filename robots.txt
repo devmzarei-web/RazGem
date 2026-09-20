@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /*?add-to-cart=*
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://razgem.ir/wp-sitemap.xml
+Sitemap: https://razgem.ir/sitemap_index.xml
