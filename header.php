@@ -113,26 +113,85 @@
 
 <header class="site-header">
     <div class="site-container">
-        <div class="header-grid-layout">
+        <!-- Tier 1: Main Brand Showcase Bar (Symmetrical 3-Column) -->
+        <div class="header-main-bar">
             
-            <button class="mobile-menu-toggle" id="openMobileMenuTrigger" aria-label="باز کردن منو">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
+            <!-- Right Column: Mobile Menu Toggle & Luxury Search Bar -->
+            <div class="header-col header-col--right">
+                <button class="mobile-menu-toggle" id="openMobileMenuTrigger" aria-label="باز کردن منو">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
 
-            <div class="header-logo">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری طلا و مروارید رازجم">
+                <div class="header-search-wrap">
+                    <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-form" role="search">
+                        <input type="text" placeholder="جستجو در گالری رازجم..." name="s" class="search-input" aria-label="جستجو در زیورآلات" autocomplete="off">
+                        <button type="submit" class="search-submit" aria-label="جستجو">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        </button>
+                        <input type="hidden" name="post_type" value="product" />
+                        <div class="live-search-results"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Center Column: Grand Maison Logo -->
+            <div class="header-col header-col--center header-logo">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری طلا و مروارید رازجم" class="logo-link">
                     <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری طلا و مروارید رازجم" class="site-logo-img">
                 </a>
             </div>
 
+            <!-- Left Column: User Account & Luxury Shopping Bag -->
+            <div class="header-col header-col--left">
+                <div class="header-actions">
+                    <div class="action-item account-dropdown-wrapper">
+                        <?php if ( is_user_logged_in() ) : 
+                            $current_user = wp_get_current_user();
+                        ?>
+                            <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>" class="account-toggle" aria-label="حساب کاربری">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <span class="action-label"><?php echo esc_html( $current_user->display_name ); ?></span>
+                            </a>
+                            <div class="account-dropdown-menu">
+                                <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>">پیشخوان کاربری</a>
+                                <a href="<?php echo esc_url( razgem_account_url( 'orders' ) ); ?>">سفارش‌های من</a>
+                                <a href="<?php echo esc_url( razgem_account_url( 'edit-account' ) ); ?>">اطلاعات حساب</a>
+                                <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="logout-link">خروج از سیستم</a>
+                            </div>
+                        <?php else : ?>
+                            <a href="#" class="account-toggle open-otp-modal-btn" aria-label="ورود و ثبت‌نام">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <span class="action-label">ورود / ثبت‌نام</span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
+                    <button id="openMiniCart" class="action-item cart-icon-wrapper" aria-label="سبد خرید" type="button">
+                        <div class="cart-icon-box">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                            <span class="cart-count">
+                                <?php echo esc_html( razgem_cart_count() ); ?>
+                            </span>
+                        </div>
+                        <span class="action-label">سبد خرید</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tier 2: Dedicated Editorial Navigation Bar (Centered) -->
+    <div class="header-nav-bar">
+        <div class="site-container">
             <nav class="header-desktop-nav" aria-label="منوی اصلی">
                 <ul class="header-nav-list">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">صفحه اصلی</a></li>
-                    <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>">فروشگاه</a></li>
+                    <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>">فروشگاه زیورآلات</a></li>
                     
                     <li class="nav-has-dropdown">
                         <a href="<?php echo esc_url( razgem_shop_url() ); ?>">دسته‌بندی‌ها 
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </a>
                         <ul class="nav-dropdown">
                             <?php
@@ -152,57 +211,13 @@
                         </ul>
                     </li>
 
-                    <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">مجموعه برگزیده</a></li>
-                    <li><a href="/track-order">پیگیری سفارش</a></li>
-                    <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله جواهرات</a></li>
-                    <li><a href="/about-us">داستان برند رازجم</a></li>
-                    <li><a href="/contact">ارتباط با ما</a></li>
+                    <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1" class="nav-link--spotlight">مجموعه برگزیده <span class="nav-gem-dot"></span></a></li>
+                    <li><a href="/track-order">پیگیری سفارشات</a></li>
+                    <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله طلا و جواهر</a></li>
+                    <li><a href="/about-us">داستان رازجم</a></li>
+                    <li><a href="/contact">سفارش ساخت اختصاصی</a></li>
                 </ul>
             </nav>
-
-            <div class="header-search">
-                <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-form" role="search">
-                    <input type="text" placeholder="جستجو در زیورآلات طلا و مروارید رازجم..." name="s" class="search-input" aria-label="Search" autocomplete="off">
-                    <button type="submit" class="search-submit" aria-label="جستجو">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                    </button>
-                    <input type="hidden" name="post_type" value="product" />
-                    <div class="live-search-results"></div>
-                </form>
-            </div>
-
-            <div class="header-actions">
-                <div class="action-item account-dropdown-wrapper">
-                    <?php if ( is_user_logged_in() ) : 
-                        $current_user = wp_get_current_user();
-                    ?>
-                        <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>" class="account-toggle" aria-label="حساب کاربری">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span><?php echo esc_html( $current_user->display_name ); ?></span>
-                        </a>
-                        <div class="account-dropdown-menu">
-                            <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>">پیشخوان کاربری</a>
-                            <a href="<?php echo esc_url( razgem_account_url( 'orders' ) ); ?>">سفارش‌های من</a>
-                            <a href="<?php echo esc_url( razgem_account_url( 'edit-account' ) ); ?>">اطلاعات حساب</a>
-                            <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="logout-link">خروج از سیستم</a>
-                        </div>
-                    <?php else : ?>
-                        <a href="#" class="account-toggle open-otp-modal-btn" aria-label="ورود و ثبت‌نام">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span>ورود / ثبت‌نام</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
-
-                <button id="openMiniCart" class="action-item cart-icon-wrapper" aria-label="سبد خرید" style="background:transparent; cursor:pointer; outline:none;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                    <span>سبد خرید</span>
-                    <span class="cart-count">
-                        <?php echo esc_html( razgem_cart_count() ); ?>
-                    </span>
-                </button>
-            </div>
-            
         </div>
     </div>
 </header>

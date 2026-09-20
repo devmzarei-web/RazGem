@@ -24,7 +24,7 @@ $v2_desc = get_theme_mod('about_v2_desc', 'احترام به طبیعت و اس�
                 if ( has_post_thumbnail() ) {
                     the_post_thumbnail( 'large', array( 'alt' => get_the_title() ) );
                 } else {
-                    echo '<img src="' . esc_url(get_template_directory_uri()) . '/assets/images/hero-main.jpg" alt="About Golkhane">';
+                    echo '<img src="' . esc_url(get_template_directory_uri()) . '/assets/images/hero-main.jpg" alt="درباره گالری طلا و مروارید رازجم">';
                 }
                 ?>
             </div>

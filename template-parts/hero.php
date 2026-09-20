@@ -41,6 +41,16 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
 ?>
 
 <section class="razgem-hero-spotlight" aria-label="معرفی شاهکارهای گالری طلا و مروارید رازجم">
+    <!-- Ambient Jewelry Maison Sunburst Motif -->
+    <div class="razgem-hero-bg-motif" aria-hidden="true">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="300" cy="300" r="240" stroke="rgba(229, 219, 199, 0.07)" stroke-width="1.5" stroke-dasharray="6 8"/>
+            <circle cx="300" cy="300" r="170" stroke="rgba(197, 155, 39, 0.12)" stroke-width="1"/>
+            <circle cx="300" cy="300" r="100" stroke="rgba(133, 150, 107, 0.14)" stroke-width="1" stroke-dasharray="4 6"/>
+            <path d="M300 20v70M300 510v70M20 300h70M510 300h70M102 102l50 50M448 448l50 50M102 498l50-50M448 152l50-50" stroke="rgba(212, 175, 55, 0.18)" stroke-width="1.5"/>
+        </svg>
+    </div>
+
     <div class="site-container razgem-hero-grid">
         
         <!-- Hero Editorial Narrative (Right on RTL, Centered) -->
@@ -48,7 +58,7 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
             <?php if ( ! empty( $hero_badge ) ) : ?>
                 <div class="razgem-hero-badge-wrap">
                     <span class="razgem-hero-badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.85;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.9;">
                             <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.6-6.2 4.6 2.4-7.4-6.2-4.5h7.6z"/>
                         </svg>
                         <?php echo esc_html( $hero_badge ); ?>
@@ -82,20 +92,27 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
                 <?php endif; ?>
             </div>
 
+            <!-- Floating Maison Quality Chips -->
+            <div class="razgem-hero-chips">
+                <span class="razgem-chip"><span class="chip-dot"></span> طلای ۱۸ عیار استاندارد</span>
+                <span class="razgem-chip"><span class="chip-dot"></span> مروارید باروک اصل خلیج فارس</span>
+                <span class="razgem-chip"><span class="chip-dot"></span> ارسال بیمه‌شده به سراسر کشور</span>
+            </div>
+
             <!-- Trust Metrics Bar -->
             <div class="razgem-hero-trust-bar">
                 <div class="razgem-trust-item">
                     <div class="trust-icon">✨</div>
                     <div class="trust-text">
-                        <strong>طلای ۱۸ عیار</strong>
-                        <span>شناسنامه رسمی و استاندارد</span>
+                        <strong>طلای ۱۸ عیار دست‌ساز</strong>
+                        <span>شناسنامه رسمی و فاکتور استاندارد</span>
                     </div>
                 </div>
                 <div class="razgem-trust-item">
                     <div class="trust-icon">🦪</div>
                     <div class="trust-text">
                         <strong>مروارید باروک طبیعی</strong>
-                        <span>ارگانیک و دست‌چین شده</span>
+                        <span>گوهرهای ارگانیک و دست‌چین شده</span>
                     </div>
                 </div>
             </div>
