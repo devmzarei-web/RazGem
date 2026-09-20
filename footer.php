@@ -87,7 +87,7 @@
                 </li>
                 <li>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>ساعت پاسخگویی: ۱۰ الی ۲۲</span>
+                    <span>ساعت پاسخگویی: <?php echo esc_html( get_theme_mod( 'contact_hours', '۱۰ الی ۲۲' ) ); ?></span>
                 </li>
             </ul>
             
@@ -108,8 +108,14 @@
     </div>
 
     <div class="footer-bottom">
-        <div class="site-container">
-            <p>&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'footer_copyright', 'تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری طلا و مروارید رازجم (RazGem) می‌باشد.' ) ); ?></p>
+        <div class="site-container footer-bottom-inner">
+            <p class="footer-copyright">&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'footer_copyright', 'تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری طلا و مروارید رازجم (RazGem) می‌باشد.' ) ); ?></p>
+            <p class="footer-creator">
+                <?php echo esc_html( get_theme_mod( 'footer_creator_prefix', 'طراحی و توسعه:' ) ); ?>
+                <a href="<?php echo esc_url( get_theme_mod( 'footer_creator_url', 'https://devzarei.ir' ) ); ?>" target="_blank" rel="noopener" class="footer-creator-link">
+                    <?php echo esc_html( get_theme_mod( 'footer_creator_name', 'محمدعلی زارعی' ) ); ?>
+                </a>
+            </p>
         </div>
     </div>
 </footer>

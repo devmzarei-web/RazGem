@@ -143,7 +143,113 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================================================
-     2. Interactive Hotspot Pins with Expandable Tooltips (T020 / US2 & US3)
+     2. Haute-Joaillerie Hero Showcase Slider (2-3 Slides with Auto-Rotation)
+     ========================================================================= */
+  const heroSlider = document.getElementById("razgemHeroSlider");
+  if (heroSlider) {
+    const slides = heroSlider.querySelectorAll(".razgem-hero-slide");
+    const dots = heroSlider.querySelectorAll(".razgem-dot");
+    const prevBtn = heroSlider.querySelector(".razgem-slider-btn.prev");
+    const nextBtn = heroSlider.querySelector(".razgem-slider-btn.next");
+    let currentIndex = 0;
+    let autoSlideTimer = null;
+    const slideInterval = 5000;
+
+    function goToSlide(index) {
+      if (slides.length <= 1) return;
+      if (index < 0) {
+        index = slides.length - 1;
+      } else if (index >= slides.length) {
+        index = 0;
+      }
+      currentIndex = index;
+
+      slides.forEach((slide, idx) => {
+        const isActive = idx === currentIndex;
+        slide.classList.toggle("is-active", isActive);
+        if (isActive) {
+          const img = slide.querySelector(".razgem-spotlight-img");
+          if (typeof gsap !== "undefined" && img) {
+            gsap.fromTo(img, { scale: 1.06 }, { scale: 1, duration: 1.2, ease: "power2.out" });
+          }
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === currentIndex);
+      });
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      autoSlideTimer = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, slideInterval);
+    }
+
+    function stopAutoSlide() {
+      if (autoSlideTimer) {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        goToSlide(currentIndex - 1);
+        startAutoSlide();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        goToSlide(currentIndex + 1);
+        startAutoSlide();
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const targetIndex = parseInt(dot.getAttribute("data-go-to"), 10) || 0;
+        goToSlide(targetIndex);
+        startAutoSlide();
+      });
+    });
+
+    // Pause on hover
+    heroSlider.addEventListener("mouseenter", stopAutoSlide);
+    heroSlider.addEventListener("mouseleave", startAutoSlide);
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    heroSlider.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoSlide();
+    }, { passive: true });
+
+    heroSlider.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diffX = touchEndX - touchStartX;
+      if (Math.abs(diffX) > 45) {
+        if (diffX > 0) {
+          goToSlide(currentIndex - 1);
+        } else {
+          goToSlide(currentIndex + 1);
+        }
+      }
+      startAutoSlide();
+    }, { passive: true });
+
+    // Initialize auto-rotation
+    if (slides.length > 1) {
+      startAutoSlide();
+    }
+  }
+
+  /* =========================================================================
+     3. Interactive Hotspot Pins with Expandable Tooltips (T020 / US2 & US3)
      ========================================================================= */
   const hotspotPins = document.querySelectorAll(".razgem-hotspot-pin");
   if (hotspotPins.length > 0) {

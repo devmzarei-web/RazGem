@@ -154,16 +154,68 @@ function razgem_customize_register( $wp_customize ) {
         'type'     => 'text',
     ) );
 
-    // Hero Spotlight Image
+    // Hero Spotlight Slide 1 Image
     $wp_customize->add_setting( 'hero_slide_image', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_image', array(
-        'label'       => 'تصویر ویترین هیرو (پیشنهادی: ۱۲۰۰x۱۲۰۰ پیکسل)',
+        'label'       => 'تصویر اسلاید اول هیرو (پیشنهادی: ۱۲۰۰x۱۲۰۰ پیکسل)',
         'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر پیش‌فرض لوکس گردنبند مروارید رازجم لود می‌شود.',
+        'description' => 'در صورت خالی بودن، تصویر مدال مروارید باروک و طلا لود می‌شود.',
     ) ) );
+
+    $wp_customize->add_setting( 'hero_slide_1_tag', array(
+        'default'           => 'مدال و آویز طلای ۱۸ عیار و مروارید باروک',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_1_tag', array(
+        'label'    => 'برچسب معرف اسلاید اول',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+    ) );
+
+    // Hero Spotlight Slide 2 Image
+    $wp_customize->add_setting( 'hero_slide_2_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_2_image', array(
+        'label'       => 'تصویر اسلاید دوم هیرو',
+        'section'     => 'razgem_hero_section',
+        'description' => 'در صورت خالی بودن، تصویر کالکشن گوشواره‌های دست‌ساز لود می‌شود.',
+    ) ) );
+
+    $wp_customize->add_setting( 'hero_slide_2_tag', array(
+        'default'           => 'گوشواره‌های دست‌ساز مروارید و طلا',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_2_tag', array(
+        'label'    => 'برچسب معرف اسلاید دوم',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+    ) );
+
+    // Hero Spotlight Slide 3 Image
+    $wp_customize->add_setting( 'hero_slide_3_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_3_image', array(
+        'label'       => 'تصویر اسلاید سوم هیرو',
+        'section'     => 'razgem_hero_section',
+        'description' => 'در صورت خالی بودن، تصویر آتلیه زرگری و ساخت اختصاصی لود می‌شود.',
+    ) ) );
+
+    $wp_customize->add_setting( 'hero_slide_3_tag', array(
+        'default'           => 'آتلیه و ساخت اختصاصی زیورآلات',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_3_tag', array(
+        'label'    => 'برچسب معرف اسلاید سوم',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+    ) );
 
     // Hotspot Pin 1
     $wp_customize->add_setting( 'hero_pin1_enable', array(
@@ -252,7 +304,62 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     // -------------------------------------------------------------------------
-    // 3. ARTISAN ATELIER STORY SECTION
+    // 3. CONTACT CREDENTIALS, ADDRESS & OPERATING HOURS
+    // -------------------------------------------------------------------------
+    $wp_customize->add_section( 'razgem_contact_section', array(
+        'title'       => 'اطلاعات تماس، آدرس و ساعات پاسخگویی',
+        'priority'    => 27,
+        'description' => 'مدیریت نشانی گالری، ایمیل رسمی، ساعات پاسخگویی و تلفن‌ها (نمایش در فوتر و صفحه تماس)',
+    ) );
+
+    // Address
+    $wp_customize->add_setting( 'contact_address', array(
+        'default'           => 'تهران، نیاوران، خیابان عمار، پلاک ۱۲، واحد ۳',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+    $wp_customize->add_control( 'contact_address', array(
+        'label'       => 'نشانی فیزیکی گالری رازجم',
+        'section'     => 'razgem_contact_section',
+        'type'        => 'textarea',
+        'description' => 'نشانی گالری جهت نمایش در فوتر و صفحه تماس با ما',
+    ) );
+
+    // Email
+    $wp_customize->add_setting( 'contact_email', array(
+        'default'           => 'info@razgem.ir',
+        'sanitize_callback' => 'sanitize_email',
+    ) );
+    $wp_customize->add_control( 'contact_email', array(
+        'label'    => 'پست الکترونیک رسمی (Email)',
+        'section'  => 'razgem_contact_section',
+        'type'     => 'email',
+    ) );
+
+    // Operating / Support Hours
+    $wp_customize->add_setting( 'contact_hours', array(
+        'default'           => '۱۰ الی ۲۲',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'contact_hours', array(
+        'label'       => 'ساعات کاری و پاسخگویی گالری',
+        'section'     => 'razgem_contact_section',
+        'type'        => 'text',
+        'description' => 'به عنوان مثال: ۱۰ الی ۲۲ یا شنبه تا پنج‌شنبه: ۱۰ الی ۲۱',
+    ) );
+
+    // Additional Phone 3
+    $wp_customize->add_setting( 'contact_phone_3', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'contact_phone_3', array(
+        'label'    => 'شماره تلفن سوم / خط ثابت (اختیاری)',
+        'section'  => 'razgem_contact_section',
+        'type'     => 'text',
+    ) );
+
+    // -------------------------------------------------------------------------
+    // 4. ARTISAN ATELIER STORY SECTION
     // -------------------------------------------------------------------------
     $wp_customize->add_section( 'razgem_atelier_section', array(
         'title'       => 'کارگاه زرگری و دست‌سازه‌ها (داستان رازجم)',
@@ -347,6 +454,37 @@ function razgem_customize_register( $wp_customize ) {
         'label'    => 'متن کپی‌رایت پایین فوتر',
         'section'  => 'razgem_footer_section',
         'type'     => 'textarea',
+    ) );
+
+    // Creator / Developer Attribution
+    $wp_customize->add_setting( 'footer_creator_prefix', array(
+        'default'           => 'طراحی و توسعه:',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'footer_creator_prefix', array(
+        'label'    => 'پیشوند عنوان طراح سایت',
+        'section'  => 'razgem_footer_section',
+        'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'footer_creator_name', array(
+        'default'           => 'محمدعلی زارعی',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'footer_creator_name', array(
+        'label'    => 'نام طراح / توسعه‌دهنده',
+        'section'  => 'razgem_footer_section',
+        'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'footer_creator_url', array(
+        'default'           => 'https://devzarei.ir',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'footer_creator_url', array(
+        'label'    => 'لینک وب‌سایت طراح (Creator URL)',
+        'section'  => 'razgem_footer_section',
+        'type'     => 'url',
     ) );
 
     $wp_customize->add_setting( 'enamad_code', array(
@@ -526,9 +664,34 @@ add_action( 'customize_register', 'razgem_customize_register' );
  * @return string Image URL
  */
 function razgem_get_hero_image_url() {
-    $custom_img = get_theme_mod( 'hero_slide_image', '' );
-    if ( ! empty( $custom_img ) ) {
-        return esc_url( $custom_img );
+    return razgem_get_hero_slide_url( 1 );
+}
+
+/**
+ * Helper to retrieve hero slide image URL with fallback to local bundled assets.
+ *
+ * @param int $index Slide index (1, 2, or 3).
+ * @return string Image URL.
+ */
+function razgem_get_hero_slide_url( $index = 1 ) {
+    if ( 1 === (int) $index ) {
+        $custom_img = get_theme_mod( 'hero_slide_image', '' );
+        if ( ! empty( $custom_img ) ) {
+            return esc_url( $custom_img );
+        }
+        return get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg';
+    } elseif ( 2 === (int) $index ) {
+        $custom_img = get_theme_mod( 'hero_slide_2_image', '' );
+        if ( ! empty( $custom_img ) ) {
+            return esc_url( $custom_img );
+        }
+        return get_template_directory_uri() . '/assets/images/earrings-collection.jpg';
+    } elseif ( 3 === (int) $index ) {
+        $custom_img = get_theme_mod( 'hero_slide_3_image', '' );
+        if ( ! empty( $custom_img ) ) {
+            return esc_url( $custom_img );
+        }
+        return get_template_directory_uri() . '/assets/images/atelier-story.jpg';
     }
     return get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg';
 }

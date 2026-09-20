@@ -11,6 +11,7 @@ $contact_phone_2 = get_theme_mod('contact_phone_2', '');
 $contact_phone_3 = get_theme_mod('contact_phone_3', '');
 $contact_email   = get_theme_mod('contact_email', 'info@razgem.ir');
 $contact_address = get_theme_mod('contact_address', 'تهران، نیاوران، خیابان عمار، پلاک ۱۲، واحد ۳');
+$contact_hours   = get_theme_mod('contact_hours', '۱۰ الی ۲۲');
 ?>
 
 <main class="site-container utility-page" dir="rtl" role="main">
@@ -69,6 +70,15 @@ $contact_address = get_theme_mod('contact_address', 'تهران، نیاوران
                             <div class="detail-text">
                                 <strong>آدرس گالری (با تعیین وقت قبلی)</strong>
                                 <span><?php echo esc_html($contact_address); ?></span>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($contact_hours) : ?>
+                        <li>
+                            <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                            <div class="detail-text">
+                                <strong>ساعات پاسخگویی و کاری</strong>
+                                <span><?php echo esc_html($contact_hours); ?></span>
                             </div>
                         </li>
                     <?php endif; ?>
