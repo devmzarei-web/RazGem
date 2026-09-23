@@ -306,6 +306,9 @@ get_header(); ?>
     // --- 5. CURATED ASYMMETRIC LUXURY CATEGORY MOSAIC ---
     get_template_part( 'template-parts/categories' );
 
+    // --- 5.1 INTERACTIVE WORN-ON-MODEL STYLING SHOWCASE ---
+    get_template_part( 'template-parts/styling-showcase' );
+
     // --- 6. ARTISAN ATELIER STORY & BESPOKE COMMISSION ---
     get_template_part( 'template-parts/atelier' );
     ?>

@@ -655,6 +655,155 @@ function razgem_customize_register( $wp_customize ) {
         'choices'     => $product_choices,
         'description' => 'محصولی که می‌خواهید در این بخش ویژه نمایش داده شود را انتخاب کنید.',
     ) );
+
+    // =========================================================================
+    // 10. INTERACTIVE 4-ITEM "WORN-ON-PERSON" STYLING SHOWCASE
+    // =========================================================================
+    $wp_customize->add_section( 'razgem_styling_showcase_section', array(
+        'title'       => 'بخش تعاملی استایل زیورآلات بر تن',
+        'priority'    => 55,
+        'description' => 'تنظیمات ویترین تعاملی ۴ آیتم صدف و مروارید و نمایش بر تن مدل در صفحه اصلی.',
+    ) );
+
+    $wp_customize->add_setting( 'showcase_enable', array(
+        'default'           => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ) );
+    $wp_customize->add_control( 'showcase_enable', array(
+        'label'    => 'نمایش بخش استایل بر تن در صفحه اصلی',
+        'section'  => 'razgem_styling_showcase_section',
+        'type'     => 'checkbox',
+    ) );
+
+    $wp_customize->add_setting( 'showcase_heading', array(
+        'default'           => 'استایل زیورآلات صدف و مروارید بر تن',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'showcase_heading', array(
+        'label'    => 'عنوان اصلی بخش',
+        'section'  => 'razgem_styling_showcase_section',
+        'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'showcase_subheading', array(
+        'default'           => 'برای مشاهده جلوه، درخشش و مقیاس طبیعی هر قطعه بر تن، آیتم مورد نظر را انتخاب نمایید.',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'showcase_subheading', array(
+        'label'    => 'زیرعنوان و توضیحات',
+        'section'  => 'razgem_styling_showcase_section',
+        'type'     => 'textarea',
+    ) );
+
+    // Default item definitions
+    $default_showcase_items = array(
+        1 => array(
+            'title' => 'گردنبند صدف تراش‌خورده و مروارید باروک',
+            'tag'   => 'صدف طبیعی اصل خلیج فارس',
+            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، بر بستر طلای ۱۸ عیار دست‌ساز و زنجیر ظریف.',
+            'price' => '۴,۸۵۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => 'model-necklace-seashell.jpg',
+            'thumb' => 'spotlight-pendant.jpg',
+        ),
+        2 => array(
+            'title' => 'گوشواره آویز صدف بادبزنی و مروارید قطره‌ای',
+            'tag'   => 'مروارید باروک طبیعی',
+            'desc'  => 'طراحی الهام‌گرفته از امواج ساحل با صدف بادبزنی سفید و مروارید باروک درخشان و سبک‌وزن.',
+            'price' => '۳,۴۰۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => 'model-earrings-baroque.jpg',
+            'thumb' => 'earrings-collection.jpg',
+        ),
+        3 => array(
+            'title' => 'دستبند زنجیری صدف و سنگ‌های ساحلی',
+            'tag'   => 'دست‌ساز آتلیه رازجم',
+            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل طلای دست‌ساز.',
+            'price' => '۲,۷۵۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => 'model-bracelet-pendant.jpg',
+            'thumb' => 'coastal-wave-shoreline.jpg',
+        ),
+        4 => array(
+            'title' => 'مدال اشکی مروارید باروک زراندود',
+            'tag'   => 'تک‌نسخه در طبیعت',
+            'desc'  => 'هر مروارید باروک فرم طبیعی منحصربه‌فرد خود را دارد و هیچ دو مدالی در جهان یکسان نیستند.',
+            'price' => '۵,۲۰۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => 'model-pendant-atelier.jpg',
+            'thumb' => 'spotlight-pendant.jpg',
+        ),
+    );
+
+    for ( $i = 1; $i <= 4; $i++ ) {
+        $wp_customize->add_setting( "showcase_item_{$i}_title", array(
+            'default'           => $default_showcase_items[$i]['title'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( "showcase_item_{$i}_title", array(
+            'label'   => "عنوان آیتم {$i}",
+            'section' => 'razgem_styling_showcase_section',
+            'type'    => 'text',
+        ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_tag", array(
+            'default'           => $default_showcase_items[$i]['tag'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( "showcase_item_{$i}_tag", array(
+            'label'   => "برچسب اصالت آیتم {$i}",
+            'section' => 'razgem_styling_showcase_section',
+            'type'    => 'text',
+        ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_desc", array(
+            'default'           => $default_showcase_items[$i]['desc'],
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ) );
+        $wp_customize->add_control( "showcase_item_{$i}_desc", array(
+            'label'   => "توضیح کوتاه آیتم {$i}",
+            'section' => 'razgem_styling_showcase_section',
+            'type'    => 'textarea',
+        ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_price", array(
+            'default'           => $default_showcase_items[$i]['price'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( "showcase_item_{$i}_price", array(
+            'label'   => "قیمت آیتم {$i}",
+            'section' => 'razgem_styling_showcase_section',
+            'type'    => 'text',
+        ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_url", array(
+            'default'           => $default_showcase_items[$i]['url'],
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+        $wp_customize->add_control( "showcase_item_{$i}_url", array(
+            'label'   => "لینک خرید آیتم {$i}",
+            'section' => 'razgem_styling_showcase_section',
+            'type'    => 'url',
+        ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_thumb", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, "showcase_item_{$i}_thumb", array(
+            'label'       => "تصویر نمونه محصول {$i}",
+            'section'     => 'razgem_styling_showcase_section',
+        ) ) );
+
+        $wp_customize->add_setting( "showcase_item_{$i}_model", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, "showcase_item_{$i}_model", array(
+            'label'       => "تصویر استایل بر تن مدل {$i}",
+            'section'     => 'razgem_styling_showcase_section',
+        ) ) );
+    }
 }
 add_action( 'customize_register', 'razgem_customize_register' );
 
@@ -707,4 +856,69 @@ function razgem_get_atelier_image_url() {
         return esc_url( $custom_img );
     }
     return get_template_directory_uri() . '/assets/images/atelier-story.jpg';
+}
+
+/**
+ * Helper to retrieve interactive styling showcase items with local fallbacks.
+ *
+ * @return array Array of 4 items.
+ */
+function razgem_get_showcase_items() {
+    $theme_uri = get_template_directory_uri();
+    $defaults = array(
+        1 => array(
+            'title' => 'گردنبند صدف تراش‌خورده و مروارید باروک',
+            'tag'   => 'صدف طبیعی اصل خلیج فارس',
+            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، بر بستر طلای ۱۸ عیار دست‌ساز و زنجیر ظریف.',
+            'price' => '۴,۸۵۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
+            'thumb' => $theme_uri . '/assets/images/spotlight-pendant.jpg',
+        ),
+        2 => array(
+            'title' => 'گوشواره آویز صدف بادبزنی و مروارید قطره‌ای',
+            'tag'   => 'مروارید باروک طبیعی',
+            'desc'  => 'طراحی الهام‌گرفته از امواج ساحل با صدف بادبزنی سفید و مروارید باروک درخشان و سبک‌وزن.',
+            'price' => '۳,۴۰۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => $theme_uri . '/assets/images/model-earrings-baroque.jpg',
+            'thumb' => $theme_uri . '/assets/images/earrings-collection.jpg',
+        ),
+        3 => array(
+            'title' => 'دستبند زنجیری صدف و سنگ‌های ساحلی',
+            'tag'   => 'دست‌ساز آتلیه رازجم',
+            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل طلای دست‌ساز.',
+            'price' => '۲,۷۵۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',
+            'thumb' => $theme_uri . '/assets/images/coastal-wave-shoreline.jpg',
+        ),
+        4 => array(
+            'title' => 'مدال اشکی مروارید باروک زراندود',
+            'tag'   => 'تک‌نسخه در طبیعت',
+            'desc'  => 'هر مروارید باروک فرم طبیعی منحصربه‌فرد خود را دارد و هیچ دو مدالی در جهان یکسان نیستند.',
+            'price' => '۵,۲۰۰,۰۰۰ تومان',
+            'url'   => '/shop',
+            'model' => $theme_uri . '/assets/images/model-pendant-atelier.jpg',
+            'thumb' => $theme_uri . '/assets/images/spotlight-pendant.jpg',
+        ),
+    );
+
+    $items = array();
+    for ( $i = 1; $i <= 4; $i++ ) {
+        $custom_thumb = get_theme_mod( "showcase_item_{$i}_thumb", '' );
+        $custom_model = get_theme_mod( "showcase_item_{$i}_model", '' );
+
+        $items[] = array(
+            'index' => $i - 1,
+            'title' => get_theme_mod( "showcase_item_{$i}_title", $defaults[$i]['title'] ),
+            'tag'   => get_theme_mod( "showcase_item_{$i}_tag", $defaults[$i]['tag'] ),
+            'desc'  => get_theme_mod( "showcase_item_{$i}_desc", $defaults[$i]['desc'] ),
+            'price' => get_theme_mod( "showcase_item_{$i}_price", $defaults[$i]['price'] ),
+            'url'   => get_theme_mod( "showcase_item_{$i}_url", $defaults[$i]['url'] ),
+            'thumb' => ! empty( $custom_thumb ) ? esc_url( $custom_thumb ) : $defaults[$i]['thumb'],
+            'model' => ! empty( $custom_model ) ? esc_url( $custom_model ) : $defaults[$i]['model'],
+        );
+    }
+    return $items;
 }

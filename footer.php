@@ -1,11 +1,21 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
 
 <footer class="site-footer">
+    <!-- Top Undulating Coastal Wave Transition -->
+    <div class="footer-wave-top wave-divider" aria-hidden="true">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+            <path d="M0,45 C280,100 560,15 840,65 C1120,105 1320,30 1440,60 L1440,0 L0,0 Z" class="wave-fill--canvas"></path>
+        </svg>
+    </div>
+
+    <!-- Coastal Shoreline Waves & Seafoam Texture Overlay -->
+    <div class="footer-texture-overlay" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/images/coastal-wave-shoreline.jpg' ); ?>');" aria-hidden="true"></div>
+
     <div class="site-container footer-main-grid">
         
         <div class="footer-widget footer-brand-widget">
             <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/Razgem-Logo-NoBg.png" alt="RazGem Logo" class="footer-logo-img" onerror="this.style.display='none'">
-            <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری طلا و مروارید رازجم؛ تلفیقی چشم‌نواز از طلای ۱۸ عیار دست‌ساز، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با طراحی مینیمال و ارگانیک.' ) ); ?></p>
+            <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی اصل، مرواریدهای باروک خلیج فارس و طلای ۱۸ عیار دست‌ساز.' ) ); ?></p>
             
             <?php
             $social_instagram = get_theme_mod('social_instagram', '#');
@@ -36,7 +46,7 @@
             <ul class="footer-links">
                 <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>">فروشگاه زیورآلات</a></li>
                 <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">کالکشن‌های برگزیده</a></li>
-                <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله طلا و جواهر</a></li>
+                <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله راز دریا و گوهر</a></li>
                 <li><a href="/track-order">پیگیری سفارشات</a></li>
             </ul>
         </nav>
@@ -109,7 +119,7 @@
 
     <div class="footer-bottom">
         <div class="site-container footer-bottom-inner">
-            <p class="footer-copyright">&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'footer_copyright', 'تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری طلا و مروارید رازجم (RazGem) می‌باشد.' ) ); ?></p>
+            <p class="footer-copyright">&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'footer_copyright', 'تمامی حقوق مادی و معنوی این وب‌سایت متعلق به گالری زیورآلات ارگانیک و دست‌ساز صدف و مروارید رازجم (RazGem) می‌باشد.' ) ); ?></p>
             <p class="footer-creator">
                 <?php echo esc_html( get_theme_mod( 'footer_creator_prefix', 'طراحی و توسعه:' ) ); ?>
                 <a href="<?php echo esc_url( get_theme_mod( 'footer_creator_url', 'https://devzarei.ir' ) ); ?>" target="_blank" rel="noopener" class="footer-creator-link">

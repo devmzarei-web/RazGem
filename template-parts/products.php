@@ -1,50 +1,82 @@
-<section class="products-section">
+<?php
+/**
+ * RazGem Nature & Seashell Product Grid Template Part
+ * Specimen Cards with Pebble Curvature & Nature Authenticity Badges
+ *
+ * @package RazGem
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+$theme_uri = get_template_directory_uri();
+?>
+<section class="products-section razgem-products-nature" aria-label="جدیدترین زیورآلات ارگانیک صدف و مروارید">
     <div class="site-container">
         <div class="section-header">
-            <h2>جدیدترین زیورآلات فاخر رازجم</h2>
-            <p>طراحی مینیمال، اصالت طلای ۱۸ عیار و درخشش مرواریدهای طبیعی باروک</p>
+            <span class="heading-eyebrow">هنر دست و شگفتی طبیعت</span>
+            <h2 class="heading-title">جدیدترین زیورآلات صدف و مروارید رازجم</h2>
+            <p class="heading-desc">طراحی ارگانیک، اصالت صدف طبیعی خلیج فارس و درخشش تکرارناپذیر مرواریدهای باروک</p>
         </div>
+        
         <div class="products-grid">
-            <div class="product-card">
+            <!-- Product Specimen 1 -->
+            <article class="product-card pebble-surface">
                 <div class="product-card__gallery">
-                    <span class="product-badge product-badge--new">جدید</span>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-1a.jpg" class="img-primary" alt="گردنبند طلا و مروارید باروک" onerror="this.style.display='none'">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-1b.jpg" class="img-hover" alt="نمای نزدیک گردنبند" onerror="this.style.display='none'">
+                    <span class="product-badge product-badge--nature">صدف طبیعی اصل</span>
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/spotlight-pendant.jpg" class="img-primary" alt="مدال دست‌ساز صدف طبیعی و مروارید باروک">
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/model-necklace-seashell.jpg" class="img-hover" alt="نمای بر تن مدال صدف">
                 </div>
                 <div class="product-card__content">
-                    <h3 class="product-title"><a href="#">گردنبند طلا و مروارید باروک مدل آریا</a></h3>
-                    <div class="product-meta">طلای ۱۸ عیار دست‌ساز | مروارید پرورشی اصل</div>
+                    <div class="product-authenticity-tag">
+                        <span class="auth-dot"></span>
+                        <span>شناسنامه اصالت صدف و طلا</span>
+                    </div>
+                    <h3 class="product-title"><a href="/shop">مدال دست‌ساز صدف طبیعی و مروارید باروک</a></h3>
+                    <div class="product-meta">صدف طبیعی خلیج فارس | طلای ۱۸ عیار دست‌ساز</div>
                     <div class="product-price">۴,۸۵۰,۰۰۰ <span>تومان</span></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="product-card">
+            <!-- Product Specimen 2 -->
+            <article class="product-card pebble-surface">
                 <div class="product-card__gallery">
-                    <span class="product-badge product-badge--discount">۱۵٪-</span>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-2a.jpg" class="img-primary" alt="انگشتر دست‌ساز طلا" onerror="this.style.display='none'">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-2b.jpg" class="img-hover" alt="نمای انگشتر در دست" onerror="this.style.display='none'">
+                    <span class="product-badge product-badge--pearl">مروارید باروک یکتا</span>
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/earrings-collection.jpg" class="img-primary" alt="گوشواره آویز صدف بادبزنی و مروارید">
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/model-earrings-baroque.jpg" class="img-hover" alt="نمای گوشواره بر گوش مدل">
                 </div>
                 <div class="product-card__content">
-                    <h3 class="product-title"><a href="#">انگشتر دست‌ساز طلای ۱۸ عیار با صدف طبیعی</a></h3>
-                    <div class="product-meta">طلا و جواهر | سایز قابل سفارش</div>
+                    <div class="product-authenticity-tag">
+                        <span class="auth-dot"></span>
+                        <span>تک‌نسخه در طبیعت</span>
+                    </div>
+                    <h3 class="product-title"><a href="/shop">گوشواره آویز دست‌ساز صدف بادبزنی و مروارید</a></h3>
+                    <div class="product-meta">مروارید اشکی باروک | سبک‌وزن و ارگانیک</div>
                     <div class="product-price">
-                        <span class="price-old">۵,۲۰۰,۰۰۰</span>
-                        ۴,۴۲۰,۰۰۰ <span>تومان</span>
+                        <span class="price-old">۴,۱۰۰,۰۰۰</span>
+                        ۳,۴۰۰,۰۰۰ <span>تومان</span>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="product-card">
+            <!-- Product Specimen 3 -->
+            <article class="product-card pebble-surface">
                 <div class="product-card__gallery">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-3a.jpg" class="img-primary" alt="گوشواره مروارید آویز" onerror="this.style.display='none'">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-3b.jpg" class="img-hover" alt="گوشواره مروارید" onerror="this.style.display='none'">
+                    <span class="product-badge product-badge--atelier">دست‌ساز آتلیه</span>
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/coastal-wave-shoreline.jpg" class="img-primary" alt="دستبند زنجیری صدف و سنگ‌های ساحلی">
+                    <img src="<?php echo esc_url( $theme_uri ); ?>/assets/images/model-bracelet-pendant.jpg" class="img-hover" alt="نمای دستبند صدف در مچ دست">
                 </div>
                 <div class="product-card__content">
-                    <h3 class="product-title"><a href="#">گوشواره آویز دست‌ساز مروارید باروک</a></h3>
-                    <div class="product-meta">طلای ۱۸ عیار | مروارید طبیعی جنوب</div>
-                    <div class="product-price">۳,۸۹۰,۰۰۰ <span>تومان</span></div>
+                    <div class="product-authenticity-tag">
+                        <span class="auth-dot"></span>
+                        <span>فرم طبیعی تراش‌خورده</span>
+                    </div>
+                    <h3 class="product-title"><a href="/shop">دستبند دست‌ساز صدف مینیاتوری و سنگ ساحلی</a></h3>
+                    <div class="product-meta">صدف‌های تراش‌خورده طبیعی | قفل طلای ۱۸ عیار</div>
+                    <div class="product-price">۲,۷۵۰,۰۰۰ <span>تومان</span></div>
                 </div>
-            </div>
+            </article>
         </div>
     </div>
 </section>
