@@ -69,46 +69,95 @@
 <?php endif; ?>
 
 <div class="mobile-overlay" id="mobileOverlay"></div>
-<nav class="mobile-drawer" id="mobileDrawer" aria-label="منوی موبایل">
-    <button class="mobile-drawer__close" id="closeMobileMenu" aria-label="بستن منو">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
+<nav class="mobile-drawer mobile-nav-drawer" id="mobileDrawer" aria-label="منوی موبایل رازجم">
     
+    <!-- Drawer Brand Header -->
+    <div class="mobile-drawer-header">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-drawer-brand">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری رازجم" class="mobile-drawer-logo">
+        </a>
+        <button class="mobile-drawer__close" id="closeMobileMenu" aria-label="بستن منو">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
+
+    <!-- Live Search Input in Mobile Drawer -->
+    <div class="mobile-drawer-search">
+        <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="mobile-search-form" role="search">
+            <input type="text" placeholder="جستجو در آثار صدف و مروارید..." name="s" class="mobile-search-input" aria-label="جستجو در آثار">
+            <button type="submit" class="mobile-search-btn" aria-label="جستجو">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <input type="hidden" name="post_type" value="product" />
+        </form>
+    </div>
+
+    <!-- Category Chips with Nature Icons -->
+    <div class="mobile-category-chips">
+        <span class="chips-title">دسته‌بندی‌های دست‌ساز:</span>
+        <div class="chips-grid">
+            <a href="<?php echo esc_url( add_query_arg( 'category', 'earrings', razgem_shop_url() ) ); ?>" class="mobile-chip">
+                <span class="chip-icon">🦪</span>
+                <span>گوشواره صدف</span>
+            </a>
+            <a href="<?php echo esc_url( add_query_arg( 'category', 'necklaces', razgem_shop_url() ) ); ?>" class="mobile-chip">
+                <span class="chip-icon">🌊</span>
+                <span>گردنبند و چوکر</span>
+            </a>
+            <a href="<?php echo esc_url( add_query_arg( 'category', 'bracelets', razgem_shop_url() ) ); ?>" class="mobile-chip">
+                <span class="chip-icon">✨</span>
+                <span>دستبند و انگشتر</span>
+            </a>
+            <a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1" class="mobile-chip mobile-chip--highlight">
+                <span class="chip-icon">💎</span>
+                <span>مجموعه برگزیده</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Navigation Links -->
     <div class="mobile-drawer__nav">
         <?php if ( is_user_logged_in() ) : 
             $current_user = wp_get_current_user();
         ?>
-            <div style="color: var(--color-gold); font-size: 0.85rem; margin-bottom: -0.5rem; font-weight: 700;">سلام، <?php echo esc_html( $current_user->display_name ); ?></div>
-            <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>">پیشخوان کاربری</a>
-            <a href="<?php echo esc_url( razgem_account_url( 'orders' ) ); ?>">سفارش‌های من</a>
-            <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" style="color: #d35400;">خروج از حساب</a>
-            <hr style="border:0; border-top:1px dashed var(--color-border); margin: 0.5rem 0;">
+            <div class="drawer-user-greeting">سلام، <?php echo esc_html( $current_user->display_name ); ?></div>
+            <a href="<?php echo esc_url( razgem_account_url( 'dashboard' ) ); ?>" class="drawer-nav-item">پیشخوان کاربری</a>
+            <a href="<?php echo esc_url( razgem_account_url( 'orders' ) ); ?>" class="drawer-nav-item">سفارش‌های من</a>
+            <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="drawer-nav-item logout-link" style="color: #c0392b;">خروج از حساب</a>
+            <div class="drawer-divider"></div>
         <?php else : ?>
-            <a href="<?php echo esc_url( razgem_account_url() ); ?>" class="open-otp-modal-btn" style="color: var(--color-gold);">ورود / ثبت‌نام</a>
-            <hr style="border:0; border-top:1px dashed var(--color-border); margin: 0.5rem 0;">
+            <a href="<?php echo esc_url( razgem_account_url() ); ?>" class="drawer-nav-item open-otp-modal-btn user-login-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>ورود / عضویت در گالری</span>
+            </a>
+            <div class="drawer-divider"></div>
         <?php endif; ?>
 
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>">صفحه اصلی</a>
-        
-        <a href="#" class="mobile-drawer-accordion-toggle">کالکشن‌ها و دسته‌بندی‌ها</a>
-        <div class="mobile-drawer-accordion-content">
-            <a href="<?php echo esc_url( razgem_shop_url() ); ?>" style="color:var(--color-dark); font-weight:700;">همه زیورآلات</a>
-            <?php
-            $prod_categories = get_terms( 'product_cat', array('hide_empty' => true) );
-            if ( ! empty( $prod_categories ) && ! is_wp_error( $prod_categories ) ) {
-                foreach( $prod_categories as $cat ) {
-                    echo '<a href="' . esc_url( get_term_link( $cat ) ) . '">- ' . esc_html( $cat->name ) . '</a>';
-                }
-            }
-            ?>
-        </div>
-        
-        <a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">مجموعه برگزیده</a>
-        <a href="/track-order">پیگیری سفارش</a>
-        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله جواهرات</a>
-        <a href="/about-us">داستان برند رازجم</a>
-        <a href="/contact">ارتباط با ما</a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="drawer-nav-item">صفحه اصلی</a>
+        <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="drawer-nav-item">فروشگاه آثار صدف طبیعی</a>
+        <a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1" class="drawer-nav-item">مجموعه برگزیده و حراج</a>
+        <a href="/track-order" class="drawer-nav-item">پیگیری سفارشات</a>
+        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="drawer-nav-item">مجله راز دریا و گوهر</a>
+        <a href="/about-us" class="drawer-nav-item">داستان آتلیه رازجم</a>
+        <a href="/contact" class="drawer-nav-item">مشاوره و ساخت اختصاصی</a>
     </div>
+
+    <!-- Direct WhatsApp Consultation Box -->
+    <div class="mobile-drawer-contact-box">
+        <?php
+        $drawer_wa_phone = get_theme_mod( 'contact_phone', '09120000000' );
+        $drawer_wa_clean = preg_replace( '/[^0-9]/', '', $drawer_wa_phone );
+        if ( strpos( $drawer_wa_clean, '09' ) === 0 ) {
+            $drawer_wa_clean = '98' . substr( $drawer_wa_clean, 1 );
+        }
+        $drawer_wa_url = 'https://wa.me/' . $drawer_wa_clean . '?text=' . rawurlencode( 'سلام، برای انتخاب و مشاوره در خرید زیورآلات صدف طبیعی رازجم راهنمایی می‌خواستم.' );
+        ?>
+        <a href="<?php echo esc_url( $drawer_wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="mobile-drawer-wa-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <span>مشاوره مستقیم در واتس‌اپ</span>
+        </a>
+    </div>
+
 </nav>
 
 <header class="site-header">

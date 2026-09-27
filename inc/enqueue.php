@@ -36,6 +36,11 @@ function razgem_scripts() {
     // 4. Main Theme JavaScript
     wp_enqueue_script( 'razgem-main', $theme_dir_uri . '/assets/js/main.js', array( 'gsap-core', 'gsap-scroll' ), $js_version, true );
 
+    // 4.1 Fly-to-Cart Micro-Animation
+    $fly_js_path = $theme_dir_path . '/assets/js/fly-to-cart.js';
+    $fly_version = file_exists( $fly_js_path ) ? filemtime( $fly_js_path ) : $theme_version;
+    wp_enqueue_script( 'razgem-fly-to-cart', $theme_dir_uri . '/assets/js/fly-to-cart.js', array( 'razgem-main' ), $fly_version, true );
+
     // 5. Localized AJAX Data
     wp_localize_script( 'razgem-main', 'razgem_ajax', array(
         'ajax_url'     => admin_url( 'admin-ajax.php' ),

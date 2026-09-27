@@ -250,6 +250,42 @@ function razgem_get_filtered_mock_products( $args = array() ) {
 }
 
 /**
+ * Retrieve a single mock product by its ID or code.
+ *
+ * @param string $id Mock product identifier (e.g. 'r-001', 'R-001', 'r001').
+ * @return array|null Product array if found, null otherwise.
+ */
+function razgem_get_mock_product( $id ) {
+    if ( empty( $id ) ) {
+        return null;
+    }
+    $products = razgem_get_mock_products();
+    $clean_id = strtolower( trim( (string) $id ) );
+
+    // Direct match
+    if ( isset( $products[ $clean_id ] ) ) {
+        return $products[ $clean_id ];
+    }
+
+    // Match code format like r001 -> r-001
+    if ( preg_match( '/^r0*([1-9][0-9]*)$/', $clean_id, $matches ) ) {
+        $hyphen_id = 'r-' . str_pad( $matches[1], 3, '0', STR_PAD_LEFT );
+        if ( isset( $products[ $hyphen_id ] ) ) {
+            return $products[ $hyphen_id ];
+        }
+    }
+
+    // Match in loop
+    foreach ( $products as $key => $p ) {
+        if ( strtolower( $p['id'] ) === $clean_id || strtolower( $p['code'] ) === $clean_id ) {
+            return $p;
+        }
+    }
+
+    return null;
+}
+
+/**
  * Renders a standardized coastal product specimen card for mock products.
  *
  * @param array $p Product data array.

@@ -1,8 +1,29 @@
 <?php
 /**
  * Template for displaying all single products (3-Column Layout)
+ * Supports WooCommerce products and authentic seashell mock pieces (R-001 through R-008)
  */
 defined( 'ABSPATH' ) || exit;
+
+// Check for mock product specimen request or fallback
+$mock_id = isset( $_GET['view_product'] ) ? sanitize_text_field( wp_unslash( $_GET['view_product'] ) ) : '';
+if ( ! $mock_id && ! have_posts() ) {
+    $queried_slug = get_query_var( 'product' );
+    if ( $queried_slug && function_exists( 'razgem_get_mock_product' ) && razgem_get_mock_product( $queried_slug ) ) {
+        $mock_id = $queried_slug;
+    }
+}
+
+if ( $mock_id && function_exists( 'razgem_get_mock_product' ) ) {
+    $mock_item = razgem_get_mock_product( $mock_id );
+    if ( $mock_item ) {
+        get_header( 'shop' );
+        get_template_part( 'template-parts/content-single-product', null, array( 'mock_product' => $mock_item ) );
+        get_footer( 'shop' );
+        return;
+    }
+}
+
 get_header(); ?>
 
 <main class="site-container single-product-page" dir="rtl" role="main">

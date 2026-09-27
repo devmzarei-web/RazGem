@@ -2,7 +2,7 @@
 
 <footer class="site-footer">
     <!-- Top Continuous Living Ocean Wave Transition -->
-    <div class="footer-wave-top ocean-wave-animator ocean-wave-animator--top ocean-wave--to-slate-dark" aria-hidden="true">
+    <div class="footer-wave-top ocean-wave-animator ocean-wave-animator--top ocean-wave--dominant ocean-wave--to-slate-dark" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="footer-top-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />

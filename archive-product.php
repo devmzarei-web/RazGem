@@ -9,6 +9,13 @@ defined( 'ABSPATH' ) || exit;
 
 get_header( 'shop' );
 
+// Check if user is viewing a single specimen directly (?view_product=r-001)
+if ( ! empty( $_GET['view_product'] ) ) {
+    get_template_part( 'template-parts/content-single-product' );
+    get_footer( 'shop' );
+    return;
+}
+
 // Determine current category or filter state
 $current_cat_param = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : 'all';
 $is_on_sale_param  = ! empty( $_GET['on_sale'] );
@@ -37,7 +44,7 @@ $is_on_sale_param  = ! empty( $_GET['on_sale'] );
     </div>
 
     <!-- Continuous Living Ocean Wave Baseline Transition -->
-    <div class="shop-coastal-hero__wave ocean-wave-animator ocean-wave--to-canvas" aria-hidden="true">
+    <div class="shop-coastal-hero__wave ocean-wave-animator ocean-wave--dominant ocean-wave--to-canvas" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="shop-hero-gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />

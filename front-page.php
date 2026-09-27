@@ -338,12 +338,12 @@ get_header(); ?>
             <div class="promo-card promo-card--delivery">
                 <h3>ارسال رایگان و بیمه شده</h3>
                 <p>تمامی سفارش‌های گالری رازجم با بسته‌بندی نفیس هدیه و بیمه کامل ارسال می‌شوند.</p>
-                <a href="/terms" class="promo-btn">شرایط ارسال و بیمه</a>
+                <a href="<?php echo esc_url( home_url( '/terms' ) ); ?>" class="promo-btn">شرایط ارسال و بیمه</a>
             </div>
             <div class="promo-card promo-card--consult">
                 <h3>راهنمای سایز و مشاوره تخصصی</h3>
-                <p>راهنمای تعیین دقیق سایز انگشتر و مشاوره در ساخت سفارشی زیورآلات طلا.</p>
-                <a href="/contact" class="promo-btn">مشاوره با کارشناس</a>
+                <p>راهنمای انتخاب ابعاد صدف طبیعی، مرواریدهای باروک و سفارش ساخت اختصاصی آتلیه رازجم.</p>
+                <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="promo-btn">مشاوره با کارشناس</a>
             </div>
         </div>
     </section>

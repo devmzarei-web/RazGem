@@ -20,10 +20,10 @@ $hero_btn2_url  = get_theme_mod( 'hero_btn2_url', '/contact' );
 
 // Multi-slide images & labels (Featuring authentic handcrafted R-001 and R-002)
 $slide1_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 1 ) ? razgem_get_hero_slide_url( 1 ) : get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
-$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'گوشواره هنری صدف طبیعی کد R-001' );
+$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'گوشواره هنری دست‌ساز با صدف طبیعی کد R-001 | ۴.۸ × ۴.۳ سانتی‌متر' );
 
 $slide2_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 2 ) ? razgem_get_hero_slide_url( 2 ) : get_template_directory_uri() . '/assets/images/products/r002-main.jpg';
-$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره صدف بادبزنی رگه‌دار کد R-002' );
+$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره صدف بادبزنی رگه‌دار کد R-002 | ۵.۰ × ۴.۵ سانتی‌متر' );
 
 $slide3_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 3 ) ? razgem_get_hero_slide_url( 3 ) : get_template_directory_uri() . '/assets/images/model-necklace-seashell.jpg';
 $slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'گردنبند صدف تراش‌خورده و مروارید باروک' );
@@ -31,13 +31,13 @@ $slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'گردنبند صدف تراش
 // Hotspot Pins Configuration (Slide 1: R-001)
 $pin1_enable = get_theme_mod( 'hero_pin1_enable', true );
 $pin1_text   = get_theme_mod( 'hero_pin1_text', 'صدف طبیعی دست‌تراش مرجانی' );
-$pin1_x      = get_theme_mod( 'hero_pin1_x', 32 );
-$pin1_y      = get_theme_mod( 'hero_pin1_y', 64 );
+$pin1_x      = get_theme_mod( 'hero_pin1_x', 52 );
+$pin1_y      = get_theme_mod( 'hero_pin1_y', 68 );
 
 $pin2_enable = get_theme_mod( 'hero_pin2_enable', true );
 $pin2_text   = get_theme_mod( 'hero_pin2_text', 'یراق و اتصالات برنجی با آبکاری طلایی' );
-$pin2_x      = get_theme_mod( 'hero_pin2_x', 32 );
-$pin2_y      = get_theme_mod( 'hero_pin2_y', 36 );
+$pin2_x      = get_theme_mod( 'hero_pin2_x', 44 );
+$pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
 ?>
 
 <section class="razgem-coastal-hero" aria-label="معرفی شاهکارهای صدف و مروارید رازجم">
@@ -260,7 +260,7 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 36 );
     </div>
 
     <!-- Continuous Living Ocean Waves Baseline Transition -->
-    <div class="hero-wave-baseline ocean-wave-animator ocean-wave--to-canvas" aria-hidden="true">
+    <div class="hero-wave-baseline ocean-wave-animator ocean-wave--dominant ocean-wave--to-canvas" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="hero-gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />

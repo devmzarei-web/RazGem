@@ -825,24 +825,24 @@ function razgem_get_hero_image_url() {
 function razgem_get_hero_slide_url( $index = 1 ) {
     if ( 1 === (int) $index ) {
         $custom_img = get_theme_mod( 'hero_slide_image', '' );
-        if ( ! empty( $custom_img ) ) {
+        if ( ! empty( $custom_img ) && strpos( $custom_img, 'spotlight-pendant' ) === false ) {
             return esc_url( $custom_img );
         }
-        return get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg';
+        return get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
     } elseif ( 2 === (int) $index ) {
         $custom_img = get_theme_mod( 'hero_slide_2_image', '' );
-        if ( ! empty( $custom_img ) ) {
+        if ( ! empty( $custom_img ) && strpos( $custom_img, 'earrings-collection' ) === false ) {
             return esc_url( $custom_img );
         }
-        return get_template_directory_uri() . '/assets/images/earrings-collection.jpg';
+        return get_template_directory_uri() . '/assets/images/products/r002-main.jpg';
     } elseif ( 3 === (int) $index ) {
         $custom_img = get_theme_mod( 'hero_slide_3_image', '' );
         if ( ! empty( $custom_img ) ) {
             return esc_url( $custom_img );
         }
-        return get_template_directory_uri() . '/assets/images/atelier-story.jpg';
+        return get_template_directory_uri() . '/assets/images/model-necklace-seashell.jpg';
     }
-    return get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg';
+    return get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
 }
 
 /**
