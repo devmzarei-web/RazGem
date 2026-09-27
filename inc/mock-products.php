@@ -286,18 +286,31 @@ function razgem_get_mock_product( $id ) {
 }
 
 /**
+ * Generates the clean, canonical single product URL for a mock or WC product.
+ *
+ * @param string $id Product ID or slug (e.g. 'r-001', 'r-002').
+ * @return string
+ */
+function razgem_product_url( $id ) {
+    return add_query_arg( array(
+        'post_type'    => 'product',
+        'view_product' => strtolower( trim( (string) $id ) ),
+    ), home_url( '/' ) );
+}
+
+/**
  * Renders a standardized coastal product specimen card for mock products.
  *
  * @param array $p Product data array.
  * @param string $extra_classes
  */
 function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
-    $shop_url = razgem_shop_url() . '?view_product=' . esc_attr( $p['id'] );
+    $product_url = razgem_product_url( $p['id'] );
     ?>
     <article class="carousel-card <?php echo esc_attr( $extra_classes ); ?>">
         <div class="product-card pebble-surface">
             <div class="product-card__gallery">
-                <a href="<?php echo esc_url( $shop_url ); ?>">
+                <a href="<?php echo esc_url( $product_url ); ?>">
                     <img src="<?php echo esc_url( $p['img_primary'] ); ?>" 
                          alt="<?php echo esc_attr( $p['title'] ); ?>" 
                          class="img-primary" 
@@ -331,7 +344,7 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                 </div>
 
                 <h3 class="product-title">
-                    <a href="<?php echo esc_url( $shop_url ); ?>">
+                    <a href="<?php echo esc_url( $product_url ); ?>">
                         <?php echo esc_html( $p['title'] ); ?>
                     </a>
                 </h3>
@@ -348,7 +361,7 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                         <span class="price-current"><?php echo esc_html( $p['price_formatted'] ); ?></span>
                     </div>
 
-                    <a href="<?php echo esc_url( $shop_url ); ?>" 
+                    <a href="<?php echo esc_url( $product_url ); ?>" 
                        class="product-card-cart-btn btn-coastal-action" 
                        aria-label="مشاهده و خرید <?php echo esc_attr( $p['title'] ); ?>">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>

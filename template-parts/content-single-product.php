@@ -295,9 +295,15 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
             <div class="sticky-price"><?php echo $price_html; ?></div>
         </div>
     </div>
-    <button type="button" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>">
-        افزودن به سبد خرید
-    </button>
+    <?php if ( ! empty( $p_data['wc_add_to_cart'] ) ) : ?>
+        <a href="<?php echo esc_url( $p_data['wc_add_to_cart'] ); ?>" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+            افزودن به سبد خرید
+        </a>
+    <?php else : ?>
+        <button type="button" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>">
+            افزودن به سبد خرید
+        </button>
+    <?php endif; ?>
 </div>
 
 <!-- Interactive Switcher Script (Studio Photo vs Dimension Diagram) -->

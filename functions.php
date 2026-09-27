@@ -2384,4 +2384,34 @@ if (!function_exists('golkhane_custom_comment_format')) {
 add_action('wp_ajax_submit_golkhane_contact', 'razgem_handle_contact_form');
 add_action('wp_ajax_nopriv_submit_golkhane_contact', 'razgem_handle_contact_form');
 
+/**
+ * RazGem Dedicated Single Product Vitrine Router
+ * Intercepts ?view_product=r-001 (or any mock product id / slug) and renders the dedicated single-product vitrine
+ */
+function razgem_route_single_product_page() {
+    $view_id = '';
+    if ( ! empty( $_GET['view_product'] ) ) {
+        $view_id = sanitize_text_field( wp_unslash( $_GET['view_product'] ) );
+    } elseif ( is_singular( 'product' ) ) {
+        return;
+    } else {
+        $req_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+        if ( preg_match( '#/product/([a-z0-9-]+)/?#i', $req_uri, $matches ) ) {
+            $view_id = strtolower( $matches[1] );
+        }
+    }
+
+    if ( $view_id && function_exists( 'razgem_get_mock_product' ) ) {
+        $product_data = razgem_get_mock_product( $view_id );
+        if ( $product_data ) {
+            get_header( 'shop' );
+            get_template_part( 'template-parts/content-single-product', null, array( 'mock_product' => $product_data ) );
+            get_footer( 'shop' );
+            exit;
+        }
+    }
+}
+add_action( 'template_redirect', 'razgem_route_single_product_page', 1 );
+
+
 

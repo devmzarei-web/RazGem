@@ -131,9 +131,9 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                              loading="eager">
                         
                         <?php if ( ! empty( $slide1_tag ) ) : ?>
-                            <div class="coastal-slide-badge">
+                            <a href="<?php echo esc_url( function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-001' ) : home_url( '/?post_type=product&view_product=r-001' ) ); ?>" class="coastal-slide-badge" style="text-decoration:none;" title="مشاهده صفحه اختصاصی اثر R-001">
                                 <span><?php echo esc_html( $slide1_tag ); ?></span>
-                            </div>
+                            </a>
                         <?php endif; ?>
 
                         <!-- Interactive Hotspot Pin 1 -->
@@ -177,9 +177,9 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                              loading="lazy">
                         
                         <?php if ( ! empty( $slide2_tag ) ) : ?>
-                            <div class="coastal-slide-badge">
+                            <a href="<?php echo esc_url( function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-002' ) : home_url( '/?post_type=product&view_product=r-002' ) ); ?>" class="coastal-slide-badge" style="text-decoration:none;" title="مشاهده صفحه اختصاصی اثر R-002">
                                 <span><?php echo esc_html( $slide2_tag ); ?></span>
-                            </div>
+                            </a>
                         <?php endif; ?>
 
                         <div class="razgem-hotspot-pin pin-1" 
