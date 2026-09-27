@@ -18,26 +18,26 @@ $hero_btn1_url  = get_theme_mod( 'hero_btn1_url', '/shop' );
 $hero_btn2_text = get_theme_mod( 'hero_btn2_text', 'سفارش ساخت اختصاصی' );
 $hero_btn2_url  = get_theme_mod( 'hero_btn2_url', '/contact' );
 
-// Multi-slide images & labels
-$slide1_img = function_exists( 'razgem_get_hero_slide_url' ) ? razgem_get_hero_slide_url( 1 ) : ( function_exists( 'razgem_get_hero_image_url' ) ? razgem_get_hero_image_url() : get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg' );
-$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'مدال صدف طبیعی و مروارید باروک' );
+// Multi-slide images & labels (Featuring authentic handcrafted R-001 and R-002)
+$slide1_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 1 ) ? razgem_get_hero_slide_url( 1 ) : get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
+$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'گوشواره هنری صدف طبیعی کد R-001' );
 
-$slide2_img = function_exists( 'razgem_get_hero_slide_url' ) ? razgem_get_hero_slide_url( 2 ) : get_template_directory_uri() . '/assets/images/earrings-collection.jpg';
-$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره‌های دست‌ساز صدف و مروارید' );
+$slide2_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 2 ) ? razgem_get_hero_slide_url( 2 ) : get_template_directory_uri() . '/assets/images/products/r002-main.jpg';
+$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره صدف بادبزنی رگه‌دار کد R-002' );
 
-$slide3_img = function_exists( 'razgem_get_hero_slide_url' ) ? razgem_get_hero_slide_url( 3 ) : get_template_directory_uri() . '/assets/images/atelier-story.jpg';
-$slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'آتلیه طراحی و ساخت ارگانیک' );
+$slide3_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 3 ) ? razgem_get_hero_slide_url( 3 ) : get_template_directory_uri() . '/assets/images/model-necklace-seashell.jpg';
+$slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'گردنبند صدف تراش‌خورده و مروارید باروک' );
 
-// Hotspot Pins Configuration (Slide 1)
+// Hotspot Pins Configuration (Slide 1: R-001)
 $pin1_enable = get_theme_mod( 'hero_pin1_enable', true );
-$pin1_text   = get_theme_mod( 'hero_pin1_text', 'صدف طبیعی دست‌تراش' );
-$pin1_x      = get_theme_mod( 'hero_pin1_x', 38 );
-$pin1_y      = get_theme_mod( 'hero_pin1_y', 42 );
+$pin1_text   = get_theme_mod( 'hero_pin1_text', 'صدف طبیعی دست‌تراش مرجانی' );
+$pin1_x      = get_theme_mod( 'hero_pin1_x', 32 );
+$pin1_y      = get_theme_mod( 'hero_pin1_y', 64 );
 
 $pin2_enable = get_theme_mod( 'hero_pin2_enable', true );
-$pin2_text   = get_theme_mod( 'hero_pin2_text', 'مروارید باروک وحشی خلیج فارس' );
-$pin2_x      = get_theme_mod( 'hero_pin2_x', 56 );
-$pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
+$pin2_text   = get_theme_mod( 'hero_pin2_text', 'یراق و اتصالات برنجی با آبکاری طلایی' );
+$pin2_x      = get_theme_mod( 'hero_pin2_x', 32 );
+$pin2_y      = get_theme_mod( 'hero_pin2_y', 36 );
 ?>
 
 <section class="razgem-coastal-hero" aria-label="معرفی شاهکارهای صدف و مروارید رازجم">
@@ -183,15 +183,28 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
                         <?php endif; ?>
 
                         <div class="razgem-hotspot-pin pin-1" 
-                             style="top: 48%; left: 42%;"
+                             style="top: 64%; left: 32%;"
                              tabindex="0"
                              role="button"
-                             aria-label="مروارید اشکی باروک">
+                             aria-label="صدف طبیعی دست‌تراش رگه‌دار">
                             <span class="hotspot-pulse"></span>
                             <span class="hotspot-core"></span>
                             <div class="hotspot-tooltip">
-                                <span class="tooltip-badge">مروارید باروک</span>
-                                <span class="tooltip-label">دست‌چین طبیعی خلیج فارس</span>
+                                <span class="tooltip-badge">نقش طبیعی دریا</span>
+                                <span class="tooltip-label">صدف دست‌تراش سفید، صورتی و زرشکی</span>
+                            </div>
+                        </div>
+
+                        <div class="razgem-hotspot-pin pin-2" 
+                             style="top: 36%; left: 32%;"
+                             tabindex="0"
+                             role="button"
+                             aria-label="یراق طلایی برنجی">
+                            <span class="hotspot-pulse"></span>
+                            <span class="hotspot-core"></span>
+                            <div class="hotspot-tooltip">
+                                <span class="tooltip-badge">هنر دست</span>
+                                <span class="tooltip-label">یراق برنجی با آبکاری طلایی</span>
                             </div>
                         </div>
                     </div>
@@ -218,7 +231,7 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
                             <span class="hotspot-core"></span>
                             <div class="hotspot-tooltip">
                                 <span class="tooltip-badge">هنر دست</span>
-                                <span class="tooltip-label">سفارش ساخت اختصاصی رازجم</span>
+                                <span class="tooltip-label">سفارش ساخت اختصاصی صدف و مروارید</span>
                             </div>
                         </div>
                     </div>
@@ -246,10 +259,18 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 64 );
 
     </div>
 
-    <!-- Undulating Organic Coastal Wave Baseline Transition -->
-    <div class="hero-wave-baseline" aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-            <path d="M0,45 C280,110 520,10 760,65 C1000,120 1240,25 1440,70 L1440,120 L0,120 Z" fill="var(--color-canvas)"></path>
+    <!-- Continuous Living Ocean Waves Baseline Transition -->
+    <div class="hero-wave-baseline ocean-wave-animator ocean-wave--to-canvas" aria-hidden="true">
+        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="hero-gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="ocean-parallax-waves">
+                <use xlink:href="#hero-gentle-wave" x="48" y="0" class="wave-layer-deep" />
+                <use xlink:href="#hero-gentle-wave" x="48" y="3" class="wave-layer-seafoam" />
+                <use xlink:href="#hero-gentle-wave" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#hero-gentle-wave" x="48" y="7" class="wave-layer-canvas" />
+            </g>
         </svg>
     </div>
 </section>

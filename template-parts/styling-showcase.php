@@ -19,10 +19,18 @@ $initial_item = $items[0];
 ?>
 
 <section class="razgem-worn-showcase" id="wornShowcaseSection" aria-label="راهنمای استایل و تن‌خور زیورآلات صدف و مروارید رازجم">
-    <!-- Top Undulating Wave Divider -->
-    <div class="showcase-wave-top wave-divider" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path d="M0,40 C320,80 640,0 960,50 C1200,85 1360,20 1440,45 L1440,0 L0,0 Z" class="wave-fill--canvas"></path>
+    <!-- Top Continuous Living Ocean Wave Transition -->
+    <div class="showcase-wave-top ocean-wave-animator ocean-wave-animator--top ocean-wave--to-sand" aria-hidden="true">
+        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="showcase-top-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="ocean-parallax-waves">
+                <use xlink:href="#showcase-top-wave" x="48" y="0" class="wave-layer-deep" />
+                <use xlink:href="#showcase-top-wave" x="48" y="3" class="wave-layer-seafoam" />
+                <use xlink:href="#showcase-top-wave" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#showcase-top-wave" x="48" y="7" class="wave-layer-canvas" />
+            </g>
         </svg>
     </div>
 
@@ -135,10 +143,18 @@ $initial_item = $items[0];
         </div>
     </div>
 
-    <!-- Bottom Undulating Wave Divider -->
-    <div class="showcase-wave-bottom wave-divider" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path d="M0,35 C360,75 720,10 1080,55 C1260,75 1380,25 1440,40 L1440,80 L0,80 Z" class="wave-fill--canvas"></path>
+    <!-- Bottom Continuous Living Ocean Wave Transition -->
+    <div class="showcase-wave-bottom ocean-wave-animator ocean-wave--to-canvas" aria-hidden="true">
+        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="showcase-bottom-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="ocean-parallax-waves">
+                <use xlink:href="#showcase-bottom-wave" x="48" y="0" class="wave-layer-deep" />
+                <use xlink:href="#showcase-bottom-wave" x="48" y="3" class="wave-layer-seafoam" />
+                <use xlink:href="#showcase-bottom-wave" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#showcase-bottom-wave" x="48" y="7" class="wave-layer-canvas" />
+            </g>
         </svg>
     </div>
 </section>

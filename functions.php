@@ -28,6 +28,9 @@ require_once get_template_directory() . '/inc/enqueue.php';
 // Include native WordPress Customizer settings module
 require_once get_template_directory() . '/inc/customizer.php';
 
+// Include Mock Product Catalog & Coastal Fallback Helpers
+require_once get_template_directory() . '/inc/mock-products.php';
+
 /* =========================================================================
    1.1 SAFE WOOCOMMERCE FALLBACK HELPERS (Defensive Theme Architecture)
    ========================================================================= */

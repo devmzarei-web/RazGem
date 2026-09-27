@@ -1,0 +1,325 @@
+<?php
+/**
+ * RazGem Mock Product Catalog Provider
+ * Features authentic handcrafted seashell and baroque pearl products (R-001, R-002, etc.)
+ *
+ * @package RazGem
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Returns the definitive array of RazGem handcrafted mock products.
+ *
+ * @return array
+ */
+function razgem_get_mock_products() {
+    $theme_uri = get_template_directory_uri();
+
+    return array(
+        'r-001' => array(
+            'id'             => 'r-001',
+            'code'           => 'R-001',
+            'title'          => 'گوشواره هنری دست‌ساز با صدف طبیعی کد R-001',
+            'short_title'    => 'گوشواره صدف طبیعی کد R-001',
+            'category'       => 'گوشواره صدف طبیعی',
+            'category_slug'  => 'earrings',
+            'price_raw'      => 1850000,
+            'regular_price'  => 2100000,
+            'price_formatted'=> '۱,۸۵۰,۰۰۰ تومان',
+            'old_price'      => '۲,۱۰۰,۰۰۰ تومان',
+            'dimensions'     => '4.8 × 4.3 سانتی‌متر',
+            'material'       => 'صدف طبیعی دست‌تراش و جلاخورده، یراق برنجی طلایی',
+            'color'          => 'طبیعی، بدون رنگ‌آمیزی (مرجانی/نارنجی طبیعی)',
+            'desc'           => 'قطعه‌ای منحصربه‌فرد از دل طبیعت، شکل‌گرفته با هنر دست. صدف طبیعی با تراش و جلای دست‌ساز که بدون رنگ‌آمیزی شیمیایی، درخشش و بافت طبیعی خود را حفظ کرده است.',
+            'img_primary'    => $theme_uri . '/assets/images/products/r001-main.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/products/r001-dimensions.jpg',
+            'tag'            => 'صدف طبیعی اصل',
+            'badge'          => 'دست‌ساز',
+            'badge_type'     => 'nature',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => true,
+        ),
+        'r-002' => array(
+            'id'             => 'r-002',
+            'code'           => 'R-002',
+            'title'          => 'گوشواره هنری دست‌ساز با صدف طبیعی کد R-002',
+            'short_title'    => 'گوشواره صدف بادبزنی رگه‌دار کد R-002',
+            'category'       => 'گوشواره صدف طبیعی',
+            'category_slug'  => 'earrings',
+            'price_raw'      => 1950000,
+            'regular_price'  => 2250000,
+            'price_formatted'=> '۱,۹۵۰,۰۰۰ تومان',
+            'old_price'      => '۲,۲۵۰,۰۰۰ تومان',
+            'dimensions'     => '5.0 × 4.5 سانتی‌متر',
+            'material'       => 'صدف طبیعی دست‌تراش و جلاخورده، اتصالات برنجی طلایی',
+            'color'          => 'نقش‌های طبیعی سفید، صورتی و زرشکی',
+            'desc'           => 'ترکیبی از نقش‌های طبیعی دریا و ظرافت هنر دست. طیف رنگی سفید، صورتی و زرشکی کاملاً طبیعی با جلای هنرمندانه و یراق‌های طلایی گرم.',
+            'img_primary'    => $theme_uri . '/assets/images/products/r002-main.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/products/r002-dimensions.jpg',
+            'tag'            => 'نقش طبیعی دریا',
+            'badge'          => 'ویژه',
+            'badge_type'     => 'nature',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => true,
+        ),
+        'r-003' => array(
+            'id'             => 'r-003',
+            'code'           => 'R-003',
+            'title'          => 'گردنبند صدف تراش‌خورده و مروارید باروک',
+            'short_title'    => 'گردنبند صدف و مروارید باروک',
+            'category'       => 'گردنبند و مدال',
+            'category_slug'  => 'necklaces',
+            'price_raw'      => 3650000,
+            'regular_price'  => 3650000,
+            'price_formatted'=> '۳,۶۵۰,۰۰۰ تومان',
+            'old_price'      => '',
+            'dimensions'     => 'طول زنجیر ۴۵ سانتی‌متر',
+            'material'       => 'صدف طبیعی اصل خلیج فارس، مروارید باروک وحشی، طلای ۱۸ عیار',
+            'color'          => 'سفید صدفی با درخشش رنگین‌کمانی نسترن',
+            'desc'           => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، بر بستر طلای ۱۸ عیار دست‌ساز و زنجیر ظریف.',
+            'img_primary'    => $theme_uri . '/assets/images/spotlight-pendant.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
+            'tag'            => 'مروارید باروک اصل',
+            'badge'          => 'تک‌نسخه',
+            'badge_type'     => 'pearl',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => false,
+        ),
+        'r-004' => array(
+            'id'             => 'r-004',
+            'code'           => 'R-004',
+            'title'          => 'گوشواره آویز صدف بادبزنی و مروارید قطره‌ای',
+            'short_title'    => 'گوشواره آویز صدف بادبزنی و مروارید',
+            'category'       => 'گوشواره صدف طبیعی',
+            'category_slug'  => 'earrings',
+            'price_raw'      => 2850000,
+            'regular_price'  => 3200000,
+            'price_formatted'=> '۲,۸۵۰,۰۰۰ تومان',
+            'old_price'      => '۳,۲۰۰,۰۰۰ تومان',
+            'dimensions'     => '4.2 × 3.8 سانتی‌متر',
+            'material'       => 'صدف بادبزنی سفید، مروارید باروک قطره‌ای، یراق طلایی',
+            'color'          => 'سفید شیری طبیعی و درخشش مرواریدی',
+            'desc'           => 'طراحی الهام‌گرفته از امواج ساحل با صدف بادبزنی سفید و مروارید باروک درخشان و بسیار سبک‌وزن.',
+            'img_primary'    => $theme_uri . '/assets/images/earrings-collection.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/model-earrings-baroque.jpg',
+            'tag'            => 'مروارید باروک طبیعی',
+            'badge'          => 'حراج',
+            'badge_type'     => 'discount',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => true,
+        ),
+        'r-005' => array(
+            'id'             => 'r-005',
+            'code'           => 'R-005',
+            'title'          => 'دستبند زنجیری صدف و سنگ‌های ساحلی',
+            'short_title'    => 'دستبند صدف و سنگ ساحلی',
+            'category'       => 'دستبند و پابند',
+            'category_slug'  => 'bracelets',
+            'price_raw'      => 2200000,
+            'regular_price'  => 2200000,
+            'price_formatted'=> '۲,۲۰۰,۰۰۰ تومان',
+            'old_price'      => '',
+            'dimensions'     => 'طول متغیر ۱۷ تا ۲۰ سانتی‌متر',
+            'material'       => 'صدف‌های تراش‌خورده مینیاتوری، سنگ‌های طبیعی ساحلی، قفل دست‌ساز',
+            'color'          => 'طبیعی شنی و صدف سفید',
+            'desc'           => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل طلای دست‌ساز.',
+            'img_primary'    => $theme_uri . '/assets/images/coastal-wave-shoreline.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',
+            'tag'            => 'دست‌ساز آتلیه',
+            'badge'          => 'جدید',
+            'badge_type'     => 'atelier',
+            'in_stock'       => true,
+            'featured'       => false,
+            'on_sale'        => false,
+        ),
+        'r-006' => array(
+            'id'             => 'r-006',
+            'code'           => 'R-006',
+            'title'          => 'مدال اشکی مروارید باروک زراندود',
+            'short_title'    => 'مدال اشکی مروارید باروک زراندود',
+            'category'       => 'گردنبند و مدال',
+            'category_slug'  => 'necklaces',
+            'price_raw'      => 4100000,
+            'regular_price'  => 4100000,
+            'price_formatted'=> '۴,۱۰۰,۰۰۰ تومان',
+            'old_price'      => '',
+            'dimensions'     => 'ابعاد مروارید 2.5 × 1.8 سانتی‌متر',
+            'material'       => 'مروارید باروک وحشی خلیج فارس، طلای ۱۸ عیار دست‌ساز',
+            'color'          => 'درخشش مرواریدی طلایی طبیعی',
+            'desc'           => 'هر مروارید باروک فرم طبیعی منحصربه‌فرد خود را دارد و هیچ دو مدالی در جهان کاملاً یکسان نیستند.',
+            'img_primary'    => $theme_uri . '/assets/images/model-pendant-atelier.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/spotlight-pendant.jpg',
+            'tag'            => 'تک‌نسخه در جهان',
+            'badge'          => 'طلای ۱۸ عیار',
+            'badge_type'     => 'pearl',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => false,
+        ),
+        'r-007' => array(
+            'id'             => 'r-007',
+            'code'           => 'R-007',
+            'title'          => 'انگشتر ارگانیک صدف مرواریدساز با پایه برنجی',
+            'short_title'    => 'انگشتر ارگانیک صدف مرواریدساز',
+            'category'       => 'دستبند و انگشتر',
+            'category_slug'  => 'rings',
+            'price_raw'      => 1650000,
+            'regular_price'  => 1650000,
+            'price_formatted'=> '۱,۶۵۰,۰۰۰ تومان',
+            'old_price'      => '',
+            'dimensions'     => 'فری‌سایز (قابل تنظیم)',
+            'material'       => 'صدف طبیعی خلیج فارس، پایه برنجی طلایی مقاوم',
+            'color'          => 'صدف طبیعی نسترن با جلای آینه‌ای',
+            'desc'           => 'تراش دست‌ساز از ضخیم‌ترین بخش صدف طبیعی مرواریدساز، نشسته بر پایه‌ای ارگانیک و تنظیم‌پذیر.',
+            'img_primary'    => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
+            'tag'            => 'صدف مرواریدساز',
+            'badge'          => 'فری‌سایز',
+            'badge_type'     => 'nature',
+            'in_stock'       => true,
+            'featured'       => false,
+            'on_sale'        => false,
+        ),
+        'r-008' => array(
+            'id'             => 'r-008',
+            'code'           => 'R-008',
+            'title'          => 'چوکر ساحلی صدف طبیعی و مرواریدهای وحشی',
+            'short_title'    => 'چوکر ساحلی صدف و مروارید وحشی',
+            'category'       => 'گردنبند و مدال',
+            'category_slug'  => 'necklaces',
+            'price_raw'      => 3400000,
+            'regular_price'  => 3800000,
+            'price_formatted'=> '۳,۴۰۰,۰۰۰ تومان',
+            'old_price'      => '۳,۸۰۰,۰۰۰ تومان',
+            'dimensions'     => 'طول ۳۸ تا ۴۲ سانتی‌متر',
+            'material'       => 'صدف‌های تراش‌خورده طبیعی، مرواریدهای باروک ریز، قفل طلایی',
+            'color'          => 'سفید عاجی و عسلی طبیعی',
+            'desc'           => 'چوکر ظریف ساحلی با ریتم موزون از صدف‌های دست‌تراش و مرواریدهای باروک که بر گردن جلوه‌ای چشم‌نواز دارد.',
+            'img_primary'    => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/coastal-wave-shoreline.jpg',
+            'tag'            => 'کالکشن دریا',
+            'badge'          => 'حراج',
+            'badge_type'     => 'discount',
+            'in_stock'       => true,
+            'featured'       => true,
+            'on_sale'        => true,
+        ),
+    );
+}
+
+/**
+ * Filter mock products by criteria.
+ *
+ * @param array $args
+ * @return array
+ */
+function razgem_get_filtered_mock_products( $args = array() ) {
+    $products = razgem_get_mock_products();
+
+    if ( ! empty( $args['category'] ) && 'all' !== $args['category'] ) {
+        $cat = sanitize_text_field( $args['category'] );
+        $products = array_filter( $products, function( $p ) use ( $cat ) {
+            return $p['category_slug'] === $cat;
+        } );
+    }
+
+    if ( ! empty( $args['on_sale'] ) ) {
+        $products = array_filter( $products, function( $p ) {
+            return ! empty( $p['on_sale'] );
+        } );
+    }
+
+    if ( ! empty( $args['featured'] ) ) {
+        $products = array_filter( $products, function( $p ) {
+            return ! empty( $p['featured'] );
+        } );
+    }
+
+    if ( ! empty( $args['limit'] ) ) {
+        $products = array_slice( $products, 0, intval( $args['limit'] ) );
+    }
+
+    return $products;
+}
+
+/**
+ * Renders a standardized coastal product specimen card for mock products.
+ *
+ * @param array $p Product data array.
+ * @param string $extra_classes
+ */
+function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
+    $shop_url = razgem_shop_url() . '?view_product=' . esc_attr( $p['id'] );
+    ?>
+    <article class="carousel-card <?php echo esc_attr( $extra_classes ); ?>">
+        <div class="product-card pebble-surface">
+            <div class="product-card__gallery">
+                <a href="<?php echo esc_url( $shop_url ); ?>">
+                    <img src="<?php echo esc_url( $p['img_primary'] ); ?>" 
+                         alt="<?php echo esc_attr( $p['title'] ); ?>" 
+                         class="img-primary" 
+                         loading="lazy">
+                    <?php if ( ! empty( $p['img_hover'] ) ) : ?>
+                        <img src="<?php echo esc_url( $p['img_hover'] ); ?>" 
+                             alt="<?php echo esc_attr( $p['title'] ); ?> - نمای ابعاد یا استایل" 
+                             class="img-hover" 
+                             loading="lazy">
+                    <?php endif; ?>
+                </a>
+
+                <?php if ( ! empty( $p['badge'] ) ) : ?>
+                    <span class="product-badge product-badge--<?php echo esc_attr( $p['badge_type'] ); ?>">
+                        <?php echo esc_html( $p['badge'] ); ?>
+                    </span>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $p['dimensions'] ) ) : ?>
+                    <span class="product-dimension-chip" title="ابعاد قطعه">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                        <?php echo esc_html( $p['dimensions'] ); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+
+            <div class="product-card__content">
+                <div class="product-authenticity-tag">
+                    <span class="auth-dot"></span>
+                    <span><?php echo esc_html( $p['tag'] ); ?></span>
+                </div>
+
+                <h3 class="product-title">
+                    <a href="<?php echo esc_url( $shop_url ); ?>">
+                        <?php echo esc_html( $p['title'] ); ?>
+                    </a>
+                </h3>
+
+                <div class="product-meta">
+                    <?php echo esc_html( $p['category'] ); ?> | کد: <?php echo esc_html( $p['code'] ); ?>
+                </div>
+
+                <div class="product-card__action-row">
+                    <div class="product-price">
+                        <?php if ( ! empty( $p['old_price'] ) ) : ?>
+                            <span class="price-old"><?php echo esc_html( $p['old_price'] ); ?></span>
+                        <?php endif; ?>
+                        <span class="price-current"><?php echo esc_html( $p['price_formatted'] ); ?></span>
+                    </div>
+
+                    <a href="<?php echo esc_url( $shop_url ); ?>" 
+                       class="product-card-cart-btn btn-coastal-action" 
+                       aria-label="مشاهده و خرید <?php echo esc_attr( $p['title'] ); ?>">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    <?php
+}

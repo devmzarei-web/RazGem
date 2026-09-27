@@ -1,10 +1,18 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
 
 <footer class="site-footer">
-    <!-- Top Undulating Coastal Wave Transition -->
-    <div class="footer-wave-top wave-divider" aria-hidden="true">
-        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-            <path d="M0,45 C280,100 560,15 840,65 C1120,105 1320,30 1440,60 L1440,0 L0,0 Z" class="wave-fill--canvas"></path>
+    <!-- Top Continuous Living Ocean Wave Transition -->
+    <div class="footer-wave-top ocean-wave-animator ocean-wave-animator--top ocean-wave--to-slate-dark" aria-hidden="true">
+        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="footer-top-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="ocean-parallax-waves">
+                <use xlink:href="#footer-top-wave" x="48" y="0" class="wave-layer-deep" />
+                <use xlink:href="#footer-top-wave" x="48" y="3" class="wave-layer-seafoam" />
+                <use xlink:href="#footer-top-wave" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#footer-top-wave" x="48" y="7" class="wave-layer-canvas" />
+            </g>
         </svg>
     </div>
 

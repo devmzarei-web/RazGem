@@ -74,14 +74,17 @@ get_header(); ?>
         }
     }
 
-    if ( ! empty( $suggested_products ) ) :
+    $has_suggested  = ! empty( $suggested_products );
+    $mock_suggested = ( ! $has_suggested && function_exists( 'razgem_get_filtered_mock_products' ) ) ? razgem_get_filtered_mock_products( array( 'featured' => true, 'limit' => 4 ) ) : array();
+
+    if ( $has_suggested || ! empty( $mock_suggested ) ) :
     ?>
     <section id="suggested-products" class="product-carousel-section product-carousel-section--suggested">
         <div class="site-container">
             <div class="section-header section-header--flex">
                 <div>
                     <h2>پیشنهاد گالری رازجم</h2>
-                    <p>شاهکارهای دست‌ساز برگزیده از طلا و مروارید باروک</p>
+                    <p>شاهکارهای دست‌ساز برگزیده از صدف طبیعی، مروارید باروک و یراق طلایی</p>
                 </div>
                 <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="view-all-link">مشاهده همه فروشگاه <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
             </div>
@@ -89,53 +92,60 @@ get_header(); ?>
             <div class="carousel-wrapper">
                 <div class="carousel-track">
                     <?php
-                    foreach ( $suggested_products as $s_prod ) :
-                        if ( ! is_object( $s_prod ) || ! method_exists( $s_prod, 'is_visible' ) || ! $s_prod->is_visible() ) continue;
-                        $s_id   = $s_prod->get_id();
-                        $s_link = get_permalink( $s_id );
-                        $attachment_ids = $s_prod->get_gallery_image_ids();
-                        ?>
-                        <article class="carousel-card">
-                            <div class="product-card<?php echo ( is_a( $s_prod, 'WC_Product' ) && ! $s_prod->is_in_stock() ) ? ' is-out-of-stock' : ''; ?>">
-                                <div class="product-card__gallery">
-                                    <a href="<?php echo esc_url( $s_link ); ?>">
-                                        <?php 
-                                        $primary_img_id = $s_prod->get_image_id();
-                                        if ( $primary_img_id ) {
-                                            echo wp_get_attachment_image( $primary_img_id, 'full', false, array( 'class' => 'img-primary', 'alt' => esc_attr( $s_prod->get_name() ) ) );
-                                        } else {
-                                            echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'full', array( 'class' => 'img-primary', 'alt' => esc_attr( $s_prod->get_name() ) ) ) : '';
-                                        }
-                                        if ( ! empty( $attachment_ids ) ) {
-                                            echo wp_get_attachment_image( $attachment_ids[0], 'full', false, array( 'class' => 'img-hover', 'alt' => esc_attr( $s_prod->get_name() ) ) );
-                                        }
-                                        ?>
-                                    </a>
-                                    <?php if ( is_a( $s_prod, 'WC_Product' ) && ! $s_prod->is_in_stock() ) : ?>
-                                        <span class="product-badge product-badge--outofstock">ناموجود</span>
-                                    <?php else : ?>
-                                        <span class="product-badge product-badge--suggested">پیشنهادی</span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="product-card__content">
-                                    <h3 class="product-title"><a href="<?php echo esc_url( $s_link ); ?>"><?php echo esc_html( $s_prod->get_name() ); ?></a></h3>
-                                    <div class="product-meta"><?php echo function_exists('wc_get_product_category_list') ? wc_get_product_category_list( $s_id, ', ' ) : ''; ?></div>
-                                    <div class="product-card__action-row">
-                                        <div class="product-price"><?php echo method_exists( $s_prod, 'get_price_html' ) ? $s_prod->get_price_html() : ''; ?></div>
+                    if ( $has_suggested ) :
+                        foreach ( $suggested_products as $s_prod ) :
+                            if ( ! is_object( $s_prod ) || ! method_exists( $s_prod, 'is_visible' ) || ! $s_prod->is_visible() ) continue;
+                            $s_id   = $s_prod->get_id();
+                            $s_link = get_permalink( $s_id );
+                            $attachment_ids = $s_prod->get_gallery_image_ids();
+                            ?>
+                            <article class="carousel-card">
+                                <div class="product-card<?php echo ( is_a( $s_prod, 'WC_Product' ) && ! $s_prod->is_in_stock() ) ? ' is-out-of-stock' : ''; ?>">
+                                    <div class="product-card__gallery">
+                                        <a href="<?php echo esc_url( $s_link ); ?>">
+                                            <?php 
+                                            $primary_img_id = $s_prod->get_image_id();
+                                            if ( $primary_img_id ) {
+                                                echo wp_get_attachment_image( $primary_img_id, 'full', false, array( 'class' => 'img-primary', 'alt' => esc_attr( $s_prod->get_name() ) ) );
+                                            } else {
+                                                echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'full', array( 'class' => 'img-primary', 'alt' => esc_attr( $s_prod->get_name() ) ) ) : '';
+                                            }
+                                            if ( ! empty( $attachment_ids ) ) {
+                                                echo wp_get_attachment_image( $attachment_ids[0], 'full', false, array( 'class' => 'img-hover', 'alt' => esc_attr( $s_prod->get_name() ) ) );
+                                            }
+                                            ?>
+                                        </a>
                                         <?php if ( is_a( $s_prod, 'WC_Product' ) && ! $s_prod->is_in_stock() ) : ?>
-                                            <span class="product-card-cart-btn disabled" aria-disabled="true" title="این محصول ناموجود است">
-                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                            </span>
+                                            <span class="product-badge product-badge--outofstock">ناموجود</span>
                                         <?php else : ?>
-                                            <a href="<?php echo esc_url( method_exists( $s_prod, 'add_to_cart_url' ) ? $s_prod->add_to_cart_url() : '#' ); ?>" data-quantity="1" class="product-card-cart-btn button product_type_<?php echo esc_attr( method_exists( $s_prod, 'get_type' ) ? $s_prod->get_type() : 'simple' ); ?> add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo esc_attr( $s_id ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                            </a>
+                                            <span class="product-badge product-badge--suggested">پیشنهادی</span>
                                         <?php endif; ?>
                                     </div>
+                                    <div class="product-card__content">
+                                        <h3 class="product-title"><a href="<?php echo esc_url( $s_link ); ?>"><?php echo esc_html( $s_prod->get_name() ); ?></a></h3>
+                                        <div class="product-meta"><?php echo function_exists('wc_get_product_category_list') ? wc_get_product_category_list( $s_id, ', ' ) : ''; ?></div>
+                                        <div class="product-card__action-row">
+                                            <div class="product-price"><?php echo method_exists( $s_prod, 'get_price_html' ) ? $s_prod->get_price_html() : ''; ?></div>
+                                            <?php if ( is_a( $s_prod, 'WC_Product' ) && ! $s_prod->is_in_stock() ) : ?>
+                                                <span class="product-card-cart-btn disabled" aria-disabled="true" title="این محصول ناموجود است">
+                                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                </span>
+                                            <?php else : ?>
+                                                <a href="<?php echo esc_url( method_exists( $s_prod, 'add_to_cart_url' ) ? $s_prod->add_to_cart_url() : '#' ); ?>" data-quantity="1" class="product-card-cart-btn button product_type_<?php echo esc_attr( method_exists( $s_prod, 'get_type' ) ? $s_prod->get_type() : 'simple' ); ?> add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo esc_attr( $s_id ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+                            </article>
+                        <?php endforeach;
+                    else :
+                        foreach ( $mock_suggested as $mock_p ) :
+                            razgem_render_mock_product_card( $mock_p );
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
@@ -147,7 +157,7 @@ get_header(); ?>
             <div class="section-header section-header--flex">
                 <div>
                     <h2>جدیدترین دست‌سازه‌ها</h2>
-                    <p>درخشش بی‌بدیل طلا و مروارید در تازه‌ترین آثار کارگاه رازجم</p>
+                    <p>تازه‌ترین تراش‌های صدف طبیعی و مروارید باروک در کارگاه رازجم</p>
                 </div>
                 <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="view-all-link">مشاهده همه فروشگاه <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
             </div>
@@ -213,8 +223,13 @@ get_header(); ?>
                             </article>
                             <?php
                         endwhile;
+                        wp_reset_postdata();
+                    elseif ( function_exists( 'razgem_get_mock_products' ) ) :
+                        $mock_products = razgem_get_mock_products();
+                        foreach ( $mock_products as $mock_p ) {
+                            razgem_render_mock_product_card( $mock_p );
+                        }
                     endif;
-                    wp_reset_postdata();
                     ?>
                 </div>
             </div>
@@ -228,7 +243,7 @@ get_header(); ?>
                 <div class="highlight-sidebar">
                     <span class="highlight-tag">مجموعه برگزیده</span>
                     <h2>پیشنهادهای ویژه و یادبودها</h2>
-                    <p>فرصتی استثنایی برای داشتن زیورآلات فاخر طلا و مروارید دست‌ساز با شرایط ویژه.</p>
+                    <p>فرصتی استثنایی برای داشتن زیورآلات فاخر صدف طبیعی و مروارید باروک با شرایط ویژه.</p>
                     <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-highlight">مشاهده برگزیده‌ها</a>
                 </div>
 
@@ -290,10 +305,15 @@ get_header(); ?>
                                 </article>
                                 <?php
                             endwhile;
+                            wp_reset_postdata();
+                        elseif ( function_exists( 'razgem_get_filtered_mock_products' ) ) :
+                            $mock_sales = razgem_get_filtered_mock_products( array( 'on_sale' => true ) );
+                            foreach ( $mock_sales as $mock_p ) {
+                                razgem_render_mock_product_card( $mock_p, 'carousel-card--bg-white' );
+                            }
                         else :
                             echo '<p style="padding:2rem;">در حال حاضر حراجی فعالی وجود ندارد.</p>';
                         endif;
-                        wp_reset_postdata();
                         ?>
                     </div>
                 </div>
