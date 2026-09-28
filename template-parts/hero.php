@@ -92,15 +92,15 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                 <?php endif; ?>
             </div>
 
-            <!-- Floating Nature Quality Chips -->
-            <div class="coastal-hero-chips">
+            <!-- Floating Nature Quality Chips (Desktop Focus) -->
+            <div class="coastal-hero-chips desktop-only-hero-element">
                 <span class="nature-chip"><span class="chip-dot"></span> صدف طبیعی ۱۰۰٪ اصل</span>
                 <span class="nature-chip"><span class="chip-dot"></span> مرواریدهای باروک یکتا</span>
                 <span class="nature-chip"><span class="chip-dot"></span> طلای ۱۸ عیار دست‌ساز</span>
             </div>
 
-            <!-- Trust Metrics Bar -->
-            <div class="coastal-hero-trust-bar">
+            <!-- Trust Metrics Bar (Desktop Focus) -->
+            <div class="coastal-hero-trust-bar desktop-only-hero-element">
                 <div class="coastal-trust-item">
                     <div class="trust-icon">🦪</div>
                     <div class="trust-text">

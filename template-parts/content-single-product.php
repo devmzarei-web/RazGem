@@ -52,6 +52,13 @@ if ( ! $p_data ) {
     return;
 }
 
+$wc_id = 0;
+if ( ! empty( $args['wc_product'] ) && is_a( $args['wc_product'], 'WC_Product' ) ) {
+    $wc_id = $args['wc_product']->get_id();
+} elseif ( function_exists( 'razgem_get_wc_product_id' ) ) {
+    $wc_id = razgem_get_wc_product_id( $p_data['id'] );
+}
+
 $id              = esc_attr( $p_data['id'] );
 $code            = esc_html( $p_data['code'] );
 $title           = esc_html( $p_data['title'] );
@@ -211,20 +218,31 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
 
             <!-- Dual Action Cluster: Add to Cart (Fly Parabolic) + WhatsApp Consultation -->
             <div class="product-action-cluster">
-                <?php if ( ! empty( $p_data['wc_add_to_cart'] ) ) : ?>
+                <?php if ( $wc_id > 0 ) : ?>
+                    <button type="button" 
+                            class="btn-coastal-add-cart btn-fly-trigger razgem-ajax-add-to-cart ajax_add_to_cart" 
+                            data-product_id="<?php echo esc_attr( $wc_id ); ?>"
+                            data-product-id="<?php echo esc_attr( $wc_id ); ?>"
+                            data-product_sku="<?php echo esc_attr( $code ); ?>"
+                            data-quantity="1"
+                            title="افزودن مستقیم به سبد خرید">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <span>افزودن به سبد خرید</span>
+                    </button>
+                <?php elseif ( ! empty( $p_data['wc_add_to_cart'] ) ) : ?>
                     <a href="<?php echo esc_url( $p_data['wc_add_to_cart'] ); ?>" 
-                       class="btn-coastal-add-cart btn-fly-trigger" 
+                       class="btn-coastal-add-cart btn-fly-trigger razgem-ajax-add-to-cart ajax_add_to_cart" 
                        data-product-id="<?php echo $id; ?>">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                         <span>افزودن به سبد خرید</span>
                     </a>
                 <?php else : ?>
-                    <button type="button" 
-                            class="btn-coastal-add-cart btn-fly-trigger" 
-                            data-product-id="<?php echo $id; ?>">
+                    <a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart' ) ); ?>" 
+                       class="btn-coastal-add-cart btn-fly-trigger" 
+                       data-product-id="<?php echo $id; ?>">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                         <span>افزودن به سبد خرید</span>
-                    </button>
+                    </a>
                 <?php endif; ?>
 
                 <a href="<?php echo esc_url( $wa_url ); ?>" 
@@ -295,14 +313,23 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
             <div class="sticky-price"><?php echo $price_html; ?></div>
         </div>
     </div>
-    <?php if ( ! empty( $p_data['wc_add_to_cart'] ) ) : ?>
-        <a href="<?php echo esc_url( $p_data['wc_add_to_cart'] ); ?>" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+    <?php if ( $wc_id > 0 ) : ?>
+        <button type="button" 
+                class="sticky-buy-btn btn-fly-trigger razgem-ajax-add-to-cart ajax_add_to_cart" 
+                data-product_id="<?php echo esc_attr( $wc_id ); ?>"
+                data-product-id="<?php echo esc_attr( $wc_id ); ?>"
+                data-product_sku="<?php echo esc_attr( $code ); ?>"
+                data-quantity="1">
+            افزودن به سبد خرید
+        </button>
+    <?php elseif ( ! empty( $p_data['wc_add_to_cart'] ) ) : ?>
+        <a href="<?php echo esc_url( $p_data['wc_add_to_cart'] ); ?>" class="sticky-buy-btn btn-fly-trigger razgem-ajax-add-to-cart ajax_add_to_cart" data-product-id="<?php echo $id; ?>" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
             افزودن به سبد خرید
         </a>
     <?php else : ?>
-        <button type="button" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>">
+        <a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart' ) ); ?>" class="sticky-buy-btn btn-fly-trigger" data-product-id="<?php echo $id; ?>" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
             افزودن به سبد خرید
-        </button>
+        </a>
     <?php endif; ?>
 </div>
 

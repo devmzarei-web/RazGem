@@ -31,6 +31,23 @@ require_once get_template_directory() . '/inc/customizer.php';
 // Include Mock Product Catalog & Coastal Fallback Helpers
 require_once get_template_directory() . '/inc/mock-products.php';
 
+// Include WooCommerce Automated Product Seeder & Sync Engine
+require_once get_template_directory() . '/inc/wc-product-seeder.php';
+
+// Include Persian Admin Product Management Guide
+require_once get_template_directory() . '/inc/admin-product-guide.php';
+
+/**
+ * Renders an organic living wave divider between sections.
+ *
+ * @param array $args
+ */
+if ( ! function_exists( 'razgem_render_wave_divider' ) ) {
+    function razgem_render_wave_divider( $args = array() ) {
+        get_template_part( 'template-parts/wave-divider', null, $args );
+    }
+}
+
 /* =========================================================================
    1.1 SAFE WOOCOMMERCE FALLBACK HELPERS (Defensive Theme Architecture)
    ========================================================================= */

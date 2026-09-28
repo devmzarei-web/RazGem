@@ -302,17 +302,17 @@ select {
 }
 @media (min-width: 768px) {
   .ocean-wave--dominant .ocean-waves-svg {
-    height: 115px;
+    height: 125px;
   }
 }
 @media (min-width: 1200px) {
   .ocean-wave--dominant .ocean-waves-svg {
-    height: 140px;
+    height: 165px;
   }
 }
 @media (min-width: 1440px) {
   .ocean-wave--dominant .ocean-waves-svg {
-    height: 155px;
+    height: 185px;
   }
 }
 
@@ -340,33 +340,159 @@ select {
 
 @keyframes oceanWaveDrift {
   0% {
-    transform: translate3d(-90px, 0, 0);
+    transform: translate3d(-140px, 0, 0);
   }
   50% {
-    transform: translate3d(85px, 0, 0);
+    transform: translate3d(130px, 0, 0);
   }
   100% {
-    transform: translate3d(-90px, 0, 0);
+    transform: translate3d(-140px, 0, 0);
   }
+}
+
+/* Reusable Dynamic Organic Living Wave Divider Component */
+.razgem-organic-wave-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background-color: var(--wave-bg, transparent);
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+.razgem-organic-wave-divider .razgem-living-wave-svg {
+  display: block;
+  width: 100%;
+  height: var(--wave-h-mob, 85px);
+}
+@media (min-width: 768px) {
+  .razgem-organic-wave-divider .razgem-living-wave-svg {
+    height: calc(var(--wave-h-pc, 165px) * 0.72);
+  }
+}
+@media (min-width: 1200px) {
+  .razgem-organic-wave-divider .razgem-living-wave-svg {
+    height: var(--wave-h-pc, 165px);
+  }
+}
+@media (min-width: 1440px) {
+  .razgem-organic-wave-divider .razgem-living-wave-svg {
+    height: calc(var(--wave-h-pc, 165px) * 1.12);
+  }
+}
+.razgem-parallax-waves > use {
+  animation: oceanWaveDrift 24s cubic-bezier(.55,.5,.45,.5) infinite;
+  will-change: transform;
+}
+.razgem-parallax-waves .wave-drift-fast {
+  animation-delay: -2s;
+  animation-duration: 9s;
+}
+.razgem-parallax-waves .wave-drift-mid {
+  animation-delay: -3s;
+  animation-duration: 13s;
+}
+.razgem-parallax-waves .wave-drift-slow {
+  animation-delay: -4s;
+  animation-duration: 18s;
+}
+.razgem-parallax-waves .wave-drift-base {
+  animation-delay: -5s;
+  animation-duration: 25s;
+}
+
+/* Organic Section Background Palette Classes (Harmonious Rhythm) */
+.section-palette-ivory {
+  background-color: #FAF8F5 !important;
+  color: var(--color-marine-deep);
+}
+.section-palette-slate {
+  background: linear-gradient(135deg, #1B3347 0%, #2F597A 100%) !important;
+  color: #FAF8F5 !important;
+}
+.section-palette-slate h2,
+.section-palette-slate h3,
+.section-palette-slate .section-title,
+.section-palette-slate .carousel-title {
+  color: #FFFFFF !important;
+}
+.section-palette-slate p,
+.section-palette-slate .section-subtitle {
+  color: #F3E3D0 !important;
+}
+.section-palette-sand {
+  background-color: #FAF6F0 !important;
+  color: var(--color-marine-deep);
+}
+.section-palette-seafoam {
+  background-color: #EAF3F7 !important;
+  color: var(--color-marine-deep);
+}
+.section-palette-pebble {
+  background-color: #F5EFEB !important;
+  color: var(--color-marine-deep);
+}
+
+/* Luxury Persian Toast Notification */
+.razgem-toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%, 40px);
+  background: rgba(27, 51, 71, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FAF8F5;
+  border: 1px solid #D4AF37;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 14px 35px rgba(27, 51, 71, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.92rem;
+  z-index: 9999999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  direction: rtl;
+}
+.razgem-toast-notification.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.razgem-toast-notification .toast-link {
+  background: #D4AF37;
+  color: #1B3347;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: var(--transition-lux);
+}
+.razgem-toast-notification .toast-link:hover {
+  background: #FFFFFF;
 }
 
 /* Palette Variations for Continuous Living Ocean Waves (High Amplitude & Rich Contrast) */
 /* 1. Waves flowing into Canvas background (#FAF8F5) */
-.ocean-wave--to-canvas .wave-layer-deep { fill: rgba(47, 89, 122, 0.38); }
-.ocean-wave--to-canvas .wave-layer-seafoam { fill: rgba(170, 205, 220, 0.72); }
-.ocean-wave--to-canvas .wave-layer-sand { fill: rgba(243, 227, 208, 0.90); }
+.ocean-wave--to-canvas .wave-layer-deep { fill: rgba(47, 89, 122, 0.48); }
+.ocean-wave--to-canvas .wave-layer-seafoam { fill: rgba(170, 205, 220, 0.78); }
+.ocean-wave--to-canvas .wave-layer-sand { fill: rgba(243, 227, 208, 0.92); }
 .ocean-wave--to-canvas .wave-layer-canvas { fill: var(--color-canvas, #FAF8F5); }
 
 /* 2. Waves flowing into Warm Sand background (#FBF8F3 / #F3E3D0) */
-.ocean-wave--to-sand .wave-layer-deep { fill: rgba(47, 89, 122, 0.35); }
-.ocean-wave--to-sand .wave-layer-seafoam { fill: rgba(129, 166, 198, 0.60); }
-.ocean-wave--to-sand .wave-layer-sand { fill: rgba(210, 196, 180, 0.85); }
-.ocean-wave--to-sand .wave-layer-canvas { fill: #FBF8F3; }
+.ocean-wave--to-sand .wave-layer-deep { fill: rgba(47, 89, 122, 0.45); }
+.ocean-wave--to-sand .wave-layer-seafoam { fill: rgba(129, 166, 198, 0.70); }
+.ocean-wave--to-sand .wave-layer-sand { fill: rgba(210, 196, 180, 0.90); }
+.ocean-wave--to-sand .wave-layer-canvas { fill: #FAF6F0; }
 
 /* 3. Waves flowing into Slate Dark background (#1B3347) */
-.ocean-wave--to-slate-dark .wave-layer-deep { fill: rgba(129, 166, 198, 0.45); }
-.ocean-wave--to-slate-dark .wave-layer-seafoam { fill: rgba(74, 122, 158, 0.65); }
-.ocean-wave--to-slate-dark .wave-layer-sand { fill: rgba(35, 70, 97, 0.85); }
+.ocean-wave--to-slate-dark .wave-layer-deep { fill: rgba(129, 166, 198, 0.50); }
+.ocean-wave--to-slate-dark .wave-layer-seafoam { fill: rgba(74, 122, 158, 0.72); }
+.ocean-wave--to-slate-dark .wave-layer-sand { fill: rgba(35, 70, 97, 0.90); }
 .ocean-wave--to-slate-dark .wave-layer-canvas { fill: var(--color-slate-dark, #1B3347); }
 
 /* Contrast & Typography Utility Helpers */
@@ -1166,13 +1292,99 @@ select {
   pointer-events: none;
 }
 
+/* Mobile-First 100dvh Layout & Progressive Desktop Enhancements */
 .coastal-hero-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
-  gap: 3.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 0.8rem;
   position: relative;
   z-index: 2;
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .coastal-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.95fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+}
+
+/* Mobile-First Layout Rules (< 768px): 100dvh Above the Fold */
+@media (max-width: 767px) {
+  .razgem-coastal-hero {
+    min-height: calc(100dvh - 64px);
+    max-height: calc(100dvh - 56px);
+    padding-top: 0.6rem;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .coastal-hero-grid {
+    height: 100%;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    padding: 0 0.8rem;
+  }
+  .coastal-hero-narrative {
+    order: 1;
+    width: 100%;
+  }
+  .hero-badge-wrap {
+    margin-bottom: 0.35rem;
+  }
+  .coastal-hero-badge {
+    font-size: 0.74rem;
+    padding: 0.2rem 0.75rem;
+  }
+  .coastal-hero-title {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .coastal-hero-subtitle {
+    display: none !important; /* Hide long clutter text on mobile */
+  }
+  .coastal-hero-showcase {
+    order: 2;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 50dvh;
+    margin: 0.2rem 0;
+  }
+  .coastal-pebble-vitrine {
+    max-width: min(72vw, 290px) !important;
+    max-height: min(72vw, 290px) !important;
+  }
+  .coastal-hero-cta-group {
+    order: 3;
+    margin-bottom: 0.4rem;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .coastal-hero-cta-group .btn-coastal-slate {
+    padding: 0.65rem 1.4rem;
+    font-size: 0.88rem;
+  }
+  .coastal-hero-cta-group .btn-coastal-sand {
+    display: none !important;
+  }
+  .desktop-only-hero-element {
+    display: none !important;
+  }
+  .hero-wave-baseline {
+    height: 40px !important;
+  }
+  .hero-wave-baseline svg {
+    height: 40px !important;
+  }
 }
 
 /* Hero Editorial Narrative (Centered Alignment) */

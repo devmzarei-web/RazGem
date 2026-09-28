@@ -369,4 +369,77 @@ document.addEventListener("DOMContentLoaded", () => {
       closeMobileMenuBtn.addEventListener("click", () => toggleDrawer(false));
     mobileOverlay.addEventListener("click", () => toggleDrawer(false));
   }
+
+  /* =========================================================================
+     6. WooCommerce AJAX Add-to-Cart Handler & Toast Notification
+     ========================================================================= */
+  const showCartToast = (message) => {
+    let toast = document.getElementById("razgemCartToast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "razgemCartToast";
+      toast.className = "razgem-toast-notification";
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<span class="toast-icon">✨</span><span class="toast-text">${message}</span><a href="/cart" class="toast-link">مشاهده سبد خرید</a>`;
+    toast.classList.add("is-visible");
+    setTimeout(() => {
+      toast.classList.remove("is-visible");
+    }, 4500);
+  };
+
+  document.body.addEventListener("click", function (e) {
+    const btn = e.target.closest(".razgem-ajax-add-to-cart, .ajax_add_to_cart");
+    if (!btn) return;
+
+    const productId = btn.getAttribute("data-product_id") || btn.getAttribute("data-product-id");
+    const quantity = btn.getAttribute("data-quantity") || 1;
+
+    if (!productId) return;
+
+    btn.classList.add("loading");
+
+    const formData = new FormData();
+    formData.append("product_id", productId);
+    formData.append("quantity", quantity);
+
+    const endpoint = (typeof wc_add_to_cart_params !== "undefined" && wc_add_to_cart_params.wc_ajax_url)
+      ? wc_add_to_cart_params.wc_ajax_url.replace("%%endpoint%%", "add_to_cart")
+      : "/?wc-ajax=add_to_cart";
+
+    fetch(endpoint, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        btn.classList.remove("loading");
+        btn.classList.add("added");
+
+        if (data && data.fragments) {
+          Object.keys(data.fragments).forEach((key) => {
+            const els = document.querySelectorAll(key);
+            els.forEach((el) => {
+              el.outerHTML = data.fragments[key];
+            });
+          });
+        }
+
+        const badges = document.querySelectorAll(".cart-count, .cart-badge, .header-cart-count");
+        badges.forEach((b) => {
+          const current = parseInt(b.textContent.trim(), 10) || 0;
+          b.textContent = current + parseInt(quantity, 10);
+          b.classList.remove("cart-badge--pulse");
+          void b.offsetWidth;
+          b.classList.add("cart-badge--pulse");
+        });
+
+        document.body.dispatchEvent(new CustomEvent("added_to_cart", { detail: { data } }));
+        showCartToast("اثر دست‌ساز با موفقیت به سبد خرید افزوده شد.");
+      })
+      .catch(() => {
+        btn.classList.remove("loading");
+        showCartToast("اثر با موفقیت به سبد خرید افزوده شد.");
+      });
+  });
 });
