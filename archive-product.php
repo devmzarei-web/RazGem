@@ -246,4 +246,8 @@ $is_on_sale_param  = ! empty( $_GET['on_sale'] );
     </div>
 </main>
 
-<?php get_footer( 'shop' ); ?>
+<?php
+// In-Place Lightweight Variation Pop-out Modal (Variable Products: R-005, R-006, R-008)
+get_template_part( 'template-parts/variation-modal' );
+get_footer( 'shop' );
+?>

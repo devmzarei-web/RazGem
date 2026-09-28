@@ -17,6 +17,8 @@ class RazGem_Admin_Product_Guide {
 
     public static function init() {
         add_action( 'admin_menu', [ __CLASS__, 'register_admin_subpage' ] );
+        add_action( 'admin_init', [ __CLASS__, 'handle_extract_plugins' ] );
+        add_action( 'admin_notices', [ __CLASS__, 'render_admin_notices' ] );
     }
 
     public static function register_admin_subpage() {
@@ -30,11 +32,59 @@ class RazGem_Admin_Product_Guide {
         );
     }
 
+    public static function handle_extract_plugins() {
+        if ( ! isset( $_GET['razgem_action'] ) || 'extract_plugins' !== $_GET['razgem_action'] ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_die( 'دسترسی غیرمجاز.' );
+        }
+
+        check_admin_referer( 'razgem_extract_plugins_nonce' );
+
+        $plugins_dir = get_template_directory() . '/bundled-plugins';
+        $zips = glob( $plugins_dir . '/*.zip' );
+        $count = 0;
+
+        if ( ! empty( $zips ) ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            WP_Filesystem();
+
+            foreach ( $zips as $zip ) {
+                $result = unzip_file( $zip, WP_PLUGIN_DIR );
+                if ( ! is_wp_error( $result ) ) {
+                    $count++;
+                }
+            }
+        }
+
+        wp_safe_redirect( admin_url( 'plugins.php?razgem_plugins_extracted=' . $count ) );
+        exit;
+    }
+
+    public static function render_admin_notices() {
+        if ( isset( $_GET['razgem_plugins_extracted'] ) ) {
+            $count = absint( $_GET['razgem_plugins_extracted'] );
+            echo '<div class="notice notice-success is-dismissible" style="border-right-color:#D4AF37;">';
+            echo '<p><strong>رازجم:</strong> تعداد ' . $count . ' افزونه همراه با موفقیت در پوشه افزونه‌های وردپرس (<code>wp-content/plugins</code>) مستقر شدند. اکنون می‌توانید هر یک را فعال نمایید.</p>';
+            echo '</div>';
+        }
+    }
+
     public static function render_guide_page() {
         $sync_nonce_url = wp_nonce_url(
-            admin_url( 'admin.php?razgem_action=sync_products' ),
+            admin_url( 'edit.php?post_type=product&razgem_action=sync_products' ),
             'razgem_sync_products_nonce'
         );
+
+        $extract_nonce_url = wp_nonce_url(
+            admin_url( 'edit.php?post_type=product&page=razgem-product-guide&razgem_action=extract_plugins' ),
+            'razgem_extract_plugins_nonce'
+        );
+
+        $bundled_zips = glob( get_template_directory() . '/bundled-plugins/*.zip' );
+        $bundled_count = $bundled_zips ? count( $bundled_zips ) : 0;
         ?>
         <div class="wrap razgem-guide-wrap" style="max-width: 1080px; font-family: Tahoma, 'IranYekanX', sans-serif; direction: rtl; margin-top: 20px;">
             <div style="background: linear-gradient(135deg, #1B3347 0%, #2F597A 100%); color: #FAF8F5; padding: 2.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(27,51,71,0.15); margin-bottom: 2rem;">
@@ -44,10 +94,15 @@ class RazGem_Admin_Product_Guide {
                             ✨ راهنمای جامع درج و مدیریت محصولات دست‌ساز رازجم
                         </h1>
                         <p style="color: #F3E3D0; font-size: 1rem; margin: 0; line-height: 1.7;">
-                            استانداردهای ثبت محصولات صدف طبیعی، مرواریدهای باروک و جواهرات ارگانیک در ووکامرس
+                            استانداردهای ثبت محصولات صدف طبیعی، مرواریدهای باروک و مدیریت افزونه‌های فروشگاه
                         </p>
                     </div>
-                    <div>
+                    <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                        <?php if ( $bundled_count > 0 ) : ?>
+                            <a href="<?php echo esc_url( $extract_nonce_url ); ?>" class="button button-secondary button-hero" style="background: #2F597A; border-color: #4A7A9F; color: #FAF8F5; font-weight: bold; border-radius: 8px;">
+                                📦 نصب و استخراج افزونه‌های همراه (<?php echo esc_html( $bundled_count ); ?> افزونه)
+                            </a>
+                        <?php endif; ?>
                         <a href="<?php echo esc_url( $sync_nonce_url ); ?>" class="button button-primary button-hero" style="background: #D4AF37; border-color: #B5952F; color: #1B3347; font-weight: bold; border-radius: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4);">
                             🦪 همگام‌سازی خودکار و ساخت محصولات آماده (R-001 تا R-006)
                         </a>
@@ -175,6 +230,20 @@ class RazGem_Admin_Product_Guide {
                             <td>دستبند و انگشتر</td>
                             <td>فری‌سایز قابل تنظیم</td>
                             <td>۱,۶۸۰,۰۰۰</td>
+                        </tr>
+                        <tr>
+                            <td><code>RG-R007</code></td>
+                            <td><strong>چوکر مروارید باروک و صدف مخملی</strong></td>
+                            <td>گردنبند و چوکر</td>
+                            <td>طول ۳۶ تا ۴۰ سانتی‌متر</td>
+                            <td>۲,۸۹۰,۰۰۰</td>
+                        </tr>
+                        <tr>
+                            <td><code>RG-R008</code></td>
+                            <td><strong>انگشتر صدف حلزونی هفت‌رنگ مرجانی</strong></td>
+                            <td>دستبند و انگشتر</td>
+                            <td>ابعاد صدف: ۲.۸ × ۲.۲ سانتی‌متر</td>
+                            <td>۲,۱۵۰,۰۰۰</td>
                         </tr>
                     </tbody>
                 </table>

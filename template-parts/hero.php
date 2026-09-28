@@ -1,9 +1,10 @@
 <?php
 /**
  * RazGem Coastal Seashell & Organic Nature Hero Template Part
- * Sunlit Linen Canvas, Pebble Vitrine & Undulating Wave Baseline
+ * Mobile-First 100dvh Jewelry Slider & Desktop Living Wave Baseline
  *
  * @package RazGem
+ * @version 2.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,15 +19,27 @@ $hero_btn1_url  = get_theme_mod( 'hero_btn1_url', '/shop' );
 $hero_btn2_text = get_theme_mod( 'hero_btn2_text', 'سفارش ساخت اختصاصی' );
 $hero_btn2_url  = get_theme_mod( 'hero_btn2_url', '/contact' );
 
-// Multi-slide images & labels (Featuring authentic handcrafted R-001 and R-002)
+// Multi-slide images, labels & single-product destination URLs
 $slide1_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 1 ) ? razgem_get_hero_slide_url( 1 ) : get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
-$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'گوشواره هنری دست‌ساز با صدف طبیعی کد R-001 | ۴.۸ × ۴.۳ سانتی‌متر' );
+$slide1_tag = get_theme_mod( 'hero_slide_1_tag', 'گوشواره صدف طبیعی با مروارید باروک کد R-001' );
+$slide1_url = get_theme_mod( 'hero_slide_1_url', '' );
+if ( empty( $slide1_url ) ) {
+    $slide1_url = function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-001' ) : home_url( '/product/r-001/' );
+}
 
 $slide2_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 2 ) ? razgem_get_hero_slide_url( 2 ) : get_template_directory_uri() . '/assets/images/products/r002-main.jpg';
-$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره صدف بادبزنی رگه‌دار کد R-002 | ۵.۰ × ۴.۵ سانتی‌متر' );
+$slide2_tag = get_theme_mod( 'hero_slide_2_tag', 'گوشواره صدف بادبزنی رگه‌دار زرین کد R-002' );
+$slide2_url = get_theme_mod( 'hero_slide_2_url', '' );
+if ( empty( $slide2_url ) ) {
+    $slide2_url = function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-002' ) : home_url( '/product/r-002/' );
+}
 
-$slide3_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 3 ) ? razgem_get_hero_slide_url( 3 ) : get_template_directory_uri() . '/assets/images/model-necklace-seashell.jpg';
-$slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'گردنبند صدف تراش‌خورده و مروارید باروک' );
+$slide3_img = function_exists( 'razgem_get_hero_slide_url' ) && razgem_get_hero_slide_url( 3 ) ? razgem_get_hero_slide_url( 3 ) : get_template_directory_uri() . '/assets/images/products/r003-main.jpg';
+$slide3_tag = get_theme_mod( 'hero_slide_3_tag', 'گردنبند پلاک صدف و مروارید باروک کد R-003' );
+$slide3_url = get_theme_mod( 'hero_slide_3_url', '' );
+if ( empty( $slide3_url ) ) {
+    $slide3_url = function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-003' ) : home_url( '/product/r-003/' );
+}
 
 // Hotspot Pins Configuration (Slide 1: R-001)
 $pin1_enable = get_theme_mod( 'hero_pin1_enable', true );
@@ -55,10 +68,10 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
 
     <div class="site-container coastal-hero-grid">
         
-        <!-- Hero Narrative Column (Centered Alignment) -->
+        <!-- Hero Narrative Column (Compact 1-line on mobile, full storytelling on desktop) -->
         <div class="coastal-hero-narrative">
             <?php if ( ! empty( $hero_badge ) ) : ?>
-                <div class="hero-badge-wrap">
+                <div class="hero-badge-wrap mobile-only-hidden">
                     <span class="coastal-hero-badge">
                         <span class="badge-sea-icon">🦪</span>
                         <?php echo esc_html( $hero_badge ); ?>
@@ -70,11 +83,11 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                 <?php echo wp_kses_post( $hero_title ); ?>
             </h1>
 
-            <p class="coastal-hero-subtitle">
+            <p class="coastal-hero-subtitle mobile-only-hidden">
                 <?php echo esc_html( $hero_subtitle ); ?>
             </p>
 
-            <div class="coastal-hero-cta-group">
+            <div class="coastal-hero-cta-group mobile-only-hidden">
                 <?php if ( ! empty( $hero_btn1_text ) && ! empty( $hero_btn1_url ) ) : ?>
                     <a href="<?php echo esc_url( $hero_btn1_url ); ?>" class="btn-coastal-slate pearl-shimmer-hover">
                         <span><?php echo esc_html( $hero_btn1_text ); ?></span>
@@ -118,23 +131,26 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
             </div>
         </div>
 
-        <!-- Hero Spotlight Showcase (Pebble Vitrine) -->
+        <!-- Hero Spotlight Showcase (Pebble Vitrine with 3-Image Jewelry Slider) -->
         <div class="coastal-hero-showcase">
             <div class="coastal-pebble-vitrine razgem-hero-slider" id="razgemHeroSlider" role="region" aria-roledescription="carousel" aria-label="شاهکارهای منتخب رازجم">
                 <div class="razgem-slider-track">
                     
-                    <!-- Slide 1 -->
+                    <!-- Slide 1: Direct Clickable Anchor to Single Product Vitrine -->
                     <div class="razgem-hero-slide is-active" data-index="0" role="group" aria-roledescription="slide" aria-label="اسلاید ۱ از ۳: <?php echo esc_attr( $slide1_tag ); ?>">
-                        <img src="<?php echo esc_url( $slide1_img ); ?>" 
-                             alt="<?php echo esc_attr( $slide1_tag ); ?>" 
-                             class="coastal-vitrine-img"
-                             loading="eager">
-                        
-                        <?php if ( ! empty( $slide1_tag ) ) : ?>
-                            <a href="<?php echo esc_url( function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-001' ) : home_url( '/?post_type=product&view_product=r-001' ) ); ?>" class="coastal-slide-badge" style="text-decoration:none;" title="مشاهده صفحه اختصاصی اثر R-001">
-                                <span><?php echo esc_html( $slide1_tag ); ?></span>
-                            </a>
-                        <?php endif; ?>
+                        <a href="<?php echo esc_url( $slide1_url ); ?>" class="coastal-vitrine-link" aria-label="<?php echo esc_attr( $slide1_tag ); ?> - کلیک جهت مشاهده مشخصات">
+                            <img src="<?php echo esc_url( $slide1_img ); ?>" 
+                                 alt="<?php echo esc_attr( $slide1_tag ); ?>" 
+                                 class="coastal-vitrine-img"
+                                 loading="eager">
+                            
+                            <?php if ( ! empty( $slide1_tag ) ) : ?>
+                                <div class="coastal-slide-badge">
+                                    <span><?php echo esc_html( $slide1_tag ); ?></span>
+                                    <span class="coastal-slide-arrow" aria-hidden="true">←</span>
+                                </div>
+                            <?php endif; ?>
+                        </a>
 
                         <!-- Interactive Hotspot Pin 1 -->
                         <?php if ( $pin1_enable && ! empty( $pin1_text ) ) : ?>
@@ -169,18 +185,21 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                         <?php endif; ?>
                     </div>
 
-                    <!-- Slide 2 -->
+                    <!-- Slide 2: Direct Clickable Anchor to Single Product Vitrine -->
                     <div class="razgem-hero-slide" data-index="1" role="group" aria-roledescription="slide" aria-label="اسلاید ۲ از ۳: <?php echo esc_attr( $slide2_tag ); ?>">
-                        <img src="<?php echo esc_url( $slide2_img ); ?>" 
-                             alt="<?php echo esc_attr( $slide2_tag ); ?>" 
-                             class="coastal-vitrine-img"
-                             loading="lazy">
-                        
-                        <?php if ( ! empty( $slide2_tag ) ) : ?>
-                            <a href="<?php echo esc_url( function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-002' ) : home_url( '/?post_type=product&view_product=r-002' ) ); ?>" class="coastal-slide-badge" style="text-decoration:none;" title="مشاهده صفحه اختصاصی اثر R-002">
-                                <span><?php echo esc_html( $slide2_tag ); ?></span>
-                            </a>
-                        <?php endif; ?>
+                        <a href="<?php echo esc_url( $slide2_url ); ?>" class="coastal-vitrine-link" aria-label="<?php echo esc_attr( $slide2_tag ); ?> - کلیک جهت مشاهده مشخصات">
+                            <img src="<?php echo esc_url( $slide2_img ); ?>" 
+                                 alt="<?php echo esc_attr( $slide2_tag ); ?>" 
+                                 class="coastal-vitrine-img"
+                                 loading="lazy">
+                            
+                            <?php if ( ! empty( $slide2_tag ) ) : ?>
+                                <div class="coastal-slide-badge">
+                                    <span><?php echo esc_html( $slide2_tag ); ?></span>
+                                    <span class="coastal-slide-arrow" aria-hidden="true">←</span>
+                                </div>
+                            <?php endif; ?>
+                        </a>
 
                         <div class="razgem-hotspot-pin pin-1" 
                              style="top: 64%; left: 32%;"
@@ -209,18 +228,21 @@ $pin2_y      = get_theme_mod( 'hero_pin2_y', 32 );
                         </div>
                     </div>
 
-                    <!-- Slide 3 -->
+                    <!-- Slide 3: Direct Clickable Anchor to Single Product Vitrine -->
                     <div class="razgem-hero-slide" data-index="2" role="group" aria-roledescription="slide" aria-label="اسلاید ۳ از ۳: <?php echo esc_attr( $slide3_tag ); ?>">
-                        <img src="<?php echo esc_url( $slide3_img ); ?>" 
-                             alt="<?php echo esc_attr( $slide3_tag ); ?>" 
-                             class="coastal-vitrine-img"
-                             loading="lazy">
-                        
-                        <?php if ( ! empty( $slide3_tag ) ) : ?>
-                            <div class="coastal-slide-badge">
-                                <span><?php echo esc_html( $slide3_tag ); ?></span>
-                            </div>
-                        <?php endif; ?>
+                        <a href="<?php echo esc_url( $slide3_url ); ?>" class="coastal-vitrine-link" aria-label="<?php echo esc_attr( $slide3_tag ); ?> - کلیک جهت مشاهده مشخصات">
+                            <img src="<?php echo esc_url( $slide3_img ); ?>" 
+                                 alt="<?php echo esc_attr( $slide3_tag ); ?>" 
+                                 class="coastal-vitrine-img"
+                                 loading="lazy">
+                            
+                            <?php if ( ! empty( $slide3_tag ) ) : ?>
+                                <div class="coastal-slide-badge">
+                                    <span><?php echo esc_html( $slide3_tag ); ?></span>
+                                    <span class="coastal-slide-arrow" aria-hidden="true">←</span>
+                                </div>
+                            <?php endif; ?>
+                        </a>
 
                         <div class="razgem-hotspot-pin pin-1" 
                              style="top: 50%; left: 50%;"

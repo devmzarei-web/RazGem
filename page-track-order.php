@@ -27,31 +27,33 @@ get_header();
         <!-- Tracking Form Card -->
         <div class="pebble-surface" style="padding: 2.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(27,51,71,0.06); margin-bottom: 2rem;">
             
+            <!-- Iranian National Post Tracking Form (Always Active) -->
+            <form action="https://tracking.post.ir/" method="get" target="_blank" rel="noopener noreferrer" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div>
+                    <label for="postTrackingCode" style="display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-marine-deep);">
+                        کد رهگیری ۲۴ رقمی پست پیشتاز:
+                    </label>
+                    <input type="text" 
+                           id="postTrackingCode" 
+                           name="id" 
+                           placeholder="مثال: 123456789012345678901234" 
+                           maxlength="24"
+                           style="width: 100%; padding: 0.85rem 1.2rem; border: 1.5px solid var(--color-pebble); border-radius: 12px; font-size: 1.05rem; font-family: inherit; direction: ltr; text-align: center; letter-spacing: 2px;" 
+                           required>
+                </div>
+
+                <button type="submit" class="btn-coastal-slate" style="width: 100%; padding: 0.9rem; font-size: 1rem;">
+                    <span>رهگیری آنلاین در سامانه شرکت ملی پست ایران (tracking.post.ir)</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </button>
+            </form>
+
             <?php if ( function_exists( 'woocommerce_order_tracking' ) ) : ?>
-                <!-- WooCommerce Native Tracking Form if Active -->
-                <div class="wc-tracking-embed">
+                <!-- Optional WooCommerce Internal Order Status Tracking -->
+                <div class="wc-tracking-embed" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-pebble-light);">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--color-marine-deep);">یا پیگیری داخلی با شماره سفارش رازجم:</h4>
                     <?php echo do_shortcode( '[woocommerce_order_tracking]' ); ?>
                 </div>
-            <?php else : ?>
-                <!-- Standalone Tracking Form -->
-                <form action="https://tracking.post.ir/" method="get" target="_blank" rel="noopener noreferrer" style="display: flex; flex-direction: column; gap: 1.2rem;">
-                    <div>
-                        <label for="postTrackingCode" style="display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-marine-deep);">
-                            کد رهگیری ۲۴ رقمی پست پیشتاز:
-                        </label>
-                        <input type="text" 
-                               id="postTrackingCode" 
-                               name="id" 
-                               placeholder="مثال: 123456789012345678901234" 
-                               style="width: 100%; padding: 0.85rem 1.2rem; border: 1.5px solid var(--color-pebble); border-radius: 12px; font-size: 1rem; font-family: inherit; direction: ltr; text-align: center;" 
-                               required>
-                    </div>
-
-                    <button type="submit" class="btn-coastal-slate" style="width: 100%; padding: 0.9rem; font-size: 1rem;">
-                        <span>رهگیری آنلاین در سامانه شرکت ملی پست ایران</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </button>
-                </form>
             <?php endif; ?>
 
             <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--color-pebble-light); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">

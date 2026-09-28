@@ -166,13 +166,24 @@ function razgem_customize_register( $wp_customize ) {
     ) ) );
 
     $wp_customize->add_setting( 'hero_slide_1_tag', array(
-        'default'           => 'مدال و آویز طلای ۱۸ عیار و مروارید باروک',
+        'default'           => 'گوشواره صدف طبیعی با مروارید باروک کد R-001',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_1_tag', array(
-        'label'    => 'برچسب معرف اسلاید اول',
+        'label'    => 'عنوان اسلاید اول',
         'section'  => 'razgem_hero_section',
         'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_1_url', array(
+        'default'           => '/product/r-001/',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_1_url', array(
+        'label'    => 'لینک صفحه محصول اسلاید اول',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-001/)',
     ) );
 
     // Hero Spotlight Slide 2 Image
@@ -183,17 +194,28 @@ function razgem_customize_register( $wp_customize ) {
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_2_image', array(
         'label'       => 'تصویر اسلاید دوم هیرو',
         'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر کالکشن گوشواره‌های دست‌ساز لود می‌شود.',
+        'description' => 'در صورت خالی بودن، تصویر اثر R-002 لود می‌شود.',
     ) ) );
 
     $wp_customize->add_setting( 'hero_slide_2_tag', array(
-        'default'           => 'گوشواره‌های دست‌ساز مروارید و طلا',
+        'default'           => 'گوشواره آویز صدف زرین با قطره مروارید کد R-002',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_2_tag', array(
-        'label'    => 'برچسب معرف اسلاید دوم',
+        'label'    => 'عنوان اسلاید دوم',
         'section'  => 'razgem_hero_section',
         'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_2_url', array(
+        'default'           => '/product/r-002/',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_2_url', array(
+        'label'    => 'لینک صفحه محصول اسلاید دوم',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-002/)',
     ) );
 
     // Hero Spotlight Slide 3 Image
@@ -204,17 +226,28 @@ function razgem_customize_register( $wp_customize ) {
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_3_image', array(
         'label'       => 'تصویر اسلاید سوم هیرو',
         'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر آتلیه زرگری و ساخت اختصاصی لود می‌شود.',
+        'description' => 'در صورت خالی بودن، تصویر گردنبند R-003 لود می‌شود.',
     ) ) );
 
     $wp_customize->add_setting( 'hero_slide_3_tag', array(
-        'default'           => 'آتلیه و ساخت اختصاصی زیورآلات',
+        'default'           => 'گردنبند پلاک صدف و مروارید باروک کد R-003',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_3_tag', array(
-        'label'    => 'برچسب معرف اسلاید سوم',
+        'label'    => 'عنوان اسلاید سوم',
         'section'  => 'razgem_hero_section',
         'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_3_url', array(
+        'default'           => '/product/r-003/',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_3_url', array(
+        'label'    => 'لینک صفحه محصول اسلاید سوم',
+        'section'  => 'razgem_hero_section',
+        'type'     => 'text',
+        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-003/)',
     ) );
 
     // Hotspot Pin 1
@@ -840,7 +873,7 @@ function razgem_get_hero_slide_url( $index = 1 ) {
         if ( ! empty( $custom_img ) ) {
             return esc_url( $custom_img );
         }
-        return get_template_directory_uri() . '/assets/images/model-necklace-seashell.jpg';
+        return get_template_directory_uri() . '/assets/images/products/r003-main.jpg';
     }
     return get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
 }

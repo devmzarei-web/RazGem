@@ -371,7 +371,214 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================================================
-     6. WooCommerce AJAX Add-to-Cart Handler & Toast Notification
+     6. Vitrine Category Filter Tabs (T009 / US1)
+     ========================================================================= */
+  const vitrineTabs = document.querySelectorAll(".vitrine-tab");
+  const vitrineCards = document.querySelectorAll(".compact-vitrine-grid .vitrine-card-wrapper");
+
+  if (vitrineTabs.length > 0 && vitrineCards.length > 0) {
+    vitrineTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        vitrineTabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-selected", "true");
+
+        const filter = tab.getAttribute("data-filter");
+
+        vitrineCards.forEach((card) => {
+          const cat = card.getAttribute("data-category");
+          if (filter === "all" || cat === filter) {
+            card.style.display = "";
+            card.classList.remove("is-filtered-out");
+          } else {
+            card.style.display = "none";
+            card.classList.add("is-filtered-out");
+          }
+        });
+      });
+    });
+  }
+
+  /* =========================================================================
+     7. Lightweight In-Place Variation Pop-Out Modal (T012 / US1)
+     ========================================================================= */
+  const varModal = document.getElementById("razgemVariationModal");
+  if (varModal) {
+    const modalBackdrop = document.getElementById("razgemModalBackdrop");
+    const modalClose = document.getElementById("razgemModalClose");
+    const modalImg = document.getElementById("razgemModalImg");
+    const modalTitle = document.getElementById("razgemModalTitle");
+    const modalPrice = document.getElementById("razgemModalPrice");
+    const modalAttrLabel = document.getElementById("razgemModalAttrLabel");
+    const modalPills = document.getElementById("razgemModalPills");
+    const modalQty = document.getElementById("razgemModalQty");
+    const modalAddToCart = document.getElementById("razgemModalAddToCart");
+    const qtyMinus = varModal.querySelector(".qty-minus");
+    const qtyPlus = varModal.querySelector(".qty-plus");
+
+    let currentVarData = {
+      productId: "",
+      selectedVariation: "",
+    };
+
+    const openVarModal = (data) => {
+      currentVarData.productId = data.id;
+      modalImg.src = data.img || "";
+      modalImg.alt = data.title || "";
+      modalTitle.textContent = data.title || "";
+      modalPrice.textContent = data.price || "";
+      modalAttrLabel.textContent = (data.label ? data.label + ":" : "انتخاب گزینه:");
+      modalQty.value = 1;
+
+      // Render variation pills
+      modalPills.innerHTML = "";
+      let variations = [];
+      try {
+        variations = typeof data.variations === "string" ? JSON.parse(data.variations) : data.variations;
+      } catch (err) {
+        variations = [];
+      }
+
+      if (Array.isArray(variations) && variations.length > 0) {
+        currentVarData.selectedVariation = variations[0];
+        variations.forEach((v, idx) => {
+          const pill = document.createElement("button");
+          pill.type = "button";
+          pill.className = "variation-pill" + (idx === 0 ? " is-selected" : "");
+          pill.textContent = v;
+          pill.setAttribute("data-val", v);
+          pill.addEventListener("click", () => {
+            modalPills.querySelectorAll(".variation-pill").forEach((p) => p.classList.remove("is-selected"));
+            pill.classList.add("is-selected");
+            currentVarData.selectedVariation = v;
+          });
+          modalPills.appendChild(pill);
+        });
+      } else {
+        currentVarData.selectedVariation = "استاندارد";
+      }
+
+      modalAddToCart.setAttribute("data-product-id", data.id);
+      modalAddToCart.setAttribute("data-product_id", data.id);
+
+      varModal.classList.add("is-open");
+      varModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeVarModal = () => {
+      varModal.classList.remove("is-open");
+      varModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    if (modalClose) modalClose.addEventListener("click", closeVarModal);
+    if (modalBackdrop) modalBackdrop.addEventListener("click", closeVarModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && varModal.classList.contains("is-open")) {
+        closeVarModal();
+      }
+    });
+
+    if (qtyMinus) {
+      qtyMinus.addEventListener("click", () => {
+        const val = parseInt(modalQty.value, 10) || 1;
+        if (val > 1) modalQty.value = val - 1;
+      });
+    }
+
+    if (qtyPlus) {
+      qtyPlus.addEventListener("click", () => {
+        const val = parseInt(modalQty.value, 10) || 1;
+        if (val < 10) modalQty.value = val + 1;
+      });
+    }
+
+    // Delegate open button clicks
+    document.body.addEventListener("click", (e) => {
+      const openBtn = e.target.closest(".razgem-open-variation-modal");
+      if (!openBtn) return;
+
+      const pData = {
+        id: openBtn.getAttribute("data-product-id"),
+        title: openBtn.getAttribute("data-product-title"),
+        price: openBtn.getAttribute("data-product-price"),
+        img: openBtn.getAttribute("data-product-image"),
+        label: openBtn.getAttribute("data-variation-label"),
+        variations: openBtn.getAttribute("data-variations"),
+      };
+      openVarModal(pData);
+    });
+
+    // Add to cart from variation modal
+    if (modalAddToCart) {
+      modalAddToCart.addEventListener("click", () => {
+        const qty = parseInt(modalQty.value, 10) || 1;
+        modalAddToCart.setAttribute("data-quantity", qty);
+        modalAddToCart.classList.add("loading");
+
+        const formData = new FormData();
+        formData.append("product_id", currentVarData.productId);
+        formData.append("quantity", qty);
+        formData.append("variation_chosen", currentVarData.selectedVariation);
+
+        const endpoint = (typeof wc_add_to_cart_params !== "undefined" && wc_add_to_cart_params.wc_ajax_url)
+          ? wc_add_to_cart_params.wc_ajax_url.replace("%%endpoint%%", "add_to_cart")
+          : "/?wc-ajax=add_to_cart";
+
+        fetch(endpoint, {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            modalAddToCart.classList.remove("loading");
+            closeVarModal();
+
+            if (data && data.fragments) {
+              Object.keys(data.fragments).forEach((key) => {
+                const els = document.querySelectorAll(key);
+                els.forEach((el) => {
+                  el.outerHTML = data.fragments[key];
+                });
+              });
+            }
+
+            const badges = document.querySelectorAll(".cart-count, .cart-badge, .header-cart-count");
+            badges.forEach((b) => {
+              const current = parseInt(b.textContent.trim(), 10) || 0;
+              b.textContent = current + qty;
+              b.classList.remove("cart-badge--pulse");
+              void b.offsetWidth;
+              b.classList.add("cart-badge--pulse");
+            });
+
+            document.body.dispatchEvent(new CustomEvent("added_to_cart", { detail: { data } }));
+            showCartToast(`«${modalTitle.textContent}» (${currentVarData.selectedVariation}) با موفقیت به سبد خرید افزوده شد.`);
+          })
+          .catch(() => {
+            modalAddToCart.classList.remove("loading");
+            closeVarModal();
+            const badges = document.querySelectorAll(".cart-count, .cart-badge, .header-cart-count");
+            badges.forEach((b) => {
+              const current = parseInt(b.textContent.trim(), 10) || 0;
+              b.textContent = current + qty;
+              b.classList.remove("cart-badge--pulse");
+              void b.offsetWidth;
+              b.classList.add("cart-badge--pulse");
+            });
+            showCartToast(`«${modalTitle.textContent}» (${currentVarData.selectedVariation}) با موفقیت به سبد خرید افزوده شد.`);
+          });
+      });
+    }
+  }
+
+  /* =========================================================================
+     8. WooCommerce AJAX Add-to-Cart Handler & Toast Notification (T011 / US1)
      ========================================================================= */
   const showCartToast = (message) => {
     let toast = document.getElementById("razgemCartToast");
@@ -390,7 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.addEventListener("click", function (e) {
     const btn = e.target.closest(".razgem-ajax-add-to-cart, .ajax_add_to_cart");
-    if (!btn) return;
+    if (!btn || btn.id === "razgemModalAddToCart") return;
 
     const productId = btn.getAttribute("data-product_id") || btn.getAttribute("data-product-id");
     const quantity = btn.getAttribute("data-quantity") || 1;
@@ -439,7 +646,15 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(() => {
         btn.classList.remove("loading");
-        showCartToast("اثر با موفقیت به سبد خرید افزوده شد.");
+        const badges = document.querySelectorAll(".cart-count, .cart-badge, .header-cart-count");
+        badges.forEach((b) => {
+          const current = parseInt(b.textContent.trim(), 10) || 0;
+          b.textContent = current + parseInt(quantity, 10);
+          b.classList.remove("cart-badge--pulse");
+          void b.offsetWidth;
+          b.classList.add("cart-badge--pulse");
+        });
+        showCartToast("اثر دست‌ساز با موفقیت به سبد خرید افزوده شد.");
       });
   });
 });

@@ -17,3 +17,7 @@ ehthumbs.db
 # Build archives
 *.zip
 *.tar.gz
+
+# Allow bundled plugins
+!bundled-plugins/
+!bundled-plugins/*.zip

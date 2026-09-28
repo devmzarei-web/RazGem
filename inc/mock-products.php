@@ -138,6 +138,9 @@ function razgem_get_mock_products() {
             'in_stock'       => true,
             'featured'       => false,
             'on_sale'        => false,
+            'is_variable'    => true,
+            'variation_label'=> 'طول دستبند',
+            'variations'     => array( '۱۶ سانتی‌متر (ظریف)', '۱۸ سانتی‌متر (استاندارد)', '۲۰ سانتی‌متر (آزاد)' ),
         ),
         'r-006' => array(
             'id'             => 'r-006',
@@ -162,54 +165,61 @@ function razgem_get_mock_products() {
             'in_stock'       => true,
             'featured'       => true,
             'on_sale'        => false,
+            'is_variable'    => true,
+            'variation_label'=> 'سایز رکاب',
+            'variations'     => array( 'سایز ۵۲ تا ۵۴ (کوچک)', 'سایز ۵۵ تا ۵۷ (متوسط)', 'سایز ۵۸ تا ۶۰ (بزرگ)' ),
         ),
         'r-007' => array(
             'id'             => 'r-007',
             'code'           => 'R-007',
-            'title'          => 'انگشتر ارگانیک صدف مرواریدساز با پایه برنجی',
-            'short_title'    => 'انگشتر ارگانیک صدف مرواریدساز',
-            'category'       => 'دستبند و انگشتر',
-            'category_slug'  => 'rings',
-            'price_raw'      => 1650000,
-            'regular_price'  => 1650000,
-            'price_formatted'=> '۱,۶۵۰,۰۰۰ تومان',
-            'old_price'      => '',
-            'dimensions'     => 'فری‌سایز (قابل تنظیم)',
-            'material'       => 'صدف طبیعی خلیج فارس، پایه برنجی طلایی مقاوم',
-            'color'          => 'صدف طبیعی نسترن با جلای آینه‌ای',
-            'desc'           => 'تراش دست‌ساز از ضخیم‌ترین بخش صدف طبیعی مرواریدساز، نشسته بر پایه‌ای ارگانیک و تنظیم‌پذیر.',
-            'img_primary'    => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',
-            'img_hover'      => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
-            'tag'            => 'صدف مرواریدساز',
-            'badge'          => 'فری‌سایز',
-            'badge_type'     => 'nature',
+            'title'          => 'چوکر مروارید باروک و صدف مخملی دست‌ساز',
+            'short_title'    => 'چوکر صدف و مروارید باروک',
+            'category'       => 'گردنبند و چوکر',
+            'category_slug'  => 'necklaces-chokers',
+            'price_raw'      => 2890000,
+            'regular_price'  => 3200000,
+            'price_formatted'=> '۲,۸۹۰,۰۰۰ تومان',
+            'old_price'      => '۳,۲۰۰,۰۰۰ تومان',
+            'dimensions'     => 'طول ۳۶ تا ۴۰ سانتی‌متر (پلاک: ۴.۰ × ۳.۵ سانتی‌متر)',
+            'material'       => 'صدف طبیعی بادبزنی، مروارید باروک درخشان، روبان مخمل کتان عاجی، اتصالات نقره ۹۲۵ با روکش طلای ۱۸ عیار',
+            'color'          => 'سفید عاجی و تلألو مرواریدی ارگانیک',
+            'desc'           => 'شاهکار اصیل از تلفیق صدف بادبزنی طبیعی و مروارید باروک بر بستر مخمل کتان عاجی. اثری فاخر با جلوه‌ای لوکس و وقار اشرافی.',
+            'img_primary'    => $theme_uri . '/assets/images/products/r007-main.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/products/r007-dimensions.jpg',
+            'tag'            => 'چوکر مخمل و مروارید باروک',
+            'badge'          => 'شاهکار آتلیه',
+            'badge_type'     => 'pearl',
             'in_stock'       => true,
-            'featured'       => false,
-            'on_sale'        => false,
+            'featured'       => true,
+            'on_sale'        => true,
+            'is_variable'    => false,
         ),
         'r-008' => array(
             'id'             => 'r-008',
             'code'           => 'R-008',
-            'title'          => 'چوکر ساحلی صدف طبیعی و مرواریدهای وحشی',
-            'short_title'    => 'چوکر ساحلی صدف و مروارید وحشی',
-            'category'       => 'گردنبند و مدال',
-            'category_slug'  => 'necklaces',
-            'price_raw'      => 3400000,
-            'regular_price'  => 3800000,
-            'price_formatted'=> '۳,۴۰۰,۰۰۰ تومان',
-            'old_price'      => '۳,۸۰۰,۰۰۰ تومان',
-            'dimensions'     => 'طول ۳۸ تا ۴۲ سانتی‌متر',
-            'material'       => 'صدف‌های تراش‌خورده طبیعی، مرواریدهای باروک ریز، قفل طلایی',
-            'color'          => 'سفید عاجی و عسلی طبیعی',
-            'desc'           => 'چوکر ظریف ساحلی با ریتم موزون از صدف‌های دست‌تراش و مرواریدهای باروک که بر گردن جلوه‌ای چشم‌نواز دارد.',
-            'img_primary'    => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
-            'img_hover'      => $theme_uri . '/assets/images/coastal-wave-shoreline.jpg',
-            'tag'            => 'کالکشن دریا',
-            'badge'          => 'حراج',
-            'badge_type'     => 'discount',
+            'title'          => 'انگشتر صدف حلزونی هفت‌رنگ مرجانی دست‌ساز',
+            'short_title'    => 'انگشتر صدف حلزونی هفت‌رنگ',
+            'category'       => 'دستبند و انگشتر',
+            'category_slug'  => 'bracelets-rings',
+            'price_raw'      => 2150000,
+            'regular_price'  => 2400000,
+            'price_formatted'=> '۲,۱۵۰,۰۰۰ تومان',
+            'old_price'      => '۲,۴۰۰,۰۰۰ تومان',
+            'dimensions'     => 'ابعاد صدف: ۲.۸ × ۲.۲ سانتی‌متر (سایز قابل تنظیم)',
+            'material'       => 'صدف حلزونی مینیاتوری هفت‌رنگ طبیعی، مرواریدهای باروک ریز، رکاب چکش‌خورده با روکش طلای ۱۸ عیار',
+            'color'          => 'صدف طبیعی هفت‌رنگ با تلألو رنگین‌کمانی خلیج فارس',
+            'desc'           => 'انگشتر استیتمنت با صدف حلزونی مینیاتوری طبیعی و مرواریدهای باروک ریز بر رکابی ارگانیک با روکش طلای ۱۸ عیار و قابلیت تنظیم سایز.',
+            'img_primary'    => $theme_uri . '/assets/images/products/r008-main.jpg',
+            'img_hover'      => $theme_uri . '/assets/images/products/r008-dimensions.jpg',
+            'tag'            => 'صدف حلزونی هفت‌رنگ',
+            'badge'          => 'فری‌سایز',
+            'badge_type'     => 'nature',
             'in_stock'       => true,
             'featured'       => true,
-            'on_sale'        => true,
+            'on_sale'        => false,
+            'is_variable'    => true,
+            'variation_label'=> 'پوشش رکاب',
+            'variations'     => array( 'روکش طلای ۱۸ عیار', 'نقره استرلینگ ۹۲۵' ),
         ),
     );
 }
@@ -406,7 +416,20 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                         <span class="price-current"><?php echo esc_html( $p['price_formatted'] ); ?></span>
                     </div>
 
-                    <?php if ( $wc_id > 0 ) : ?>
+                    <?php if ( ! empty( $p['is_variable'] ) ) : ?>
+                        <button type="button" 
+                                class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
+                                data-product-id="<?php echo esc_attr( $wc_id > 0 ? $wc_id : $p['id'] ); ?>"
+                                data-product-title="<?php echo esc_attr( $p['title'] ); ?>"
+                                data-product-price="<?php echo esc_attr( $p['price_formatted'] ); ?>"
+                                data-product-image="<?php echo esc_url( $p['img_primary'] ); ?>"
+                                data-variation-label="<?php echo esc_attr( $p['variation_label'] ?? 'انتخاب گزینه' ); ?>"
+                                data-variations="<?php echo esc_attr( wp_json_encode( $p['variations'] ?? array() ) ); ?>"
+                                aria-label="انتخاب گزینه‌های <?php echo esc_attr( $p['title'] ); ?>"
+                                title="انتخاب گزینه‌ها">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    <?php elseif ( $wc_id > 0 ) : ?>
                         <button type="button" 
                                 class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
                                 data-product_id="<?php echo esc_attr( $wc_id ); ?>"

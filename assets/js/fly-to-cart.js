@@ -79,12 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     badge.classList.remove('cart-badge--pulse');
                     void badge.offsetWidth; // trigger reflow
                     badge.classList.add('cart-badge--pulse');
-
-                    // If mock or simple update without AJAX refresh, increment visual count
-                    const currentCount = parseInt(badge.textContent.trim(), 10);
-                    if (!isNaN(currentCount)) {
-                        badge.textContent = currentCount + 1;
-                    }
                 }
 
                 cartBtn.classList.remove('cart-icon--bounce');
