@@ -657,4 +657,102 @@ document.addEventListener("DOMContentLoaded", () => {
         showCartToast("اثر دست‌ساز با موفقیت به سبد خرید افزوده شد.");
       });
   });
+
+  /* =========================================================================
+     9. Wonder Deals Live Countdown Timer Engine (T010 / US2)
+     ========================================================================= */
+  const initFlashSaleCountdown = () => {
+    const timerContainer = document.getElementById("razgemFlashSaleTimer");
+    if (!timerContainer) return;
+
+    const daysEl = timerContainer.querySelector('[data-unit="days"]');
+    const hoursEl = timerContainer.querySelector('[data-unit="hours"]');
+    const minutesEl = timerContainer.querySelector('[data-unit="minutes"]');
+    const secondsEl = timerContainer.querySelector('[data-unit="seconds"]');
+
+    const toPersianNum = (num) => {
+      const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      return String(num).padStart(2, '0').replace(/\d/g, (d) => persianDigits[parseInt(d, 10)]);
+    };
+
+    const customEnd = timerContainer.getAttribute("data-countdown-end");
+    let targetTime;
+
+    if (customEnd && !isNaN(Date.parse(customEnd))) {
+      targetTime = new Date(customEnd).getTime();
+    } else {
+      // 24-hour rolling urgency loop stored in sessionStorage so it stays consistent per visitor session
+      const stored = sessionStorage.getItem("razgem_flash_sale_end");
+      if (stored && !isNaN(parseInt(stored, 10)) && parseInt(stored, 10) > Date.now()) {
+        targetTime = parseInt(stored, 10);
+      } else {
+        targetTime = Date.now() + (24 * 60 * 60 * 1000) - (15 * 60 * 1000); // 23h 45m from first load
+        sessionStorage.setItem("razgem_flash_sale_end", targetTime.toString());
+      }
+    }
+
+    const updateTimer = () => {
+      const now = Date.now();
+      let diff = targetTime - now;
+
+      if (diff <= 0) {
+        // Reset rolling loop if expired
+        targetTime = Date.now() + (24 * 60 * 60 * 1000);
+        sessionStorage.setItem("razgem_flash_sale_end", targetTime.toString());
+        diff = targetTime - now;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = toPersianNum(days);
+      if (hoursEl) hoursEl.textContent = toPersianNum(hours);
+      if (minutesEl) minutesEl.textContent = toPersianNum(minutes);
+      if (secondsEl) secondsEl.textContent = toPersianNum(seconds);
+    };
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  };
+
+  initFlashSaleCountdown();
+
+  /* =========================================================================
+     10. Multi-Category Vitrine Filter Tabs (T014 / US4)
+     ========================================================================= */
+  const initVitrineFilterTabs = () => {
+    const tabBtns = document.querySelectorAll(".vitrine-tab-btn");
+    const grid = document.querySelector(".vitrine-grid");
+    if (!tabBtns.length || !grid) return;
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabBtns.forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+
+        const targetCat = btn.getAttribute("data-category");
+        const items = grid.querySelectorAll(".product-card-wrap");
+
+        items.forEach((item) => {
+          const itemCat = item.getAttribute("data-category");
+          if (targetCat === "all" || itemCat === targetCat) {
+            item.classList.remove("is-hidden");
+            item.style.opacity = "0";
+            item.style.transform = "translateY(12px)";
+            setTimeout(() => {
+              item.style.transition = "opacity 0.35s ease, transform 0.35s ease";
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0)";
+            }, 30);
+          } else {
+            item.classList.add("is-hidden");
+          }
+        });
+      });
+    });
+  };
+
+  initVitrineFilterTabs();
 });

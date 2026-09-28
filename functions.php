@@ -37,6 +37,9 @@ require_once get_template_directory() . '/inc/wc-product-seeder.php';
 // Include Persian Admin Product Management Guide
 require_once get_template_directory() . '/inc/admin-product-guide.php';
 
+// Include Schema.org JSON-LD & SEO Optimization Engine
+require_once get_template_directory() . '/inc/seo.php';
+
 /**
  * Renders an organic living wave divider between sections.
  *

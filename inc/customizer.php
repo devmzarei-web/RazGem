@@ -71,269 +71,216 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     // -------------------------------------------------------------------------
-    // 2. HERO SECTION & JEWELRY SPOTLIGHT
+    // 2. HERO COMMERCIAL BANNERS & PROMO GRID (3-Part Layout)
     // -------------------------------------------------------------------------
-    $wp_customize->add_section( 'razgem_hero_section', array(
-        'title'       => 'بخش هیرو و ویترین اصلی (Spotlight Hero)',
+    $wp_customize->add_section( 'razgem_hero_banners_section', array(
+        'title'       => 'بنرها و هیرو تجاری صفحه نخست (Hero & Banners)',
         'priority'    => 26,
-        'description' => 'تنظیمات ویترین اصلی، تیترها، دکمه‌ها و نشانگرهای هوشمند روی تصویر',
+        'description' => 'مدیریت بنرهای ۳ بخشی هیرو (اسلایدر ۳ تصویری بزرگ سمت راست و ۲ بنر ثابت عمودی سمت چپ) به همراه متون سئو (Alt) و لینک‌های مقصد.',
     ) );
 
-    // Hero Badge
-    $wp_customize->add_setting( 'hero_badge', array(
-        'default'           => 'کالکشن فاخر زیورآلات دست‌ساز',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_badge', array(
-        'label'    => 'برچسب بالای تیتر (Badge)',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    // Hero Title
-    $wp_customize->add_setting( 'hero_title', array(
-        'default'           => 'درخشش اصالت و هنر دست در تلفیق طلا و مروارید رازجم',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_title', array(
-        'label'    => 'تیتر اصلی هیرو (Peyda)',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    // Hero Subtitle / Description
-    $wp_customize->add_setting( 'hero_subtitle', array(
-        'default'           => 'طراحی و ساخت دست‌سازه‌های اختصاصی طلای ۱۸ عیار، مرواریدهای باروک طبیعی و سنگ‌های قیمتی',
-        'sanitize_callback' => 'sanitize_textarea_field',
-    ) );
-    $wp_customize->add_control( 'hero_subtitle', array(
-        'label'    => 'متن توضیحات زیر تیتر',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'textarea',
-    ) );
-
-    // Primary CTA Button
-    $wp_customize->add_setting( 'hero_btn1_text', array(
-        'default'           => 'مشاهده کالکشن زیورآلات',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_btn1_text', array(
-        'label'    => 'متن دکمه اصلی (CTA 1)',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    $wp_customize->add_setting( 'hero_btn1_url', array(
-        'default'           => '/shop',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'hero_btn1_url', array(
-        'label'    => 'لینک دکمه اصلی',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    // Secondary CTA Button
-    $wp_customize->add_setting( 'hero_btn2_text', array(
-        'default'           => 'سفارش ساخت اختصاصی',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_btn2_text', array(
-        'label'    => 'متن دکمه دوم (CTA 2)',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    $wp_customize->add_setting( 'hero_btn2_url', array(
-        'default'           => '/contact',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'hero_btn2_url', array(
-        'label'    => 'لینک دکمه دوم',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
-    // Hero Spotlight Slide 1 Image
-    $wp_customize->add_setting( 'hero_slide_image', array(
+    // --- Slide 1 (Featured Wide Carousel) ---
+    $wp_customize->add_setting( 'hero_slide_1_image', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_image', array(
-        'label'       => 'تصویر اسلاید اول هیرو (پیشنهادی: ۱۲۰۰x۱۲۰۰ پیکسل)',
-        'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر مدال مروارید باروک و طلا لود می‌شود.',
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_1_image', array(
+        'label'       => 'تصویر اسلایدر اصلی ۱ (پیشنهادی: ۸۸۰ × ۴۲۰ پیکسل)',
+        'section'     => 'razgem_hero_banners_section',
+        'description' => 'تصویر اسلاید اول کروسل اصلی. دکمه‌ها و نوشته‌ها روی بنر طراحی می‌شوند.',
     ) ) );
 
-    $wp_customize->add_setting( 'hero_slide_1_tag', array(
-        'default'           => 'گوشواره صدف طبیعی با مروارید باروک کد R-001',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_slide_1_tag', array(
-        'label'    => 'عنوان اسلاید اول',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
     $wp_customize->add_setting( 'hero_slide_1_url', array(
-        'default'           => '/product/r-001/',
+        'default'           => '/product/r-003/',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_1_url', array(
-        'label'    => 'لینک صفحه محصول اسلاید اول',
-        'section'  => 'razgem_hero_section',
+        'label'    => 'لینک مقصد اسلایدر ۱',
+        'section'  => 'razgem_hero_banners_section',
         'type'     => 'text',
-        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-001/)',
     ) );
 
-    // Hero Spotlight Slide 2 Image
+    $wp_customize->add_setting( 'hero_slide_1_alt', array(
+        'default'           => 'تابلو صدف دریایی طرح خورشید دست‌ساز کد R-003 - آتلیه رازجم',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_1_alt', array(
+        'label'       => 'متن جایگزین سئو (Alt) اسلایدر ۱',
+        'section'     => 'razgem_hero_banners_section',
+        'type'        => 'text',
+        'description' => 'توصیف دقیق برای موتورهای جستجو و بهبود سئو رتبه سایت.',
+    ) );
+
+    // --- Slide 2 (Featured Wide Carousel) ---
     $wp_customize->add_setting( 'hero_slide_2_image', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_2_image', array(
-        'label'       => 'تصویر اسلاید دوم هیرو',
-        'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر اثر R-002 لود می‌شود.',
+        'label'       => 'تصویر اسلایدر اصلی ۲',
+        'section'     => 'razgem_hero_banners_section',
     ) ) );
 
-    $wp_customize->add_setting( 'hero_slide_2_tag', array(
-        'default'           => 'گوشواره آویز صدف زرین با قطره مروارید کد R-002',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_slide_2_tag', array(
-        'label'    => 'عنوان اسلاید دوم',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
     $wp_customize->add_setting( 'hero_slide_2_url', array(
-        'default'           => '/product/r-002/',
+        'default'           => '/product/r-001/',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_2_url', array(
-        'label'    => 'لینک صفحه محصول اسلاید دوم',
-        'section'  => 'razgem_hero_section',
+        'label'    => 'لینک مقصد اسلایدر ۲',
+        'section'  => 'razgem_hero_banners_section',
         'type'     => 'text',
-        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-002/)',
     ) );
 
-    // Hero Spotlight Slide 3 Image
+    $wp_customize->add_setting( 'hero_slide_2_alt', array(
+        'default'           => 'گوشواره هنری دست‌ساز با صدف طبیعی و مروارید باروک کد R-001',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_2_alt', array(
+        'label'    => 'متن جایگزین سئو (Alt) اسلایدر ۲',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    // --- Slide 3 (Featured Wide Carousel) ---
     $wp_customize->add_setting( 'hero_slide_3_image', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_3_image', array(
-        'label'       => 'تصویر اسلاید سوم هیرو',
-        'section'     => 'razgem_hero_section',
-        'description' => 'در صورت خالی بودن، تصویر گردنبند R-003 لود می‌شود.',
+        'label'       => 'تصویر اسلایدر اصلی ۳',
+        'section'     => 'razgem_hero_banners_section',
     ) ) );
 
-    $wp_customize->add_setting( 'hero_slide_3_tag', array(
-        'default'           => 'گردنبند پلاک صدف و مروارید باروک کد R-003',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'hero_slide_3_tag', array(
-        'label'    => 'عنوان اسلاید سوم',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'text',
-    ) );
-
     $wp_customize->add_setting( 'hero_slide_3_url', array(
-        'default'           => '/product/r-003/',
+        'default'           => '/product/r-004/',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_3_url', array(
-        'label'    => 'لینک صفحه محصول اسلاید سوم',
-        'section'  => 'razgem_hero_section',
+        'label'    => 'لینک مقصد اسلایدر ۳',
+        'section'  => 'razgem_hero_banners_section',
         'type'     => 'text',
-        'description' => 'لینک صفحه اختصاصی این اثر در فروشگاه (مثال: /product/r-003/)',
     ) );
 
-    // Hotspot Pin 1
-    $wp_customize->add_setting( 'hero_pin1_enable', array(
+    $wp_customize->add_setting( 'hero_slide_3_alt', array(
+        'default'           => 'تابلو توتیای دریایی سه بعدی دست‌ساز کد R-004 - شاهکار طبیعی دریا',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_3_alt', array(
+        'label'    => 'متن جایگزین سئو (Alt) اسلایدر ۳',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    // --- Top Static Promo Card (Left Side Desktop) ---
+    $wp_customize->add_setting( 'hero_promo_top_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_promo_top_image', array(
+        'label'       => 'تصویر بنر ثابت بالا (پیشنهادی: ۴۰۰ × ۲۰۰ پیکسل)',
+        'section'     => 'razgem_hero_banners_section',
+        'description' => 'بنر تبلیغاتی ثابت بالای ستون کناری.',
+    ) ) );
+
+    $wp_customize->add_setting( 'hero_promo_top_url', array(
+        'default'           => '/product/r-002/',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_promo_top_url', array(
+        'label'    => 'لینک بنر ثابت بالا',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_promo_top_alt', array(
+        'default'           => 'گوشواره صدف بادبزنی رگه‌دار طبیعی کد R-002',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_promo_top_alt', array(
+        'label'    => 'متن جایگزین سئو (Alt) بنر بالا',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    // --- Bottom Static Promo Card (Left Side Desktop) ---
+    $wp_customize->add_setting( 'hero_promo_btm_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_promo_btm_image', array(
+        'label'       => 'تصویر بنر ثابت پایین (پیشنهادی: ۴۰۰ × ۲۰۰ پیکسل)',
+        'section'     => 'razgem_hero_banners_section',
+        'description' => 'بنر تبلیغاتی ثابت پایین ستون کناری.',
+    ) ) );
+
+    $wp_customize->add_setting( 'hero_promo_btm_url', array(
+        'default'           => '/product/r-007/',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_promo_btm_url', array(
+        'label'    => 'لینک بنر ثابت پایین',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_promo_btm_alt', array(
+        'default'           => 'چوکر مروارید باروک و صدف مخملی دست‌ساز کد R-007',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_promo_btm_alt', array(
+        'label'    => 'متن جایگزین سئو (Alt) بنر پایین',
+        'section'  => 'razgem_hero_banners_section',
+        'type'     => 'text',
+    ) );
+
+    // -------------------------------------------------------------------------
+    // 2.1 WONDER DEALS & FLASH SALE (پیشنهاد شگفت‌انگیز)
+    // -------------------------------------------------------------------------
+    $wp_customize->add_section( 'razgem_flash_sale_section', array(
+        'title'       => 'پیشنهاد شگفت‌انگیز و شمارشگر معکوس (Wonder Deals)',
+        'priority'    => 26.5,
+        'description' => 'تنظیمات بخش پیشنهاد شگفت‌انگیز و زمان‌بندی شمارشگر معکوس تخفیف.',
+    ) );
+
+    $wp_customize->add_setting( 'flash_sale_enable', array(
         'default'           => true,
         'sanitize_callback' => 'wp_validate_boolean',
     ) );
-    $wp_customize->add_control( 'hero_pin1_enable', array(
-        'label'    => 'فعال‌سازی نشانگر اول (Pin 1)',
-        'section'  => 'razgem_hero_section',
+    $wp_customize->add_control( 'flash_sale_enable', array(
+        'label'    => 'نمایش بخش پیشنهاد شگفت‌انگیز',
+        'section'  => 'razgem_flash_sale_section',
         'type'     => 'checkbox',
     ) );
 
-    $wp_customize->add_setting( 'hero_pin1_text', array(
-        'default'           => 'طلای ۱۸ عیار دست‌ساز',
+    $wp_customize->add_setting( 'flash_sale_title', array(
+        'default'           => 'پیشنهاد شگفت‌انگیز صدف و مروارید',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
-    $wp_customize->add_control( 'hero_pin1_text', array(
-        'label'    => 'متن نشانگر اول',
-        'section'  => 'razgem_hero_section',
+    $wp_customize->add_control( 'flash_sale_title', array(
+        'label'    => 'عنوان پیشنهاد شگفت‌انگیز',
+        'section'  => 'razgem_flash_sale_section',
         'type'     => 'text',
     ) );
 
-    $wp_customize->add_setting( 'hero_pin1_x', array(
-        'default'           => 38,
-        'sanitize_callback' => 'absint',
-    ) );
-    $wp_customize->add_control( 'hero_pin1_x', array(
-        'label'       => 'موقعیت افقی نشانگر ۱ (درصد: 0-100)',
-        'section'     => 'razgem_hero_section',
-        'type'        => 'number',
-        'input_attrs' => array( 'min' => 0, 'max' => 100, 'step' => 1 ),
-    ) );
-
-    $wp_customize->add_setting( 'hero_pin1_y', array(
-        'default'           => 42,
-        'sanitize_callback' => 'absint',
-    ) );
-    $wp_customize->add_control( 'hero_pin1_y', array(
-        'label'       => 'موقعیت عمودی نشانگر ۱ (درصد: 0-100)',
-        'section'     => 'razgem_hero_section',
-        'type'        => 'number',
-        'input_attrs' => array( 'min' => 0, 'max' => 100, 'step' => 1 ),
-    ) );
-
-    // Hotspot Pin 2
-    $wp_customize->add_setting( 'hero_pin2_enable', array(
-        'default'           => true,
-        'sanitize_callback' => 'wp_validate_boolean',
-    ) );
-    $wp_customize->add_control( 'hero_pin2_enable', array(
-        'label'    => 'فعال‌سازی نشانگر دوم (Pin 2)',
-        'section'  => 'razgem_hero_section',
-        'type'     => 'checkbox',
-    ) );
-
-    $wp_customize->add_setting( 'hero_pin2_text', array(
-        'default'           => 'مروارید اصل باروک خلیج فارس',
+    $wp_customize->add_setting( 'flash_sale_subtitle', array(
+        'default'           => 'تخفیف‌های استثنایی و محدود شاهکارهای دست‌ساز رازجم',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
-    $wp_customize->add_control( 'hero_pin2_text', array(
-        'label'    => 'متن نشانگر دوم',
-        'section'  => 'razgem_hero_section',
+    $wp_customize->add_control( 'flash_sale_subtitle', array(
+        'label'    => 'توضیحات زیر عنوان',
+        'section'  => 'razgem_flash_sale_section',
         'type'     => 'text',
     ) );
 
-    $wp_customize->add_setting( 'hero_pin2_x', array(
-        'default'           => 56,
-        'sanitize_callback' => 'absint',
+    $wp_customize->add_setting( 'flash_sale_end', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
     ) );
-    $wp_customize->add_control( 'hero_pin2_x', array(
-        'label'       => 'موقعیت افقی نشانگر ۲ (درصد: 0-100)',
-        'section'     => 'razgem_hero_section',
-        'type'        => 'number',
-        'input_attrs' => array( 'min' => 0, 'max' => 100, 'step' => 1 ),
-    ) );
-
-    $wp_customize->add_setting( 'hero_pin2_y', array(
-        'default'           => 64,
-        'sanitize_callback' => 'absint',
-    ) );
-    $wp_customize->add_control( 'hero_pin2_y', array(
-        'label'       => 'موقعیت عمودی نشانگر ۲ (درصد: 0-100)',
-        'section'     => 'razgem_hero_section',
-        'type'        => 'number',
-        'input_attrs' => array( 'min' => 0, 'max' => 100, 'step' => 1 ),
+    $wp_customize->add_control( 'flash_sale_end', array(
+        'label'       => 'زمان پایان فروش شگفت‌انگیز (ISO 8601)',
+        'section'     => 'razgem_flash_sale_section',
+        'type'        => 'text',
+        'description' => 'مثال: 2026-10-15T23:59:59 (در صورت خالی بودن، شمارشگر به صورت ۲۴ ساعته هوشمند محاسبه خواهد شد).',
     ) );
 
     // -------------------------------------------------------------------------
@@ -841,6 +788,62 @@ function razgem_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'razgem_customize_register' );
 
 /**
+ * Helper to retrieve hero 3-part grid banner data (3 slides + 2 static promo cards).
+ * Uses Customizer settings with rich fallbacks to authentic product imagery.
+ *
+ * @return array
+ */
+function razgem_get_hero_banners() {
+    $theme_uri = get_template_directory_uri();
+
+    $slide1_img = get_theme_mod( 'hero_slide_1_image', '' );
+    $slide2_img = get_theme_mod( 'hero_slide_2_image', '' );
+    $slide3_img = get_theme_mod( 'hero_slide_3_image', '' );
+    $promo_top_img = get_theme_mod( 'hero_promo_top_image', '' );
+    $promo_btm_img = get_theme_mod( 'hero_promo_btm_image', '' );
+
+    return array(
+        'slides' => array(
+            array(
+                'image' => ! empty( $slide1_img ) ? esc_url( $slide1_img ) : $theme_uri . '/assets/images/products/r003-front.png',
+                'url'   => esc_url( get_theme_mod( 'hero_slide_1_url', '/product/r-003/' ) ),
+                'alt'   => sanitize_text_field( get_theme_mod( 'hero_slide_1_alt', 'تابلو صدف دریایی طرح خورشید دست‌ساز کد R-003 - آتلیه رازجم' ) ),
+                'badge' => 'اثر شاخص گالری',
+                'title' => 'تابلو صدف دریایی طرح خورشید',
+            ),
+            array(
+                'image' => ! empty( $slide2_img ) ? esc_url( $slide2_img ) : $theme_uri . '/assets/images/products/r001-main.jpg',
+                'url'   => esc_url( get_theme_mod( 'hero_slide_2_url', '/product/r-001/' ) ),
+                'alt'   => sanitize_text_field( get_theme_mod( 'hero_slide_2_alt', 'گوشواره هنری دست‌ساز با صدف طبیعی و مروارید باروک کد R-001' ) ),
+                'badge' => 'صدف طبیعی اصل',
+                'title' => 'گوشواره دست‌ساز مرجانی',
+            ),
+            array(
+                'image' => ! empty( $slide3_img ) ? esc_url( $slide3_img ) : $theme_uri . '/assets/images/products/r004-main.png',
+                'url'   => esc_url( get_theme_mod( 'hero_slide_3_url', '/product/r-004/' ) ),
+                'alt'   => sanitize_text_field( get_theme_mod( 'hero_slide_3_alt', 'تابلو توتیای دریایی سه بعدی دست‌ساز کد R-004 - شاهکار طبیعی دریا' ) ),
+                'badge' => 'سه‌بعدی و طبیعی',
+                'title' => 'تابلو توتیای دریایی خلیج فارس',
+            ),
+        ),
+        'promo_top' => array(
+            'image' => ! empty( $promo_top_img ) ? esc_url( $promo_top_img ) : $theme_uri . '/assets/images/products/r002-main.jpg',
+            'url'   => esc_url( get_theme_mod( 'hero_promo_top_url', '/product/r-002/' ) ),
+            'alt'   => sanitize_text_field( get_theme_mod( 'hero_promo_top_alt', 'گوشواره صدف بادبزنی رگه‌دار طبیعی کد R-002' ) ),
+            'badge' => 'ویژه فصل',
+            'title' => 'گوشواره صدف بادبزنی',
+        ),
+        'promo_btm' => array(
+            'image' => ! empty( $promo_btm_img ) ? esc_url( $promo_btm_img ) : $theme_uri . '/assets/images/products/r007-main.jpg',
+            'url'   => esc_url( get_theme_mod( 'hero_promo_btm_url', '/product/r-007/' ) ),
+            'alt'   => sanitize_text_field( get_theme_mod( 'hero_promo_btm_alt', 'چوکر مروارید باروک و صدف مخملی دست‌ساز کد R-007' ) ),
+            'badge' => 'کالکشن سلطنتی',
+            'title' => 'چوکر مروارید باروک و صدف',
+        ),
+    );
+}
+
+/**
  * Helper to retrieve hero image URL with fallback to local bundled asset.
  *
  * @return string Image URL
@@ -856,26 +859,9 @@ function razgem_get_hero_image_url() {
  * @return string Image URL.
  */
 function razgem_get_hero_slide_url( $index = 1 ) {
-    if ( 1 === (int) $index ) {
-        $custom_img = get_theme_mod( 'hero_slide_image', '' );
-        if ( ! empty( $custom_img ) && strpos( $custom_img, 'spotlight-pendant' ) === false ) {
-            return esc_url( $custom_img );
-        }
-        return get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
-    } elseif ( 2 === (int) $index ) {
-        $custom_img = get_theme_mod( 'hero_slide_2_image', '' );
-        if ( ! empty( $custom_img ) && strpos( $custom_img, 'earrings-collection' ) === false ) {
-            return esc_url( $custom_img );
-        }
-        return get_template_directory_uri() . '/assets/images/products/r002-main.jpg';
-    } elseif ( 3 === (int) $index ) {
-        $custom_img = get_theme_mod( 'hero_slide_3_image', '' );
-        if ( ! empty( $custom_img ) ) {
-            return esc_url( $custom_img );
-        }
-        return get_template_directory_uri() . '/assets/images/products/r003-main.jpg';
-    }
-    return get_template_directory_uri() . '/assets/images/products/r001-main.jpg';
+    $banners = razgem_get_hero_banners();
+    $idx = max( 0, min( 2, (int) $index - 1 ) );
+    return $banners['slides'][$idx]['image'];
 }
 
 /**

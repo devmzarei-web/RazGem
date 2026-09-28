@@ -1,10 +1,22 @@
 <?php
 /**
- * Front Page Template (High-Density Storefront & Living Waves Rhythm)
+ * Front Page Template - RazGem Commercial Luxury Storefront
+ *
+ * Sequence of Sections:
+ * 1. Commercial 3-Part Hero Grid (Wide 3-Slide Carousel + 2 Stacked Static Promo Cards)
+ * 2. "پیشنهاد شگفت‌انگیز" (Wonder Deals) Deep Coastal Slate Container & Live Real-Time Countdown
+ * 3. Circular Visual Category Bubbles (حباب‌های تصویری دسته‌بندی)
+ * 4. Slim Artisan Authenticity Guarantee Ribbon
+ * 5. Multi-Category Tabbed Vitrine (Instant Client-Side Filtering + In-Place Variation Modal)
+ * 6. 3-Column Curated Promotional Collection Banners
+ * 7. Interactive Styling Showcase & Artisan Atelier Story
+ * 8. Trust Metrics, Value Pillars & Magazine Articles
+ * 9. In-Place Variation Pop-Out Modal
  *
  * @package RazGem
- * @version 2.1.0
+ * @version 3.0.0
  */
+
 defined( 'ABSPATH' ) || exit;
 get_header(); ?>
 
@@ -12,486 +24,329 @@ get_header(); ?>
 
     <?php
     // =========================================================================
-    // 1. HAUTE-JOAILLERIE SPOTLIGHT HERO & INTERACTIVE SHOWCASE (Ivory Canvas)
+    // 1. COMMERCIAL 3-PART HERO GRID (Featured Carousel + 2 Static Promos)
     // =========================================================================
     get_template_part( 'template-parts/hero' );
     ?>
 
+    <?php
+    // =========================================================================
+    // 2. "پیشنهاد شگفت‌انگیز" (WONDER DEALS) & LIVE COUNTDOWN TIMER
+    // =========================================================================
+    get_template_part( 'template-parts/flash-sale' );
+    ?>
+
+    <?php
+    // =========================================================================
+    // 3. CIRCULAR VISUAL CATEGORY BUBBLES STRIP (حباب‌های تصویری دسته‌بندی)
+    // =========================================================================
+    get_template_part( 'template-parts/category-bubbles' );
+    ?>
+
     <!-- =======================================================================
-         1.1 SLIM ARTISAN AUTHENTICITY GUARANTEE RIBBON (High-Density Confidence)
+         4. SLIM ARTISAN AUTHENTICITY GUARANTEE RIBBON
          ======================================================================= -->
-    <section class="razgem-authenticity-ribbon" aria-label="ضمانت‌ها و اصالت گالری رازجم">
+    <section class="razgem-authenticity-ribbon" aria-label="<?php esc_attr_e( 'ضمانت‌ها و اصالت گالری رازجم', 'razgem' ); ?>">
         <div class="site-container">
             <div class="ribbon-inner">
                 <div class="ribbon-item">
-                    <span class="ribbon-icon">🦪</span>
+                    <span class="ribbon-icon" aria-hidden="true">🦪</span>
                     <span class="ribbon-text"><strong>صدف ۱۰۰٪ طبیعی</strong> خلیج فارس</span>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
-                    <span class="ribbon-icon">✨</span>
-                    <span class="ribbon-text"><strong>مروارید باروک اصل</strong> با شناسنامه</span>
+                    <span class="ribbon-icon" aria-hidden="true">✨</span>
+                    <span class="ribbon-text"><strong>مروارید باروک اصل</strong> با شناسنامه اصالت</span>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
-                    <span class="ribbon-icon">⚖️</span>
-                    <span class="ribbon-text"><strong>طلای ۱۸ عیار</strong> و هنر دست</span>
+                    <span class="ribbon-icon" aria-hidden="true">⚖️</span>
+                    <span class="ribbon-text"><strong>طلای ۱۸ عیار</strong> و اتصالات مقاوم</span>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
-                    <span class="ribbon-icon">📦</span>
-                    <span class="ribbon-text"><strong>ارسال رایگان و بیمه‌شده</strong> سراسر کشور</span>
+                    <span class="ribbon-icon" aria-hidden="true">📦</span>
+                    <span class="ribbon-text"><strong>ارسال رایگان و بیمه‌شده</strong> به سراسر کشور</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- =======================================================================
-         2. HIGH-DENSITY ATELIER VITRINE (Compact 4-Column Grid with Category Tabs)
+         5. MULTI-CATEGORY TABBED VITRINE (Instant Client-Side Filtering)
          ======================================================================= -->
-    <div class="front-section-group section-palette-sand" style="padding-top: 2.2rem; padding-bottom: 2.8rem;">
-        
-        <section id="handcrafted-catalog" class="compact-vitrine-section" style="background: transparent;">
-            <div class="site-container">
-                <div class="section-header section-header--center" style="margin-bottom: 1.6rem;">
-                    <span class="section-kicker">شاهکارهای منتخب آتلیه</span>
-                    <h2 class="section-title">مجموعه دست‌سازه‌های صدف و مروارید</h2>
-                    <p class="section-lead">تراش دست و تلألو ارگانیک طبیعت، با طلای ۱۸ عیار و مرواریدهای باروک خلیج فارس</p>
-                    
-                    <!-- Quick Category Filter Tabs -->
-                    <div class="vitrine-category-tabs" role="tablist" aria-label="دسته‌بندی زیورآلات">
-                        <button type="button" class="vitrine-tab is-active" data-filter="all" role="tab" aria-selected="true">همه آثار (۸)</button>
-                        <button type="button" class="vitrine-tab" data-filter="earrings" role="tab" aria-selected="false">گوشواره صدف</button>
-                        <button type="button" class="vitrine-tab" data-filter="necklaces" role="tab" aria-selected="false">گردنبند و چوکر</button>
-                        <button type="button" class="vitrine-tab" data-filter="bracelets-rings" role="tab" aria-selected="false">دستبند و انگشتر</button>
-                    </div>
+    <section id="handcrafted-catalog" class="razgem-vitrine-section">
+        <div class="site-container">
+            <div class="vitrine-header">
+                <span class="vitrine-badge"><?php esc_html_e( 'شاهکارهای دست‌ساز رازجم', 'razgem' ); ?></span>
+                <h2 class="vitrine-title"><?php esc_html_e( 'جدیدترین دست‌سازه‌ها و تابلوهای صدف', 'razgem' ); ?></h2>
+                
+                <!-- Quick Category Filter Tabs -->
+                <div class="vitrine-tabs" role="tablist" aria-label="<?php esc_attr_e( 'فیلتر دسته‌بندی آثار', 'razgem' ); ?>">
+                    <button type="button" class="vitrine-tab-btn is-active" data-category="all" role="tab" aria-selected="true"><?php esc_html_e( 'همه آثار', 'razgem' ); ?></button>
+                    <button type="button" class="vitrine-tab-btn" data-category="earrings" role="tab" aria-selected="false"><?php esc_html_e( 'گوشواره صدف', 'razgem' ); ?></button>
+                    <button type="button" class="vitrine-tab-btn" data-category="ocean-wall-art" role="tab" aria-selected="false"><?php esc_html_e( 'تابلو و دکوراتیو', 'razgem' ); ?></button>
+                    <button type="button" class="vitrine-tab-btn" data-category="necklaces" role="tab" aria-selected="false"><?php esc_html_e( 'گردنبند و چوکر', 'razgem' ); ?></button>
+                    <button type="button" class="vitrine-tab-btn" data-category="bracelets-rings" role="tab" aria-selected="false"><?php esc_html_e( 'دستبند و انگشتر', 'razgem' ); ?></button>
                 </div>
+            </div>
 
-                <!-- Compact 4-Column Showcase Grid -->
-                <div class="compact-vitrine-grid" id="razgemVitrineGrid">
-                    <?php
-                    $rendered_count = 0;
+            <!-- 4-Column Showcase Grid -->
+            <div class="vitrine-grid" id="razgemVitrineGrid">
+                <?php
+                $rendered_count = 0;
 
-                    // 1. Try fetching published WooCommerce products
-                    if ( function_exists( 'wc_get_products' ) ) {
-                        $wc_catalog_query = new WP_Query( array(
-                            'post_type'      => 'product',
-                            'posts_per_page' => 12,
-                            'orderby'        => 'menu_order title',
-                            'order'          => 'ASC',
-                            'status'         => 'publish',
-                        ) );
+                // 1. Check if WooCommerce products exist
+                if ( function_exists( 'wc_get_products' ) ) {
+                    $wc_catalog_query = new WP_Query( array(
+                        'post_type'      => 'product',
+                        'posts_per_page' => 12,
+                        'orderby'        => 'menu_order title',
+                        'order'          => 'ASC',
+                        'status'         => 'publish',
+                    ) );
 
-                        if ( $wc_catalog_query->have_posts() ) {
-                            while ( $wc_catalog_query->have_posts() ) : $wc_catalog_query->the_post();
-                                global $product;
-                                if ( ! is_object( $product ) ) continue;
+                    if ( $wc_catalog_query->have_posts() ) {
+                        while ( $wc_catalog_query->have_posts() ) : $wc_catalog_query->the_post();
+                            global $product;
+                            if ( ! is_object( $product ) ) continue;
 
-                                $p_id        = $product->get_id();
-                                $p_link      = get_permalink( $p_id );
-                                $is_in_stock = $product->is_in_stock();
-                                $is_variable = $product->is_type( 'variable' );
-                                $sku         = $product->get_sku();
-                                $gallery_ids = $product->get_gallery_image_ids();
-                                $thumb_id    = $product->get_image_id();
-                                $thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'full' ) : '';
+                            $p_id        = $product->get_id();
+                            $p_link      = get_permalink( $p_id );
+                            $is_in_stock = $product->is_in_stock();
+                            $is_variable = $product->is_type( 'variable' ) || 'yes' === get_post_meta( $p_id, '_razgem_is_variable', true );
+                            $sku         = $product->get_sku();
+                            $gallery_ids = $product->get_gallery_image_ids();
+                            $thumb_id    = $product->get_image_id();
+                            $thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium' ) : '';
 
-                                // Determine category filter slug
-                                $terms = get_the_terms( $p_id, 'product_cat' );
-                                $cat_slug = 'all';
-                                if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                                    $first_cat = $terms[0]->slug;
-                                    if ( strpos( $first_cat, 'earring' ) !== false || strpos( $first_cat, 'گوشواره' ) !== false ) {
-                                        $cat_slug = 'earrings';
-                                    } elseif ( strpos( $first_cat, 'necklace' ) !== false || strpos( $first_cat, 'choker' ) !== false || strpos( $first_cat, 'گردنبند' ) !== false || strpos( $first_cat, 'چوکر' ) !== false ) {
-                                        $cat_slug = 'necklaces';
-                                    } elseif ( strpos( $first_cat, 'bracelet' ) !== false || strpos( $first_cat, 'ring' ) !== false || strpos( $first_cat, 'دستبند' ) !== false || strpos( $first_cat, 'انگشتر' ) !== false ) {
-                                        $cat_slug = 'bracelets-rings';
+                            // Categorization for client-side tabs
+                            $terms = get_the_terms( $p_id, 'product_cat' );
+                            $cat_slug = 'all';
+                            if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+                                foreach ( $terms as $t ) {
+                                    if ( strpos( $t->slug, 'earring' ) !== false ) {
+                                        $cat_slug = 'earrings'; break;
+                                    } elseif ( strpos( $t->slug, 'wall-art' ) !== false || strpos( $t->slug, 'ocean' ) !== false ) {
+                                        $cat_slug = 'ocean-wall-art'; break;
+                                    } elseif ( strpos( $t->slug, 'necklace' ) !== false || strpos( $t->slug, 'choker' ) !== false ) {
+                                        $cat_slug = 'necklaces'; break;
+                                    } elseif ( strpos( $t->slug, 'ring' ) !== false || strpos( $t->slug, 'bracelet' ) !== false ) {
+                                        $cat_slug = 'bracelets-rings'; break;
                                     }
                                 }
+                            }
 
-                                // Fallback category by SKU
-                                if ( 'all' === $cat_slug && ! empty( $sku ) ) {
-                                    $clean_sku = strtoupper( str_replace( array( 'RG-', '-' ), '', $sku ) );
-                                    if ( in_array( $clean_sku, array( 'R001', 'R002', 'R004' ), true ) ) {
-                                        $cat_slug = 'earrings';
-                                    } elseif ( in_array( $clean_sku, array( 'R003', 'R007' ), true ) ) {
-                                        $cat_slug = 'necklaces';
-                                    } elseif ( in_array( $clean_sku, array( 'R005', 'R006', 'R008' ), true ) ) {
-                                        $cat_slug = 'bracelets-rings';
-                                    }
+                            // Fallback category by SKU
+                            if ( 'all' === $cat_slug && ! empty( $sku ) ) {
+                                $clean_sku = strtoupper( str_replace( array( 'RG-', '-' ), '', $sku ) );
+                                if ( in_array( $clean_sku, array( 'R001', 'R002' ), true ) ) {
+                                    $cat_slug = 'earrings';
+                                } elseif ( in_array( $clean_sku, array( 'R003', 'R004' ), true ) ) {
+                                    $cat_slug = 'ocean-wall-art';
+                                } elseif ( in_array( $clean_sku, array( 'R007' ), true ) ) {
+                                    $cat_slug = 'necklaces';
+                                } elseif ( in_array( $clean_sku, array( 'R005', 'R006', 'R008' ), true ) ) {
+                                    $cat_slug = 'bracelets-rings';
                                 }
-                                ?>
-                                <article class="vitrine-card-wrapper" data-category="<?php echo esc_attr( $cat_slug ); ?>">
-                                    <div class="product-card pebble-surface<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>">
-                                        <div class="product-card__gallery">
-                                            <a href="<?php echo esc_url( $p_link ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
-                                                <?php 
-                                                if ( $thumb_id ) {
-                                                    echo wp_get_attachment_image( $thumb_id, 'full', false, array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) );
-                                                } else {
-                                                    echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'full', array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) ) : '';
-                                                }
-                                                if ( ! empty( $gallery_ids ) ) {
-                                                    echo wp_get_attachment_image( $gallery_ids[0], 'full', false, array( 'class' => 'img-hover', 'alt' => esc_attr( get_the_title() ) ) );
-                                                }
-                                                ?>
-                                            </a>
+                            }
+                            ?>
+                            <div class="product-card-wrap" data-category="<?php echo esc_attr( $cat_slug ); ?>">
+                                <article class="product-card pebble-surface<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>">
+                                    <div class="product-card__gallery">
+                                        <a href="<?php echo esc_url( $p_link ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
+                                            <?php 
+                                            if ( $thumb_id ) {
+                                                echo wp_get_attachment_image( $thumb_id, 'medium', false, array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) );
+                                            } else {
+                                                echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) ) : '';
+                                            }
+                                            if ( ! empty( $gallery_ids ) ) {
+                                                echo wp_get_attachment_image( $gallery_ids[0], 'medium', false, array( 'class' => 'img-hover', 'alt' => esc_attr( get_the_title() ) ) );
+                                            }
+                                            ?>
+                                        </a>
 
-                                            <?php if ( ! $is_in_stock ) : ?>
-                                                <span class="product-badge product-badge--outofstock">ناموجود</span>
-                                            <?php elseif ( $product->is_on_sale() ) : ?>
-                                                <span class="product-badge product-badge--discount">ویژه</span>
-                                            <?php else : ?>
-                                                <span class="product-badge product-badge--nature">دست‌ساز</span>
-                                            <?php endif; ?>
+                                        <?php if ( ! $is_in_stock ) : ?>
+                                            <span class="product-badge product-badge--outofstock"><?php esc_html_e( 'ناموجود', 'razgem' ); ?></span>
+                                        <?php elseif ( $product->is_on_sale() ) : ?>
+                                            <span class="product-badge product-badge--discount"><?php esc_html_e( 'ویژه', 'razgem' ); ?></span>
+                                        <?php else : ?>
+                                            <span class="product-badge product-badge--nature"><?php esc_html_e( 'دست‌ساز', 'razgem' ); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="product-card__content">
+                                        <div class="product-authenticity-tag">
+                                            <span class="auth-dot" aria-hidden="true"></span>
+                                            <span><?php esc_html_e( 'صدف طبیعی و گوهر دریا', 'razgem' ); ?></span>
                                         </div>
 
-                                        <div class="product-card__content">
-                                            <div class="product-authenticity-tag">
-                                                <span class="auth-dot"></span>
-                                                <span>صدف طبیعی و طلای ۱۸ عیار</span>
+                                        <h3 class="product-title">
+                                            <a href="<?php echo esc_url( $p_link ); ?>"><?php the_title(); ?></a>
+                                        </h3>
+
+                                        <div class="product-meta">
+                                            <?php echo function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, ', ' ) : ''; ?>
+                                            <?php if ( ! empty( $sku ) ) : ?> | <?php echo esc_html( sprintf( 'کد: %s', $sku ) ); ?><?php endif; ?>
+                                        </div>
+
+                                        <div class="product-card__action-row">
+                                            <div class="product-price">
+                                                <?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?>
                                             </div>
 
-                                            <h3 class="product-title">
-                                                <a href="<?php echo esc_url( $p_link ); ?>"><?php the_title(); ?></a>
-                                            </h3>
-
-                                            <div class="product-meta">
-                                                <?php echo function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, ', ' ) : ''; ?>
-                                                <?php if ( ! empty( $sku ) ) : ?> | کد: <?php echo esc_html( $sku ); ?><?php endif; ?>
-                                            </div>
-
-                                            <div class="product-card__action-row">
-                                                <div class="product-price">
-                                                    <?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?>
-                                                </div>
-
-                                                <?php if ( ! $is_in_stock ) : ?>
-                                                    <span class="product-card-cart-btn disabled" aria-disabled="true" title="این اثر در حال حاضر ناموجود است">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                    </span>
-                                                <?php elseif ( $is_variable ) : ?>
-                                                    <?php
-                                                    $variation_label = 'انتخاب گزینه';
-                                                    $variation_options = array();
-                                                    $attributes = $product->get_attributes();
-                                                    if ( ! empty( $attributes ) ) {
-                                                        $first_attr = reset( $attributes );
+                                            <?php if ( ! $is_in_stock ) : ?>
+                                                <span class="product-card-cart-btn disabled" aria-disabled="true" title="<?php esc_attr_e( 'این اثر در حال حاضر ناموجود است', 'razgem' ); ?>">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                </span>
+                                            <?php elseif ( $is_variable ) : ?>
+                                                <?php
+                                                $variation_label = 'انتخاب گزینه';
+                                                $variation_options = array( 'قاب چوبی تیره (گردویی)', 'قاب چوبی سفید (عاجی)' );
+                                                $attributes = $product->get_attributes();
+                                                if ( ! empty( $attributes ) ) {
+                                                    $first_attr = reset( $attributes );
+                                                    if ( is_object( $first_attr ) && method_exists( $first_attr, 'get_name' ) ) {
                                                         $variation_label = wc_attribute_label( $first_attr->get_name() );
                                                         $variation_options = $first_attr->get_options();
                                                     }
-                                                    ?>
-                                                    <button type="button" 
-                                                            class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
-                                                            data-product-id="<?php echo esc_attr( $p_id ); ?>"
-                                                            data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
-                                                            data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
-                                                            data-product-image="<?php echo esc_url( $thumb_url ); ?>"
-                                                            data-variation-label="<?php echo esc_attr( $variation_label ); ?>"
-                                                            data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
-                                                            aria-label="انتخاب گزینه‌های <?php echo esc_attr( get_the_title() ); ?>"
-                                                            title="انتخاب گزینه‌ها">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                    </button>
-                                                <?php else : ?>
-                                                    <button type="button" 
-                                                            class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
-                                                            data-product_id="<?php echo esc_attr( $p_id ); ?>" 
-                                                            data-product-id="<?php echo esc_attr( $p_id ); ?>"
-                                                            data-quantity="1"
-                                                            aria-label="افزودن <?php echo esc_attr( get_the_title() ); ?> به سبد خرید" 
-                                                            title="افزودن مستقیم به سبد خرید">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                    </button>
-                                                <?php endif; ?>
-                                            </div>
+                                                }
+                                                ?>
+                                                <button type="button" 
+                                                        class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
+                                                        data-product-id="<?php echo esc_attr( $p_id ); ?>"
+                                                        data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
+                                                        data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
+                                                        data-product-image="<?php echo esc_url( $thumb_url ); ?>"
+                                                        data-variation-label="<?php echo esc_attr( $variation_label ); ?>"
+                                                        data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
+                                                        aria-label="<?php echo esc_attr( sprintf( 'انتخاب گزینه‌های %s', get_the_title() ) ); ?>"
+                                                        title="<?php esc_attr_e( 'انتخاب گزینه‌ها', 'razgem' ); ?>">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                </button>
+                                            <?php else : ?>
+                                                <button type="button" 
+                                                        class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
+                                                        data-product_id="<?php echo esc_attr( $p_id ); ?>" 
+                                                        data-product-id="<?php echo esc_attr( $p_id ); ?>"
+                                                        data-quantity="1"
+                                                        aria-label="<?php echo esc_attr( sprintf( 'افزودن %s به سبد خرید', get_the_title() ) ); ?>" 
+                                                        title="<?php esc_attr_e( 'افزودن مستقیم به سبد خرید', 'razgem' ); ?>">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                </button>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </article>
-                                <?php
-                                $rendered_count++;
-                            endwhile;
-                            wp_reset_postdata();
-                        }
-                    }
-
-                    // 2. Fallback to full 8-piece mock catalog if no WooCommerce products are published
-                    if ( $rendered_count === 0 && function_exists( 'razgem_get_mock_products' ) ) {
-                        $all_mocks = razgem_get_mock_products();
-                        foreach ( $all_mocks as $m_item ) {
-                            $cat_slug = 'all';
-                            if ( in_array( $m_item['id'], array( 'r-001', 'r-002', 'r-004' ), true ) ) {
-                                $cat_slug = 'earrings';
-                            } elseif ( in_array( $m_item['id'], array( 'r-003', 'r-007' ), true ) ) {
-                                $cat_slug = 'necklaces';
-                            } elseif ( in_array( $m_item['id'], array( 'r-005', 'r-006', 'r-008' ), true ) ) {
-                                $cat_slug = 'bracelets-rings';
-                            }
-                            ?>
-                            <div class="vitrine-card-wrapper" data-category="<?php echo esc_attr( $cat_slug ); ?>">
-                                <?php razgem_render_mock_product_card( $m_item ); ?>
                             </div>
                             <?php
-                        }
+                            $rendered_count++;
+                        endwhile;
+                        wp_reset_postdata();
                     }
-                    ?>
-                </div>
+                }
 
-                <div class="vitrine-footer-cta" style="text-align: center; margin-top: 2rem;">
-                    <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-coastal-slate pearl-shimmer-hover" style="border-radius: 9999px; padding: 0.85rem 2.2rem;">
-                        <span>مشاهده کلکسیون کامل فروشگاه (۸ اثر دست‌ساز)</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <?php
-    // Wave transition: from Sand (#FAF6F0) into Deep Coastal Slate (#2F597A)
-    razgem_render_wave_divider( array(
-        'fill_color'   => '#2F597A',
-        'bg_color'     => '#FAF6F0',
-        'layer1_color' => 'rgba(47, 89, 122, 0.40)',
-        'layer2_color' => 'rgba(129, 166, 198, 0.65)',
-        'layer3_color' => 'rgba(212, 175, 55, 0.75)',
-        'height_pc'    => 165,
-    ) );
-    ?>
-
-    <!-- =======================================================================
-         3. SPECIAL OFFERS & BESPOKE MEMORIALS (Deep Coastal Slate Background)
-         ======================================================================= -->
-    <section class="product-carousel-section--highlight section-palette-slate" style="padding-top: 3rem; padding-bottom: 3.5rem;">
-        <div class="site-container">
-            <div class="highlight-wrapper">
-                
-                <div class="highlight-sidebar">
-                    <span class="highlight-tag" style="background: rgba(212,175,55,0.25); color: #FAF8F5; border: 1px solid #D4AF37;">مجموعه برگزیده</span>
-                    <h2 style="color: #FFFFFF;">پیشنهادهای ویژه و یادبودها</h2>
-                    <p style="color: #F3E3D0;">فرصتی استثنایی برای داشتن زیورآلات فاخر صدف طبیعی و مروارید باروک با شرایط ویژه و شناسنامه اصالت.</p>
-                    <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-contrast-sand" style="border-radius: 999px; padding: 0.8rem 1.8rem; text-decoration: none; display: inline-block;">مشاهده برگزیده‌ها</a>
-                </div>
-
-                <div class="carousel-wrapper carousel-wrapper--narrow">
-                    <div class="carousel-track">
-                        <?php
-                        $has_sale_wc = false;
-                        if ( function_exists( 'wc_get_products' ) ) {
-                            $sale_ids_inc = function_exists('wc_get_product_ids_on_sale') ? wc_get_product_ids_on_sale() : array();
-                            if ( ! empty( $sale_ids_inc ) ) {
-                                $sale_args = array(
-                                    'post_type'      => 'product',
-                                    'posts_per_page' => 6,
-                                    'post__in'       => $sale_ids_inc,
-                                    'status'         => 'publish'
-                                );
-                                $sale_loop = new WP_Query( $sale_args );
-                                if ( $sale_loop->have_posts() ) {
-                                    $has_sale_wc = true;
-                                    while ( $sale_loop->have_posts() ) : $sale_loop->the_post();
-                                        global $product;
-                                        ?>
-                                        <article class="carousel-card carousel-card--bg-white">
-                                            <div class="product-card pebble-surface<?php echo ( is_a( $product, 'WC_Product' ) && ! $product->is_in_stock() ) ? ' is-out-of-stock' : ''; ?>">
-                                                <div class="product-card__gallery">
-                                                    <a href="<?php the_permalink(); ?>">
-                                                        <?php 
-                                                        if ( function_exists( 'woocommerce_get_product_thumbnail' ) ) {
-                                                            echo woocommerce_get_product_thumbnail('full', array('class' => 'img-primary', 'alt' => get_the_title())); 
-                                                        } else {
-                                                            echo has_post_thumbnail() ? get_the_post_thumbnail( get_the_ID(), 'full', array('class' => 'img-primary', 'alt' => get_the_title()) ) : '';
-                                                        }
-                                                        $attachment_ids = ( is_a( $product, 'WC_Product' ) ) ? $product->get_gallery_image_ids() : array();
-                                                        if ( $attachment_ids ) {
-                                                            echo wp_get_attachment_image( $attachment_ids[0], 'full', false, array( 'class' => 'img-hover', 'alt' => get_the_title() ) );
-                                                        }
-                                                        ?>
-                                                    </a>
-                                                    <?php if ( is_a( $product, 'WC_Product' ) && ! $product->is_in_stock() ) : ?>
-                                                        <span class="product-badge product-badge--outofstock">ناموجود</span>
-                                                    <?php else : ?>
-                                                        <span class="product-badge product-badge--discount">حراج</span>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <div class="product-card__content">
-                                                    <h3 class="product-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                                                    <div class="product-meta"><?php echo function_exists('wc_get_product_category_list') ? wc_get_product_category_list( $product->get_id(), ', ' ) : ''; ?></div>
-                                                    <div class="product-card__action-row">
-                                                        <div class="product-price"><?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?></div>
-                                                        <?php if ( is_a( $product, 'WC_Product' ) && ! $product->is_in_stock() ) : ?>
-                                                            <span class="product-card-cart-btn disabled" aria-disabled="true" title="این محصول ناموجود است">
-                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                            </span>
-                                                        <?php elseif ( is_a( $product, 'WC_Product' ) && $product->is_type( 'variable' ) ) : ?>
-                                                            <button type="button" 
-                                                                    class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
-                                                                    data-product-id="<?php echo esc_attr( $product->get_id() ); ?>"
-                                                                    data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
-                                                                    data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
-                                                                    data-product-image="<?php echo esc_url( wp_get_attachment_image_url( $product->get_image_id(), 'full' ) ); ?>"
-                                                                    aria-label="انتخاب گزینه‌ها" 
-                                                                    title="انتخاب گزینه‌ها">
-                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                            </button>
-                                                        <?php else : ?>
-                                                            <button type="button" 
-                                                                    class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
-                                                                    data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" 
-                                                                    data-product-id="<?php echo esc_attr( $product->get_id() ); ?>"
-                                                                    data-quantity="1"
-                                                                    aria-label="افزودن به سبد خرید" 
-                                                                    title="افزودن به سبد خرید">
-                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                            </button>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <?php
-                                    endwhile;
-                                    wp_reset_postdata();
-                                }
-                            }
-                        }
-
-                        if ( ! $has_sale_wc && function_exists( 'razgem_get_filtered_mock_products' ) ) {
-                            $mock_sales = razgem_get_filtered_mock_products( array( 'on_sale' => true ) );
-                            foreach ( $mock_sales as $mock_p ) {
-                                razgem_render_mock_product_card( $mock_p, 'carousel-card--bg-white' );
-                            }
+                // 2. Fallback to authentic 8-piece handcrafted catalog
+                if ( 0 === $rendered_count && function_exists( 'razgem_get_mock_products' ) ) {
+                    $all_mocks = razgem_get_mock_products();
+                    foreach ( $all_mocks as $m_item ) {
+                        $cat_slug = 'all';
+                        if ( in_array( $m_item['id'], array( 'r-001', 'r-002' ), true ) ) {
+                            $cat_slug = 'earrings';
+                        } elseif ( in_array( $m_item['id'], array( 'r-003', 'r-004' ), true ) ) {
+                            $cat_slug = 'ocean-wall-art';
+                        } elseif ( in_array( $m_item['id'], array( 'r-007' ), true ) ) {
+                            $cat_slug = 'necklaces';
+                        } elseif ( in_array( $m_item['id'], array( 'r-005', 'r-006', 'r-008' ), true ) ) {
+                            $cat_slug = 'bracelets-rings';
                         }
                         ?>
-                    </div>
-                </div>
+                        <div class="product-card-wrap" data-category="<?php echo esc_attr( $cat_slug ); ?>">
+                            <?php razgem_render_mock_product_card( $m_item ); ?>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
 
+            <div class="vitrine-footer-cta" style="text-align: center; margin-top: 2.5rem;">
+                <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-coastal-slate pearl-shimmer-hover" style="border-radius: 9999px; padding: 0.85rem 2.2rem;">
+                    <span><?php esc_html_e( 'مشاهده کلکسیون کامل فروشگاه (۸ شاهکار دست‌ساز)', 'razgem' ); ?></span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                </a>
             </div>
         </div>
     </section>
 
     <?php
-    // Wave transition: from Deep Coastal Slate (#2F597A) into Seafoam Mist (#EAF3F7)
-    razgem_render_wave_divider( array(
-        'fill_color'   => '#EAF3F7',
-        'bg_color'     => '#2F597A',
-        'layer1_color' => 'rgba(129, 166, 198, 0.50)',
-        'layer2_color' => 'rgba(212, 175, 55, 0.65)',
-        'layer3_color' => 'rgba(255, 255, 255, 0.85)',
-        'height_pc'    => 165,
-    ) );
+    // =========================================================================
+    // 6. PROMOTIONAL COLLECTION BANNER GRID (3-Column Curated Banners)
+    // =========================================================================
+    get_template_part( 'template-parts/promo-banners' );
     ?>
 
-    <!-- =======================================================================
-         4. CATEGORY MOSAIC & LIVING STYLING SHOWCASE (Seafoam Mist Background)
-         ======================================================================= -->
-    <div class="front-section-group section-palette-seafoam" style="padding-top: 2rem; padding-bottom: 2.5rem;">
-        <?php
-        // 4.1 CURATED ASYMMETRIC LUXURY CATEGORY MOSAIC
-        get_template_part( 'template-parts/categories' );
-
-        // 4.2 INTERACTIVE WORN-ON-MODEL STYLING SHOWCASE
-        get_template_part( 'template-parts/styling-showcase' );
-        ?>
-    </div>
-
     <?php
-    // Wave transition: from Seafoam Mist (#EAF3F7) into Pearlescent Ivory (#FAF8F5)
+    // Living wave divider transition into Pearlescent Ivory
     razgem_render_wave_divider( array(
         'fill_color'   => '#FAF8F5',
-        'bg_color'     => '#EAF3F7',
+        'bg_color'     => '#FAF6F0',
         'layer1_color' => 'rgba(47, 89, 122, 0.35)',
         'layer2_color' => 'rgba(170, 205, 220, 0.65)',
         'layer3_color' => 'rgba(243, 227, 208, 0.85)',
-        'height_pc'    => 165,
+        'height_pc'    => 140,
     ) );
     ?>
 
     <!-- =======================================================================
-         5. MID-PAGE STORY CAPSULE & ARTISAN ATELIER (Pearlescent Ivory)
+         7. ARTISAN ATELIER STORY & INTERACTIVE STYLING SHOWCASE
          ======================================================================= -->
     <div class="front-section-group section-palette-ivory" style="padding-top: 2rem; padding-bottom: 2.5rem;">
-        
-        <!-- Mid-Page Coastal Story Capsule Banner -->
-        <section class="coastal-story-capsule-section" style="padding: 0 0 2.5rem;">
-            <div class="site-container">
-                <div class="coastal-story-capsule pebble-surface">
-                    <div class="capsule-content">
-                        <span class="capsule-tag">✨ اصالت دست‌سازه و هویت دریا</span>
-                        <h3 class="capsule-title">شکوه گوهرهای ارگانیک خلیج فارس در آتلیه رازجم</h3>
-                        <p class="capsule-desc">هر قطعه صدف طبیعی و مروارید باروک وحشی، داستانی تکرارناپذیر از اعماق دریاست که با هنر دست استادکاران ایرانی و طلای ۱۸ عیار جاودانه شده است. آیا به دنبال طراحی اختصاصی متناسب با سلیقه خود هستید؟</p>
-                        <div class="capsule-actions">
-                            <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="btn-coastal-slate pearl-shimmer-hover">مشاوره سفارش اختصاصی</a>
-                            <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-coastal-sand">مشاهده همه ۸ اثر</a>
-                        </div>
-                    </div>
-                    <div class="capsule-badge-art" aria-hidden="true">
-                        <span class="badge-sea-icon">🦪</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <?php
+        get_template_part( 'template-parts/styling-showcase' );
         get_template_part( 'template-parts/atelier' );
         ?>
     </div>
 
     <?php
-    // Wave transition: from Ivory (#FAF8F5) into Soft Pebble Taupe (#F5EFEB)
+    // Living wave divider transition into Soft Pebble Taupe
     razgem_render_wave_divider( array(
         'fill_color'   => '#F5EFEB',
         'bg_color'     => '#FAF8F5',
         'layer1_color' => 'rgba(129, 166, 198, 0.40)',
         'layer2_color' => 'rgba(212, 175, 55, 0.60)',
         'layer3_color' => 'rgba(235, 225, 215, 0.85)',
-        'height_pc'    => 165,
+        'height_pc'    => 140,
     ) );
     ?>
 
     <!-- =======================================================================
-         6. VALUES, TRUST, PROMOS & MAGAZINE (Soft Pebble Taupe Background)
+         8. VALUES, TRUST, PROMOS & MAGAZINE
          ======================================================================= -->
     <div class="front-section-group section-palette-pebble" style="padding-top: 2.2rem; padding-bottom: 3.5rem;">
         
-        <section class="promo-banner-section" style="background: transparent;">
-            <div class="site-container promo-grid">
-                <div class="promo-card promo-card--delivery pebble-surface">
-                    <h3>ارسال رایگان و بیمه شده</h3>
-                    <p>تمامی سفارش‌های گالری رازجم با بسته‌بندی نفیس هدیه و بیمه کامل پستی در سراسر ایران ارسال می‌شوند.</p>
-                    <a href="<?php echo esc_url( home_url( '/terms' ) ); ?>" class="btn-coastal-slate" style="font-size:0.85rem; padding:0.6rem 1.4rem;">شرایط ارسال و بیمه</a>
-                </div>
-                <div class="promo-card promo-card--consult pebble-surface">
-                    <h3>راهنمای سایز و مشاوره تخصصی</h3>
-                    <p>راهنمای انتخاب ابعاد صدف طبیعی، مرواریدهای باروک و ثبت سفارش ساخت اختصاصی با طراحان رازجم.</p>
-                    <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="btn-coastal-sand" style="font-size:0.85rem; padding:0.6rem 1.4rem;">مشاوره مستقیم</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="features-section" style="background: transparent; margin-top: 2.5rem;">
+        <section class="features-section" style="background: transparent;">
             <div class="site-container features-grid">
                 <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
                     <div class="feature-card__info">
-                        <h3>بسته‌بندی فاخر و شناسنامه</h3>
-                        <p>جعبه هدیه نفیس و شناسنامه اصالت فیزیکی اثر</p>
+                        <h3><?php esc_html_e( 'بسته‌بندی فاخر و شناسنامه', 'razgem' ); ?></h3>
+                        <p><?php esc_html_e( 'جعبه هدیه نفیس و شناسنامه اصالت فیزیکی اثر', 'razgem' ); ?></p>
                     </div>
                 </div>
                 <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                     <div class="feature-card__info">
-                        <h3>ارسال بیمه‌شده و اکسپرس</h3>
-                        <p>ارسال به سراسر کشور با پوشش بیمه کامل محموله</p>
+                        <h3><?php esc_html_e( 'ارسال بیمه‌شده و اکسپرس', 'razgem' ); ?></h3>
+                        <p><?php esc_html_e( 'ارسال به سراسر کشور با پوشش بیمه کامل محموله', 'razgem' ); ?></p>
                     </div>
                 </div>
                 <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
                     <div class="feature-card__info">
-                        <h3>ضمانت اصالت گوهر و دریا</h3>
-                        <p>صدف ۱۰۰٪ طبیعی، مروارید اصل و طلای ۱۸ عیار</p>
+                        <h3><?php esc_html_e( 'ضمانت اصالت گوهر و دریا', 'razgem' ); ?></h3>
+                        <p><?php esc_html_e( 'صدف ۱۰۰٪ طبیعی، مروارید اصل و طلای ۱۸ عیار', 'razgem' ); ?></p>
                     </div>
                 </div>
             </div>
@@ -501,10 +356,13 @@ get_header(); ?>
             <div class="site-container">
                 <div class="section-header section-header--flex">
                     <div>
-                        <h2>مجله طلا و گوهرشناسی دریا</h2>
-                        <p>راهنمای شناخت و نگهداری مرواریدهای باروک، صدف‌های طبیعی و فلزات گرانبها</p>
+                        <h2><?php esc_html_e( 'مجله طلا و گوهرشناسی دریا', 'razgem' ); ?></h2>
+                        <p><?php esc_html_e( 'راهنمای شناخت و نگهداری مرواریدهای باروک، صدف‌های طبیعی و فلزات گرانبها', 'razgem' ); ?></p>
                     </div>
-                    <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="view-all-link">آرشیو مجله <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>
+                    <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="view-all-link">
+                        <?php esc_html_e( 'آرشیو مجله', 'razgem' ); ?>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                    </a>
                 </div>
                 
                 <div class="magazine-grid">
@@ -525,7 +383,7 @@ get_header(); ?>
                                         <?php if ( has_post_thumbnail() ) : ?>
                                             <?php the_post_thumbnail( 'medium_large', array( 'alt' => get_the_title() ) ); ?>
                                         <?php else : ?>
-                                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr(get_the_title()); ?>">
+                                            <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr( get_the_title() ); ?>" width="400" height="250" loading="lazy">
                                         <?php endif; ?>
                                     </a>
                                     <?php
@@ -545,7 +403,7 @@ get_header(); ?>
                             <?php
                         endwhile;
                     else :
-                        echo '<p style="text-align:center; grid-column: 1/-1; color: var(--color-marine-muted);">به زودی مقالات جدید مجله گوهرشناسی منتشر خواهد شد.</p>';
+                        echo '<p style="text-align:center; grid-column: 1/-1; color: var(--color-marine-muted);">' . esc_html__( 'به زودی مقالات جدید مجله گوهرشناسی منتشر خواهد شد.', 'razgem' ) . '</p>';
                     endif;
                     wp_reset_postdata();
                     ?>
@@ -556,21 +414,21 @@ get_header(); ?>
     </div>
 
     <?php
-    // Wave transition: from Pebble Taupe (#F5EFEB) into Deep Coastal Slate Footer (#1B3347)
+    // Living wave divider transition into Deep Coastal Marine Footer (#1B3347)
     razgem_render_wave_divider( array(
         'fill_color'   => '#1B3347',
         'bg_color'     => '#F5EFEB',
         'layer1_color' => 'rgba(47, 89, 122, 0.45)',
         'layer2_color' => 'rgba(129, 166, 198, 0.65)',
         'layer3_color' => 'rgba(35, 70, 97, 0.85)',
-        'height_pc'    => 165,
+        'height_pc'    => 140,
     ) );
     ?>
 
 </main>
 
 <?php
-// In-Place Lightweight Variation Pop-out Modal (Variable Products: R-005, R-006, R-008)
+// In-Place Lightweight Variation Pop-out Modal (Variable Products: R-003, R-004, etc.)
 get_template_part( 'template-parts/variation-modal' );
 ?>
 

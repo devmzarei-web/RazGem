@@ -41,6 +41,13 @@ function razgem_scripts() {
     $fly_version = file_exists( $fly_js_path ) ? filemtime( $fly_js_path ) : $theme_version;
     wp_enqueue_script( 'razgem-fly-to-cart', $theme_dir_uri . '/assets/js/fly-to-cart.js', array( 'razgem-main' ), $fly_version, true );
 
+    // 4.2 Hero Commercial Carousel
+    $hero_slider_path = $theme_dir_path . '/assets/js/hero-slider.js';
+    if ( file_exists( $hero_slider_path ) ) {
+        $hero_slider_version = filemtime( $hero_slider_path );
+        wp_enqueue_script( 'razgem-hero-slider', $theme_dir_uri . '/assets/js/hero-slider.js', array(), $hero_slider_version, true );
+    }
+
     // 5. Localized AJAX Data
     wp_localize_script( 'razgem-main', 'razgem_ajax', array(
         'ajax_url'     => admin_url( 'admin-ajax.php' ),
