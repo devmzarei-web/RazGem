@@ -84,21 +84,22 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
 ?>
 
 <section class="razgem-wonder-deals-section" aria-label="<?php echo esc_attr( $title ); ?>">
-    <!-- Top Living Wave Transition Divider into Deep Marine Navy -->
-    <div class="wonder-deals-wave-top ocean-wave-animator ocean-wave--dominant ocean-wave--to-canvas" aria-hidden="true">
+    <!-- Top Living Wave Transition Divider: Canvas Ivory into Deep Coastal Slate -->
+    <div class="wonder-deals-wave-top ocean-wave-animator ocean-wave--light-to-dark" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="deals-wave-top-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
             <g class="ocean-parallax-waves">
-                <use xlink:href="#deals-wave-top-path" x="48" y="0" class="wave-layer-canvas" />
+                <use xlink:href="#deals-wave-top-path" x="48" y="0" class="wave-layer-deep" />
                 <use xlink:href="#deals-wave-top-path" x="48" y="3" class="wave-layer-seafoam" />
-                <use xlink:href="#deals-wave-top-path" x="48" y="6" class="wave-layer-deep" />
+                <use xlink:href="#deals-wave-top-path" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#deals-wave-top-path" x="48" y="7" class="wave-layer-solid" />
             </g>
         </svg>
     </div>
 
-    <div class="site-container">
+    <div class="site-container wonder-deals-inner">
         <!-- Section Header with Title & Real-time Countdown Tiles -->
         <div class="wonder-deals-header">
             <div class="wonder-deals-title-group">
@@ -194,8 +195,8 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
         </div>
     </div>
 
-    <!-- Bottom Living Wave Transition Divider returning to Canvas -->
-    <div class="wonder-deals-wave-btm ocean-wave-animator ocean-wave--dominant ocean-wave--to-canvas" aria-hidden="true">
+    <!-- Bottom Living Wave Transition Divider: Deep Coastal Slate returning into Canvas Ivory -->
+    <div class="wonder-deals-wave-btm ocean-wave-animator ocean-wave--dark-to-light" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="deals-wave-btm-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -203,7 +204,8 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
             <g class="ocean-parallax-waves">
                 <use xlink:href="#deals-wave-btm-path" x="48" y="0" class="wave-layer-deep" />
                 <use xlink:href="#deals-wave-btm-path" x="48" y="3" class="wave-layer-seafoam" />
-                <use xlink:href="#deals-wave-btm-path" x="48" y="7" class="wave-layer-canvas" />
+                <use xlink:href="#deals-wave-btm-path" x="48" y="5" class="wave-layer-sand" />
+                <use xlink:href="#deals-wave-btm-path" x="48" y="7" class="wave-layer-solid" />
             </g>
         </svg>
     </div>

@@ -287,44 +287,20 @@ get_header(); ?>
     get_template_part( 'template-parts/promo-banners' );
     ?>
 
-    <?php
-    // Living wave divider transition into Pearlescent Ivory
-    razgem_render_wave_divider( array(
-        'fill_color'   => '#FAF8F5',
-        'bg_color'     => '#FAF6F0',
-        'layer1_color' => 'rgba(47, 89, 122, 0.35)',
-        'layer2_color' => 'rgba(170, 205, 220, 0.65)',
-        'layer3_color' => 'rgba(243, 227, 208, 0.85)',
-        'height_pc'    => 140,
-    ) );
-    ?>
-
     <!-- =======================================================================
          7. ARTISAN ATELIER STORY & INTERACTIVE STYLING SHOWCASE
          ======================================================================= -->
-    <div class="front-section-group section-palette-ivory" style="padding-top: 2rem; padding-bottom: 2.5rem;">
+    <div class="front-section-group section-palette-ivory" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
         <?php
         get_template_part( 'template-parts/styling-showcase' );
         get_template_part( 'template-parts/atelier' );
         ?>
     </div>
 
-    <?php
-    // Living wave divider transition into Soft Pebble Taupe
-    razgem_render_wave_divider( array(
-        'fill_color'   => '#F5EFEB',
-        'bg_color'     => '#FAF8F5',
-        'layer1_color' => 'rgba(129, 166, 198, 0.40)',
-        'layer2_color' => 'rgba(212, 175, 55, 0.60)',
-        'layer3_color' => 'rgba(235, 225, 215, 0.85)',
-        'height_pc'    => 140,
-    ) );
-    ?>
-
     <!-- =======================================================================
          8. VALUES, TRUST, PROMOS & MAGAZINE
          ======================================================================= -->
-    <div class="front-section-group section-palette-pebble" style="padding-top: 2.2rem; padding-bottom: 3.5rem;">
+    <div class="front-section-group section-palette-pebble" style="padding-top: 1.5rem; padding-bottom: 2rem;">
         
         <section class="features-section" style="background: transparent;">
             <div class="site-container features-grid">
@@ -412,18 +388,6 @@ get_header(); ?>
         </section>
 
     </div>
-
-    <?php
-    // Living wave divider transition into Deep Coastal Marine Footer (#1B3347)
-    razgem_render_wave_divider( array(
-        'fill_color'   => '#1B3347',
-        'bg_color'     => '#F5EFEB',
-        'layer1_color' => 'rgba(47, 89, 122, 0.45)',
-        'layer2_color' => 'rgba(129, 166, 198, 0.65)',
-        'layer3_color' => 'rgba(35, 70, 97, 0.85)',
-        'height_pc'    => 140,
-    ) );
-    ?>
 
 </main>
 

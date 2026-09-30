@@ -270,6 +270,8 @@ select {
   line-height: 0;
   pointer-events: none;
   z-index: 4;
+  margin: 0;
+  padding: 0;
 }
 .ocean-wave-animator--top {
   transform: rotate(180deg);
@@ -277,42 +279,35 @@ select {
 .ocean-waves-svg {
   position: relative;
   width: 100%;
-  height: 70px;
-  min-height: 60px;
+  height: 48px;
+  min-height: 40px;
   display: block;
+  vertical-align: bottom;
 }
 @media (min-width: 768px) {
   .ocean-waves-svg {
-    height: 100px;
+    height: 64px;
   }
 }
 @media (min-width: 1200px) {
   .ocean-waves-svg {
-    height: 125px;
-  }
-}
-@media (min-width: 1440px) {
-  .ocean-waves-svg {
-    height: 140px;
+    height: 74px;
+    max-height: 80px;
   }
 }
 .ocean-wave--dominant .ocean-waves-svg {
-  height: 85px;
-  min-height: 75px;
+  height: 52px;
+  min-height: 44px;
 }
 @media (min-width: 768px) {
   .ocean-wave--dominant .ocean-waves-svg {
-    height: 125px;
+    height: 68px;
   }
 }
 @media (min-width: 1200px) {
   .ocean-wave--dominant .ocean-waves-svg {
-    height: 165px;
-  }
-}
-@media (min-width: 1440px) {
-  .ocean-wave--dominant .ocean-waves-svg {
-    height: 185px;
+    height: 78px;
+    max-height: 84px;
   }
 }
 
@@ -494,6 +489,34 @@ select {
 .ocean-wave--to-slate-dark .wave-layer-seafoam { fill: rgba(74, 122, 158, 0.72); }
 .ocean-wave--to-slate-dark .wave-layer-sand { fill: rgba(35, 70, 97, 0.90); }
 .ocean-wave--to-slate-dark .wave-layer-canvas { fill: var(--color-slate-dark, #1B3347); }
+
+/* 4. Seamless Light-to-Dark Transition (Canvas #FAF8F5 -> Slate Dark #1B3347) */
+.ocean-wave--light-to-dark {
+  background-color: var(--color-canvas, #FAF8F5);
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  display: block;
+}
+.ocean-wave--light-to-dark .wave-layer-deep { fill: rgba(47, 89, 122, 0.35); }
+.ocean-wave--light-to-dark .wave-layer-seafoam { fill: rgba(74, 122, 158, 0.60); }
+.ocean-wave--light-to-dark .wave-layer-sand { fill: rgba(197, 155, 39, 0.50); }
+.ocean-wave--light-to-dark .wave-layer-solid { fill: var(--color-slate-dark, #1B3347); }
+.footer-wave-top.ocean-wave--light-to-dark { background-color: var(--color-canvas, #FAF8F5); }
+.footer-wave-top.ocean-wave--light-to-dark .wave-layer-solid { fill: #162B3C; }
+
+/* 5. Seamless Dark-to-Light Transition (Slate Dark #1B3347 -> Canvas #FAF8F5) */
+.ocean-wave--dark-to-light {
+  background-color: var(--color-slate-dark, #1B3347);
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  display: block;
+}
+.ocean-wave--dark-to-light .wave-layer-deep { fill: rgba(47, 89, 122, 0.50); }
+.ocean-wave--dark-to-light .wave-layer-seafoam { fill: rgba(170, 205, 220, 0.70); }
+.ocean-wave--dark-to-light .wave-layer-sand { fill: rgba(243, 227, 208, 0.85); }
+.ocean-wave--dark-to-light .wave-layer-solid { fill: var(--color-canvas, #FAF8F5); }
 
 /* Contrast & Typography Utility Helpers */
 .text-contrast-light {
@@ -1923,23 +1946,12 @@ select {
    (Organic Pebble Frames, Vanilla JS Crossfade, Sunlit Linen Atmosphere)
    ========================================================================= */
 .razgem-worn-showcase {
-  background: radial-gradient(ellipse at 50% 20%, #FAF6F0 0%, #F3E3D0 100%);
+  background: transparent;
   position: relative;
   overflow: hidden;
-  padding: 1rem 0 3rem 0;
-  margin: 3rem 0;
+  padding: 1rem 0 2rem 0;
+  margin: 0;
   color: var(--color-marine-deep);
-}
-.showcase-wave-top,
-.showcase-wave-bottom {
-  position: relative;
-  z-index: 3;
-}
-.showcase-wave-top {
-  margin-bottom: 2rem;
-}
-.showcase-wave-bottom {
-  margin-top: 3rem;
 }
 
 /* Showcase Header */
@@ -2229,11 +2241,11 @@ select {
    4.3 ARTISAN ATELIER STORY SECTION
    ========================================================================= */
 .razgem-atelier-section {
-  background: #FFFFFF;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  padding: 4.5rem 0;
-  margin: 3.5rem 0;
+  background: transparent;
+  border-top: none;
+  border-bottom: none;
+  padding: 2rem 0;
+  margin: 0;
   position: relative;
 }
 .razgem-atelier-grid {
@@ -5504,8 +5516,8 @@ body.archive.woocommerce .shop-main-content ul.products {
 .site-footer {
   background: radial-gradient(ellipse at 50% 0%, var(--color-slate-dark) 0%, #162B3C 100%);
   color: var(--color-sand);
-  padding: 0 0 0;
-  margin-top: 3.5rem;
+  padding: 0 0 2rem 0;
+  margin-top: 0;
   border: none;
   position: relative;
   overflow: hidden;
@@ -5516,21 +5528,24 @@ body.archive.woocommerce .shop-main-content ul.products {
   position: relative;
   z-index: 3;
   line-height: 0;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  background-color: var(--color-canvas, #FAF8F5);
 }
 .footer-wave-top svg {
   display: block;
-  width: calc(100% + 1.3px);
-  height: 65px;
+  width: 100%;
+  height: 48px;
 }
 @media (min-width: 768px) {
   .footer-wave-top svg {
-    height: 85px;
+    height: 64px;
   }
 }
 @media (min-width: 1200px) {
   .footer-wave-top svg {
-    height: 105px;
+    height: 76px;
+    max-height: 80px;
   }
 }
 
@@ -11654,8 +11669,8 @@ html, body {
 /* 12.1 Slim Artisan Authenticity Ribbon */
 .razgem-authenticity-ribbon {
   background: #FAF8F5;
-  border-top: 1px solid rgba(210, 196, 180, 0.45);
-  border-bottom: 1px solid rgba(210, 196, 180, 0.45);
+  border-top: none;
+  border-bottom: none;
   padding: 0.65rem 0;
   position: relative;
   z-index: 5;
@@ -12263,8 +12278,8 @@ html, body {
 .razgem-commercial-hero-section {
   position: relative;
   background: radial-gradient(circle at 75% 25%, #FAF8F5 0%, #F3E3D0 65%, #EBE1D4 100%);
-  padding: 1.5rem 0 3.5rem 0;
-  margin-bottom: 2rem;
+  padding: 1.25rem 0 1rem 0;
+  margin-bottom: 0;
   overflow: hidden;
 }
 
@@ -12311,19 +12326,20 @@ html, body {
 /* Right Column: Featured Carousel (~68% desktop width in RTL) */
 .hero-carousel-col {
   position: relative;
-  min-height: 400px;
+  min-height: 0;
 }
 
 .hero-carousel {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 400px;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius-lg, 20px);
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(27, 51, 71, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  background: #1B3347;
+  background: #0c2030;
 }
 
 .hero-carousel-track {
@@ -12340,7 +12356,7 @@ html, body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  transform: scale(1.02);
+  transform: scale(1.01);
   z-index: 1;
 }
 
@@ -12352,22 +12368,27 @@ html, body {
 }
 
 .hero-slide-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   position: relative;
+  background: #0c2030;
 }
 
 .hero-slide-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
   transition: transform 0.5s ease;
+  background: #0c2030;
 }
 
 .hero-slide-link:hover .hero-slide-img {
-  transform: scale(1.025);
+  transform: scale(1.02);
 }
 
 .hero-carousel-controls {
@@ -12443,8 +12464,12 @@ html, body {
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(27, 51, 71, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  background: #FAF8F5;
-  min-height: 190px;
+  background: #0c2030;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
@@ -12454,21 +12479,26 @@ html, body {
 }
 
 .hero-promo-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  background: #0c2030;
 }
 
 .hero-promo-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
   transition: transform 0.5s ease;
+  background: #0c2030;
 }
 
 .hero-promo-card:hover .hero-promo-img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 /* Responsive Commercial Hero (< 1024px) */
@@ -12478,10 +12508,11 @@ html, body {
     gap: 1rem;
   }
   .hero-carousel-col {
-    min-height: 320px;
+    min-height: 0;
   }
   .hero-carousel {
-    min-height: 320px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
   .hero-promos-col {
     display: grid;
@@ -12489,26 +12520,29 @@ html, body {
     gap: 1rem;
   }
   .hero-promo-card {
-    min-height: 160px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 }
 
 @media (max-width: 600px) {
   .razgem-commercial-hero-section {
-    padding: 0.75rem 0 2.5rem 0;
+    padding: 0.5rem 0 0.75rem 0;
   }
   .hero-carousel-col {
-    min-height: 240px;
+    min-height: 0;
   }
   .hero-carousel {
-    min-height: 240px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
     border-radius: 14px;
   }
   .hero-promos-col {
     gap: 0.6rem;
   }
   .hero-promo-card {
-    min-height: 130px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
   }
   .hero-carousel-controls {
@@ -12520,11 +12554,15 @@ html, body {
 /* --- 2. Wonder Deals ("پیشنهاد شگفت‌انگیز") & Live Countdown --- */
 .razgem-wonder-deals-section {
   position: relative;
-  background: linear-gradient(135deg, #1B3347 0%, #24445E 50%, #2F597A 100%);
+  background: var(--color-slate-dark, #1B3347);
   color: #FAF8F5;
-  padding: 4.5rem 0;
-  margin: 3.5rem 0;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
+}
+
+.wonder-deals-inner {
+  padding: 2.2rem 0 2rem 0;
 }
 
 .wonder-deals-header {
@@ -12782,8 +12820,8 @@ html, body {
 }
 
 @media (max-width: 600px) {
-  .razgem-wonder-deals-section {
-    padding: 3rem 0;
+  .wonder-deals-inner {
+    padding: 1.5rem 0 1.5rem 0;
   }
   .wonder-deals-header {
     flex-direction: column;
@@ -12906,7 +12944,7 @@ html, body {
 
 /* --- 4. Multi-Category Tabbed Vitrine & Promotional Grid --- */
 .razgem-vitrine-section {
-  padding: 3.5rem 0;
+  padding: 2.2rem 0;
 }
 
 .vitrine-header {

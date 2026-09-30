@@ -19,21 +19,6 @@ $initial_item = $items[0];
 ?>
 
 <section class="razgem-worn-showcase" id="wornShowcaseSection" aria-label="راهنمای استایل و تن‌خور زیورآلات صدف و مروارید رازجم">
-    <!-- Top Continuous Living Ocean Wave Transition -->
-    <div class="showcase-wave-top ocean-wave-animator ocean-wave-animator--top ocean-wave--dominant ocean-wave--to-sand" aria-hidden="true">
-        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="showcase-top-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="ocean-parallax-waves">
-                <use xlink:href="#showcase-top-wave" x="48" y="0" class="wave-layer-deep" />
-                <use xlink:href="#showcase-top-wave" x="48" y="3" class="wave-layer-seafoam" />
-                <use xlink:href="#showcase-top-wave" x="48" y="5" class="wave-layer-sand" />
-                <use xlink:href="#showcase-top-wave" x="48" y="7" class="wave-layer-canvas" />
-            </g>
-        </svg>
-    </div>
-
     <div class="site-container">
         <!-- Section Header -->
         <header class="showcase-header">
@@ -141,21 +126,6 @@ $initial_item = $items[0];
             </div>
 
         </div>
-    </div>
-
-    <!-- Bottom Continuous Living Ocean Wave Transition -->
-    <div class="showcase-wave-bottom ocean-wave-animator ocean-wave--dominant ocean-wave--to-canvas" aria-hidden="true">
-        <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="showcase-bottom-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="ocean-parallax-waves">
-                <use xlink:href="#showcase-bottom-wave" x="48" y="0" class="wave-layer-deep" />
-                <use xlink:href="#showcase-bottom-wave" x="48" y="3" class="wave-layer-seafoam" />
-                <use xlink:href="#showcase-bottom-wave" x="48" y="5" class="wave-layer-sand" />
-                <use xlink:href="#showcase-bottom-wave" x="48" y="7" class="wave-layer-canvas" />
-            </g>
-        </svg>
     </div>
 </section>
 
