@@ -42,139 +42,90 @@ $stations = array(
 ?>
 
 <section class="razgem-atelier-section" aria-label="<?php echo esc_attr( $atelier_title ); ?>">
-    <div class="site-container razgem-atelier-grid">
+    <div class="site-container">
         
-        <!-- Atelier Visual Showcase: Interactive Workstation Gallery -->
-        <div class="razgem-atelier-media-wrap">
-            <div class="razgem-atelier-frame" id="razgemAtelierFrame">
-                <img src="<?php echo esc_url( $stations[0]['image'] ); ?>" 
-                     alt="<?php echo esc_attr( $stations[0]['title'] ); ?>" 
-                     id="razgemAtelierMainImg"
-                     class="razgem-atelier-img"
-                     loading="lazy">
-                
-                <div class="razgem-atelier-badge-stamp">
-                    <span class="stamp-year">EST. ۲۰۲۳</span>
-                    <span class="stamp-text">کارگاه تخصصی زرگری و گوهرتراشی رازجم</span>
-                </div>
-
-                <div class="razgem-atelier-station-tag" id="razgemAtelierStationTag">
-                    <?php echo esc_html( $stations[0]['title'] ); ?>
-                </div>
-            </div>
-
-            <!-- 3 Workstations Interactive Switcher -->
-            <div class="razgem-workstations-thumbs" role="tablist" aria-label="<?php esc_attr_e( 'میزهای کارگاه رازجم', 'razgem' ); ?>">
-                <?php foreach ( $stations as $idx => $st ) : ?>
-                    <button type="button" 
-                            class="workstation-thumb-btn <?php echo 0 === $idx ? 'is-active' : ''; ?>"
-                            data-img="<?php echo esc_url( $st['image'] ); ?>"
-                            data-title="<?php echo esc_attr( $st['title'] ); ?>"
-                            role="tab"
-                            aria-selected="<?php echo 0 === $idx ? 'true' : 'false'; ?>"
-                            aria-label="<?php echo esc_attr( $st['title'] ); ?>">
-                        <div class="thumb-media">
-                            <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" loading="lazy">
-                        </div>
-                        <div class="thumb-info">
-                            <span class="thumb-num"><?php echo esc_html( sprintf( 'میز کار %d', $idx + 1 ) ); ?></span>
-                            <strong class="thumb-name"><?php echo esc_html( $st['title'] ); ?></strong>
-                        </div>
-                    </button>
-                <?php endforeach; ?>
-            </div>
-        </div>
-
-        <!-- Atelier Narrative & Craftsmanship Values -->
-        <div class="razgem-atelier-content">
+        <!-- Atelier Narrative Header -->
+        <div class="razgem-atelier-header" style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
             <?php if ( ! empty( $atelier_badge ) ) : ?>
-                <div class="razgem-atelier-badge-wrap">
-                    <span class="razgem-atelier-badge"><?php echo esc_html( $atelier_badge ); ?></span>
+                <div class="razgem-atelier-badge-wrap" style="justify-content: center;">
+                    <span class="razgem-atelier-badge" style="margin: 0 auto;"><?php echo esc_html( $atelier_badge ); ?></span>
                 </div>
             <?php endif; ?>
 
-            <h2 class="razgem-atelier-title">
+            <h2 class="razgem-atelier-title" style="margin-top: 1rem;">
                 <?php echo esc_html( $atelier_title ); ?>
             </h2>
 
-            <p class="razgem-atelier-desc">
+            <p class="razgem-atelier-desc" style="color: var(--color-marine-muted); margin-bottom: 2rem;">
                 <?php echo nl2br( esc_html( $atelier_desc ) ); ?>
             </p>
+        </div>
 
-            <div class="razgem-atelier-features">
-                <div class="atelier-feature-pill">
-                    <div class="pill-dot"></div>
-                    <div class="pill-body">
-                        <strong>ریخته‌گری دقیق طلای ۱۸ عیار</strong>
-                        <p>تولید محدود با نظارت دقیق عیارسنجی اتحادیه طلا و جواهر</p>
+        <!-- 3 Workstations Interactive Gallery -->
+        <div class="razgem-workstations-gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <?php foreach ( $stations as $idx => $st ) : ?>
+                <div class="workstation-card" style="border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(27,51,71,0.05); border: 1px solid rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                    <div class="workstation-img-wrap" style="aspect-ratio: 4/3; position: relative; overflow: hidden;">
+                        <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" loading="lazy">
+                        <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 0.3rem 0.8rem; border-radius: 999px; font-weight: 700; font-size: 0.75rem; color: #1B3347;">
+                            <?php echo esc_html( sprintf( 'میز کار %d', $idx + 1 ) ); ?>
+                        </div>
+                    </div>
+                    <div class="workstation-info" style="padding: 1.2rem;">
+                        <h3 style="font-size: 0.95rem; font-weight: 800; color: #1B3347; margin: 0 0 0.5rem 0;"><?php echo esc_html( $st['title'] ); ?></h3>
+                        <p style="font-size: 0.8rem; color: #5A7B92; margin: 0; line-height: 1.5;"><?php echo esc_html( $st['desc'] ); ?></p>
                     </div>
                 </div>
+            <?php endforeach; ?>
+        </div>
 
-                <div class="atelier-feature-pill">
-                    <div class="pill-dot"></div>
-                    <div class="pill-body">
-                        <strong>مرواریدهای باروک منفرد و طبیعی</strong>
-                        <p>هیچ دو مرواریدی در جهان یکسان نیستند؛ اثری منحصربه‌فرد برای شما</p>
-                    </div>
-                </div>
-
-                <div class="atelier-feature-pill">
-                    <div class="pill-dot"></div>
-                    <div class="pill-body">
-                        <strong>سفارش‌سازی نام، تاریخ و نشان دلخواه</strong>
-                        <p>تبدیل ایده و طرح ذهنی شما به یک شاهکار طلا با مدل‌سازی سه‌بعدی</p>
-                    </div>
+        <!-- Atelier Features (Bottom Row) -->
+        <div class="razgem-atelier-features" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
+            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
+                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+                <div class="pill-body">
+                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">ریخته‌گری دقیق طلای ۱۸ عیار</strong>
+                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">تولید محدود با نظارت دقیق عیارسنجی اتحادیه طلا و جواهر</p>
                 </div>
             </div>
 
-            <?php if ( ! empty( $atelier_btn_text ) && ! empty( $atelier_btn_url ) ) : ?>
-                <div class="razgem-atelier-actions">
-                    <a href="<?php echo esc_url( $atelier_btn_url ); ?>" class="btn-luxury-gold">
-                        <span><?php echo esc_html( $atelier_btn_text ); ?></span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="19" y1="12" x2="5" y2="12"></line>
-                            <polyline points="12 19 5 12 12 5"></polyline>
-                        </svg>
-                    </a>
+            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
+                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+                <div class="pill-body">
+                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">مرواریدهای باروک منفرد و طبیعی</strong>
+                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">هیچ دو مرواریدی در جهان یکسان نیستند؛ اثری منحصربه‌فرد</p>
                 </div>
-            <?php endif; ?>
+            </div>
+
+            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
+                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+                <div class="pill-body">
+                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">سفارش‌سازی نام، تاریخ و نشان دلخواه</strong>
+                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">تبدیل ایده و طرح ذهنی شما به یک شاهکار طلا با مدل‌سازی</p>
+                </div>
+            </div>
         </div>
+
+        <?php if ( ! empty( $atelier_btn_text ) && ! empty( $atelier_btn_url ) ) : ?>
+            <div class="razgem-atelier-actions" style="display: flex; justify-content: center; margin-top: 2.5rem;">
+                <a href="<?php echo esc_url( $atelier_btn_url ); ?>" class="btn-luxury-gold" style="padding: 0.8rem 2rem; border-radius: 999px; background: #D4AF37; color: #fff; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.2s;">
+                    <span><?php echo esc_html( $atelier_btn_text ); ?></span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+            </div>
+        <?php endif; ?>
 
     </div>
 </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var thumbBtns = document.querySelectorAll('.workstation-thumb-btn');
-    var mainImg = document.getElementById('razgemAtelierMainImg');
-    var tagEl = document.getElementById('razgemAtelierStationTag');
-
-    if (!thumbBtns.length || !mainImg) return;
-
-    thumbBtns.forEach(function(btn) {
-        function activateStation() {
-            var newSrc = btn.getAttribute('data-img');
-            var newTitle = btn.getAttribute('data-title');
-            if (newSrc && mainImg.src !== newSrc) {
-                mainImg.style.opacity = '0.4';
-                setTimeout(function() {
-                    mainImg.src = newSrc;
-                    mainImg.style.opacity = '1';
-                }, 150);
-            }
-            if (tagEl && newTitle) {
-                tagEl.textContent = newTitle;
-            }
-            thumbBtns.forEach(function(b) {
-                b.classList.remove('is-active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('is-active');
-            btn.setAttribute('aria-selected', 'true');
-        }
-
-        btn.addEventListener('click', activateStation);
-        btn.addEventListener('mouseenter', activateStation);
-    });
-});
-</script>
+<style>
+.workstation-card:hover .workstation-img-wrap img {
+    transform: scale(1.05);
+}
+.btn-luxury-gold:hover {
+    background: #c59b27 !important;
+}
+</style>

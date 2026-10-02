@@ -77,9 +77,8 @@ get_header(); ?>
          ======================================================================= -->
     <section id="handcrafted-catalog" class="razgem-vitrine-section">
         <div class="site-container">
-            <div class="vitrine-header">
-                <span class="vitrine-badge"><?php esc_html_e( 'شاهکارهای دست‌ساز رازجم', 'razgem' ); ?></span>
-                <h2 class="vitrine-title"><?php esc_html_e( 'جدیدترین دست‌سازه‌ها و تابلوهای صدف', 'razgem' ); ?></h2>
+            <div class="vitrine-header" style="margin-bottom: 1.5rem;">
+                <!-- Titles removed to reduce words before products based on user feedback -->
                 
                 <!-- Quick Category Filter Tabs -->
                 <div class="vitrine-tabs" role="tablist" aria-label="<?php esc_attr_e( 'فیلتر دسته‌بندی آثار', 'razgem' ); ?>">
