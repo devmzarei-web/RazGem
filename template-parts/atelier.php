@@ -6,9 +6,9 @@
  */
 
 // Customizer Options
-$atelier_badge    = get_theme_mod( 'atelier_badge', 'کارگاه زرگری و دست‌سازه‌ها' );
+$atelier_badge    = get_theme_mod( 'atelier_badge', 'کارگاه اختصاصی' );
 $atelier_title    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری رازجم' );
-$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار و تراش اختصاصی صدف‌های طبیعی در کارگاه اختصاصی رازجم.' );
+$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. گزینش اصیل‌ترین مرواریدها و تراش اختصاصی صدف‌های طبیعی خلیج فارس.' );
 $atelier_btn_text = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
 $atelier_btn_url  = get_theme_mod( 'atelier_btn_url', '/contact' );
 
@@ -19,20 +19,20 @@ $stations = array(
     array(
         'id'    => 1,
         'image' => get_theme_mod( 'atelier_image_1', '' ) ?: $theme_uri . '/assets/images/workstation-1.jpg',
-        'title' => get_theme_mod( 'atelier_title_1', 'میز شماره ۱: انتخاب و تراش صدف طبیعی' ),
-        'desc'  => get_theme_mod( 'atelier_desc_1', 'برش، صیقل و فرم‌دهی دستی صدف‌های طبیعی خلیج فارس بدون رنگ‌آمیزی شیمیایی' ),
+        'title' => 'انتخاب و تراش صدف طبیعی',
+        'desc'  => 'برش، صیقل و فرم‌دهی دستی صدف‌های طبیعی خلیج فارس بدون رنگ‌آمیزی شیمیایی',
     ),
     array(
         'id'    => 2,
         'image' => get_theme_mod( 'atelier_image_2', '' ) ?: $theme_uri . '/assets/images/workstation-2.jpg',
-        'title' => get_theme_mod( 'atelier_title_2', 'میز شماره ۲: گوهرنشانی و مروارید باروک' ),
-        'desc'  => get_theme_mod( 'atelier_desc_2', 'سوارکاری مرواریدهای باروک منفرد و ارگانیک بر پایه‌های طلایی و نقره استرلینگ' ),
+        'title' => 'گوهرنشانی و مروارید باروک',
+        'desc'  => 'سوارکاری مرواریدهای باروک منفرد و ارگانیک بر پایه‌های نقره استرلینگ و فلزات گرانبها',
     ),
     array(
         'id'    => 3,
         'image' => get_theme_mod( 'atelier_image_3', '' ) ?: $theme_uri . '/assets/images/workstation-3.jpg',
-        'title' => get_theme_mod( 'atelier_title_3', 'میز شماره ۳: طراحی سفارشی و کنترل نهایی' ),
-        'desc'  => get_theme_mod( 'atelier_desc_3', 'کنترل میکروسکوپی اتصالات، پولیش نهایی و صدور شناسنامه فیزیکی اصالت آتلیه' ),
+        'title' => 'طراحی سفارشی و کنترل نهایی',
+        'desc'  => 'کنترل میکروسکوپی اتصالات، پولیش نهایی و صدور شناسنامه فیزیکی اصالت آتلیه',
     ),
 );
 ?>
@@ -44,40 +44,43 @@ $stations = array(
         <div class="razgem-atelier-header" style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
             <?php if ( ! empty( $atelier_badge ) ) : ?>
                 <div class="razgem-atelier-badge-wrap" style="justify-content: center; display: flex;">
-                    <span class="razgem-atelier-badge" style="margin: 0 auto;"><?php echo esc_html( $atelier_badge ); ?></span>
+                    <span class="razgem-atelier-badge" style="margin: 0 auto; background: var(--color-marine-deep, #1B3347); color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem;"><?php echo esc_html( $atelier_badge ); ?></span>
                 </div>
             <?php endif; ?>
 
-            <h2 class="razgem-atelier-title" style="margin-top: 1rem;">
+            <h2 class="razgem-atelier-title" style="margin-top: 1.5rem; font-size: 2rem; color: var(--color-marine-deep, #1B3347);">
                 <?php echo esc_html( $atelier_title ); ?>
             </h2>
 
-            <p class="razgem-atelier-desc" style="color: var(--color-marine-muted); margin-bottom: 2rem;">
+            <p class="razgem-atelier-desc" style="color: var(--color-marine-muted, #5A7B92); margin-top: 1rem; font-size: 1.1rem; line-height: 1.8;">
                 <?php echo nl2br( esc_html( $atelier_desc ) ); ?>
             </p>
         </div>
 
         <!-- 3 Workstations Interactive Gallery (Slider) -->
-        <div class="atelier-slider-container" style="display: flex; gap: 2rem; align-items: stretch; margin-top: 3rem;">
+        <div class="atelier-slider-container" style="display: flex; gap: 3rem; align-items: stretch; margin-top: 4rem; background: #fff; padding: 2rem; border-radius: 24px; box-shadow: 0 10px 40px rgba(27,51,71,0.06); border: 1px solid rgba(27,51,71,0.04);">
             
             <!-- Left: Tabs (Text) -->
-            <div class="atelier-tabs" style="flex: 0 0 40%; display: flex; flex-direction: column; gap: 1rem; justify-content: center;">
+            <div class="atelier-tabs" style="flex: 0 0 45%; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;">
                 <?php foreach ( $stations as $idx => $st ) : ?>
-                    <div class="atelier-tab-btn <?php echo $idx === 0 ? 'active' : ''; ?>" data-slide="<?php echo $idx; ?>" style="padding: 1.5rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; background: <?php echo $idx === 0 ? '#fff' : 'transparent'; ?>; box-shadow: <?php echo $idx === 0 ? '0 4px 15px rgba(27,51,71,0.05)' : 'none'; ?>; border: 1px solid <?php echo $idx === 0 ? 'rgba(0,0,0,0.04)' : 'transparent'; ?>;">
-                        <h3 style="font-size: 1.1rem; font-weight: 800; color: #1B3347; margin: 0 0 0.5rem 0;"><?php echo esc_html( $st['title'] ); ?></h3>
-                        <p style="font-size: 0.9rem; color: #5A7B92; margin: 0; line-height: 1.6; opacity: <?php echo $idx === 0 ? '1' : '0.6'; ?>;"><?php echo esc_html( $st['desc'] ); ?></p>
+                    <div class="atelier-tab-btn <?php echo $idx === 0 ? 'active' : ''; ?>" data-slide="<?php echo $idx; ?>" style="padding: 1.5rem 1.5rem 1.5rem 2rem; border-radius: 16px; cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); background: <?php echo $idx === 0 ? 'var(--color-bg-base, #FBF8F2)' : 'transparent'; ?>; position: relative; overflow: hidden;">
+                        <?php if ( $idx === 0 ) : ?>
+                            <div class="active-indicator" style="position: absolute; right: 0; top: 1.5rem; bottom: 1.5rem; width: 4px; background: var(--color-marine-deep, #1B3347); border-radius: 4px 0 0 4px;"></div>
+                        <?php else : ?>
+                            <div class="active-indicator" style="position: absolute; right: 0; top: 1.5rem; bottom: 1.5rem; width: 4px; background: transparent; border-radius: 4px 0 0 4px; transition: background 0.3s;"></div>
+                        <?php endif; ?>
+                        
+                        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-marine-deep, #1B3347); margin: 0 0 0.5rem 0;"><?php echo esc_html( $st['title'] ); ?></h3>
+                        <p style="font-size: 0.95rem; color: var(--color-marine-muted, #5A7B92); margin: 0; line-height: 1.6; opacity: <?php echo $idx === 0 ? '1' : '0.6'; ?>; transition: opacity 0.3s;"><?php echo esc_html( $st['desc'] ); ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
 
             <!-- Right: Slider (Images) -->
-            <div class="atelier-slider-images" style="flex: 0 0 calc(60% - 2rem); position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(27,51,71,0.1);">
+            <div class="atelier-slider-images" style="flex: 1; position: relative; border-radius: 16px; overflow: hidden; min-height: 400px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);">
                 <?php foreach ( $stations as $idx => $st ) : ?>
-                    <div class="atelier-slide <?php echo $idx === 0 ? 'active' : ''; ?>" id="atelier-slide-<?php echo $idx; ?>" style="position: absolute; inset: 0; opacity: <?php echo $idx === 0 ? '1' : '0'; ?>; visibility: <?php echo $idx === 0 ? 'visible' : 'hidden'; ?>; transition: opacity 0.5s ease, visibility 0.5s ease;">
+                    <div class="atelier-slide <?php echo $idx === 0 ? 'active' : ''; ?>" id="atelier-slide-<?php echo $idx; ?>" style="position: absolute; inset: 0; opacity: <?php echo $idx === 0 ? '1' : '0'; ?>; visibility: <?php echo $idx === 0 ? 'visible' : 'hidden'; ?>; transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.6s, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); transform: <?php echo $idx === 0 ? 'scale(1)' : 'scale(1.05)'; ?>;">
                         <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                        <div style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 0.4rem 1rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem; color: #1B3347;">
-                            <?php echo esc_html( sprintf( 'میز کار %d', $idx + 1 ) ); ?>
-                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -85,35 +88,41 @@ $stations = array(
         </div>
 
         <!-- Atelier Features (Bottom Row) -->
-        <div class="razgem-atelier-features" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
-            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
-                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+        <div class="razgem-atelier-features" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 2.5rem; margin-top: 4rem;">
+            <div class="atelier-feature-pill" style="display: flex; align-items: flex-start; gap: 1rem; max-width: 320px;">
+                <div class="pill-dot" style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-bg-base, #FBF8F2); color: var(--color-marine-deep, #1B3347); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(27,51,71,0.1);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
                 <div class="pill-body">
-                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">ریخته‌گری دقیق طلای ۱۸ عیار</strong>
-                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">تولید محدود با نظارت دقیق عیارسنجی اتحادیه طلا و جواهر</p>
+                    <strong style="font-size: 0.95rem; color: var(--color-marine-deep, #1B3347); display: block; margin-bottom: 0.3rem;">تضمین اصالت متریال</strong>
+                    <p style="font-size: 0.8rem; color: var(--color-marine-muted, #5A7B92); margin: 0; line-height: 1.5;">استفاده از متریال ۱۰۰٪ طبیعی با بالاترین درجه کیفی در کارگاه اختصاصی</p>
                 </div>
             </div>
 
-            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
-                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+            <div class="atelier-feature-pill" style="display: flex; align-items: flex-start; gap: 1rem; max-width: 320px;">
+                <div class="pill-dot" style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-bg-base, #FBF8F2); color: var(--color-marine-deep, #1B3347); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(27,51,71,0.1);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                </div>
                 <div class="pill-body">
-                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">مرواریدهای باروک منفرد و طبیعی</strong>
-                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">هیچ دو مرواریدی در جهان یکسان نیستند؛ اثری منحصربه‌فرد</p>
+                    <strong style="font-size: 0.95rem; color: var(--color-marine-deep, #1B3347); display: block; margin-bottom: 0.3rem;">مرواریدهای باروک منحصربه‌فرد</strong>
+                    <p style="font-size: 0.8rem; color: var(--color-marine-muted, #5A7B92); margin: 0; line-height: 1.5;">هیچ دو مرواریدی در جهان یکسان نیستند؛ هر قطعه منحصربه‌فرد است</p>
                 </div>
             </div>
 
-            <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
-                <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
+            <div class="atelier-feature-pill" style="display: flex; align-items: flex-start; gap: 1rem; max-width: 320px;">
+                <div class="pill-dot" style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-bg-base, #FBF8F2); color: var(--color-marine-deep, #1B3347); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(27,51,71,0.1);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                </div>
                 <div class="pill-body">
-                    <strong style="font-size: 0.85rem; color: #1B3347; display: block;">سفارش‌سازی نام، تاریخ و نشان دلخواه</strong>
-                    <p style="font-size: 0.75rem; color: #5A7B92; margin: 0;">تبدیل ایده و طرح ذهنی شما به یک شاهکار طلا با مدل‌سازی</p>
+                    <strong style="font-size: 0.95rem; color: var(--color-marine-deep, #1B3347); display: block; margin-bottom: 0.3rem;">سفارش‌سازی طرح دلخواه</strong>
+                    <p style="font-size: 0.8rem; color: var(--color-marine-muted, #5A7B92); margin: 0; line-height: 1.5;">تبدیل ایده و طرح ذهنی شما به یک قطعه جواهر دست‌ساز و یگانه</p>
                 </div>
             </div>
         </div>
 
         <?php if ( ! empty( $atelier_btn_text ) && ! empty( $atelier_btn_url ) ) : ?>
-            <div class="razgem-atelier-actions" style="display: flex; justify-content: center; margin-top: 2.5rem;">
-                <a href="<?php echo esc_url( $atelier_btn_url ); ?>" class="btn-luxury-gold" style="padding: 0.8rem 2rem; border-radius: 999px; background: #D4AF37; color: #fff; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.2s;">
+            <div class="razgem-atelier-actions" style="display: flex; justify-content: center; margin-top: 3.5rem;">
+                <a href="<?php echo esc_url( $atelier_btn_url ); ?>" class="btn-coastal-slate" style="padding: 0.8rem 2.5rem; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.8rem;">
                     <span><?php echo esc_html( $atelier_btn_text ); ?></span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -127,15 +136,12 @@ $stations = array(
 </section>
 
 <style>
-.atelier-tab-btn:hover { background: rgba(255,255,255,0.5) !important; }
-.atelier-tab-btn.active { background: #fff !important; box-shadow: 0 4px 15px rgba(27,51,71,0.05) !important; border-color: rgba(0,0,0,0.04) !important; }
+.atelier-tab-btn:hover { background: var(--color-bg-base, #FBF8F2) !important; }
 .atelier-tab-btn.active p { opacity: 1 !important; }
-.btn-luxury-gold:hover {
-    background: #c59b27 !important;
-}
 @media (max-width: 991px) {
-    .atelier-slider-container { flex-direction: column-reverse; }
-    .atelier-slider-images { width: 100%; aspect-ratio: 4/3; }
+    .atelier-slider-container { flex-direction: column-reverse; padding: 1.5rem !important; }
+    .atelier-slider-images { width: 100%; aspect-ratio: 4/3; min-height: 250px !important; }
+    .atelier-tab-btn { padding: 1.2rem !important; }
 }
 </style>
 <script>
@@ -149,22 +155,23 @@ document.addEventListener('DOMContentLoaded', function() {
             tabs.forEach(t => {
                 t.classList.remove('active');
                 t.style.background = 'transparent';
-                t.style.boxShadow = 'none';
-                t.style.borderColor = 'transparent';
                 t.querySelector('p').style.opacity = '0.6';
+                const ind = t.querySelector('.active-indicator');
+                if (ind) ind.style.background = 'transparent';
             });
             slides.forEach(s => {
                 s.classList.remove('active');
                 s.style.opacity = '0';
                 s.style.visibility = 'hidden';
+                s.style.transform = 'scale(1.05)';
             });
             
             // Add active to clicked
             this.classList.add('active');
-            this.style.background = '#fff';
-            this.style.boxShadow = '0 4px 15px rgba(27,51,71,0.05)';
-            this.style.borderColor = 'rgba(0,0,0,0.04)';
+            this.style.background = 'var(--color-bg-base, #FBF8F2)';
             this.querySelector('p').style.opacity = '1';
+            const thisInd = this.querySelector('.active-indicator');
+            if (thisInd) thisInd.style.background = 'var(--color-marine-deep, #1B3347)';
             
             const slideId = this.getAttribute('data-slide');
             const targetSlide = document.getElementById('atelier-slide-' + slideId);
@@ -172,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 targetSlide.classList.add('active');
                 targetSlide.style.opacity = '1';
                 targetSlide.style.visibility = 'visible';
+                targetSlide.style.transform = 'scale(1)';
             }
         });
     });
