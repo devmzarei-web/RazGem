@@ -62,9 +62,9 @@ $stations = array(
         </div>
 
         <!-- 3 Workstations Interactive Gallery -->
-        <div class="razgem-workstations-gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <div class="razgem-workstations-gallery" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
             <?php foreach ( $stations as $idx => $st ) : ?>
-                <div class="workstation-card" style="border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(27,51,71,0.05); border: 1px solid rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                <div class="workstation-card" style="border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(27,51,71,0.05); border: 1px solid rgba(0,0,0,0.04); display: flex; flex-direction: column; flex: 1 1 300px; max-width: 380px;">
                     <div class="workstation-img-wrap" style="aspect-ratio: 4/3; position: relative; overflow: hidden;">
                         <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" loading="lazy">
                         <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 0.3rem 0.8rem; border-radius: 999px; font-weight: 700; font-size: 0.75rem; color: #1B3347;">
@@ -80,7 +80,7 @@ $stations = array(
         </div>
 
         <!-- Atelier Features (Bottom Row) -->
-        <div class="razgem-atelier-features" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
+        <div class="razgem-atelier-features" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
             <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
                 <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
                 <div class="pill-body">

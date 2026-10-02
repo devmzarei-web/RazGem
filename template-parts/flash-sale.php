@@ -60,36 +60,9 @@ if ( function_exists( 'wc_get_products' ) ) {
     }
 }
 
-// Fallback to authentic mock catalog if no WooCommerce database products returned
-if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' ) ) {
-    $all_mock = razgem_get_mock_products();
-    $count = 0;
-    foreach ( $all_mock as $key => $mock ) {
-        if ( ! empty( $mock['on_sale'] ) && $count < 4 ) {
-            $reg_p     = isset( $mock['regular_price'] ) ? (float) $mock['regular_price'] : 0;
-            $sale_p    = isset( $mock['price_raw'] ) ? (float) $mock['price_raw'] : 0;
-            $disc      = ( $reg_p > 0 && $sale_p > 0 ) ? round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 ) : 12;
-            $model_url = ! empty( $mock['img_model'] ) 
-                ? $mock['img_model'] 
-                : ( function_exists( 'razgem_get_product_model_image_url' ) ? razgem_get_product_model_image_url( 0, $key ) : '' );
-
-            $on_sale_products[] = array(
-                'id'          => $key,
-                'slug'        => $key,
-                'sku'         => $mock['code'] ?? '',
-                'title'       => $mock['title'],
-                'url'         => function_exists( 'razgem_product_url' ) ? razgem_product_url( $key ) : home_url( '/product/' . $key . '/' ),
-                'price'       => $mock['price_formatted'],
-                'old_price'   => $mock['old_price'],
-                'discount'    => $disc,
-                'category'    => $mock['category'],
-                'img'         => $mock['img_primary'],
-                'model_img'   => $model_url,
-                'is_variable' => ! empty( $mock['is_variable'] ),
-            );
-            $count++;
-        }
-    }
+// If no actual WooCommerce products are on sale, don't show the section.
+if ( empty( $on_sale_products ) ) {
+    return;
 }
 ?>
 
@@ -172,23 +145,6 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
                                 <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 </button>
-                                <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
-                                    <button type="button" 
-                                            class="stella-btn-action razgem-open-variation-modal" 
-                                            data-product-id="<?php echo esc_attr( $deal['id'] ); ?>"
-                                            data-product-title="<?php echo esc_attr( $deal['title'] ); ?>"
-                                            data-product-price="<?php echo esc_attr( $deal['price'] ); ?>"
-                                            data-product-image="<?php echo esc_url( $deal['img'] ); ?>"
-                                            aria-label="<?php echo esc_attr( 'انتخاب مشخصات و خرید' ); ?>">
-                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                                    </button>
-                                <?php else : ?>
-                                    <a href="<?php echo esc_url( $deal['url'] ); ?>" 
-                                       class="stella-btn-action"
-                                       aria-label="<?php echo esc_attr( 'خرید ' . $deal['title'] ); ?>">
-                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                                    </a>
-                                <?php endif; ?>
                             </div>
                             <div class="stella-arch-overlay"></div>
                         </a>
@@ -227,6 +183,13 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
                                 <div class="stella-price-wrap">
                                     <span class="stella-old-price"><?php echo esc_html( $deal['old_price'] ); ?></span>
                                     <span class="stella-current-price"><?php echo esc_html( $deal['price'] ); ?></span>
+                                </div>
+                                <div class="stella-action-overlay">
+                                    <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
+                                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="btn-stella-cart">مشاهده و انتخاب</a>
+                                    <?php else : ?>
+                                        <a href="?add-to-cart=<?php echo esc_attr( $deal['id'] ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart" data-product_id="<?php echo esc_attr( $deal['id'] ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

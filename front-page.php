@@ -174,50 +174,11 @@ get_header(); ?>
                                                 <span class="stella-badge" style="background:#2F597A;"><?php esc_html_e( 'دست‌ساز', 'razgem' ); ?></span>
                                             <?php endif; ?>
 
-                                            <div class="stella-media-actions">
+                                                <div class="stella-media-actions">
                                                 <!-- Wishlist -->
                                                 <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
                                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                                 </button>
-                                                
-                                                <!-- Cart Action -->
-                                                <?php if ( ! $is_in_stock ) : ?>
-                                                    <!-- disabled cart button -->
-                                                <?php elseif ( $is_variable ) : ?>
-                                                    <?php
-                                                    $variation_label = 'انتخاب گزینه';
-                                                    $variation_options = array( 'قاب چوبی تیره (گردویی)', 'قاب چوبی سفید (عاجی)' );
-                                                    $attributes = $product->get_attributes();
-                                                    if ( ! empty( $attributes ) ) {
-                                                        $first_attr = reset( $attributes );
-                                                        if ( is_object( $first_attr ) && method_exists( $first_attr, 'get_name' ) ) {
-                                                            $variation_label = wc_attribute_label( $first_attr->get_name() );
-                                                            $variation_options = $first_attr->get_options();
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <button type="button" 
-                                                            class="stella-btn-action razgem-open-variation-modal" 
-                                                            data-product-id="<?php echo esc_attr( $p_id ); ?>"
-                                                            data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
-                                                            data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
-                                                            data-product-image="<?php echo esc_url( $thumb_url ); ?>"
-                                                            data-variation-label="<?php echo esc_attr( $variation_label ); ?>"
-                                                            data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
-                                                            aria-label="<?php echo esc_attr( sprintf( 'انتخاب گزینه‌های %s', get_the_title() ) ); ?>"
-                                                            title="<?php esc_attr_e( 'انتخاب گزینه‌ها', 'razgem' ); ?>">
-                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                                                    </button>
-                                                <?php else : ?>
-                                                    <button type="button" 
-                                                            class="stella-btn-action razgem-ajax-add-to-cart ajax_add_to_cart" 
-                                                            data-product_id="<?php echo esc_attr( $p_id ); ?>" 
-                                                            data-quantity="1"
-                                                            aria-label="<?php echo esc_attr( sprintf( 'افزودن %s به سبد خرید', get_the_title() ) ); ?>" 
-                                                            title="<?php esc_attr_e( 'افزودن مستقیم به سبد خرید', 'razgem' ); ?>">
-                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                                                    </button>
-                                                <?php endif; ?>
                                             </div>
                                         </a>
 
@@ -252,6 +213,15 @@ get_header(); ?>
                                             <div class="stella-footer">
                                                 <div class="stella-price-wrap">
                                                     <span class="stella-current-price"><?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?></span>
+                                                </div>
+                                                <div class="stella-action-overlay">
+                                                    <?php if ( ! $is_in_stock ) : ?>
+                                                        <!-- disabled cart button -->
+                                                    <?php elseif ( $is_variable ) : ?>
+                                                        <a href="<?php echo esc_url( $p_link ); ?>" class="btn-stella-cart">مشاهده و انتخاب</a>
+                                                    <?php else : ?>
+                                                        <a href="?add-to-cart=<?php echo esc_attr( $p_id ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart" data-product_id="<?php echo esc_attr( $p_id ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>
