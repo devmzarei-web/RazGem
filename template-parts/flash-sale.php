@@ -26,7 +26,13 @@ $featured_products = array();
 
 if ( function_exists( 'wc_get_products' ) ) {
     $wc_products = wc_get_products( array(
-        'featured' => true,
+        'meta_query' => array(
+            array(
+                'key'     => '_razgem_is_suggested',
+                'value'   => 'yes',
+                'compare' => '='
+            )
+        ),
         'limit'    => 4,
         'status'   => 'publish',
     ) );
@@ -204,3 +210,4 @@ if ( function_exists( 'wc_get_products' ) ) {
         </svg>
     </div>
 </section>
+
