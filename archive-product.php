@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * The Template for displaying product archives, including the main shop page.
  * RazGem Coastal Haute-Joaillerie Edition
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 get_header( 'shop' );
 
 // Check if user is viewing a single specimen directly (?view_product=r-001)
-if ( ! empty( \['view_product'] ) ) {
+if ( ! empty( $_GET['view_product'] ) ) {
     get_template_part( 'template-parts/content-single-product' );
     get_footer( 'shop' );
     return;

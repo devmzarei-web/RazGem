@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * RazGem "پیشنهاد شگفت‌انگیز" (Wonder Deals) & Real-Time Countdown Module
  *
@@ -12,47 +12,47 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
- = get_theme_mod( 'flash_sale_enable', true );
-if ( !  ) {
+$enabled = get_theme_mod( 'flash_sale_enable', true );
+if ( ! $enabled ) {
     return;
 }
 
-       = get_theme_mod( 'flash_sale_title', 'پیشنهاد شگفت‌انگیز صدف و مروارید' );
-    = get_theme_mod( 'flash_sale_subtitle', 'تخفیف‌های استثنایی و محدود شاهکارهای دست‌ساز رازجم' );
-    = get_theme_mod( 'flash_sale_end', '' );
+$title       = get_theme_mod( 'flash_sale_title', 'پیشنهاد شگفت‌انگیز صدف و مروارید' );
+$subtitle    = get_theme_mod( 'flash_sale_subtitle', 'تخفیف‌های استثنایی و محدود شاهکارهای دست‌ساز رازجم' );
+$end_time    = get_theme_mod( 'flash_sale_end', '' );
 
 // Retrieve featured products ("پیشنهاد رازجم")
- = array();
+$featured_products = array();
 
 if ( function_exists( 'wc_get_products' ) ) {
-    \ = wc_get_products( array(
+    $wc_products = wc_get_products( array(
         'featured' => true,
         'limit'    => 4,
         'status'   => 'publish',
     ) );
 
-    if ( ! empty( \ ) ) {
-        foreach ( \ as \ ) {
-            \   = \->get_id();
-            \     = (float) \->get_regular_price();
-            \    = (float) \->get_sale_price();
+    if ( ! empty( $wc_products ) ) {
+        foreach ( $wc_products as $wc_prod ) {
+            $prod_id   = $wc_prod->get_id();
+            $reg_p     = (float) $wc_prod->get_regular_price();
+            $sale_p    = (float) $wc_prod->get_sale_price();
             
-            \ = 0;
-            if ( \->is_on_sale() && \ > 0 ) {
-                \ = round( ( ( \ - \ ) / \ ) * 100 );
+            $disc = 0;
+            if ( $wc_prod->is_on_sale() && $reg_p > 0 ) {
+                $disc = round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 );
             }
 
-            \[] = array(
-                'id'          => \,
-                'slug'        => \->get_slug(),
-                'sku'         => \->get_sku(),
-                'title'       => \->get_name(),
-                'url'         => get_permalink( \ ),
-                'img'         => get_the_post_thumbnail_url( \, 'woocommerce_thumbnail' ),
-                'price_html'  => \->get_price_html(),
-                'category'    => wc_get_product_category_list( \ ),
-                'discount'    => \,
-                'is_variable' => \->is_type( 'variable' )
+            $featured_products[] = array(
+                'id'          => $prod_id,
+                'slug'        => $wc_prod->get_slug(),
+                'sku'         => $wc_prod->get_sku(),
+                'title'       => $wc_prod->get_name(),
+                'url'         => get_permalink( $prod_id ),
+                'img'         => get_the_post_thumbnail_url( $prod_id, 'woocommerce_thumbnail' ),
+                'price_html'  => $wc_prod->get_price_html(),
+                'category'    => wc_get_product_category_list( $prod_id ),
+                'discount'    => $disc,
+                'is_variable' => $wc_prod->is_type( 'variable' )
             );
         }
     }
@@ -85,9 +85,9 @@ if ( function_exists( 'wc_get_products' ) ) {
                     <?php esc_html_e( 'پیشنهاد شگفت‌انگیز', 'razgem' ); ?>
                 </span>
                 <div class="wonder-deals-headings">
-                    <h2 class="wonder-deals-title"><?php echo esc_html( \ ); ?></h2>
-                    <?php if ( ! empty( \ ) ) : ?>
-                        <p class="wonder-deals-subtitle"><?php echo esc_html( \ ); ?></p>
+                    <h2 class="wonder-deals-title"><?php echo esc_html( $title ); ?></h2>
+                    <?php if ( ! empty( $subtitle ) ) : ?>
+                        <p class="wonder-deals-subtitle"><?php echo esc_html( $subtitle ); ?></p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -95,7 +95,7 @@ if ( function_exists( 'wc_get_products' ) ) {
             <!-- Live Real-Time Digital Countdown -->
             <div class="flash-sale-countdown" 
                  id="razgemFlashSaleTimer" 
-                 data-countdown-end="<?php echo esc_attr( \ ); ?>" 
+                 data-countdown-end="<?php echo esc_attr( $end_time ); ?>" 
                  role="timer" 
                  aria-label="<?php esc_attr_e( 'زمان باقی‌مانده', 'razgem' ); ?>">
                 <div class="countdown-tile">
@@ -122,19 +122,19 @@ if ( function_exists( 'wc_get_products' ) ) {
 
         <!-- Deals Products Grid -->
         <div class="wonder-deals-grid">
-            <?php foreach ( \ as \ ) : ?>
-                <article class="stella-product-card wonder-deal-stella" data-product-id="<?php echo esc_attr( \['id'] ); ?>">
+            <?php foreach ( $featured_products as $deal ) : ?>
+                <article class="stella-product-card wonder-deal-stella" data-product-id="<?php echo esc_attr( $deal['id'] ); ?>">
                     <div class="stella-card-inner">
-                        <a href="<?php echo esc_url( \['url'] ); ?>" class="stella-media-arch" title="<?php echo esc_attr( \['title'] ); ?>">
-                            <img src="<?php echo esc_url( \['img'] ); ?>" 
-                                 alt="<?php echo esc_attr( \['title'] ); ?>" 
+                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="stella-media-arch" title="<?php echo esc_attr( $deal['title'] ); ?>">
+                            <img src="<?php echo esc_url( $deal['img'] ); ?>" 
+                                 alt="<?php echo esc_attr( $deal['title'] ); ?>" 
                                  class="stella-img-main" 
                                  loading="lazy">
                             
-                            <?php if ( \['discount'] > 0 ) : 
-                                \ = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( \['discount'] ) : \['discount'];
+                            <?php if ( $deal['discount'] > 0 ) : 
+                                $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $deal['discount'] ) : $deal['discount'];
                             ?>
-                                <span class="stella-badge"><?php echo esc_html( \ ); ?>٪ تخفیف</span>
+                                <span class="stella-badge"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
                             <?php endif; ?>
 
                             <div class="stella-media-actions">
@@ -146,8 +146,8 @@ if ( function_exists( 'wc_get_products' ) ) {
 
                         <div class="stella-card-body">
                             <h3 class="stella-title">
-                                <a href="<?php echo esc_url( \['url'] ); ?>">
-                                    <?php echo esc_html( \['title'] ); ?>
+                                <a href="<?php echo esc_url( $deal['url'] ); ?>">
+                                    <?php echo esc_html( $deal['title'] ); ?>
                                 </a>
                             </h3>
 
@@ -160,25 +160,25 @@ if ( function_exists( 'wc_get_products' ) ) {
                             <div class="stella-attributes">
                                 <div class="stella-attr">
                                     <span class="attr-label">دسته:</span>
-                                    <span class="attr-value"><?php echo wp_kses_post( \['category'] ); ?></span>
+                                    <span class="attr-value"><?php echo wp_kses_post( $deal['category'] ); ?></span>
                                 </div>
-                                <?php if ( ! empty( \['sku'] ) ) : ?>
+                                <?php if ( ! empty( $deal['sku'] ) ) : ?>
                                 <div class="stella-attr">
                                     <span class="attr-label">کد اثر:</span>
-                                    <span class="attr-value" style="direction:ltr;"><?php echo esc_html( \['sku'] ); ?></span>
+                                    <span class="attr-value" style="direction:ltr;"><?php echo esc_html( $deal['sku'] ); ?></span>
                                 </div>
                                 <?php endif; ?>
                             </div>
 
                             <div class="stella-footer">
                                 <div class="stella-price-wrap">
-                                    <span class="stella-current-price"><?php echo wp_kses_post( \['price_html'] ); ?></span>
+                                    <span class="stella-current-price"><?php echo wp_kses_post( $deal['price_html'] ); ?></span>
                                 </div>
                                 <div class="stella-action-overlay">
-                                    <?php if ( ! empty( \['is_variable'] ) ) : ?>
-                                        <a href="<?php echo esc_url( \['url'] ); ?>" class="btn-stella-cart">مشاهده و انتخاب</a>
+                                    <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
+                                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="btn-stella-cart">مشاهده و انتخاب</a>
                                     <?php else : ?>
-                                        <a href="?add-to-cart=<?php echo esc_attr( \['id'] ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart add_to_cart_button" data-product_id="<?php echo esc_attr( \['id'] ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
+                                        <a href="?add-to-cart=<?php echo esc_attr( $deal['id'] ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart add_to_cart_button" data-product_id="<?php echo esc_attr( $deal['id'] ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
