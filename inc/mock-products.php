@@ -35,6 +35,7 @@ function razgem_get_mock_products() {
             'color'          => 'طبیعی، بدون رنگ‌آمیزی (مرجانی/نارنجی طبیعی)',
             'desc'           => 'قطعه‌ای منحصربه‌فرد از دل طبیعت، شکل‌گرفته با هنر دست. صدف طبیعی با تراش و جلای دست‌ساز که بدون رنگ‌آمیزی شیمیایی، درخشش و بافت طبیعی خود را حفظ کرده است.',
             'img_primary'    => $theme_uri . '/assets/images/products/r001-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/model-earrings-baroque.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r001-dimensions.jpg',
             'tag'            => 'صدف طبیعی اصل',
             'badge'          => 'دست‌ساز',
@@ -59,6 +60,7 @@ function razgem_get_mock_products() {
             'color'          => 'نقش‌های طبیعی سفید، صورتی و زرشکی',
             'desc'           => 'ترکیبی از نقش‌های طبیعی دریا و ظرافت هنر دست. طیف رنگی سفید، صورتی و زرشکی کاملاً طبیعی با جلای هنرمندانه و یراق‌های طلایی گرم.',
             'img_primary'    => $theme_uri . '/assets/images/products/r002-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/earrings-collection.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r002-dimensions.jpg',
             'tag'            => 'نقش طبیعی دریا',
             'badge'          => 'ویژه',
@@ -84,6 +86,7 @@ function razgem_get_mock_products() {
             'color'          => 'طبیعی قهوه‌ای و کرم صدفی با قاب چوبی',
             'desc'           => 'تابلو صدف دریایی طرح خورشید دست‌ساز با صدف‌های مخروطی طبیعی خلیج فارس در آرایش هندسی خورشیدی. اثری لوکس و ارگانیک برای فضاهای مدرن و اصیل.',
             'img_primary'    => $theme_uri . '/assets/images/products/r003-front.png',
+            'img_model'      => $theme_uri . '/assets/images/products/r003-main.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r003-white.png',
             'tag'            => 'تابلو دکوراتیو صدف',
             'badge'          => 'دست‌ساز',
@@ -112,6 +115,7 @@ function razgem_get_mock_products() {
             'color'          => 'طبیعی عاجی، سبز سدری و خاکی با قاب چوبی',
             'desc'           => 'تابلو توتیای دریایی سه بعدی دست‌ساز با توتیاهای طبیعی خلیج فارس. جلوه‌ای بی‌نظیر از بافت و هندسه ارگانیک دریا.',
             'img_primary'    => $theme_uri . '/assets/images/products/r004-main.png',
+            'img_model'      => $theme_uri . '/assets/images/products/r004-scale.png',
             'img_hover'      => $theme_uri . '/assets/images/products/r004-white.png',
             'tag'            => 'توتیای طبیعی دریا',
             'badge'          => 'ویژه',
@@ -139,6 +143,7 @@ function razgem_get_mock_products() {
             'color'          => 'طبیعی شیری و طلایی برنجی',
             'desc'           => 'دستبند ظریف بوهو-لوکس ترکیب صدف‌های مینیاتوری کائوری و مرواریدهای طبیعی نامنظم با اتصالات زرین.',
             'img_primary'    => $theme_uri . '/assets/images/products/r005-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r005-dimensions.jpg',
             'tag'            => 'صدف کائوری مرجانی',
             'badge'          => 'ظریف و ارگانیک',
@@ -166,6 +171,7 @@ function razgem_get_mock_products() {
             'color'          => 'رنگین‌کمانی فیروزه‌ای، بنفش و مرواریدی',
             'desc'           => 'هندسه مقدس مارپیچ فیبوناچی در مقطع صدف طبیعی ناتیلوس در کنار مروارید باروک کشی و رکاب باز قابل تنظیم.',
             'img_primary'    => $theme_uri . '/assets/images/products/r006-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/model-ring-r006.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r006-dimensions.jpg',
             'tag'            => 'صدف ناتیلوس هفت‌رنگ',
             'badge'          => 'فری‌سایز',
@@ -193,6 +199,7 @@ function razgem_get_mock_products() {
             'color'          => 'سفید عاجی و تلألو مرواریدی ارگانیک',
             'desc'           => 'شاهکار اصیل از تلفیق صدف بادبزنی طبیعی و مروارید باروک بر بستر مخمل کتان عاجی. اثری فاخر با جلوه‌ای لوکس و وقار اشرافی.',
             'img_primary'    => $theme_uri . '/assets/images/products/r007-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r007-dimensions.jpg',
             'tag'            => 'چوکر مخمل و مروارید باروک',
             'badge'          => 'شاهکار آتلیه',
@@ -218,6 +225,7 @@ function razgem_get_mock_products() {
             'color'          => 'صدف طبیعی هفت‌رنگ با تلألو رنگین‌کمانی خلیج فارس',
             'desc'           => 'انگشتر استیتمنت با صدف حلزونی مینیاتوری طبیعی و مرواریدهای باروک ریز بر رکابی ارگانیک با روکش طلای ۱۸ عیار و قابلیت تنظیم سایز.',
             'img_primary'    => $theme_uri . '/assets/images/products/r008-main.jpg',
+            'img_model'      => $theme_uri . '/assets/images/model-ring-r008.jpg',
             'img_hover'      => $theme_uri . '/assets/images/products/r008-dimensions.jpg',
             'tag'            => 'صدف حلزونی هفت‌رنگ',
             'badge'          => 'فری‌سایز',
@@ -361,7 +369,79 @@ function razgem_product_url( $id ) {
 }
 
 /**
- * Renders a standardized coastal product specimen card for mock products.
+ * Retrieve model/lifestyle background image URL for dual-depth presentation.
+ * Checks WooCommerce custom meta `_razgem_model_image`, then product gallery, then mock catalog.
+ *
+ * @param int|WC_Product $product_or_id
+ * @param string $mock_id
+ * @return string
+ */
+function razgem_get_product_model_image_url( $product_or_id = 0, $mock_id = '' ) {
+    $theme_uri = get_template_directory_uri();
+    $prod_id = 0;
+
+    if ( is_object( $product_or_id ) && method_exists( $product_or_id, 'get_id' ) ) {
+        $prod_id = $product_or_id->get_id();
+    } elseif ( is_numeric( $product_or_id ) && $product_or_id > 0 ) {
+        $prod_id = (int) $product_or_id;
+    }
+
+    if ( $prod_id > 0 ) {
+        // 1. Check dedicated custom meta set via Seeder or Product Edit screen
+        $meta_model = get_post_meta( $prod_id, '_razgem_model_image', true );
+        if ( ! empty( $meta_model ) ) {
+            if ( is_numeric( $meta_model ) ) {
+                $url = wp_get_attachment_image_url( (int) $meta_model, 'large' );
+                if ( $url ) {
+                    return $url;
+                }
+            } else {
+                return esc_url( $meta_model );
+            }
+        }
+
+        // 2. Fallback to first gallery image in WooCommerce
+        if ( function_exists( 'wc_get_product' ) ) {
+            $product = wc_get_product( $prod_id );
+            if ( $product ) {
+                $gallery = $product->get_gallery_image_ids();
+                if ( ! empty( $gallery ) ) {
+                    $url = wp_get_attachment_image_url( $gallery[0], 'large' );
+                    if ( $url ) {
+                        return $url;
+                    }
+                }
+            }
+        }
+    }
+
+    // 3. Fallback to mock catalog by ID / slug
+    if ( empty( $mock_id ) && $prod_id > 0 ) {
+        $mock_id = get_post_field( 'post_name', $prod_id );
+        if ( empty( $mock_id ) ) {
+            $sku = get_post_meta( $prod_id, '_sku', true );
+            $mock_id = strtolower( str_replace( array( 'RG-', '-' ), '', $sku ) );
+        }
+    }
+
+    if ( ! empty( $mock_id ) ) {
+        $mocks = razgem_get_mock_products();
+        $clean_key = strtolower( trim( $mock_id ) );
+        if ( isset( $mocks[ $clean_key ]['img_model'] ) ) {
+            return $mocks[ $clean_key ]['img_model'];
+        }
+        if ( isset( $mocks[ 'r-' . $clean_key ]['img_model'] ) ) {
+            return $mocks[ 'r-' . $clean_key ]['img_model'];
+        }
+    }
+
+    return $theme_uri . '/assets/images/model-earrings-baroque.jpg';
+}
+
+/**
+ * Renders a standardized luxury dual-depth coastal product card for mock products.
+ * Layer 1 (Depth): Ambient lifestyle model wearing the piece in Mediterranean light.
+ * Layer 2 (Focus): Arched white/nacre pedestal displaying isolated specimen in razor focus.
  *
  * @param array $p Product data array.
  * @param string $extra_classes
@@ -369,41 +449,51 @@ function razgem_product_url( $id ) {
 function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
     $product_url = razgem_product_url( $p['id'] );
     $wc_id       = razgem_get_wc_product_id( $p['id'] );
+    $model_url   = ! empty( $p['img_model'] ) ? $p['img_model'] : razgem_get_product_model_image_url( $wc_id, $p['id'] );
+    $badge_text  = ! empty( $p['badge'] ) ? $p['badge'] : ( ! empty( $p['on_sale'] ) ? 'ویژه' : 'دست‌ساز' );
+    $badge_type  = ! empty( $p['badge_type'] ) ? $p['badge_type'] : 'nature';
     ?>
     <article class="carousel-card <?php echo esc_attr( $extra_classes ); ?>">
-        <div class="product-card pebble-surface">
-            <div class="product-card__gallery">
-                <a href="<?php echo esc_url( $product_url ); ?>">
+        <div class="product-card luxury-dual-card pebble-surface">
+            <!-- Dual-Depth Layered Media: Model Lifestyle in depth + Center Focus Arch in front -->
+            <div class="dual-depth-media">
+                <!-- Background Layer: Model Lifestyle Wearing the Piece -->
+                <div class="dual-depth-bg">
+                    <img src="<?php echo esc_url( $model_url ); ?>" 
+                         alt="<?php echo esc_attr( $p['title'] . ' - تن‌پوش بر مدل' ); ?>" 
+                         class="dual-img-model" 
+                         loading="lazy">
+                </div>
+
+                <!-- Center Foreground Pedestal Arch: Isolated Jewelry Specimen -->
+                <a href="<?php echo esc_url( $product_url ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( $p['title'] ); ?>">
                     <img src="<?php echo esc_url( $p['img_primary'] ); ?>" 
                          alt="<?php echo esc_attr( $p['title'] ); ?>" 
-                         class="img-primary" 
+                         class="dual-img-focus" 
                          loading="lazy">
-                    <?php if ( ! empty( $p['img_hover'] ) ) : ?>
-                        <img src="<?php echo esc_url( $p['img_hover'] ); ?>" 
-                             alt="<?php echo esc_attr( $p['title'] ); ?> - نمای ابعاد یا استایل" 
-                             class="img-hover" 
-                             loading="lazy">
-                    <?php endif; ?>
                 </a>
 
-                <?php if ( ! empty( $p['badge'] ) ) : ?>
-                    <span class="product-badge product-badge--<?php echo esc_attr( $p['badge_type'] ); ?>">
-                        <?php echo esc_html( $p['badge'] ); ?>
+                <?php if ( ! empty( $p['badge'] ) || ! empty( $p['on_sale'] ) ) : ?>
+                    <span class="product-badge product-badge--<?php echo esc_attr( $badge_type ); ?>">
+                        <?php echo esc_html( $badge_text ); ?>
                     </span>
                 <?php endif; ?>
 
                 <?php if ( ! empty( $p['dimensions'] ) ) : ?>
-                    <span class="product-dimension-chip" title="ابعاد قطعه">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    <span class="product-dimension-chip" title="<?php echo esc_attr( 'ابعاد: ' . $p['dimensions'] ); ?>">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
                         <?php echo esc_html( $p['dimensions'] ); ?>
                     </span>
                 <?php endif; ?>
             </div>
 
-            <div class="product-card__content">
-                <div class="product-authenticity-tag">
-                    <span class="auth-dot"></span>
-                    <span><?php echo esc_html( $p['tag'] ); ?></span>
+            <div class="product-card__content dual-card-body">
+                <div class="dual-card-top-meta">
+                    <div class="product-authenticity-tag">
+                        <span class="auth-dot"></span>
+                        <span><?php echo esc_html( $p['tag'] ); ?></span>
+                    </div>
+                    <span class="product-sku-pill"><?php echo esc_html( $p['code'] ); ?></span>
                 </div>
 
                 <h3 class="product-title">
@@ -413,7 +503,7 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                 </h3>
 
                 <div class="product-meta">
-                    <?php echo esc_html( $p['category'] ); ?> | کد: <?php echo esc_html( $p['code'] ); ?>
+                    <?php echo esc_html( $p['category'] ); ?>
                 </div>
 
                 <div class="product-card__action-row">
@@ -435,7 +525,7 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                                 data-variations="<?php echo esc_attr( wp_json_encode( $p['variations'] ?? array() ) ); ?>"
                                 aria-label="انتخاب گزینه‌های <?php echo esc_attr( $p['title'] ); ?>"
                                 title="انتخاب گزینه‌ها">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </button>
                     <?php elseif ( $wc_id > 0 ) : ?>
                         <button type="button" 
@@ -446,14 +536,14 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
                                 data-quantity="1"
                                 aria-label="افزودن <?php echo esc_attr( $p['title'] ); ?> به سبد خرید"
                                 title="افزودن مستقیم به سبد خرید">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                         </button>
                     <?php else : ?>
                         <a href="<?php echo esc_url( $product_url ); ?>" 
                            class="product-card-cart-btn btn-coastal-action" 
                            aria-label="مشاهده و خرید <?php echo esc_attr( $p['title'] ); ?>"
                            title="مشاهده مشخصات و خرید">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                         </a>
                     <?php endif; ?>
                 </div>

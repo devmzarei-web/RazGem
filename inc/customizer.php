@@ -76,7 +76,7 @@ function razgem_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'razgem_hero_banners_section', array(
         'title'       => 'بنرها و هیرو تجاری صفحه نخست (Hero & Banners)',
         'priority'    => 26,
-        'description' => 'مدیریت بنرهای ۳ بخشی هیرو (اسلایدر ۳ تصویری بزرگ سمت راست و ۲ بنر ثابت عمودی سمت چپ) به همراه متون سئو (Alt) و لینک‌های مقصد.',
+        'description' => 'مدیریت بنرهای ۳ بخشی هیرو. ابعاد استاندارد ۱۶:۹ برای اسلایدر اصلی: ۱۶۰۰ × ۹۰۰ پیکسل (حداقل ۱۲۸۰ × ۷۲۰ پیکسل). ابعاد استاندارد ۱۶:۹ برای بنرهای ثابت کناری: ۸۰۰ × ۴۵۰ پیکسل (حداقل ۶۰۰ × ۳۳۸ پیکسل). تصاویر به صورت خودکار و پوشش کامل (cover) بدون خط یا حاشیه مشکی در قاب قرار می‌گیرند.',
     ) );
 
     // --- Slide 1 (Featured Wide Carousel) ---
@@ -85,9 +85,9 @@ function razgem_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_1_image', array(
-        'label'       => 'تصویر اسلایدر اصلی ۱ (پیشنهادی: ۸۸۰ × ۴۲۰ پیکسل)',
+        'label'       => 'تصویر اسلایدر اصلی ۱ (۱۶:۹ - استاندارد ۱۶۰۰ × ۹۰۰ px)',
         'section'     => 'razgem_hero_banners_section',
-        'description' => 'تصویر اسلاید اول کروسل اصلی. دکمه‌ها و نوشته‌ها روی بنر طراحی می‌شوند.',
+        'description' => 'تصویر اسلاید اول کروسل اصلی. کادر به صورت ۱۶:۹ با پوشش کامل نمایش داده می‌شود.',
     ) ) );
 
     $wp_customize->add_setting( 'hero_slide_1_url', array(
@@ -117,7 +117,7 @@ function razgem_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_2_image', array(
-        'label'       => 'تصویر اسلایدر اصلی ۲',
+        'label'       => 'تصویر اسلایدر اصلی ۲ (۱۶:۹ - استاندارد ۱۶۰۰ × ۹۰۰ px)',
         'section'     => 'razgem_hero_banners_section',
     ) ) );
 
@@ -147,7 +147,7 @@ function razgem_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_3_image', array(
-        'label'       => 'تصویر اسلایدر اصلی ۳',
+        'label'       => 'تصویر اسلایدر اصلی ۳ (۱۶:۹ - استاندارد ۱۶۰۰ × ۹۰۰ px)',
         'section'     => 'razgem_hero_banners_section',
     ) ) );
 
@@ -177,9 +177,9 @@ function razgem_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_promo_top_image', array(
-        'label'       => 'تصویر بنر ثابت بالا (پیشنهادی: ۴۰۰ × ۲۰۰ پیکسل)',
+        'label'       => 'تصویر بنر ثابت بالا (۱۶:۹ - استاندارد ۸۰۰ × ۴۵۰ px)',
         'section'     => 'razgem_hero_banners_section',
-        'description' => 'بنر تبلیغاتی ثابت بالای ستون کناری.',
+        'description' => 'بنر تبلیغاتی ثابت بالای ستون کناری. با نسبت ۱۶:۹ کاملاً در قاب قرار می‌گیرد.',
     ) ) );
 
     $wp_customize->add_setting( 'hero_promo_top_url', array(
@@ -208,9 +208,9 @@ function razgem_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_promo_btm_image', array(
-        'label'       => 'تصویر بنر ثابت پایین (پیشنهادی: ۴۰۰ × ۲۰۰ پیکسل)',
+        'label'       => 'تصویر بنر ثابت پایین (۱۶:۹ - استاندارد ۸۰۰ × ۴۵۰ px)',
         'section'     => 'razgem_hero_banners_section',
-        'description' => 'بنر تبلیغاتی ثابت پایین ستون کناری.',
+        'description' => 'بنر تبلیغاتی ثابت پایین ستون کناری. با نسبت ۱۶:۹ کاملاً در قاب قرار می‌گیرد.',
     ) ) );
 
     $wp_customize->add_setting( 'hero_promo_btm_url', array(
@@ -377,15 +377,68 @@ function razgem_customize_register( $wp_customize ) {
         'type'     => 'textarea',
     ) );
 
-    $wp_customize->add_setting( 'atelier_image', array(
+    // --- Workstation 1 ---
+    $wp_customize->add_setting( 'atelier_image_1', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'atelier_image', array(
-        'label'       => 'تصویر استودیو و کارگاه زرگری',
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'atelier_image_1', array(
+        'label'       => 'تصویر میز کارگاه ۱ (پیش‌فرض: Workstations 1)',
         'section'     => 'razgem_atelier_section',
-        'description' => 'در صورت خالی بودن، تصویر طراحی آتلیه و میز کارشناس باروک لود خواهد شد.',
+        'description' => 'تصویر میز انتخاب و تراش صدف طبیعی (ابعاد پیشنهادی: ۱۲۸۰ × ۷۲۰ پیکسل).',
     ) ) );
+
+    $wp_customize->add_setting( 'atelier_title_1', array(
+        'default'           => 'میز شماره ۱: انتخاب و تراش صدف طبیعی',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'atelier_title_1', array(
+        'label'    => 'عنوان میز ۱',
+        'section'  => 'razgem_atelier_section',
+        'type'     => 'text',
+    ) );
+
+    // --- Workstation 2 ---
+    $wp_customize->add_setting( 'atelier_image_2', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'atelier_image_2', array(
+        'label'       => 'تصویر میز کارگاه ۲ (پیش‌فرض: Workstations 2)',
+        'section'     => 'razgem_atelier_section',
+        'description' => 'تصویر میز زرگری و گوهرنشانی مروارید باروک.',
+    ) ) );
+
+    $wp_customize->add_setting( 'atelier_title_2', array(
+        'default'           => 'میز شماره ۲: گوهرنشانی و مروارید باروک',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'atelier_title_2', array(
+        'label'    => 'عنوان میز ۲',
+        'section'  => 'razgem_atelier_section',
+        'type'     => 'text',
+    ) );
+
+    // --- Workstation 3 ---
+    $wp_customize->add_setting( 'atelier_image_3', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'atelier_image_3', array(
+        'label'       => 'تصویر میز کارگاه ۳ (پیش‌فرض: Workstations 3)',
+        'section'     => 'razgem_atelier_section',
+        'description' => 'تصویر میز طراحی سفارشی و کنترل نهایی اثر.',
+    ) ) );
+
+    $wp_customize->add_setting( 'atelier_title_3', array(
+        'default'           => 'میز شماره ۳: طراحی سفارشی و کنترل نهایی',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'atelier_title_3', array(
+        'label'    => 'عنوان میز ۳',
+        'section'  => 'razgem_atelier_section',
+        'type'     => 'text',
+    ) );
 
     $wp_customize->add_setting( 'atelier_btn_text', array(
         'default'           => 'مشاوره و ساخت سفارش اختصاصی',

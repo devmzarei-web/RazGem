@@ -151,20 +151,32 @@ get_header(); ?>
                                 }
                             }
                             ?>
+                            $model_url = function_exists( 'razgem_get_product_model_image_url' ) 
+                                ? razgem_get_product_model_image_url( $p_id, get_post_field( 'post_name', $p_id ) ) 
+                                : ( ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'large' ) : $thumb_url );
+                            ?>
                             <div class="product-card-wrap" data-category="<?php echo esc_attr( $cat_slug ); ?>">
-                                <article class="product-card pebble-surface<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>">
-                                    <div class="product-card__gallery">
-                                        <a href="<?php echo esc_url( $p_link ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
-                                            <?php 
-                                            if ( $thumb_id ) {
-                                                echo wp_get_attachment_image( $thumb_id, 'medium', false, array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) );
-                                            } else {
-                                                echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'img-primary', 'alt' => esc_attr( get_the_title() ) ) ) : '';
-                                            }
-                                            if ( ! empty( $gallery_ids ) ) {
-                                                echo wp_get_attachment_image( $gallery_ids[0], 'medium', false, array( 'class' => 'img-hover', 'alt' => esc_attr( get_the_title() ) ) );
-                                            }
-                                            ?>
+                                <article class="product-card luxury-dual-card pebble-surface<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>">
+                                    <!-- Dual-Depth Layered Media: Model in depth + Pedestal Focus Arch in front -->
+                                    <div class="dual-depth-media">
+                                        <!-- Background Layer: Model Lifestyle Wearing the Piece -->
+                                        <div class="dual-depth-bg">
+                                            <img src="<?php echo esc_url( $model_url ); ?>" 
+                                                 alt="<?php echo esc_attr( get_the_title() . ' - تن‌پوش بر مدل' ); ?>" 
+                                                 class="dual-img-model" 
+                                                 loading="lazy">
+                                        </div>
+
+                                        <!-- Center Foreground Pedestal Arch: Isolated Specimen -->
+                                        <a href="<?php echo esc_url( $p_link ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( get_the_title() ); ?>">
+                                            <?php if ( $thumb_url ) : ?>
+                                                <img src="<?php echo esc_url( $thumb_url ); ?>" 
+                                                     alt="<?php echo esc_attr( get_the_title() ); ?>" 
+                                                     class="dual-img-focus" 
+                                                     loading="lazy">
+                                            <?php else : ?>
+                                                <?php echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'dual-img-focus', 'alt' => esc_attr( get_the_title() ) ) ) : ''; ?>
+                                            <?php endif; ?>
                                         </a>
 
                                         <?php if ( ! $is_in_stock ) : ?>
@@ -176,10 +188,15 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
 
-                                    <div class="product-card__content">
-                                        <div class="product-authenticity-tag">
-                                            <span class="auth-dot" aria-hidden="true"></span>
-                                            <span><?php esc_html_e( 'صدف طبیعی و گوهر دریا', 'razgem' ); ?></span>
+                                    <div class="product-card__content dual-card-body">
+                                        <div class="dual-card-top-meta">
+                                            <div class="product-authenticity-tag">
+                                                <span class="auth-dot" aria-hidden="true"></span>
+                                                <span><?php esc_html_e( 'صدف طبیعی و گوهر دریا', 'razgem' ); ?></span>
+                                            </div>
+                                            <?php if ( ! empty( $sku ) ) : ?>
+                                                <span class="product-sku-pill"><?php echo esc_html( $sku ); ?></span>
+                                            <?php endif; ?>
                                         </div>
 
                                         <h3 class="product-title">
@@ -187,8 +204,7 @@ get_header(); ?>
                                         </h3>
 
                                         <div class="product-meta">
-                                            <?php echo function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, ', ' ) : ''; ?>
-                                            <?php if ( ! empty( $sku ) ) : ?> | <?php echo esc_html( sprintf( 'کد: %s', $sku ) ); ?><?php endif; ?>
+                                            <?php echo function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, '، ' ) : ''; ?>
                                         </div>
 
                                         <div class="product-card__action-row">
@@ -198,7 +214,7 @@ get_header(); ?>
 
                                             <?php if ( ! $is_in_stock ) : ?>
                                                 <span class="product-card-cart-btn disabled" aria-disabled="true" title="<?php esc_attr_e( 'این اثر در حال حاضر ناموجود است', 'razgem' ); ?>">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                                 </span>
                                             <?php elseif ( $is_variable ) : ?>
                                                 <?php
@@ -223,7 +239,7 @@ get_header(); ?>
                                                         data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
                                                         aria-label="<?php echo esc_attr( sprintf( 'انتخاب گزینه‌های %s', get_the_title() ) ); ?>"
                                                         title="<?php esc_attr_e( 'انتخاب گزینه‌ها', 'razgem' ); ?>">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                 </button>
                                             <?php else : ?>
                                                 <button type="button" 
@@ -233,7 +249,7 @@ get_header(); ?>
                                                         data-quantity="1"
                                                         aria-label="<?php echo esc_attr( sprintf( 'افزودن %s به سبد خرید', get_the_title() ) ); ?>" 
                                                         title="<?php esc_attr_e( 'افزودن مستقیم به سبد خرید', 'razgem' ); ?>">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                                 </button>
                                             <?php endif; ?>
                                         </div>

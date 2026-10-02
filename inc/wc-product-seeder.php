@@ -45,6 +45,11 @@ class RazGem_WC_Product_Seeder {
         // Auto-seed on theme activation / first load if no products exist
         add_action( 'after_switch_theme', [ $this, 'auto_seed_on_activation' ] );
         add_action( 'init', [ $this, 'maybe_auto_seed' ], 20 );
+
+        // Model Image Admin Metabox (Continuity Rule)
+        add_action( 'add_meta_boxes', [ $this, 'register_product_model_metabox' ] );
+        add_action( 'save_post_product', [ $this, 'save_product_model_metabox' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_media_scripts' ] );
     }
 
     /**
@@ -68,6 +73,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'گوشواره دست‌ساز از صدف طبیعی خلیج فارس مزین به مروارید باروک با تلألو رنگین‌کمانی و یراق زرین ضدحساسیت.',
                 'content'     => 'این گوشواره با صدف طبیعی ساخته شده که توسط هنرمند با دست تراش و فرم داده شده است. رنگ صدف کاملاً طبیعی است و تنها برای نمایان‌تر شدن زیبایی، بافت و درخشش طبیعی سطح آن جلا خورده است. یراق و اتصالات برنجی به رنگ طلایی نیز جلوه‌ای گرم، ظریف و هنری به این اثر بخشیده است. به همراه شناسنامه اصالت فیزیکی و جعبه لوکس کادویی رازجم تقدیم می‌گردد.',
                 'image_file'  => 'r001-main.jpg',
+                'model_file'  => 'model-earrings-baroque.jpg',
                 'dim_file'    => 'r001-dimensions.jpg',
             ],
             'r-002' => [
@@ -86,6 +92,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'ترکیبی از نقش‌های طبیعی دریا و ظرافت هنر دست. طیف رنگی سفید، صورتی و زرشکی کاملاً طبیعی با جلای هنرمندانه.',
                 'content'     => 'این گوشواره از صدف طبیعی ساخته شده که توسط هنرمند، با دست تراش و فرم داده شده است. نقش‌ها و طیف رنگی سفید، صورتی و زرشکی صدف کاملاً طبیعی بوده و هیچ‌گونه رنگ‌آمیزی مصنوعی روی آن انجام نشده است؛ سطح صدف تنها برای نمایان‌تر شدن رنگ‌ها، رگه‌ها و درخشش طبیعی آن جلا خورده است. یراق و اتصالات برنجی به رنگ طلایی در کنار نقش طبیعی صدف، ترکیبی گرم و چشم‌نواز ایجاد کرده است.',
                 'image_file'  => 'r002-main.jpg',
+                'model_file'  => 'earrings-collection.jpg',
                 'dim_file'    => 'r002-dimensions.jpg',
             ],
             'r-003' => [
@@ -104,6 +111,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'تابلو صدف دریایی طرح خورشید دست‌ساز با صدف‌های مخروطی طبیعی و تلألو ارگانیک روی پنل چوبی عمیق.',
                 'content'     => 'تابلو دیواری هنری دست‌ساز با صدف‌های مخروطی طبیعی سواحل جنوب در چیدمان هندسی خورشیدی. بستر چوبی به رنگ گردویی تیره یا سفید صدفی جلا خورده تا عمق و بازی سایه‌روشن صدف‌ها به زیبایی نمایان شود. اثری لوکس و ارگانیک برای فضاهای مدرن و اصیل به همراه شناسنامه اصالت آتلیه رازجم.',
                 'image_file'  => 'r003-front.png',
+                'model_file'  => 'r003-main.jpg',
                 'dim_file'    => 'r003-white.png',
                 'is_variable' => true,
                 'attributes'  => [
@@ -129,6 +137,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'تابلو دیواری سه بعدی فاخر مزین به توتیاهای طبیعی دریایی با هندسه شگفت‌انگیز و برجسته طبیعت دریا.',
                 'content'     => 'تابلو توتیای دریایی سه بعدی دست‌ساز با توتیاهای طبیعی خلیج فارس. جلوه‌ای بی‌نظیر از بافت، ظرافت و هندسه ارگانیک دریا در قاب چوبی لوکس. هر قطعه توتیا به دقت انتخاب و با دست بر بستر چوب سوار شده است.',
                 'image_file'  => 'r004-main.png',
+                'model_file'  => 'r004-scale.png',
                 'dim_file'    => 'r004-white.png',
                 'is_variable' => true,
                 'attributes'  => [
@@ -154,6 +163,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'دستبند ظریف بوهو-لوکس ترکیب صدف‌های مینیاتوری کائوری و مرواریدهای طبیعی نامنظم با اتصالات زرین.',
                 'content'     => 'صدف‌های کائوری در تاریخ باستان به عنوان نماد برکت، ثروت و محافظت شناخته می‌شدند. در این دستبند دست‌ساز، صدف‌های منتخب با مرواریدهای طبیعی کشی و مهره‌های تراش‌خورده مات تلفیق شده‌اند تا استایلی تابستانی، شیک و سرشار از طراوت را خلق نمایند.',
                 'image_file'  => 'r005-main.jpg',
+                'model_file'  => 'model-bracelet-pendant.jpg',
                 'dim_file'    => 'r005-dimensions.jpg',
             ],
             'r-006' => [
@@ -172,6 +182,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'انگشتر بیاتومیک خیره‌کننده با مقطع صدف ناتیلوس هفت‌رنگ و مروارید پهن کشی روی رکاب چکش‌خورده باز.',
                 'content'     => 'هندسه مقدس مارپیچ فیبوناچی در مقطع صدف طبیعی ناتیلوس با بازی رنگ‌های صدفی فیروزه‌ای و بنفش، در کنار یک مروارید طبیعی کشی قرار گرفته است. رکاب انگشتر به صورت دو شاخه ارگانیک و باز طراحی شده که به راحتی برای هر اندازه انگشتی قابل تنظیم است.',
                 'image_file'  => 'r006-main.jpg',
+                'model_file'  => 'model-ring-r006.jpg',
                 'dim_file'    => 'r006-dimensions.jpg',
             ],
             'r-007' => [
@@ -190,6 +201,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'چوکر درباری نفیس با صدف بادبزنی تراش‌خورده و قطره مروارید باروک اصل روی نوار مخمل لطیف عاجی.',
                 'content'     => 'شاهکار اصیل از تلفیق صدف بادبزنی طبیعی و مروارید باروک بر بستر مخمل کتان عاجی. این اثر فاخر با الهام از گردنبندهای ملوکانه قاجار و سواحل نیلگون جنوب بازآفرینی شده است. کلیه یراق‌آلات از نقره استرلینگ ۹۲۵ با آبکاری ضخیم طلای ۱۸ عیار و کاملاً ضدحساسیت می‌باشند. به همراه جعبه لوکس چوبی و شناسنامه فیزیکی ارائه می‌گردد.',
                 'image_file'  => 'r007-main.jpg',
+                'model_file'  => 'model-necklace-seashell.jpg',
                 'dim_file'    => 'r007-dimensions.jpg',
             ],
             'r-008' => [
@@ -208,6 +220,7 @@ class RazGem_WC_Product_Seeder {
                 'short_desc'  => 'انگشتر استیتمنت با صدف حلزونی مینیاتوری طبیعی و مرواریدهای باروک ریز بر رکابی ارگانیک با روکش طلای ۱۸ عیار.',
                 'content'     => 'انگشتر استیتمنت مجلل که یک قطعه صدف حلزونی مینیاتوری طبیعی هفت‌رنگ را در میان حلقه‌ای از مرواریدهای باروک ریز جای داده است. تلألو رنگین‌کمانی صدف در نور خورشید تغییر رنگ می‌دهد. رکاب چکش‌خورده طلایی به صورت فری‌سایز و ارگانیک قابلیت تنظیم دقیق با سایز انگشت را داراست.',
                 'image_file'  => 'r008-main.jpg',
+                'model_file'  => 'model-ring-r008.jpg',
                 'dim_file'    => 'r008-dimensions.jpg',
             ],
         ];
@@ -381,18 +394,33 @@ class RazGem_WC_Product_Seeder {
                 wp_set_object_terms( $post_id, $data['tags'], 'product_tag', false );
             }
 
-            // Attach Studio Featured Image
+            // Attach Studio Featured Image (Front Specimen)
             $attachment_id = $this->import_product_image( $data['image_file'], $data['title'], $post_id );
             if ( $attachment_id ) {
                 set_post_thumbnail( $post_id, $attachment_id );
+            }
+
+            $gallery_attachments = [];
+
+            // Attach Model Lifestyle Image (for Dual-Depth Card in depth layer)
+            if ( ! empty( $data['model_file'] ) ) {
+                $model_attach_id = $this->import_product_image( $data['model_file'], $data['title'] . ' - تن‌پوش بر مدل', $post_id );
+                if ( $model_attach_id ) {
+                    update_post_meta( $post_id, '_razgem_model_image', (string) $model_attach_id );
+                    $gallery_attachments[] = (string) $model_attach_id;
+                }
             }
 
             // Attach Dimension Diagram to Gallery if available
             if ( ! empty( $data['dim_file'] ) ) {
                 $dim_attach_id = $this->import_product_image( $data['dim_file'], $data['title'] . ' - راهنمای ابعاد', $post_id );
                 if ( $dim_attach_id ) {
-                    update_post_meta( $post_id, '_product_image_gallery', (string) $dim_attach_id );
+                    $gallery_attachments[] = (string) $dim_attach_id;
                 }
+            }
+
+            if ( ! empty( $gallery_attachments ) ) {
+                update_post_meta( $post_id, '_product_image_gallery', implode( ',', array_unique( $gallery_attachments ) ) );
             }
 
             if ( $is_new ) {
@@ -499,6 +527,9 @@ class RazGem_WC_Product_Seeder {
     private function import_product_image( $filename, $title, $parent_post_id = 0 ) {
         $local_path = get_template_directory() . '/assets/images/products/' . $filename;
         if ( ! file_exists( $local_path ) ) {
+            $local_path = get_template_directory() . '/assets/images/' . $filename;
+        }
+        if ( ! file_exists( $local_path ) ) {
             return 0;
         }
 
@@ -585,6 +616,115 @@ class RazGem_WC_Product_Seeder {
             echo '<div class="notice notice-warning is-dismissible">';
             echo '<p><strong>هشدار رازجم:</strong> افزونه ووکامرس فعال نیست. برای فعال‌سازی سبد خرید و ثبت واقعی محصولات، لطفاً افزونه WooCommerce را از بخش افزونه‌ها فعال کنید.</p>';
             echo '</div>';
+        }
+    }
+
+    /**
+     * Register side meta box for managing the dual-depth model image directly in WooCommerce.
+     */
+    public function register_product_model_metabox() {
+        add_meta_box(
+            'razgem_product_model_box',
+            'تصویر مدل تن‌پوش رازجم (لایه عمق کارت)',
+            [ $this, 'render_product_model_metabox' ],
+            'product',
+            'side',
+            'low'
+        );
+    }
+
+    /**
+     * Render the model image metabox UI with live preview and WP Media selector.
+     */
+    public function render_product_model_metabox( $post ) {
+        wp_nonce_field( 'razgem_model_image_save', 'razgem_model_image_nonce' );
+        $model_id  = get_post_meta( $post->ID, '_razgem_model_image', true );
+        $model_url = $model_id ? wp_get_attachment_image_url( (int) $model_id, 'medium' ) : '';
+        ?>
+        <div class="razgem-model-metabox-wrapper" style="text-align: center;">
+            <p style="font-size: 11px; color: #666; margin-bottom: 8px; line-height: 1.5;">
+                تصویر مدل تن‌پوش زیورآلات برای لایه عمق کارت‌های لوکس رازجم در ویترین و شگفت‌انگیز.
+            </p>
+            <div id="razgem_model_preview" style="margin-bottom: 10px; min-height: 120px; background: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px dashed #c3c4c7;">
+                <?php if ( $model_url ) : ?>
+                    <img src="<?php echo esc_url( $model_url ); ?>" style="max-width: 100%; height: auto; display: block;" alt="پیش‌نمایش تصویر مدل">
+                <?php else : ?>
+                    <span style="color: #8c8f94; font-size: 11px;">بدون تصویر اختصاصی (استفاده از گالری)</span>
+                <?php endif; ?>
+            </div>
+            <input type="hidden" id="razgem_model_image_id" name="razgem_model_image_id" value="<?php echo esc_attr( $model_id ); ?>">
+            <button type="button" class="button" id="razgem_upload_model_btn" style="width: 100%; margin-bottom: 6px;">انتخاب / تغییر تصویر مدل</button>
+            <?php if ( $model_id ) : ?>
+                <button type="button" class="button-link-delete" id="razgem_remove_model_btn" style="display: block; width: 100%;">حذف تصویر مدل</button>
+            <?php endif; ?>
+        </div>
+        <script>
+        jQuery(document).ready(function($){
+            var file_frame;
+            $('#razgem_upload_model_btn').on('click', function(e){
+                e.preventDefault();
+                if (file_frame) { file_frame.open(); return; }
+                file_frame = wp.media({
+                    title: 'انتخاب تصویر مدل برای کارت دو لایه رازجم',
+                    button: { text: 'استفاده از این تصویر' },
+                    multiple: false
+                });
+                file_frame.on('select', function(){
+                    var attachment = file_frame.state().get('selection').first().toJSON();
+                    $('#razgem_model_image_id').val(attachment.id);
+                    var imgUrl = attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url;
+                    $('#razgem_model_preview').html('<img src="' + imgUrl + '" style="max-width:100%; height:auto; display:block;" />');
+                    if (!$('#razgem_remove_model_btn').length) {
+                        $('#razgem_upload_model_btn').after('<button type="button" class="button-link-delete" id="razgem_remove_model_btn" style="display:block;width:100%;">حذف تصویر مدل</button>');
+                    } else {
+                        $('#razgem_remove_model_btn').show();
+                    }
+                });
+                file_frame.open();
+            });
+            $(document).on('click', '#razgem_remove_model_btn', function(e){
+                e.preventDefault();
+                $('#razgem_model_image_id').val('');
+                $('#razgem_model_preview').html('<span style="color:#8c8f94; font-size:11px;">بدون تصویر اختصاصی (استفاده از گالری)</span>');
+                $(this).hide();
+            });
+        });
+        </script>
+        <?php
+    }
+
+    /**
+     * Save model image post meta on product save.
+     */
+    public function save_product_model_metabox( $post_id ) {
+        if ( ! isset( $_POST['razgem_model_image_nonce'] ) || ! wp_verify_nonce( $_POST['razgem_model_image_nonce'], 'razgem_model_image_save' ) ) {
+            return;
+        }
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+        if ( isset( $_POST['razgem_model_image_id'] ) ) {
+            $val = sanitize_text_field( $_POST['razgem_model_image_id'] );
+            if ( ! empty( $val ) ) {
+                update_post_meta( $post_id, '_razgem_model_image', $val );
+            } else {
+                delete_post_meta( $post_id, '_razgem_model_image' );
+            }
+        }
+    }
+
+    /**
+     * Ensure WordPress media uploader is loaded on product edit screens.
+     */
+    public function enqueue_admin_media_scripts( $hook ) {
+        if ( in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
+            global $post_type;
+            if ( 'product' === $post_type ) {
+                wp_enqueue_media();
+            }
         }
     }
 }

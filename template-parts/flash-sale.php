@@ -3,10 +3,10 @@
  * RazGem "پیشنهاد شگفت‌انگیز" (Wonder Deals) & Real-Time Countdown Module
  *
  * Displays on-sale authentic handcrafted seashell & pearl pieces with live countdown timer,
- * discount badges, strikethrough original prices, and variation pop-out modal support.
+ * compact dual-depth cards (model in depth, focus arch in front), and seamless wave transitions.
  *
  * @package RazGem
- * @version 1.0.0
+ * @version 3.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,14 +34,18 @@ if ( function_exists( 'wc_get_products' ) ) {
 
     if ( ! empty( $wc_products ) ) {
         foreach ( $wc_products as $wc_prod ) {
-            $prod_id = $wc_prod->get_id();
-            $reg_p   = (float) $wc_prod->get_regular_price();
-            $sale_p  = (float) $wc_prod->get_sale_price();
-            $disc    = $reg_p > 0 ? round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 ) : 15;
+            $prod_id   = $wc_prod->get_id();
+            $reg_p     = (float) $wc_prod->get_regular_price();
+            $sale_p    = (float) $wc_prod->get_sale_price();
+            $disc      = $reg_p > 0 ? round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 ) : 15;
+            $model_url = function_exists( 'razgem_get_product_model_image_url' ) 
+                ? razgem_get_product_model_image_url( $prod_id, $wc_prod->get_slug() ) 
+                : '';
 
             $on_sale_products[] = array(
                 'id'          => $prod_id,
                 'slug'        => $wc_prod->get_slug(),
+                'sku'         => $wc_prod->get_sku(),
                 'title'       => $wc_prod->get_name(),
                 'url'         => get_permalink( $prod_id ),
                 'price'       => number_format_i18n( $sale_p ) . ' تومان',
@@ -49,6 +53,7 @@ if ( function_exists( 'wc_get_products' ) ) {
                 'discount'    => $disc,
                 'category'    => wp_strip_all_tags( wc_get_product_category_list( $prod_id, '، ' ) ),
                 'img'         => wp_get_attachment_image_url( $wc_prod->get_image_id(), 'medium' ) ?: '',
+                'model_img'   => $model_url,
                 'is_variable' => $wc_prod->is_type( 'variable' ) || 'yes' === get_post_meta( $prod_id, '_razgem_is_variable', true ),
             );
         }
@@ -61,13 +66,17 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
     $count = 0;
     foreach ( $all_mock as $key => $mock ) {
         if ( ! empty( $mock['on_sale'] ) && $count < 4 ) {
-            $reg_p  = isset( $mock['regular_price'] ) ? (float) $mock['regular_price'] : 0;
-            $sale_p = isset( $mock['price_raw'] ) ? (float) $mock['price_raw'] : 0;
-            $disc   = ( $reg_p > 0 && $sale_p > 0 ) ? round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 ) : 12;
+            $reg_p     = isset( $mock['regular_price'] ) ? (float) $mock['regular_price'] : 0;
+            $sale_p    = isset( $mock['price_raw'] ) ? (float) $mock['price_raw'] : 0;
+            $disc      = ( $reg_p > 0 && $sale_p > 0 ) ? round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 ) : 12;
+            $model_url = ! empty( $mock['img_model'] ) 
+                ? $mock['img_model'] 
+                : ( function_exists( 'razgem_get_product_model_image_url' ) ? razgem_get_product_model_image_url( 0, $key ) : '' );
 
             $on_sale_products[] = array(
                 'id'          => $key,
                 'slug'        => $key,
+                'sku'         => $mock['code'] ?? '',
                 'title'       => $mock['title'],
                 'url'         => function_exists( 'razgem_product_url' ) ? razgem_product_url( $key ) : home_url( '/product/' . $key . '/' ),
                 'price'       => $mock['price_formatted'],
@@ -75,6 +84,7 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
                 'discount'    => $disc,
                 'category'    => $mock['category'],
                 'img'         => $mock['img_primary'],
+                'model_img'   => $model_url,
                 'is_variable' => ! empty( $mock['is_variable'] ),
             );
             $count++;
@@ -84,8 +94,8 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
 ?>
 
 <section class="razgem-wonder-deals-section" aria-label="<?php echo esc_attr( $title ); ?>">
-    <!-- Top Living Wave Transition Divider: Canvas Ivory into Deep Coastal Slate -->
-    <div class="wonder-deals-wave-top ocean-wave-animator ocean-wave--light-to-dark" aria-hidden="true">
+    <!-- Top Living Wave Transition: Sand Beige (#EBE1D4) flows directly under living wave crests into Slate Dark (#1B3347) with zero white band -->
+    <div class="wonder-deals-wave-top ocean-wave-animator" aria-hidden="true">
         <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="deals-wave-top-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -100,14 +110,14 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
     </div>
 
     <div class="site-container wonder-deals-inner">
-        <!-- Section Header with Title & Real-time Countdown Tiles -->
+        <!-- Section Header: Sleek, compact inline alignment -->
         <div class="wonder-deals-header">
             <div class="wonder-deals-title-group">
                 <span class="wonder-deals-badge">
                     <span aria-hidden="true">🔥</span>
-                    <?php esc_html_e( 'پیشنهاد ویژه', 'razgem' ); ?>
+                    <?php esc_html_e( 'پیشنهاد شگفت‌انگیز', 'razgem' ); ?>
                 </span>
-                <div>
+                <div class="wonder-deals-headings">
                     <h2 class="wonder-deals-title"><?php echo esc_html( $title ); ?></h2>
                     <?php if ( ! empty( $subtitle ) ) : ?>
                         <p class="wonder-deals-subtitle"><?php echo esc_html( $subtitle ); ?></p>
@@ -143,48 +153,70 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
             </div>
         </div>
 
-        <!-- Deals Products Grid -->
+        <!-- Deals Products Grid: Compact Dual-Depth Luxury Cards -->
         <div class="wonder-deals-grid">
             <?php foreach ( $on_sale_products as $deal ) : 
                 $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $deal['discount'] ) : $deal['discount'];
             ?>
-                <article class="wonder-deal-card" data-product-id="<?php echo esc_attr( $deal['id'] ); ?>">
-                    <div class="wonder-deal-media">
-                        <span class="wonder-deal-discount-pill"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
-                        <a href="<?php echo esc_url( $deal['url'] ); ?>" tabindex="-1" aria-hidden="true">
+                <article class="wonder-deal-card luxury-dual-card" data-product-id="<?php echo esc_attr( $deal['id'] ); ?>">
+                    <!-- Dual-Depth Layered Media: Model in depth + Pedestal Focus Arch in front -->
+                    <div class="dual-depth-media">
+                        <!-- Background Layer: Model Lifestyle Wearing the Piece -->
+                        <div class="dual-depth-bg">
+                            <img src="<?php echo esc_url( $deal['model_img'] ); ?>" 
+                                 alt="<?php echo esc_attr( $deal['title'] . ' - تن‌پوش بر مدل' ); ?>" 
+                                 class="dual-img-model" 
+                                 loading="lazy">
+                        </div>
+
+                        <!-- Center Foreground Pedestal Arch: Isolated Jewelry Specimen -->
+                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( $deal['title'] ); ?>">
                             <img src="<?php echo esc_url( $deal['img'] ); ?>" 
                                  alt="<?php echo esc_attr( $deal['title'] ); ?>" 
-                                 width="300" 
-                                 height="300" 
-                                 loading="lazy" 
-                                 class="wonder-deal-img">
+                                 class="dual-img-focus" 
+                                 loading="lazy">
                         </a>
+
+                        <span class="wonder-deal-discount-pill"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
                     </div>
-                    <div class="wonder-deal-body">
-                        <span class="wonder-deal-cat"><?php echo esc_html( $deal['category'] ); ?></span>
+
+                    <!-- Card Body -->
+                    <div class="wonder-deal-body dual-card-body">
+                        <div class="dual-card-top-meta">
+                            <span class="wonder-deal-cat"><?php echo esc_html( $deal['category'] ); ?></span>
+                            <?php if ( ! empty( $deal['sku'] ) ) : ?>
+                                <span class="product-sku-pill"><?php echo esc_html( $deal['sku'] ); ?></span>
+                            <?php endif; ?>
+                        </div>
+
                         <h3 class="wonder-deal-title">
                             <a href="<?php echo esc_url( $deal['url'] ); ?>">
                                 <?php echo esc_html( $deal['title'] ); ?>
                             </a>
                         </h3>
+
                         <div class="wonder-deal-pricing">
                             <span class="wonder-deal-old-price"><?php echo esc_html( $deal['old_price'] ); ?></span>
                             <span class="wonder-deal-price"><?php echo esc_html( $deal['price'] ); ?></span>
                         </div>
+
                         <div class="wonder-deal-action">
                             <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
                                 <button type="button" 
-                                        class="wonder-deal-btn open-variation-modal" 
+                                        class="wonder-deal-btn open-variation-modal razgem-open-variation-modal" 
                                         data-product-id="<?php echo esc_attr( $deal['id'] ); ?>"
+                                        data-product-title="<?php echo esc_attr( $deal['title'] ); ?>"
+                                        data-product-price="<?php echo esc_attr( $deal['price'] ); ?>"
+                                        data-product-image="<?php echo esc_url( $deal['img'] ); ?>"
                                         aria-label="<?php echo esc_attr( 'انتخاب مشخصات و قاب ' . $deal['title'] ); ?>">
-                                    <span aria-hidden="true">⚙️</span>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                     <span><?php esc_html_e( 'انتخاب قاب و خرید', 'razgem' ); ?></span>
                                 </button>
                             <?php else : ?>
                                 <a href="<?php echo esc_url( $deal['url'] ); ?>" 
                                    class="wonder-deal-btn"
                                    aria-label="<?php echo esc_attr( 'مشاهده و خرید ' . $deal['title'] ); ?>">
-                                    <span aria-hidden="true">🛍️</span>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                     <span><?php esc_html_e( 'مشاهده اثر', 'razgem' ); ?></span>
                                 </a>
                             <?php endif; ?>
