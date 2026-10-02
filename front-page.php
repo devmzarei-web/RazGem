@@ -118,7 +118,7 @@ get_header(); ?>
                             $sku         = $product->get_sku();
                             $gallery_ids = $product->get_gallery_image_ids();
                             $thumb_id    = $product->get_image_id();
-                            $thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium' ) : '';
+                            $thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'large' ) : '';
 
                             // Categorization for client-side tabs
                             $terms = get_the_terms( $p_id, 'product_cat' );
@@ -164,7 +164,7 @@ get_header(); ?>
                                                      class="stella-img-main" 
                                                      loading="lazy">
                                             <?php else : ?>
-                                                <?php echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'stella-img-main', 'alt' => esc_attr( get_the_title() ) ) ) : ''; ?>
+                                                <?php echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'large', array( 'class' => 'stella-img-main', 'alt' => esc_attr( get_the_title() ) ) ) : ''; ?>
                                             <?php endif; ?>
                                             
                                             <?php if ( ! $is_in_stock ) : ?>

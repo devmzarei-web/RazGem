@@ -22,19 +22,19 @@ $atelier_btn_url  = get_theme_mod( 'atelier_btn_url', '/contact' );
 $stations = array(
     array(
         'id'    => 1,
-        'image' => get_theme_mod( 'atelier_image_1', '' ) ?: $theme_uri . '/assets/images/Workstations (1).jpeg',
+        'image' => get_theme_mod( 'atelier_image_1', '' ) ?: $theme_uri . '/assets/images/workstation-1.jpg',
         'title' => get_theme_mod( 'atelier_title_1', 'میز شماره ۱: انتخاب و تراش صدف طبیعی' ),
         'desc'  => get_theme_mod( 'atelier_desc_1', 'برش، صیقل و فرم‌دهی دستی صدف‌های طبیعی خلیج فارس بدون رنگ‌آمیزی شیمیایی' ),
     ),
     array(
         'id'    => 2,
-        'image' => get_theme_mod( 'atelier_image_2', '' ) ?: $theme_uri . '/assets/images/Workstations (2).jpeg',
+        'image' => get_theme_mod( 'atelier_image_2', '' ) ?: $theme_uri . '/assets/images/workstation-2.jpg',
         'title' => get_theme_mod( 'atelier_title_2', 'میز شماره ۲: گوهرنشانی و مروارید باروک' ),
         'desc'  => get_theme_mod( 'atelier_desc_2', 'سوارکاری مرواریدهای باروک منفرد و ارگانیک بر پایه‌های طلایی و نقره استرلینگ' ),
     ),
     array(
         'id'    => 3,
-        'image' => get_theme_mod( 'atelier_image_3', '' ) ?: $theme_uri . '/assets/images/Workstations (3).jpeg',
+        'image' => get_theme_mod( 'atelier_image_3', '' ) ?: $theme_uri . '/assets/images/workstation-3.jpg',
         'title' => get_theme_mod( 'atelier_title_3', 'میز شماره ۳: طراحی سفارشی و کنترل نهایی' ),
         'desc'  => get_theme_mod( 'atelier_desc_3', 'کنترل میکروسکوپی اتصالات، پولیش نهایی و صدور شناسنامه فیزیکی اصالت آتلیه' ),
     ),

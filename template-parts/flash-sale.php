@@ -52,7 +52,7 @@ if ( function_exists( 'wc_get_products' ) ) {
                 'old_price'   => number_format_i18n( $reg_p ) . ' تومان',
                 'discount'    => $disc,
                 'category'    => wp_strip_all_tags( wc_get_product_category_list( $prod_id, '، ' ) ),
-                'img'         => wp_get_attachment_image_url( $wc_prod->get_image_id(), 'medium' ) ?: '',
+                'img'         => wp_get_attachment_image_url( $wc_prod->get_image_id(), 'large' ) ?: '',
                 'model_img'   => $model_url,
                 'is_variable' => $wc_prod->is_type( 'variable' ) || 'yes' === get_post_meta( $prod_id, '_razgem_is_variable', true ),
             );
