@@ -34,9 +34,9 @@ function razgem_get_mock_products() {
             'material'       => 'صدف طبیعی دست‌تراش و جلاخورده، یراق برنجی طلایی',
             'color'          => 'طبیعی، بدون رنگ‌آمیزی (مرجانی/نارنجی طبیعی)',
             'desc'           => 'قطعه‌ای منحصربه‌فرد از دل طبیعت، شکل‌گرفته با هنر دست. صدف طبیعی با تراش و جلای دست‌ساز که بدون رنگ‌آمیزی شیمیایی، درخشش و بافت طبیعی خود را حفظ کرده است.',
-            'img_primary'    => $theme_uri . '/assets/images/products/r001-main.jpg',
-            'img_model'      => $theme_uri . '/assets/images/model-earrings-baroque.jpg',
-            'img_hover'      => $theme_uri . '/assets/images/products/r001-dimensions.jpg',
+            'img_primary'    => $theme_uri . '/assets/images/products/Product-r001-testcard.png',
+            'img_model'      => $theme_uri . '/assets/images/products/Product-r001-testcard.png',
+            'img_hover'      => $theme_uri . '/assets/images/products/Product-r001-testcard.png',
             'tag'            => 'صدف طبیعی اصل',
             'badge'          => 'دست‌ساز',
             'badge_type'     => 'nature',
@@ -59,9 +59,9 @@ function razgem_get_mock_products() {
             'material'       => 'صدف طبیعی دست‌تراش و جلاخورده، اتصالات برنجی طلایی',
             'color'          => 'نقش‌های طبیعی سفید، صورتی و زرشکی',
             'desc'           => 'ترکیبی از نقش‌های طبیعی دریا و ظرافت هنر دست. طیف رنگی سفید، صورتی و زرشکی کاملاً طبیعی با جلای هنرمندانه و یراق‌های طلایی گرم.',
-            'img_primary'    => $theme_uri . '/assets/images/products/r002-main.jpg',
-            'img_model'      => $theme_uri . '/assets/images/earrings-collection.jpg',
-            'img_hover'      => $theme_uri . '/assets/images/products/r002-dimensions.jpg',
+            'img_primary'    => $theme_uri . '/assets/images/products/Product-r002-testcard.png',
+            'img_model'      => $theme_uri . '/assets/images/products/Product-r002-testcard.png',
+            'img_hover'      => $theme_uri . '/assets/images/products/Product-r002-testcard.png',
             'tag'            => 'نقش طبیعی دریا',
             'badge'          => 'ویژه',
             'badge_type'     => 'nature',
@@ -453,99 +453,103 @@ function razgem_render_mock_product_card( $p, $extra_classes = '' ) {
     $badge_text  = ! empty( $p['badge'] ) ? $p['badge'] : ( ! empty( $p['on_sale'] ) ? 'ویژه' : 'دست‌ساز' );
     $badge_type  = ! empty( $p['badge_type'] ) ? $p['badge_type'] : 'nature';
     ?>
-    <article class="carousel-card <?php echo esc_attr( $extra_classes ); ?>">
-        <div class="product-card luxury-dual-card pebble-surface">
-            <!-- Dual-Depth Layered Media: Model Lifestyle in depth + Center Focus Arch in front -->
-            <div class="dual-depth-media">
-                <!-- Background Layer: Model Lifestyle Wearing the Piece -->
-                <div class="dual-depth-bg">
-                    <img src="<?php echo esc_url( $model_url ); ?>" 
-                         alt="<?php echo esc_attr( $p['title'] . ' - تن‌پوش بر مدل' ); ?>" 
-                         class="dual-img-model" 
-                         loading="lazy">
-                </div>
-
-                <!-- Center Foreground Pedestal Arch: Isolated Jewelry Specimen -->
-                <a href="<?php echo esc_url( $product_url ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( $p['title'] ); ?>">
-                    <img src="<?php echo esc_url( $p['img_primary'] ); ?>" 
-                         alt="<?php echo esc_attr( $p['title'] ); ?>" 
-                         class="dual-img-focus" 
-                         loading="lazy">
-                </a>
-
+    <article class="stella-product-card <?php echo esc_attr( $extra_classes ); ?>" data-product-id="<?php echo esc_attr( $p['id'] ); ?>">
+        <div class="stella-card-inner">
+            <!-- Top Half: Single Image with Arch Overlay Effect -->
+            <a href="<?php echo esc_url( $product_url ); ?>" class="stella-media-arch" title="<?php echo esc_attr( $p['title'] ); ?>">
+                <img src="<?php echo esc_url( $p['img_primary'] ); ?>" 
+                     alt="<?php echo esc_attr( $p['title'] ); ?>" 
+                     class="stella-img-main" 
+                     loading="lazy">
+                
                 <?php if ( ! empty( $p['badge'] ) || ! empty( $p['on_sale'] ) ) : ?>
-                    <span class="product-badge product-badge--<?php echo esc_attr( $badge_type ); ?>">
+                    <span class="stella-badge">
                         <?php echo esc_html( $badge_text ); ?>
                     </span>
                 <?php endif; ?>
 
-                <?php if ( ! empty( $p['dimensions'] ) ) : ?>
-                    <span class="product-dimension-chip" title="<?php echo esc_attr( 'ابعاد: ' . $p['dimensions'] ); ?>">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                        <?php echo esc_html( $p['dimensions'] ); ?>
-                    </span>
-                <?php endif; ?>
-            </div>
-
-            <div class="product-card__content dual-card-body">
-                <div class="dual-card-top-meta">
-                    <div class="product-authenticity-tag">
-                        <span class="auth-dot"></span>
-                        <span><?php echo esc_html( $p['tag'] ); ?></span>
-                    </div>
-                    <span class="product-sku-pill"><?php echo esc_html( $p['code'] ); ?></span>
-                </div>
-
-                <h3 class="product-title">
-                    <a href="<?php echo esc_url( $product_url ); ?>">
-                        <?php echo esc_html( $p['title'] ); ?>
-                    </a>
-                </h3>
-
-                <div class="product-meta">
-                    <?php echo esc_html( $p['category'] ); ?>
-                </div>
-
-                <div class="product-card__action-row">
-                    <div class="product-price">
-                        <?php if ( ! empty( $p['old_price'] ) ) : ?>
-                            <span class="price-old"><?php echo esc_html( $p['old_price'] ); ?></span>
-                        <?php endif; ?>
-                        <span class="price-current"><?php echo esc_html( $p['price_formatted'] ); ?></span>
-                    </div>
-
+                <div class="stella-media-actions">
+                    <!-- Wishlist -->
+                    <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                    <!-- Cart -->
                     <?php if ( ! empty( $p['is_variable'] ) ) : ?>
                         <button type="button" 
-                                class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
+                                class="stella-btn-action razgem-open-variation-modal" 
                                 data-product-id="<?php echo esc_attr( $wc_id > 0 ? $wc_id : $p['id'] ); ?>"
                                 data-product-title="<?php echo esc_attr( $p['title'] ); ?>"
                                 data-product-price="<?php echo esc_attr( $p['price_formatted'] ); ?>"
                                 data-product-image="<?php echo esc_url( $p['img_primary'] ); ?>"
                                 data-variation-label="<?php echo esc_attr( $p['variation_label'] ?? 'انتخاب گزینه' ); ?>"
                                 data-variations="<?php echo esc_attr( wp_json_encode( $p['variations'] ?? array() ) ); ?>"
-                                aria-label="انتخاب گزینه‌های <?php echo esc_attr( $p['title'] ); ?>"
-                                title="انتخاب گزینه‌ها">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                aria-label="انتخاب گزینه‌های <?php echo esc_attr( $p['title'] ); ?>">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         </button>
                     <?php elseif ( $wc_id > 0 ) : ?>
                         <button type="button" 
-                                class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
+                                class="stella-btn-action razgem-ajax-add-to-cart ajax_add_to_cart" 
                                 data-product_id="<?php echo esc_attr( $wc_id ); ?>"
-                                data-product-id="<?php echo esc_attr( $wc_id ); ?>"
-                                data-product_sku="<?php echo esc_attr( $p['code'] ); ?>"
                                 data-quantity="1"
-                                aria-label="افزودن <?php echo esc_attr( $p['title'] ); ?> به سبد خرید"
-                                title="افزودن مستقیم به سبد خرید">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                aria-label="افزودن <?php echo esc_attr( $p['title'] ); ?> به سبد خرید">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         </button>
                     <?php else : ?>
                         <a href="<?php echo esc_url( $product_url ); ?>" 
-                           class="product-card-cart-btn btn-coastal-action" 
-                           aria-label="مشاهده و خرید <?php echo esc_attr( $p['title'] ); ?>"
-                           title="مشاهده مشخصات و خرید">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                           class="stella-btn-action" 
+                           aria-label="خرید <?php echo esc_attr( $p['title'] ); ?>">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         </a>
                     <?php endif; ?>
+                </div>
+                <!-- Simulated White Arch Overlay from Bottom -->
+                <div class="stella-arch-overlay"></div>
+            </a>
+
+            <!-- Bottom Half: Content Details -->
+            <div class="stella-card-body">
+                <h3 class="stella-title">
+                    <a href="<?php echo esc_url( $product_url ); ?>">
+                        <?php echo esc_html( $p['short_title'] ?? $p['title'] ); ?>
+                    </a>
+                </h3>
+
+                <div class="stella-rating-row">
+                    <div class="stella-stars">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                    </div>
+                    <div class="stella-comments">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C59B27" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span>۱۲</span>
+                    </div>
+                </div>
+
+                <div class="stella-attributes">
+                    <div class="stella-attr">
+                        <span class="attr-label">دسته:</span>
+                        <span class="attr-value"><?php echo esc_html( $p['category'] ); ?></span>
+                    </div>
+                    <?php if ( ! empty( $p['dimensions'] ) ) : ?>
+                    <div class="stella-attr">
+                        <span class="attr-label">ابعاد:</span>
+                        <span class="attr-value"><?php echo esc_html( mb_strimwidth( $p['dimensions'], 0, 30, '...' ) ); ?></span>
+                    </div>
+                    <?php endif; ?>
+                    <?php if ( ! empty( $p['material'] ) ) : ?>
+                    <div class="stella-attr">
+                        <span class="attr-label">جنس:</span>
+                        <span class="attr-value"><?php echo esc_html( mb_strimwidth( $p['material'], 0, 30, '...' ) ); ?></span>
+                    </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="stella-footer">
+                    <div class="stella-price-wrap">
+                        <?php if ( ! empty( $p['old_price'] ) ) : ?>
+                            <span class="stella-old-price"><?php echo esc_html( $p['old_price'] ); ?></span>
+                        <?php endif; ?>
+                        <span class="stella-current-price"><?php echo esc_html( $p['price_formatted'] ); ?></span>
+                    </div>
                 </div>
             </div>
         </div>

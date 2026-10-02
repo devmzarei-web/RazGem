@@ -304,11 +304,10 @@ get_header(); ?>
     ?>
 
     <!-- =======================================================================
-         7. ARTISAN ATELIER STORY & INTERACTIVE STYLING SHOWCASE
+         7. ARTISAN ATELIER STORY
          ======================================================================= -->
     <div class="front-section-group section-palette-ivory" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
         <?php
-        get_template_part( 'template-parts/styling-showcase' );
         get_template_part( 'template-parts/atelier' );
         ?>
     </div>

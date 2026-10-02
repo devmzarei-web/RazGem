@@ -158,68 +158,77 @@ if ( empty( $on_sale_products ) && function_exists( 'razgem_get_mock_products' )
             <?php foreach ( $on_sale_products as $deal ) : 
                 $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $deal['discount'] ) : $deal['discount'];
             ?>
-                <article class="wonder-deal-card luxury-dual-card" data-product-id="<?php echo esc_attr( $deal['id'] ); ?>">
-                    <!-- Dual-Depth Layered Media: Model in depth + Pedestal Focus Arch in front -->
-                    <div class="dual-depth-media">
-                        <!-- Background Layer: Model Lifestyle Wearing the Piece -->
-                        <div class="dual-depth-bg">
-                            <img src="<?php echo esc_url( $deal['model_img'] ); ?>" 
-                                 alt="<?php echo esc_attr( $deal['title'] . ' - تن‌پوش بر مدل' ); ?>" 
-                                 class="dual-img-model" 
-                                 loading="lazy">
-                        </div>
-
-                        <!-- Center Foreground Pedestal Arch: Isolated Jewelry Specimen -->
-                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( $deal['title'] ); ?>">
+                <article class="stella-product-card wonder-deal-stella" data-product-id="<?php echo esc_attr( $deal['id'] ); ?>">
+                    <div class="stella-card-inner">
+                        <a href="<?php echo esc_url( $deal['url'] ); ?>" class="stella-media-arch" title="<?php echo esc_attr( $deal['title'] ); ?>">
                             <img src="<?php echo esc_url( $deal['img'] ); ?>" 
                                  alt="<?php echo esc_attr( $deal['title'] ); ?>" 
-                                 class="dual-img-focus" 
+                                 class="stella-img-main" 
                                  loading="lazy">
+                            
+                            <span class="stella-badge"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
+
+                            <div class="stella-media-actions">
+                                <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                </button>
+                                <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
+                                    <button type="button" 
+                                            class="stella-btn-action razgem-open-variation-modal" 
+                                            data-product-id="<?php echo esc_attr( $deal['id'] ); ?>"
+                                            data-product-title="<?php echo esc_attr( $deal['title'] ); ?>"
+                                            data-product-price="<?php echo esc_attr( $deal['price'] ); ?>"
+                                            data-product-image="<?php echo esc_url( $deal['img'] ); ?>"
+                                            aria-label="<?php echo esc_attr( 'انتخاب مشخصات و خرید' ); ?>">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                    </button>
+                                <?php else : ?>
+                                    <a href="<?php echo esc_url( $deal['url'] ); ?>" 
+                                       class="stella-btn-action"
+                                       aria-label="<?php echo esc_attr( 'خرید ' . $deal['title'] ); ?>">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                            <div class="stella-arch-overlay"></div>
                         </a>
 
-                        <span class="wonder-deal-discount-pill"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
-                    </div>
-
-                    <!-- Card Body -->
-                    <div class="wonder-deal-body dual-card-body">
-                        <div class="dual-card-top-meta">
-                            <span class="wonder-deal-cat"><?php echo esc_html( $deal['category'] ); ?></span>
-                            <?php if ( ! empty( $deal['sku'] ) ) : ?>
-                                <span class="product-sku-pill"><?php echo esc_html( $deal['sku'] ); ?></span>
-                            <?php endif; ?>
-                        </div>
-
-                        <h3 class="wonder-deal-title">
-                            <a href="<?php echo esc_url( $deal['url'] ); ?>">
-                                <?php echo esc_html( $deal['title'] ); ?>
-                            </a>
-                        </h3>
-
-                        <div class="wonder-deal-pricing">
-                            <span class="wonder-deal-old-price"><?php echo esc_html( $deal['old_price'] ); ?></span>
-                            <span class="wonder-deal-price"><?php echo esc_html( $deal['price'] ); ?></span>
-                        </div>
-
-                        <div class="wonder-deal-action">
-                            <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
-                                <button type="button" 
-                                        class="wonder-deal-btn open-variation-modal razgem-open-variation-modal" 
-                                        data-product-id="<?php echo esc_attr( $deal['id'] ); ?>"
-                                        data-product-title="<?php echo esc_attr( $deal['title'] ); ?>"
-                                        data-product-price="<?php echo esc_attr( $deal['price'] ); ?>"
-                                        data-product-image="<?php echo esc_url( $deal['img'] ); ?>"
-                                        aria-label="<?php echo esc_attr( 'انتخاب مشخصات و قاب ' . $deal['title'] ); ?>">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                    <span><?php esc_html_e( 'انتخاب قاب و خرید', 'razgem' ); ?></span>
-                                </button>
-                            <?php else : ?>
-                                <a href="<?php echo esc_url( $deal['url'] ); ?>" 
-                                   class="wonder-deal-btn"
-                                   aria-label="<?php echo esc_attr( 'مشاهده و خرید ' . $deal['title'] ); ?>">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                    <span><?php esc_html_e( 'مشاهده اثر', 'razgem' ); ?></span>
+                        <div class="stella-card-body">
+                            <h3 class="stella-title">
+                                <a href="<?php echo esc_url( $deal['url'] ); ?>">
+                                    <?php echo esc_html( $deal['title'] ); ?>
                                 </a>
-                            <?php endif; ?>
+                            </h3>
+
+                            <div class="stella-rating-row">
+                                <div class="stella-stars">
+                                    <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                                </div>
+                                <div class="stella-comments">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C59B27" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                    <span>۱۵</span>
+                                </div>
+                            </div>
+
+                            <div class="stella-attributes">
+                                <div class="stella-attr">
+                                    <span class="attr-label">دسته:</span>
+                                    <span class="attr-value"><?php echo esc_html( $deal['category'] ); ?></span>
+                                </div>
+                                <?php if ( ! empty( $deal['sku'] ) ) : ?>
+                                <div class="stella-attr">
+                                    <span class="attr-label">کد اثر:</span>
+                                    <span class="attr-value" style="direction:ltr;"><?php echo esc_html( $deal['sku'] ); ?></span>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="stella-footer">
+                                <div class="stella-price-wrap">
+                                    <span class="stella-old-price"><?php echo esc_html( $deal['old_price'] ); ?></span>
+                                    <span class="stella-current-price"><?php echo esc_html( $deal['price'] ); ?></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </article>
