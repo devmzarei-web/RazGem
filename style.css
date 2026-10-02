@@ -13413,7 +13413,7 @@ html, body {
 
 .stella-price-wrap .woocommerce-Price-amount bdi {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row; direction: rtl;
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
@@ -13554,7 +13554,7 @@ html, body {
 .stella-current-price bdi,
 .woocommerce-Price-amount bdi {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row; direction: rtl;
     gap: 0.3rem;
 }
 
@@ -13613,5 +13613,6 @@ html, body {
 .woocommerce-breadcrumb a:hover {
     color: #fff !important;
 }
+
 
 
