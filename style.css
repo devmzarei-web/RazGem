@@ -13601,3 +13601,16 @@ html, body {
         display: flex;
     }
 }
+
+.shop-coastal-mini-hero {
+    background: var(--color-slate-dark, #1B3347);
+    margin-top: -1px;
+}
+.woocommerce-breadcrumb a {
+    color: rgba(255,255,255,0.7) !important;
+    text-decoration: none;
+}
+.woocommerce-breadcrumb a:hover {
+    color: #fff !important;
+}
+

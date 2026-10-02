@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Artisan Atelier Section Template
  *
@@ -58,7 +58,7 @@ $stations = array(
         </div>
 
         <!-- 3 Workstations Interactive Gallery (Slider) -->
-        <div class="atelier-slider-container" style="display: flex; gap: 3rem; align-items: stretch; margin-top: 4rem; background: #fff; padding: 2rem; border-radius: 24px; box-shadow: 0 10px 40px rgba(27,51,71,0.06); border: 1px solid rgba(27,51,71,0.04);">
+        <div class="atelier-slider-container" style="display: flex; gap: 3rem; align-items: stretch; margin-top: 4rem; margin-left: auto; margin-right: auto; max-width: 1100px; background: #fff; padding: 2rem; border-radius: 24px; box-shadow: 0 10px 40px rgba(27,51,71,0.06); border: 1px solid rgba(27,51,71,0.04);">
             
             <!-- Left: Tabs (Text) -->
             <div class="atelier-tabs" style="flex: 0 0 45%; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;">
@@ -185,3 +185,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+

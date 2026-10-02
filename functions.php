@@ -2435,3 +2435,25 @@ add_action( 'template_redirect', 'razgem_route_single_product_page', 1 );
 
 
 
+
+// Temporary script to setup widgets
+add_action('init', function() {
+    if (get_option('razgem_widgets_setup_done') !== 'yes') {
+        \ = get_option('sidebars_widgets', array());
+        \['shop-sidebar'] = array(); 
+        
+        \ = get_option('widget_woocommerce_product_categories', array());
+        \ = empty(\) ? 1 : max(array_keys(array_filter(\, 'is_numeric'))) + 1;
+        \[\] = array('title' => 'دسته‌بندی آثار', 'count' => 1, 'hierarchical' => 1, 'dropdown' => 0, 'hide_empty' => 1);
+        update_option('widget_woocommerce_product_categories', \);
+
+        \ = get_option('widget_woocommerce_price_filter', array());
+        \ = empty(\) ? 1 : max(array_keys(array_filter(\, 'is_numeric'))) + 1;
+        \[\] = array('title' => 'فیلتر بر اساس قیمت');
+        update_option('widget_woocommerce_price_filter', \);
+
+        \['shop-sidebar'] = array('woocommerce_product_categories-' . \, 'woocommerce_price_filter-' . \);
+        update_option('sidebars_widgets', \);
+        update_option('razgem_widgets_setup_done', 'yes');
+    }
+});
