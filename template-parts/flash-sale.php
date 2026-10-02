@@ -48,8 +48,7 @@ if ( function_exists( 'wc_get_products' ) ) {
                 'sku'         => $wc_prod->get_sku(),
                 'title'       => $wc_prod->get_name(),
                 'url'         => get_permalink( $prod_id ),
-                'price'       => number_format_i18n( $sale_p ) . ' تومان',
-                'old_price'   => number_format_i18n( $reg_p ) . ' تومان',
+                'price_html'  => $wc_prod->get_price_html(),
                 'discount'    => $disc,
                 'category'    => wp_strip_all_tags( wc_get_product_category_list( $prod_id, '، ' ) ),
                 'img'         => wp_get_attachment_image_url( $wc_prod->get_image_id(), 'large' ) ?: '',
@@ -146,7 +145,7 @@ if ( empty( $on_sale_products ) ) {
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 </button>
                             </div>
-                            <div class="stella-arch-overlay"></div>
+                            
                         </a>
 
                         <div class="stella-card-body">
@@ -181,8 +180,7 @@ if ( empty( $on_sale_products ) ) {
 
                             <div class="stella-footer">
                                 <div class="stella-price-wrap">
-                                    <span class="stella-old-price"><?php echo esc_html( $deal['old_price'] ); ?></span>
-                                    <span class="stella-current-price"><?php echo esc_html( $deal['price'] ); ?></span>
+                                    <span class="stella-current-price"><?php echo wp_kses_post( $deal['price_html'] ); ?></span>
                                 </div>
                                 <div class="stella-action-overlay">
                                     <?php if ( ! empty( $deal['is_variable'] ) ) : ?>
@@ -214,3 +212,4 @@ if ( empty( $on_sale_products ) ) {
         </svg>
     </div>
 </section>
+
