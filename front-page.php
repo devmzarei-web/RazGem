@@ -150,108 +150,111 @@ get_header(); ?>
                                     $cat_slug = 'bracelets-rings';
                                 }
                             }
-                            ?>
                             $model_url = function_exists( 'razgem_get_product_model_image_url' ) 
                                 ? razgem_get_product_model_image_url( $p_id, get_post_field( 'post_name', $p_id ) ) 
                                 : ( ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'large' ) : $thumb_url );
                             ?>
                             <div class="product-card-wrap" data-category="<?php echo esc_attr( $cat_slug ); ?>">
-                                <article class="product-card luxury-dual-card pebble-surface<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>">
-                                    <!-- Dual-Depth Layered Media: Model in depth + Pedestal Focus Arch in front -->
-                                    <div class="dual-depth-media">
-                                        <!-- Background Layer: Model Lifestyle Wearing the Piece -->
-                                        <div class="dual-depth-bg">
-                                            <img src="<?php echo esc_url( $model_url ); ?>" 
-                                                 alt="<?php echo esc_attr( get_the_title() . ' - تن‌پوش بر مدل' ); ?>" 
-                                                 class="dual-img-model" 
-                                                 loading="lazy">
-                                        </div>
-
-                                        <!-- Center Foreground Pedestal Arch: Isolated Specimen -->
-                                        <a href="<?php echo esc_url( $p_link ); ?>" class="dual-depth-focus-arch" title="<?php echo esc_attr( get_the_title() ); ?>">
+                                <article class="stella-product-card<?php echo ( ! $is_in_stock ) ? ' is-out-of-stock' : ''; ?>" data-product-id="<?php echo esc_attr( $p_id ); ?>">
+                                    <div class="stella-card-inner">
+                                        <a href="<?php echo esc_url( $p_link ); ?>" class="stella-media-arch" title="<?php echo esc_attr( get_the_title() ); ?>">
                                             <?php if ( $thumb_url ) : ?>
                                                 <img src="<?php echo esc_url( $thumb_url ); ?>" 
                                                      alt="<?php echo esc_attr( get_the_title() ); ?>" 
-                                                     class="dual-img-focus" 
+                                                     class="stella-img-main" 
                                                      loading="lazy">
                                             <?php else : ?>
-                                                <?php echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'dual-img-focus', 'alt' => esc_attr( get_the_title() ) ) ) : ''; ?>
+                                                <?php echo function_exists('wc_placeholder_img') ? wc_placeholder_img( 'medium', array( 'class' => 'stella-img-main', 'alt' => esc_attr( get_the_title() ) ) ) : ''; ?>
                                             <?php endif; ?>
+                                            
+                                            <?php if ( ! $is_in_stock ) : ?>
+                                                <span class="stella-badge" style="background:#6c757d;"><?php esc_html_e( 'ناموجود', 'razgem' ); ?></span>
+                                            <?php elseif ( $product->is_on_sale() ) : ?>
+                                                <span class="stella-badge"><?php esc_html_e( 'ویژه', 'razgem' ); ?></span>
+                                            <?php else : ?>
+                                                <span class="stella-badge" style="background:#2F597A;"><?php esc_html_e( 'دست‌ساز', 'razgem' ); ?></span>
+                                            <?php endif; ?>
+
+                                            <div class="stella-media-actions">
+                                                <!-- Wishlist -->
+                                                <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                                </button>
+                                                
+                                                <!-- Cart Action -->
+                                                <?php if ( ! $is_in_stock ) : ?>
+                                                    <!-- disabled cart button -->
+                                                <?php elseif ( $is_variable ) : ?>
+                                                    <?php
+                                                    $variation_label = 'انتخاب گزینه';
+                                                    $variation_options = array( 'قاب چوبی تیره (گردویی)', 'قاب چوبی سفید (عاجی)' );
+                                                    $attributes = $product->get_attributes();
+                                                    if ( ! empty( $attributes ) ) {
+                                                        $first_attr = reset( $attributes );
+                                                        if ( is_object( $first_attr ) && method_exists( $first_attr, 'get_name' ) ) {
+                                                            $variation_label = wc_attribute_label( $first_attr->get_name() );
+                                                            $variation_options = $first_attr->get_options();
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <button type="button" 
+                                                            class="stella-btn-action razgem-open-variation-modal" 
+                                                            data-product-id="<?php echo esc_attr( $p_id ); ?>"
+                                                            data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
+                                                            data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
+                                                            data-product-image="<?php echo esc_url( $thumb_url ); ?>"
+                                                            data-variation-label="<?php echo esc_attr( $variation_label ); ?>"
+                                                            data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
+                                                            aria-label="<?php echo esc_attr( sprintf( 'انتخاب گزینه‌های %s', get_the_title() ) ); ?>"
+                                                            title="<?php esc_attr_e( 'انتخاب گزینه‌ها', 'razgem' ); ?>">
+                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                                    </button>
+                                                <?php else : ?>
+                                                    <button type="button" 
+                                                            class="stella-btn-action razgem-ajax-add-to-cart ajax_add_to_cart" 
+                                                            data-product_id="<?php echo esc_attr( $p_id ); ?>" 
+                                                            data-quantity="1"
+                                                            aria-label="<?php echo esc_attr( sprintf( 'افزودن %s به سبد خرید', get_the_title() ) ); ?>" 
+                                                            title="<?php esc_attr_e( 'افزودن مستقیم به سبد خرید', 'razgem' ); ?>">
+                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
                                         </a>
 
-                                        <?php if ( ! $is_in_stock ) : ?>
-                                            <span class="product-badge product-badge--outofstock"><?php esc_html_e( 'ناموجود', 'razgem' ); ?></span>
-                                        <?php elseif ( $product->is_on_sale() ) : ?>
-                                            <span class="product-badge product-badge--discount"><?php esc_html_e( 'ویژه', 'razgem' ); ?></span>
-                                        <?php else : ?>
-                                            <span class="product-badge product-badge--nature"><?php esc_html_e( 'دست‌ساز', 'razgem' ); ?></span>
-                                        <?php endif; ?>
-                                    </div>
+                                        <div class="stella-card-body">
+                                            <h3 class="stella-title">
+                                                <a href="<?php echo esc_url( $p_link ); ?>"><?php the_title(); ?></a>
+                                            </h3>
 
-                                    <div class="product-card__content dual-card-body">
-                                        <div class="dual-card-top-meta">
-                                            <div class="product-authenticity-tag">
-                                                <span class="auth-dot" aria-hidden="true"></span>
-                                                <span><?php esc_html_e( 'صدف طبیعی و گوهر دریا', 'razgem' ); ?></span>
-                                            </div>
-                                            <?php if ( ! empty( $sku ) ) : ?>
-                                                <span class="product-sku-pill"><?php echo esc_html( $sku ); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-
-                                        <h3 class="product-title">
-                                            <a href="<?php echo esc_url( $p_link ); ?>"><?php the_title(); ?></a>
-                                        </h3>
-
-                                        <div class="product-meta">
-                                            <?php echo function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, '، ' ) : ''; ?>
-                                        </div>
-
-                                        <div class="product-card__action-row">
-                                            <div class="product-price">
-                                                <?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?>
+                                            <div class="stella-rating-row">
+                                                <div class="stella-stars">
+                                                    <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                                                </div>
+                                                <div class="stella-comments">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C59B27" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                                    <span>۱۲</span>
+                                                </div>
                                             </div>
 
-                                            <?php if ( ! $is_in_stock ) : ?>
-                                                <span class="product-card-cart-btn disabled" aria-disabled="true" title="<?php esc_attr_e( 'این اثر در حال حاضر ناموجود است', 'razgem' ); ?>">
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                </span>
-                                            <?php elseif ( $is_variable ) : ?>
-                                                <?php
-                                                $variation_label = 'انتخاب گزینه';
-                                                $variation_options = array( 'قاب چوبی تیره (گردویی)', 'قاب چوبی سفید (عاجی)' );
-                                                $attributes = $product->get_attributes();
-                                                if ( ! empty( $attributes ) ) {
-                                                    $first_attr = reset( $attributes );
-                                                    if ( is_object( $first_attr ) && method_exists( $first_attr, 'get_name' ) ) {
-                                                        $variation_label = wc_attribute_label( $first_attr->get_name() );
-                                                        $variation_options = $first_attr->get_options();
-                                                    }
-                                                }
-                                                ?>
-                                                <button type="button" 
-                                                        class="product-card-cart-btn btn-coastal-action razgem-open-variation-modal" 
-                                                        data-product-id="<?php echo esc_attr( $p_id ); ?>"
-                                                        data-product-title="<?php echo esc_attr( get_the_title() ); ?>"
-                                                        data-product-price="<?php echo esc_attr( wp_strip_all_tags( $product->get_price_html() ) ); ?>"
-                                                        data-product-image="<?php echo esc_url( $thumb_url ); ?>"
-                                                        data-variation-label="<?php echo esc_attr( $variation_label ); ?>"
-                                                        data-variations="<?php echo esc_attr( wp_json_encode( $variation_options ) ); ?>"
-                                                        aria-label="<?php echo esc_attr( sprintf( 'انتخاب گزینه‌های %s', get_the_title() ) ); ?>"
-                                                        title="<?php esc_attr_e( 'انتخاب گزینه‌ها', 'razgem' ); ?>">
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                </button>
-                                            <?php else : ?>
-                                                <button type="button" 
-                                                        class="product-card-cart-btn btn-coastal-action razgem-ajax-add-to-cart ajax_add_to_cart btn-fly-trigger" 
-                                                        data-product_id="<?php echo esc_attr( $p_id ); ?>" 
-                                                        data-product-id="<?php echo esc_attr( $p_id ); ?>"
-                                                        data-quantity="1"
-                                                        aria-label="<?php echo esc_attr( sprintf( 'افزودن %s به سبد خرید', get_the_title() ) ); ?>" 
-                                                        title="<?php esc_attr_e( 'افزودن مستقیم به سبد خرید', 'razgem' ); ?>">
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                                </button>
-                                            <?php endif; ?>
+                                            <div class="stella-attributes">
+                                                <div class="stella-attr">
+                                                    <span class="attr-label">دسته:</span>
+                                                    <span class="attr-value"><?php echo wp_strip_all_tags( function_exists( 'wc_get_product_category_list' ) ? wc_get_product_category_list( $p_id, '، ' ) : '' ); ?></span>
+                                                </div>
+                                                <?php if ( ! empty( $sku ) ) : ?>
+                                                <div class="stella-attr">
+                                                    <span class="attr-label">کد اثر:</span>
+                                                    <span class="attr-value" style="direction:ltr;"><?php echo esc_html( $sku ); ?></span>
+                                                </div>
+                                                <?php endif; ?>
+                                            </div>
+
+                                            <div class="stella-footer">
+                                                <div class="stella-price-wrap">
+                                                    <span class="stella-current-price"><?php echo method_exists( $product, 'get_price_html' ) ? $product->get_price_html() : ''; ?></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </article>
@@ -305,8 +308,7 @@ get_header(); ?>
 
     <!-- =======================================================================
          7. ARTISAN ATELIER STORY
-         ======================================================================= -->
-    <div class="front-section-group section-palette-ivory" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+    <div class="front-section-group" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
         <?php
         get_template_part( 'template-parts/atelier' );
         ?>
@@ -315,7 +317,7 @@ get_header(); ?>
     <!-- =======================================================================
          8. VALUES, TRUST, PROMOS & MAGAZINE
          ======================================================================= -->
-    <div class="front-section-group section-palette-pebble" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <div class="front-section-group" style="padding-top: 1.5rem; padding-bottom: 2rem;">
         
         <section class="features-section" style="background: transparent;">
             <div class="site-container features-grid">
