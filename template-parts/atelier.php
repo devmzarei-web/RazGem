@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Artisan Atelier Section Template
  *
@@ -6,13 +6,13 @@
  */
 
 // Customizer Options
-    = get_theme_mod( 'atelier_badge', 'کارگاه زرگری و دست‌سازه‌ها' );
-    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری رازجم' );
-     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار و تراش اختصاصی صدف‌های طبیعی در کارگاه اختصاصی رازجم.' );
- = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
-  = get_theme_mod( 'atelier_btn_url', '/contact' );
+$atelier_badge    = get_theme_mod( 'atelier_badge', 'کارگاه زرگری و دست‌سازه‌ها' );
+$atelier_title    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری رازجم' );
+$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار و تراش اختصاصی صدف‌های طبیعی در کارگاه اختصاصی رازجم.' );
+$atelier_btn_text = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
+$atelier_btn_url  = get_theme_mod( 'atelier_btn_url', '/contact' );
 
- = get_template_directory_uri();
+$theme_uri = get_template_directory_uri();
 
 // 3 Curated Workstations (Configurable via Customizer)
 $stations = array(
@@ -43,7 +43,7 @@ $stations = array(
         <!-- Atelier Narrative Header -->
         <div class="razgem-atelier-header" style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
             <?php if ( ! empty( $atelier_badge ) ) : ?>
-                <div class="razgem-atelier-badge-wrap" style="justify-content: center;">
+                <div class="razgem-atelier-badge-wrap" style="justify-content: center; display: flex;">
                     <span class="razgem-atelier-badge" style="margin: 0 auto;"><?php echo esc_html( $atelier_badge ); ?></span>
                 </div>
             <?php endif; ?>
