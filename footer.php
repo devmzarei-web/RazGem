@@ -1,19 +1,4 @@
-<?php defined( 'ABSPATH' ) || exit; ?>
-
-<!-- Top Continuous Living Ocean Wave Transition: Canvas Ivory into Slate Dark Footer -->
-<div class="footer-wave-top ocean-wave-animator ocean-wave--light-to-dark" aria-hidden="true">
-    <svg class="ocean-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-            <path id="footer-top-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="ocean-parallax-waves">
-            <use xlink:href="#footer-top-wave" x="48" y="0" class="wave-layer-deep" />
-            <use xlink:href="#footer-top-wave" x="48" y="3" class="wave-layer-seafoam" />
-            <use xlink:href="#footer-top-wave" x="48" y="5" class="wave-layer-sand" />
-            <use xlink:href="#footer-top-wave" x="48" y="7" class="wave-layer-solid" />
-        </g>
-    </svg>
-</div>
+﻿<?php defined( 'ABSPATH' ) || exit; ?>
 
 <footer class="site-footer">
     <!-- Coastal Shoreline Waves & Seafoam Texture Overlay -->

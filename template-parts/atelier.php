@@ -1,22 +1,18 @@
-<?php
+﻿<?php
 /**
- * RazGem Artisan Atelier Story & 3-Workstation Showcase
- * کارگاه زرگری و دست‌سازه‌های اختصاصی طلا و مروارید رازجم
+ * Artisan Atelier Section Template
  *
  * @package RazGem
- * @version 3.1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+// Customizer Options
+    = get_theme_mod( 'atelier_badge', 'کارگاه زرگری و دست‌سازه‌ها' );
+    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری رازجم' );
+     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار و تراش اختصاصی صدف‌های طبیعی در کارگاه اختصاصی رازجم.' );
+ = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
+  = get_theme_mod( 'atelier_btn_url', '/contact' );
 
-$theme_uri        = get_template_directory_uri();
-$atelier_badge    = get_theme_mod( 'atelier_badge', 'کارگاه زرگری و دست‌سازه‌ها' );
-$atelier_title    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری طلا و مروارید رازجم' );
-$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار و تراش اختصاصی صدف‌های طبیعی در کارگاه اختصاصی رازجم.' );
-$atelier_btn_text = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
-$atelier_btn_url  = get_theme_mod( 'atelier_btn_url', '/contact' );
+ = get_template_directory_uri();
 
 // 3 Curated Workstations (Configurable via Customizer)
 $stations = array(
@@ -61,26 +57,35 @@ $stations = array(
             </p>
         </div>
 
-        <!-- 3 Workstations Interactive Gallery -->
-        <div class="razgem-workstations-gallery" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
-            <?php foreach ( $stations as $idx => $st ) : ?>
-                <div class="workstation-card" style="border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(27,51,71,0.05); border: 1px solid rgba(0,0,0,0.04); display: flex; flex-direction: column; flex: 1 1 300px; max-width: 380px;">
-                    <div class="workstation-img-wrap" style="aspect-ratio: 4/3; position: relative; overflow: hidden;">
-                        <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" loading="lazy">
-                        <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 0.3rem 0.8rem; border-radius: 999px; font-weight: 700; font-size: 0.75rem; color: #1B3347;">
+        <!-- 3 Workstations Interactive Gallery (Slider) -->
+        <div class="atelier-slider-container" style="display: flex; gap: 2rem; align-items: stretch; margin-top: 3rem;">
+            
+            <!-- Left: Tabs (Text) -->
+            <div class="atelier-tabs" style="flex: 0 0 40%; display: flex; flex-direction: column; gap: 1rem; justify-content: center;">
+                <?php foreach ( $stations as $idx => $st ) : ?>
+                    <div class="atelier-tab-btn <?php echo $idx === 0 ? 'active' : ''; ?>" data-slide="<?php echo $idx; ?>" style="padding: 1.5rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; background: <?php echo $idx === 0 ? '#fff' : 'transparent'; ?>; box-shadow: <?php echo $idx === 0 ? '0 4px 15px rgba(27,51,71,0.05)' : 'none'; ?>; border: 1px solid <?php echo $idx === 0 ? 'rgba(0,0,0,0.04)' : 'transparent'; ?>;">
+                        <h3 style="font-size: 1.1rem; font-weight: 800; color: #1B3347; margin: 0 0 0.5rem 0;"><?php echo esc_html( $st['title'] ); ?></h3>
+                        <p style="font-size: 0.9rem; color: #5A7B92; margin: 0; line-height: 1.6; opacity: <?php echo $idx === 0 ? '1' : '0.6'; ?>;"><?php echo esc_html( $st['desc'] ); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Right: Slider (Images) -->
+            <div class="atelier-slider-images" style="flex: 0 0 calc(60% - 2rem); position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(27,51,71,0.1);">
+                <?php foreach ( $stations as $idx => $st ) : ?>
+                    <div class="atelier-slide <?php echo $idx === 0 ? 'active' : ''; ?>" id="atelier-slide-<?php echo $idx; ?>" style="position: absolute; inset: 0; opacity: <?php echo $idx === 0 ? '1' : '0'; ?>; visibility: <?php echo $idx === 0 ? 'visible' : 'hidden'; ?>; transition: opacity 0.5s ease, visibility 0.5s ease;">
+                        <img src="<?php echo esc_url( $st['image'] ); ?>" alt="<?php echo esc_attr( $st['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 0.4rem 1rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem; color: #1B3347;">
                             <?php echo esc_html( sprintf( 'میز کار %d', $idx + 1 ) ); ?>
                         </div>
                     </div>
-                    <div class="workstation-info" style="padding: 1.2rem;">
-                        <h3 style="font-size: 0.95rem; font-weight: 800; color: #1B3347; margin: 0 0 0.5rem 0;"><?php echo esc_html( $st['title'] ); ?></h3>
-                        <p style="font-size: 0.8rem; color: #5A7B92; margin: 0; line-height: 1.5;"><?php echo esc_html( $st['desc'] ); ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+
         </div>
 
         <!-- Atelier Features (Bottom Row) -->
-        <div class="razgem-atelier-features" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
+        <div class="razgem-atelier-features" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(27,51,71,0.05);">
             <div class="atelier-feature-pill" style="display: flex; align-items: center; gap: 0.8rem; max-width: 300px;">
                 <div class="pill-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0;"></div>
                 <div class="pill-body">
@@ -122,10 +127,53 @@ $stations = array(
 </section>
 
 <style>
-.workstation-card:hover .workstation-img-wrap img {
-    transform: scale(1.05);
-}
+.atelier-tab-btn:hover { background: rgba(255,255,255,0.5) !important; }
+.atelier-tab-btn.active { background: #fff !important; box-shadow: 0 4px 15px rgba(27,51,71,0.05) !important; border-color: rgba(0,0,0,0.04) !important; }
+.atelier-tab-btn.active p { opacity: 1 !important; }
 .btn-luxury-gold:hover {
     background: #c59b27 !important;
 }
+@media (max-width: 991px) {
+    .atelier-slider-container { flex-direction: column-reverse; }
+    .atelier-slider-images { width: 100%; aspect-ratio: 4/3; }
+}
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.atelier-tab-btn');
+    const slides = document.querySelectorAll('.atelier-slide');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active from all
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.style.background = 'transparent';
+                t.style.boxShadow = 'none';
+                t.style.borderColor = 'transparent';
+                t.querySelector('p').style.opacity = '0.6';
+            });
+            slides.forEach(s => {
+                s.classList.remove('active');
+                s.style.opacity = '0';
+                s.style.visibility = 'hidden';
+            });
+            
+            // Add active to clicked
+            this.classList.add('active');
+            this.style.background = '#fff';
+            this.style.boxShadow = '0 4px 15px rgba(27,51,71,0.05)';
+            this.style.borderColor = 'rgba(0,0,0,0.04)';
+            this.querySelector('p').style.opacity = '1';
+            
+            const slideId = this.getAttribute('data-slide');
+            const targetSlide = document.getElementById('atelier-slide-' + slideId);
+            if(targetSlide) {
+                targetSlide.classList.add('active');
+                targetSlide.style.opacity = '1';
+                targetSlide.style.visibility = 'visible';
+            }
+        });
+    });
+});
+</script>

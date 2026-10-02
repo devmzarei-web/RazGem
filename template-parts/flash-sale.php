@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * RazGem "پیشنهاد شگفت‌انگیز" (Wonder Deals) & Real-Time Countdown Module
  *
@@ -159,10 +159,7 @@ if ( empty( $on_sale_products ) ) {
                                 <div class="stella-stars">
                                     <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
                                 </div>
-                                <div class="stella-comments">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C59B27" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>۱۵</span>
-                                </div>
+                                
                             </div>
 
                             <div class="stella-attributes">
@@ -212,4 +209,5 @@ if ( empty( $on_sale_products ) ) {
         </svg>
     </div>
 </section>
+
 

@@ -13419,3 +13419,14 @@ html, body {
   gap: 4px;
 }
 
+.site-footer {
+    border-top: 4px solid var(--color-sand, #D4AF37);
+}
+.stella-current-price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
