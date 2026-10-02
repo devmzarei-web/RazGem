@@ -24,44 +24,56 @@ $end_time    = get_theme_mod( 'flash_sale_end', '' );
 // Retrieve featured products ("پیشنهاد رازجم")
 $featured_products = array();
 
-if ( function_exists( 'wc_get_products' ) ) {
-    $wc_products = wc_get_products( array(
-        'meta_query' => array(
-            array(
-                'key'     => '_razgem_is_suggested',
-                'value'   => 'yes',
-                'compare' => '='
-            )
-        ),
-        'limit'    => 4,
-        'status'   => 'publish',
-    ) );
+$args = array(
+    'post_type'      => 'product',
+    'posts_per_page' => 4,
+    'post_status'    => 'publish',
+    'meta_query'     => array(
+        array(
+            'key'     => '_razgem_is_suggested',
+            'value'   => 'yes',
+            'compare' => '='
+        )
+    ),
+    'orderby'        => 'date',
+    'order'          => 'DESC'
+);
 
-    if ( ! empty( $wc_products ) ) {
-        foreach ( $wc_products as $wc_prod ) {
-            $prod_id   = $wc_prod->get_id();
-            $reg_p     = (float) $wc_prod->get_regular_price();
-            $sale_p    = (float) $wc_prod->get_sale_price();
-            
-            $disc = 0;
-            if ( $wc_prod->is_on_sale() && $reg_p > 0 ) {
-                $disc = round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 );
-            }
+$query = new WP_Query( $args );
 
-            $featured_products[] = array(
-                'id'          => $prod_id,
-                'slug'        => $wc_prod->get_slug(),
-                'sku'         => $wc_prod->get_sku(),
-                'title'       => $wc_prod->get_name(),
-                'url'         => get_permalink( $prod_id ),
-                'img'         => get_the_post_thumbnail_url( $prod_id, 'woocommerce_thumbnail' ),
-                'price_html'  => $wc_prod->get_price_html(),
-                'category'    => wc_get_product_category_list( $prod_id ),
-                'discount'    => $disc,
-                'is_variable' => $wc_prod->is_type( 'variable' )
-            );
+if ( $query->have_posts() ) {
+    while ( $query->have_posts() ) {
+        $query->the_post();
+        
+        $prod_id = get_the_ID();
+        $wc_prod = wc_get_product( $prod_id );
+        
+        if ( ! $wc_prod ) {
+            continue;
         }
+
+        $reg_p  = (float) $wc_prod->get_regular_price();
+        $sale_p = (float) $wc_prod->get_sale_price();
+        
+        $disc = 0;
+        if ( $wc_prod->is_on_sale() && $reg_p > 0 ) {
+            $disc = round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 );
+        }
+
+        $featured_products[] = array(
+            'id'          => $prod_id,
+            'slug'        => $wc_prod->get_slug(),
+            'sku'         => $wc_prod->get_sku(),
+            'title'       => $wc_prod->get_name(),
+            'url'         => get_permalink( $prod_id ),
+            'img'         => get_the_post_thumbnail_url( $prod_id, 'woocommerce_thumbnail' ),
+            'price_html'  => $wc_prod->get_price_html(),
+            'category'    => wc_get_product_category_list( $prod_id ),
+            'discount'    => $disc,
+            'is_variable' => $wc_prod->is_type( 'variable' )
+        );
     }
+    wp_reset_postdata();
 }
 ?>
 
@@ -210,4 +222,3 @@ if ( function_exists( 'wc_get_products' ) ) {
         </svg>
     </div>
 </section>
-

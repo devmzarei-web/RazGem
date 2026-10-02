@@ -1,4 +1,4 @@
-/*
+﻿/*
 Theme Name: RazGem Luxury Handcrafted Jewelry (گالری طلا و مروارید رازجم)
 Theme URI: https://razgem.ir
 Author: RazGem Gallery (گالری رازجم)
@@ -13551,8 +13551,8 @@ html, body {
 }
 
 /* Currency Fix for Shop Product Cards */
-.shop-main-content .stella-current-price bdi,
-.shop-main-content .woocommerce-Price-amount bdi {
+.stella-current-price bdi,
+.woocommerce-Price-amount bdi {
     display: flex;
     flex-direction: row-reverse;
     gap: 0.3rem;
@@ -13613,4 +13613,5 @@ html, body {
 .woocommerce-breadcrumb a:hover {
     color: #fff !important;
 }
+
 
