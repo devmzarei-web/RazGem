@@ -18,16 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
             if (singleVitrine && singleVitrine.contains(btn)) {
                 srcImg = document.getElementById('mainProductDisplay') || singleVitrine.querySelector('img');
             } else {
-                const card = btn.closest('.product-card, .carousel-card, .shop-item-wrapper, .modal-box');
+                const card = btn.closest('.product-card, .carousel-card, .shop-item-wrapper, .modal-box, .stella-product-card');
                 if (card) {
-                    srcImg = card.querySelector('.img-primary') || card.querySelector('img');
+                    srcImg = card.querySelector('.img-primary') || card.querySelector('.stella-img-main') || card.querySelector('img');
                 }
             }
 
             if (!srcImg) return;
 
             // 2. Locate target cart icon in header or mobile bar
-            const cartBtn = document.querySelector('.header-cart-btn') || 
+            const cartBtn = document.querySelector('.cart-icon-wrapper') ||
+                            document.querySelector('.header-cart-btn') || 
                             document.querySelector('.mobile-cart-btn') || 
                             document.querySelector('.cart-link');
             if (!cartBtn) return;

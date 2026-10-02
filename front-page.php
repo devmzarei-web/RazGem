@@ -220,7 +220,7 @@ get_header(); ?>
                                                     <?php elseif ( $is_variable ) : ?>
                                                         <a href="<?php echo esc_url( $p_link ); ?>" class="btn-stella-cart">مشاهده و انتخاب</a>
                                                     <?php else : ?>
-                                                        <a href="?add-to-cart=<?php echo esc_attr( $p_id ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart" data-product_id="<?php echo esc_attr( $p_id ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
+                                                        <a href="?add-to-cart=<?php echo esc_attr( $p_id ); ?>" data-quantity="1" class="btn-stella-cart ajax_add_to_cart add_to_cart_button" data-product_id="<?php echo esc_attr( $p_id ); ?>" aria-label="افزودن به سبد خرید" rel="nofollow">افزودن به سبد خرید</a>
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
