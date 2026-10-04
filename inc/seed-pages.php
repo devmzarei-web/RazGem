@@ -141,3 +141,33 @@ function razgem_seed_essential_pages() {
     update_option( 'razgem_pages_seeded_v1', true );
 }
 
+
+add_action( 'init', 'razgem_seed_essential_pages_v2' );
+function razgem_seed_essential_pages_v2() {
+    if ( get_option( 'razgem_pages_seeded_v2' ) ) {
+        return;
+    }
+
+    // Track Order Page
+    $track_page = get_page_by_path( 'track-order' );
+    if ( ! $track_page ) {
+        $track_content = '
+<!-- wp:group {"align":"full","className":"razgem-tracking-wrapper"} -->
+<div class="wp-block-group alignfull razgem-tracking-wrapper" style="padding-top: 4rem; padding-bottom: 4rem;">
+<!-- wp:shortcode -->
+[woocommerce_order_tracking]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:group -->';
+
+        wp_insert_post( array(
+            'post_title'   => 'پیگیری سفارش',
+            'post_name'    => 'track-order',
+            'post_content' => $track_content,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+        ) );
+    }
+
+    update_option( 'razgem_pages_seeded_v2', true );
+}

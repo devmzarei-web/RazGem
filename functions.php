@@ -2444,3 +2444,62 @@ add_action( 'template_redirect', 'razgem_route_single_product_page', 1 );
 require_once get_template_directory() . '/inc/shortcodes.php';
 require_once get_template_directory() . '/inc/seed-pages.php';
 
+
+/* =========================================================================
+   CONTACT FORM BACKEND LOGIC
+   ========================================================================= */
+// Register Custom Post Type for Messages
+add_action( 'init', 'razgem_register_messages_cpt' );
+function razgem_register_messages_cpt() {
+    register_post_type( 'razgem_message', array(
+        'labels' => array(
+            'name' => 'پیام‌های تماس',
+            'singular_name' => 'پیام',
+            'menu_name' => 'پیام‌های تماس',
+            'all_items' => 'همه پیام‌ها',
+            'view_item' => 'نمایش پیام',
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_icon' => 'dashicons-email',
+        'supports' => array('title', 'editor'),
+        'capabilities' => array(
+            'create_posts' => 'do_not_allow', // Prevent manual creation in admin
+        ),
+        'map_meta_cap' => true,
+    ));
+}
+
+// Handle Form Submission
+add_action( 'init', 'razgem_handle_contact_form' );
+function razgem_handle_contact_form() {
+    if ( isset(['rg_name']) && isset(['rg_message']) && !is_admin() ) {
+        // Basic validation
+        $name = sanitize_text_field(['rg_name']);
+        $phone = sanitize_text_field(['rg_phone']);
+        $email = sanitize_email(['rg_email']);
+        $message = sanitize_textarea_field(['rg_message']);
+        
+        if ( empty($name) || empty($message) ) return;
+        
+        // Prevent duplicate submissions via transient
+        $hash = md5($name . $message);
+        if ( get_transient('rg_msg_' . $hash) ) return;
+        set_transient('rg_msg_' . $hash, true, 60);
+
+        // Format message for WP editor
+        $post_content = "<strong>نام:</strong> $name <br><br>";
+        $post_content .= "<strong>شماره تماس:</strong> $phone <br><br>";
+        $post_content .= "<strong>ایمیل:</strong> $email <br><br>";
+        $post_content .= "<strong>متن پیام:</strong><br> " . nl2br($message);
+
+        // Save as CPT
+        wp_insert_post(array(
+            'post_title' => 'پیام از ' . $name . ' (' . $phone . ')',
+            'post_content' => $post_content,
+            'post_type' => 'razgem_message',
+            'post_status' => 'publish',
+        ));
+    }
+}

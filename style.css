@@ -13681,3 +13681,88 @@ html, body {
         flex-direction: column !important;
     }
 }
+
+/* =========================================================================
+   STICKY HEADER
+   ========================================================================= */
+.site-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(27, 51, 71, 0.05) !important;
+}
+body {
+    /* Prevent content jump when sticky */
+    scroll-padding-top: 100px;
+}
+
+/* =========================================================================
+   FLOATING LABEL INPUTS (RazGem Coastal Style)
+   ========================================================================= */
+.floating-label-group {
+    position: relative;
+    margin-bottom: 0;
+}
+.floating-input {
+    width: 100%;
+    padding: 1.2rem 1rem 0.6rem 1rem;
+    font-size: 1rem;
+    color: var(--color-marine-deep, #1B3347);
+    background: #fff;
+    border: 1px solid rgba(27, 51, 71, 0.15);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.floating-input:focus, .floating-input:not(:placeholder-shown) {
+    border-color: var(--color-marine-deep, #1B3347);
+    box-shadow: 0 0 0 3px rgba(27, 51, 71, 0.05);
+}
+.floating-label {
+    position: absolute;
+    top: 50%;
+    right: 1rem; /* RTL support */
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: var(--color-marine-muted, #5A7B92);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: #fff;
+    padding: 0 0.4rem;
+}
+.floating-input:focus ~ .floating-label,
+.floating-input:not(:placeholder-shown) ~ .floating-label {
+    top: 0;
+    font-size: 0.8rem;
+    color: var(--color-marine-deep, #1B3347);
+    font-weight: 700;
+}
+textarea.floating-input {
+    padding-top: 1.5rem;
+}
+textarea.floating-input ~ .floating-label {
+    top: 1.5rem;
+}
+textarea.floating-input:focus ~ .floating-label,
+textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
+    top: 0;
+}
+
+/* =========================================================================
+   ABOUT & CONTACT PAGE FLIGHTS
+   ========================================================================= */
+.razgem-about-wrapper, .razgem-contact-wrapper {
+    background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+                      radial-gradient(circle at 90% 80%, rgba(27, 51, 71, 0.03) 0%, transparent 40%);
+    position: relative;
+}
+.razgem-about-wrapper::before, .razgem-contact-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 8px;
+    background: linear-gradient(90deg, #1B3347 0%, #D4AF37 50%, #1B3347 100%);
+    opacity: 0.1;
+}

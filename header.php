@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -137,7 +137,7 @@
         <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="drawer-nav-item">فروشگاه آثار صدف طبیعی</a>
         <a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1" class="drawer-nav-item">مجموعه برگزیده و حراج</a>
         <a href="/track-order" class="drawer-nav-item">پیگیری سفارشات</a>
-        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="drawer-nav-item">مجله راز دریا و گوهر</a>
+        
         <a href="/about-us" class="drawer-nav-item">داستان آتلیه رازجم</a>
         <a href="/contact" class="drawer-nav-item">مشاوره و ساخت اختصاصی</a>
     </div>
@@ -262,7 +262,7 @@
 
                     <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1" class="nav-link--spotlight">مجموعه برگزیده <span class="nav-gem-dot"></span></a></li>
                     <li><a href="/track-order">پیگیری سفارشات</a></li>
-                    <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله طلا و جواهر</a></li>
+                    
                     <li><a href="/about-us">داستان رازجم</a></li>
                     <li><a href="/contact">سفارش ساخت اختصاصی</a></li>
                 </ul>
