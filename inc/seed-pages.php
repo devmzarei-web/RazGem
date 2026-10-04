@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Automatically seeds the About Us and Contact Us pages if they don't exist.
  */
@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-add_action( 'admin_init', 'razgem_seed_essential_pages' );
+add_action( 'init', 'razgem_seed_essential_pages' );
 
 function razgem_seed_essential_pages() {
     // Only run this once. We use an option to flag if it's done.
@@ -140,3 +140,4 @@ function razgem_seed_essential_pages() {
     // Flag as seeded
     update_option( 'razgem_pages_seeded_v1', true );
 }
+
