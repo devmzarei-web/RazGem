@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined( 'ABSPATH' ) || exit;
 
 /* =========================================================================
@@ -2445,35 +2445,15 @@ require_once get_template_directory() . '/inc/shortcodes.php';
 require_once get_template_directory() . '/inc/seed-pages.php';
 
 
-/* =========================================================================
-   CONTACT FORM BACKEND LOGIC
-   ========================================================================= */
-// Register Custom Post Type for Messages
-add_action( 'init', 'razgem_register_messages_cpt' );
-function razgem_register_messages_cpt() {
-    register_post_type( 'razgem_message', array(
-        'labels' => array(
-            'name' => 'پیام‌های تماس',
-            'singular_name' => 'پیام',
-            'menu_name' => 'پیام‌های تماس',
-            'all_items' => 'همه پیام‌ها',
-            'view_item' => 'نمایش پیام',
-        ),
-        'public' => false,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'menu_icon' => 'dashicons-email',
-        'supports' => array('title', 'editor'),
-        'capabilities' => array(
-            'create_posts' => 'do_not_allow', // Prevent manual creation in admin
-        ),
-        'map_meta_cap' => true,
-    ));
-}
 
+
+
+/* =========================================================================
+   SHORTCODE CONTACT FORM BACKEND LOGIC
+   ========================================================================= */
 // Handle Form Submission
-add_action( 'init', 'razgem_handle_contact_form' );
-function razgem_handle_contact_form() {
+add_action( 'init', 'razgem_handle_shortcode_contact_form' );
+function razgem_handle_shortcode_contact_form() {
     if ( isset($_POST['rg_name']) && isset($_POST['rg_message']) && !is_admin() ) {
         // Basic validation
         $name = sanitize_text_field($_POST['rg_name']);
@@ -2494,7 +2474,7 @@ function razgem_handle_contact_form() {
         $post_content .= "<strong>ایمیل:</strong> $email <br><br>";
         $post_content .= "<strong>متن پیام:</strong><br> " . nl2br($message);
 
-        // Save as CPT
+        // Save as CPT (using the existing razgem_message CPT)
         wp_insert_post(array(
             'post_title' => 'پیام از ' . $name . ' (' . $phone . ')',
             'post_content' => $post_content,
