@@ -2439,3 +2439,8 @@ add_action( 'template_redirect', 'razgem_route_single_product_page', 1 );
 
 
 
+
+// Include page seeder and shortcodes
+require_once get_template_directory() . '/inc/shortcodes.php';
+require_once get_template_directory() . '/inc/seed-pages.php';
+

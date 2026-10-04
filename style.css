@@ -13669,3 +13669,15 @@ html, body {
     padding: 0 !important;
 }
 
+
+/* =========================================================================
+   CONTACT FORM RESPONSIVE
+   ========================================================================= */
+@media (max-width: 768px) {
+    .razgem-custom-contact-form .razgem-form-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .razgem-contact-wrapper .wp-block-columns {
+        flex-direction: column !important;
+    }
+}
