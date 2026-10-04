@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined( 'ABSPATH' ) || exit;
 
 /* =========================================================================
@@ -2474,12 +2474,12 @@ function razgem_register_messages_cpt() {
 // Handle Form Submission
 add_action( 'init', 'razgem_handle_contact_form' );
 function razgem_handle_contact_form() {
-    if ( isset(['rg_name']) && isset(['rg_message']) && !is_admin() ) {
+    if ( isset($_POST['rg_name']) && isset($_POST['rg_message']) && !is_admin() ) {
         // Basic validation
-        $name = sanitize_text_field(['rg_name']);
-        $phone = sanitize_text_field(['rg_phone']);
-        $email = sanitize_email(['rg_email']);
-        $message = sanitize_textarea_field(['rg_message']);
+        $name = sanitize_text_field($_POST['rg_name']);
+        $phone = sanitize_text_field($_POST['rg_phone']);
+        $email = sanitize_email($_POST['rg_email']);
+        $message = sanitize_textarea_field($_POST['rg_message']);
         
         if ( empty($name) || empty($message) ) return;
         
