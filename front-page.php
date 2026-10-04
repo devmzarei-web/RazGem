@@ -280,97 +280,7 @@ get_header(); ?>
         ?>
     </div>
 
-    <!-- =======================================================================
-         8. VALUES, TRUST, PROMOS & MAGAZINE
-         ======================================================================= -->
-    <div class="front-section-group" style="padding-top: 1.5rem; padding-bottom: 2rem;">
-        
-        <section class="features-section" style="background: transparent;">
-            <div class="site-container features-grid">
-                <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
-                    <div class="feature-card__info">
-                        <h3><?php esc_html_e( 'بسته‌بندی فاخر و شناسنامه', 'razgem' ); ?></h3>
-                        <p><?php esc_html_e( 'جعبه هدیه نفیس و شناسنامه اصالت فیزیکی اثر', 'razgem' ); ?></p>
-                    </div>
-                </div>
-                <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-                    <div class="feature-card__info">
-                        <h3><?php esc_html_e( 'ارسال بیمه‌شده و اکسپرس', 'razgem' ); ?></h3>
-                        <p><?php esc_html_e( 'ارسال به سراسر کشور با پوشش بیمه کامل محموله', 'razgem' ); ?></p>
-                    </div>
-                </div>
-                <div class="feature-card pebble-surface">
-                    <div class="feature-card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-                    <div class="feature-card__info">
-                        <h3><?php esc_html_e( 'ضمانت اصالت گوهر و دریا', 'razgem' ); ?></h3>
-                        <p><?php esc_html_e( 'صدف ۱۰۰٪ طبیعی، مروارید اصل و طلای ۱۸ عیار', 'razgem' ); ?></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="magazine-section" style="background: transparent; margin-top: 2.8rem;">
-            <div class="site-container">
-                <div class="section-header section-header--flex">
-                    <div>
-                        <h2><?php esc_html_e( 'مجله طلا و گوهرشناسی دریا', 'razgem' ); ?></h2>
-                        <p><?php esc_html_e( 'راهنمای شناخت و نگهداری مرواریدهای باروک، صدف‌های طبیعی و فلزات گرانبها', 'razgem' ); ?></p>
-                    </div>
-                    <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="view-all-link">
-                        <?php esc_html_e( 'آرشیو مجله', 'razgem' ); ?>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-                    </a>
-                </div>
-                
-                <div class="magazine-grid">
-                    <?php
-                    $mag_args = array(
-                        'post_type'      => 'post',
-                        'posts_per_page' => 4,
-                        'status'         => 'publish'
-                    );
-                    $mag_loop = new WP_Query( $mag_args );
-
-                    if ( $mag_loop->have_posts() ) :
-                        while ( $mag_loop->have_posts() ) : $mag_loop->the_post();
-                            ?>
-                            <article class="magazine-card pebble-surface">
-                                <div class="magazine-thumb">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <?php if ( has_post_thumbnail() ) : ?>
-                                            <?php the_post_thumbnail( 'medium_large', array( 'alt' => get_the_title() ) ); ?>
-                                        <?php else : ?>
-                                            <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr( get_the_title() ); ?>" width="400" height="250" loading="lazy">
-                                        <?php endif; ?>
-                                    </a>
-                                    <?php
-                                    $categories = get_the_category();
-                                    if ( ! empty( $categories ) ) {
-                                        echo '<span class="magazine-tag">' . esc_html( $categories[0]->name ) . '</span>';
-                                    }
-                                    ?>
-                                </div>
-                                <div class="magazine-body">
-                                    <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                                    <div class="magazine-excerpt">
-                                        <?php echo wp_trim_words( get_the_excerpt(), 12, '...' ); ?>
-                                    </div>
-                                </div>
-                            </article>
-                            <?php
-                        endwhile;
-                    else :
-                        echo '<p style="text-align:center; grid-column: 1/-1; color: var(--color-marine-muted);">' . esc_html__( 'به زودی مقالات جدید مجله گوهرشناسی منتشر خواهد شد.', 'razgem' ) . '</p>';
-                    endif;
-                    wp_reset_postdata();
-                    ?>
-                </div>
-            </div>
-        </section>
-
-    </div>
+    
 
 </main>
 
@@ -380,4 +290,5 @@ get_template_part( 'template-parts/variation-modal' );
 ?>
 
 <?php get_footer(); ?>
+
 
