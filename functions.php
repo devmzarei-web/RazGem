@@ -2539,28 +2539,48 @@ function razgem_fix_seeded_pages_design() {
 }
 
 /* =========================================================================
-   CUSTOM WOOCOMMERCE SALE BADGE
+   CUSTOM WOOCOMMERCE SALE BADGE & PRICE FORMAT
    ========================================================================= */
 add_filter( 'woocommerce_sale_flash', 'razgem_custom_sale_badge', 10, 3 );
-function razgem_custom_sale_badge( $text, $post, $product ) {
+function razgem_custom_sale_badge( $text, $post = null, $product = null ) {
+    if ( ! $product && $post ) {
+        $product = wc_get_product( is_numeric( $post ) ? $post : ( isset( $post->ID ) ? $post->ID : 0 ) );
+    }
+    if ( ! $product || ! is_a( $product, 'WC_Product' ) || ! $product->is_on_sale() ) {
+        return '';
+    }
+
     $discount = 0;
-    if ( $product->is_type( 'variable' ) ) {
-        $max_reg = $product->get_variation_regular_price( 'max' );
-        $min_sale = $product->get_variation_sale_price( 'min' );
-        if ( $max_reg > 0 && $max_reg > $min_sale ) {
-            $discount = round( ( ( $max_reg - $min_sale ) / $max_reg ) * 100 );
+    try {
+        if ( $product->is_type( 'variable' ) ) {
+            $prices = $product->get_variation_prices();
+            if ( ! empty( $prices['regular_price'] ) && ! empty( $prices['sale_price'] ) ) {
+                $max_reg  = (float) max( $prices['regular_price'] );
+                $min_sale = (float) min( $prices['sale_price'] );
+                if ( $max_reg > 0 && $max_reg > $min_sale ) {
+                    $discount = round( ( ( $max_reg - $min_sale ) / $max_reg ) * 100 );
+                }
+            }
+        } else {
+            $reg  = (float) $product->get_regular_price();
+            $sale = (float) $product->get_sale_price();
+            if ( $reg > 0 && $sale > 0 && $reg > $sale ) {
+                $discount = round( ( ( $reg - $sale ) / $reg ) * 100 );
+            }
         }
-    } else {
-        $reg = $product->get_regular_price();
-        $sale = $product->get_sale_price();
-        if ( $reg > 0 && $reg > $sale ) {
-            $discount = round( ( ( $reg - $sale ) / $reg ) * 100 );
-        }
+    } catch ( \Throwable $e ) {
+        return '';
     }
     
     if ( $discount > 0 ) {
-        $persian_discount = function_exists('razgem_to_persian_num') ? razgem_to_persian_num($discount) : $discount;
+        $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $discount ) : $discount;
         return '<span class="stella-badge">' . esc_html( $persian_discount ) . '٪ تخفیف</span>';
     }
     return '';
+}
+
+// Force WooCommerce currency symbol to render on the LEFT of the price digits throughout the site
+add_filter( 'woocommerce_price_format', 'razgem_force_price_format', 9999, 2 );
+function razgem_force_price_format( $format, $currency_pos ) {
+    return '%1$s&nbsp;%2$s';
 }

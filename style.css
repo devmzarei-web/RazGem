@@ -13412,10 +13412,11 @@ html, body {
 
 
 .stella-price-wrap .woocommerce-Price-amount bdi {
-  display: flex;
-  flex-direction: row; direction: rtl;
-  align-items: center;
-  justify-content: flex-end;
+  display: inline-flex;
+  flex-direction: row; 
+  direction: ltr;
+  align-items: baseline;
+  justify-content: flex-start;
   gap: 4px;
 }
 
@@ -13550,13 +13551,7 @@ html, body {
     border-radius: 50%;
 }
 
-/* Currency Fix for Shop Product Cards */
-.stella-current-price bdi,
-.woocommerce-Price-amount bdi {
-    display: flex;
-    flex-direction: row; direction: rtl;
-    gap: 0.3rem;
-}
+/* Currency Fix for Shop Product Cards handled in universal block */
 
 /* Mobile Drawer */
 .drawer-backdrop {
@@ -13771,15 +13766,21 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 /* =========================================================================
    UNIVERSAL CURRENCY POSITION FIX (Rial on the LEFT of digits)
    ========================================================================= */
-.woocommerce-Price-amount, .woocommerce-Price-amount bdi {
+.woocommerce-Price-amount, 
+.woocommerce-Price-amount bdi,
+.stella-price-wrap .woocommerce-Price-amount bdi,
+.stella-current-price bdi {
     display: inline-flex !important;
-    flex-direction: row-reverse !important;
+    flex-direction: row !important;
     align-items: baseline !important;
-    gap: 0.3rem !important;
+    gap: 0.35rem !important;
     direction: ltr !important;
 }
-.woocommerce-Price-amount .woocommerce-Price-currencySymbol {
+.woocommerce-Price-amount .woocommerce-Price-currencySymbol,
+.woocommerce-Price-currencySymbol {
+    order: -1 !important;
     direction: rtl !important;
+    display: inline-block !important;
 }
 
 

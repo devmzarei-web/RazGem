@@ -52,12 +52,24 @@ if ( $query->have_posts() ) {
             continue;
         }
 
-        $reg_p  = (float) $wc_prod->get_regular_price();
-        $sale_p = (float) $wc_prod->get_sale_price();
-        
         $disc = 0;
-        if ( $wc_prod->is_on_sale() && $reg_p > 0 ) {
-            $disc = round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 );
+        if ( $wc_prod->is_on_sale() ) {
+            if ( $wc_prod->is_type( 'variable' ) ) {
+                $prices = $wc_prod->get_variation_prices();
+                if ( ! empty( $prices['regular_price'] ) && ! empty( $prices['sale_price'] ) ) {
+                    $max_r = (float) max( $prices['regular_price'] );
+                    $min_s = (float) min( $prices['sale_price'] );
+                    if ( $max_r > 0 && $max_r > $min_s ) {
+                        $disc = round( ( ( $max_r - $min_s ) / $max_r ) * 100 );
+                    }
+                }
+            } else {
+                $reg_p  = (float) $wc_prod->get_regular_price();
+                $sale_p = (float) $wc_prod->get_sale_price();
+                if ( $reg_p > 0 && $sale_p > 0 && $reg_p > $sale_p ) {
+                    $disc = round( ( ( $reg_p - $sale_p ) / $reg_p ) * 100 );
+                }
+            }
         }
 
         $featured_products[] = array(
@@ -149,11 +161,11 @@ if ( $query->have_posts() ) {
                                  class="stella-img-main" 
                                  loading="lazy">
                             
-                            <?php 
-                                $temp_product = wc_get_product( $deal['id'] );
-                                $temp_post = get_post( $deal['id'] );
-                                echo razgem_custom_sale_badge( "", $temp_post, $temp_product );
+                            <?php if ( ! empty( $deal['discount'] ) && $deal['discount'] > 0 ) : 
+                                $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $deal['discount'] ) : $deal['discount'];
                             ?>
+                                <span class="stella-badge"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
+                            <?php endif; ?>
 
                             <div class="stella-media-actions">
                                 <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
