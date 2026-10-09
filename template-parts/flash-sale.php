@@ -149,7 +149,11 @@ if ( $query->have_posts() ) {
                                  class="stella-img-main" 
                                  loading="lazy">
                             
-                            <?php woocommerce_show_product_loop_sale_flash(); ?>
+                            <?php 
+                                $temp_product = wc_get_product( $deal['id'] );
+                                $temp_post = get_post( $deal['id'] );
+                                echo razgem_custom_sale_badge( "", $temp_post, $temp_product );
+                            ?>
 
                             <div class="stella-media-actions">
                                 <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">

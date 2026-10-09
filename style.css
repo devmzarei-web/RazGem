@@ -3766,7 +3766,7 @@ body.archive.woocommerce .shop-main-content ul.products {
   border: 1px solid #e8e3dc !important;
   border-radius: 16px !important;
   padding: 1.5rem !important;
-  position: sticky !important;
+  position: sticky;
   top: 100px !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
 }
@@ -6410,7 +6410,7 @@ body.archive.woocommerce .shop-main-content ul.products {
   .product-key-features h3 {
     font-size: 0.98rem !important;
     font-weight: 800 !important;
-    margin-top: 0 !important;
+    margin-top: 0;
     margin-bottom: 0.3rem !important;
     display: inline-block !important;
     text-align: right !important;
@@ -8053,7 +8053,7 @@ ul.woocommerce-thankyou-order-details li strong {
     padding-bottom: 0.2rem !important;
   }
   .shop_table.order_details tfoot td {
-    padding-top: 0 !important;
+    padding-top: 0;
     text-align: right !important;
     font-weight: 700 !important;
   }
@@ -8332,7 +8332,7 @@ ol.commentlist.notes li .woocommerce-OrderUpdate-meta {
 
 /* اصلاح پدینگ بالای آیتم‌ها پس از حذف تاریخ جهت هم‌تراز شدن با دایره‌های طلایی سمت راست */
 ol.commentlist.notes li {
-  padding-top: 0 !important;
+  padding-top: 0;
 }
 
 ol.commentlist.notes li::before {
@@ -8408,7 +8408,7 @@ ol.commentlist.notes li::before {
   font-weight: 700 !important;
   line-height: 1.35 !important;
   color: #1a1a1a !important;
-  margin-top: 0 !important;
+  margin-top: 0;
   margin-bottom: 0.8rem !important;
 }
 
@@ -9726,7 +9726,7 @@ a.reset_variations {
 
 .golkhane-lightbox-overlay {
   position: fixed !important;
-  top: 0 !important;
+  top: 0;
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
@@ -9746,7 +9746,7 @@ a.reset_variations {
 
 .lightbox-backdrop {
   position: absolute !important;
-  top: 0 !important;
+  top: 0;
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
@@ -13686,8 +13686,8 @@ html, body {
    STICKY HEADER
    ========================================================================= */
 .site-header {
-    position: sticky !important;
-    top: 0 !important;
+    position: sticky;
+    top: 0;
     z-index: 1000 !important;
     background: #ffffff !important;
     box-shadow: 0 4px 20px rgba(27, 51, 71, 0.05) !important;
@@ -13781,4 +13781,5 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 .woocommerce-Price-amount .woocommerce-Price-currencySymbol {
     direction: rtl !important;
 }
+
 
