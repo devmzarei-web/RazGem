@@ -1,4 +1,4 @@
-﻿/*
+/*
 Theme Name: RazGem Luxury Handcrafted Jewelry (گالری طلا و مروارید رازجم)
 Theme URI: https://razgem.ir
 Author: RazGem Gallery (گالری رازجم)
@@ -1816,7 +1816,7 @@ select {
 }
 .razgem-section-heading {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 .heading-eyebrow {
   display: inline-block;
@@ -3319,7 +3319,7 @@ select {
   border: 1px solid rgba(243, 227, 208, 0.2) !important;
   border-radius: var(--radius-md);
   display: flex;
-  padding: 2.5rem;
+  padding: 1.5rem;
   gap: 2.5rem;
   align-items: center;
   margin-bottom: 4rem;
@@ -3537,7 +3537,7 @@ select {
   background: var(--color-panel);
   padding: 1.5rem 2rem;
   border-radius: var(--radius-md);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   border: 1px solid var(--color-panel-dark);
 }
 .shop-header-inner h1 {
@@ -5116,7 +5116,7 @@ body.archive.woocommerce .shop-main-content ul.products {
   max-width: 600px;
   margin: 0 auto;
   background: #fff;
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
@@ -7522,7 +7522,7 @@ form#order_review {
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 2.5rem;
+  padding: 1.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
   direction: rtl;
 }
@@ -7635,7 +7635,7 @@ form#order_review #payment .form-row:nth-of-type(2) {
 .app-login-card p {
   color: var(--color-muted);
   font-size: 0.95rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 .app-login-card .button {
   width: 100%;
@@ -9356,7 +9356,7 @@ a.reset_variations {
   background: linear-gradient(145deg, #1B3347 0%, #2F597A 60%, #4A7A9E 100%);
   color: #FAF8F5;
   padding: 3.5rem 0 0;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   overflow: hidden;
 }
 .shop-coastal-hero::before {
@@ -13766,3 +13766,19 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     background: linear-gradient(90deg, #1B3347 0%, #D4AF37 50%, #1B3347 100%);
     opacity: 0.1;
 }
+
+
+/* =========================================================================
+   UNIVERSAL CURRENCY POSITION FIX (Rial on the LEFT of digits)
+   ========================================================================= */
+.woocommerce-Price-amount, .woocommerce-Price-amount bdi {
+    display: inline-flex !important;
+    flex-direction: row-reverse !important;
+    align-items: baseline !important;
+    gap: 0.3rem !important;
+    direction: ltr !important;
+}
+.woocommerce-Price-amount .woocommerce-Price-currencySymbol {
+    direction: rtl !important;
+}
+

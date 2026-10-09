@@ -149,11 +149,7 @@ if ( $query->have_posts() ) {
                                  class="stella-img-main" 
                                  loading="lazy">
                             
-                            <?php if ( $deal['discount'] > 0 ) : 
-                                $persian_discount = function_exists( 'razgem_to_persian_num' ) ? razgem_to_persian_num( $deal['discount'] ) : $deal['discount'];
-                            ?>
-                                <span class="stella-badge"><?php echo esc_html( $persian_discount ); ?>٪ تخفیف</span>
-                            <?php endif; ?>
+                            <?php woocommerce_show_product_loop_sale_flash(); ?>
 
                             <div class="stella-media-actions">
                                 <button type="button" class="stella-btn-action stella-wishlist-btn" aria-label="افزودن به علاقه‌مندی‌ها">
@@ -222,3 +218,4 @@ if ( $query->have_posts() ) {
         </svg>
     </div>
 </section>
+

@@ -2483,3 +2483,84 @@ function razgem_handle_shortcode_contact_form() {
         ));
     }
 }
+add_action( 'init', 'razgem_fix_seeded_pages_design' );
+function razgem_fix_seeded_pages_design() {
+    if ( get_option( 'razgem_pages_fixed_v1' ) ) return;
+
+    // Fix About Us
+    $about_page = get_page_by_path( 'about-us' );
+    if ( $about_page ) {
+        $content = $about_page->post_content;
+        // Reduce gaps and paddings
+        $content = str_replace('padding-top: 4rem; padding-bottom: 4rem;', 'padding-top: 2rem; padding-bottom: 2rem;', $content);
+        $content = str_replace('margin-bottom: 3rem;', 'margin-bottom: 1.5rem;', $content);
+        $content = str_replace('margin-bottom: 4rem;', 'margin-bottom: 2rem;', $content);
+        $content = str_replace('gap: 4rem;', 'gap: 2rem;', $content);
+        // Remove broken image
+        $content = preg_replace('/<!-- wp:image.*?<!-- \/wp:image -->/s', '', $content);
+        // Remove empty column
+        $content = preg_replace('/<!-- wp:column -->\s*<div class="wp-block-column">\s*<\/div>\s*<!-- \/wp:column -->/s', '', $content);
+        
+        wp_update_post(array(
+            'ID' => $about_page->ID,
+            'post_content' => $content
+        ));
+    }
+
+    // Fix Contact Us
+    $contact_page = get_page_by_path( 'contact-us' );
+    if ( $contact_page ) {
+        $content = $contact_page->post_content;
+        $content = str_replace('padding-top: 4rem; padding-bottom: 4rem;', 'padding-top: 2rem; padding-bottom: 2rem;', $content);
+        $content = str_replace('margin-bottom: 4rem;', 'margin-bottom: 2rem;', $content);
+        
+        wp_update_post(array(
+            'ID' => $contact_page->ID,
+            'post_content' => $content
+        ));
+    }
+    
+    // Fix Track Order duplicate
+    $track_page = get_page_by_path( 'track-order' );
+    if ( $track_page ) {
+        $content = $track_page->post_content;
+        // If it contains the woocommerce tracking AND other content, let's just let the user edit it. 
+        // Or we can strip our appended block.
+        if ( strpos($content, '[woocommerce_order_tracking]') !== false && strpos($content, 'سامانه پیگیری مرسوله‌های پستی') !== false ) {
+            $content = preg_replace('/<!-- wp:group {"align":"full","className":"razgem-tracking-wrapper"}.*?\[woocommerce_order_tracking\].*?<!-- \/wp:group -->/s', '', $content);
+            wp_update_post(array(
+                'ID' => $track_page->ID,
+                'post_content' => $content
+            ));
+        }
+    }
+
+    update_option( 'razgem_pages_fixed_v1', true );
+}
+
+/* =========================================================================
+   CUSTOM WOOCOMMERCE SALE BADGE
+   ========================================================================= */
+add_filter( 'woocommerce_sale_flash', 'razgem_custom_sale_badge', 10, 3 );
+function razgem_custom_sale_badge( $text, $post, $product ) {
+    $discount = 0;
+    if ( $product->is_type( 'variable' ) ) {
+        $max_reg = $product->get_variation_regular_price( 'max' );
+        $min_sale = $product->get_variation_sale_price( 'min' );
+        if ( $max_reg > 0 && $max_reg > $min_sale ) {
+            $discount = round( ( ( $max_reg - $min_sale ) / $max_reg ) * 100 );
+        }
+    } else {
+        $reg = $product->get_regular_price();
+        $sale = $product->get_sale_price();
+        if ( $reg > 0 && $reg > $sale ) {
+            $discount = round( ( ( $reg - $sale ) / $reg ) * 100 );
+        }
+    }
+    
+    if ( $discount > 0 ) {
+        $persian_discount = function_exists('razgem_to_persian_num') ? razgem_to_persian_num($discount) : $discount;
+        return '<span class="stella-badge">' . esc_html( $persian_discount ) . '٪ تخفیف</span>';
+    }
+    return '';
+}
