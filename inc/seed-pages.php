@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Automatically seeds the About Us and Contact Us pages if they don't exist.
  */
