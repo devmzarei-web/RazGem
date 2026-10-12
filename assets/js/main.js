@@ -350,24 +350,55 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================================
-     5. Mobile Menu Drawer Toggles
+     5. Unified Mobile Menu Drawer Controller (Dual Triggers & ARIA Contract)
      ========================================================================= */
-  const openMobileMenuBtn = document.getElementById("openMobileMenuTrigger");
-  const closeMobileMenuBtn = document.getElementById("closeMobileMenu");
   const mobileDrawer = document.getElementById("mobileDrawer");
   const mobileOverlay = document.getElementById("mobileOverlay");
+  const closeMobileMenuBtn = document.getElementById("closeMobileMenu");
 
-  if (openMobileMenuBtn && mobileDrawer && mobileOverlay) {
+  if (mobileDrawer && mobileOverlay) {
+    const drawerTriggers = document.querySelectorAll(
+      "#openMobileMenuTrigger, #magicBottomMenuTrigger, .mobile-menu-toggle, .open-mobile-drawer-btn"
+    );
+
     const toggleDrawer = (open) => {
       mobileDrawer.classList.toggle("active", open);
+      mobileDrawer.classList.toggle("is-active", open);
       mobileOverlay.classList.toggle("active", open);
+      mobileOverlay.classList.toggle("is-active", open);
+      document.body.classList.toggle("drawer-open", open);
       document.body.style.overflow = open ? "hidden" : "";
+
+      drawerTriggers.forEach((btn) => {
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
     };
 
-    openMobileMenuBtn.addEventListener("click", () => toggleDrawer(true));
-    if (closeMobileMenuBtn)
-      closeMobileMenuBtn.addEventListener("click", () => toggleDrawer(false));
+    drawerTriggers.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleDrawer(true);
+      });
+    });
+
+    if (closeMobileMenuBtn) {
+      closeMobileMenuBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleDrawer(false);
+      });
+    }
+
     mobileOverlay.addEventListener("click", () => toggleDrawer(false));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileDrawer.classList.contains("active")) {
+        toggleDrawer(false);
+      }
+    });
+
+    // Custom event dispatchers for external modules
+    window.addEventListener("razgem:open-drawer", () => toggleDrawer(true));
+    window.addEventListener("razgem:close-drawer", () => toggleDrawer(false));
   }
 
   /* =========================================================================
@@ -754,5 +785,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  initVitrineFilterTabs();
+    initVitrineFilterTabs();
+
+  /* =========================================================================
+     11. Coastal Luxury Mobile Scroll Reveals (60fps IntersectionObserver)
+     ========================================================================= */
+  const initMobileScrollReveals = () => {
+    if (!("IntersectionObserver" in window)) return;
+
+    const revealTargets = document.querySelectorAll(
+      ".reveal-on-scroll, .mobile-reveal, .stella-product-card, .wonder-deal-stella, .promo-grid-card"
+    );
+
+    if (!revealTargets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -30px 0px",
+      }
+    );
+
+    revealTargets.forEach((target) => {
+      target.classList.add("reveal-on-scroll");
+      observer.observe(target);
+    });
+  };
+
+  initMobileScrollReveals();
 });

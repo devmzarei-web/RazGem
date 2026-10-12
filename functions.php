@@ -785,26 +785,23 @@ function razgem_magic_bottom_nav() {
     $cart_count = ( function_exists('WC') && WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
     
     $active_index = 0; 
-    if ( function_exists('is_shop') && (is_shop() || is_product_category()) && !isset($_GET['on_sale']) ) {
+    if ( function_exists('is_shop') && (is_shop() || is_product_category()) ) {
         $active_index = 1;
     } elseif ( function_exists('is_cart') && (is_cart() || is_checkout()) ) {
         $active_index = 2;
-    } elseif ( isset($_GET['on_sale']) ) {
-        $active_index = 3;
     } elseif ( function_exists('is_account_page') && is_account_page() ) {
-        $active_index = 4;
+        $active_index = 3;
     }
 
     $home_url    = home_url('/');
     $shop_url    = razgem_shop_url();
     $cart_url    = razgem_cart_url();
-    $sale_url    = add_query_arg('on_sale', '1', $shop_url);
     $account_url = razgem_account_url();
     $count_display = function_exists('razgem_persian_numbers') ? razgem_persian_numbers((string)$cart_count) : $cart_count;
     ?>
     <nav class="magic-bottom-nav" aria-label="ناوبری سریع موبایل">
         <ul>
-            <div class="magic-indicator" style="right: calc(<?php echo ($active_index * 20 + 10); ?>% - 28px);"></div>
+            <div class="magic-indicator" style="right: calc(<?php echo ($active_index * 20 + 10); ?>% - 26px);"></div>
             
             <li class="<?php echo $active_index === 0 ? 'active' : ''; ?>">
                 <a href="<?php echo esc_url($home_url); ?>" aria-label="صفحه اصلی">
@@ -832,19 +829,19 @@ function razgem_magic_bottom_nav() {
                 </a>
             </li>
             <li class="<?php echo $active_index === 3 ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url($sale_url); ?>" aria-label="کالکشن‌های تخفیف‌دار و برگزیده">
-                    <span class="icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    </span>
-                    <span class="text">برگزیده‌ها</span>
-                </a>
-            </li>
-            <li class="<?php echo $active_index === 4 ? 'active' : ''; ?>">
                 <a href="<?php echo esc_url($account_url); ?>" aria-label="حساب کاربری و پیگیری سفارشات">
                     <span class="icon">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </span>
                     <span class="text">پروفایل</span>
+                </a>
+            </li>
+            <li class="magic-nav-menu <?php echo $active_index === 4 ? 'active' : ''; ?>">
+                <a href="#" id="magicBottomMenuTrigger" class="open-mobile-drawer-btn" aria-label="منوی دسته‌بندی و صفحات" aria-controls="mobileDrawer" aria-expanded="false">
+                    <span class="icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </span>
+                    <span class="text">منو</span>
                 </a>
             </li>
         </ul>
@@ -857,6 +854,22 @@ function razgem_magic_bottom_nav() {
             
             listItems.forEach((item, index) => {
                 item.addEventListener('click', function(e) {
+                    if (item.classList.contains('magic-nav-menu')) {
+                        e.preventDefault();
+                        const drawer = document.getElementById('mobileDrawer');
+                        const overlay = document.getElementById('mobileOverlay');
+                        if (drawer && overlay) {
+                            drawer.classList.add('active', 'is-active');
+                            overlay.classList.add('active', 'is-active');
+                            document.body.classList.add('drawer-open');
+                            document.body.style.overflow = 'hidden';
+                            const trigger = document.getElementById('openMobileMenuTrigger');
+                            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+                            const bottomTrigger = document.getElementById('magicBottomMenuTrigger');
+                            if (bottomTrigger) bottomTrigger.setAttribute('aria-expanded', 'true');
+                        }
+                        return;
+                    }
                     if (item.classList.contains('magic-nav-cart')) {
                         const miniCart = document.getElementById('miniCartDrawer');
                         const overlay = document.getElementById('miniCartOverlay');
@@ -871,7 +884,7 @@ function razgem_magic_bottom_nav() {
                     listItems.forEach(li => li.classList.remove('active'));
                     this.classList.add('active');
                     if (indicator) {
-                        indicator.style.right = `calc(${index * 20 + 10}% - 28px)`;
+                        indicator.style.right = `calc(${index * 20 + 10}% - 26px)`;
                     }
                 });
             });

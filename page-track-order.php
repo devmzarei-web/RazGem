@@ -48,29 +48,34 @@ get_header();
                 </button>
             </form>
 
-            <?php if ( function_exists( 'woocommerce_order_tracking' ) ) : ?>
-                <!-- Optional WooCommerce Internal Order Status Tracking -->
-                <div class="wc-tracking-embed" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-pebble-light);">
-                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--color-marine-deep);">یا پیگیری داخلی با شماره سفارش رازجم:</h4>
-                    <?php echo do_shortcode( '[woocommerce_order_tracking]' ); ?>
-                </div>
-            <?php endif; ?>
-
             <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--color-pebble-light); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                     <span style="font-size: 1.3rem;">💬</span>
                     <span style="font-size: 0.92rem; color: var(--color-marine-muted);">کد رهگیری خود را دریافت نکرده‌اید؟</span>
                 </div>
-                <a href="<?php echo esc_url( 'https://wa.me/989120000000?text=' . urlencode( 'سلام، درخواست پیگیری سفارش از گالری رازجم را دارم.' ) ); ?>" target="_blank" rel="noopener noreferrer" class="btn-coastal-sand" style="font-size: 0.88rem; padding: 0.6rem 1.4rem;">
+                <?php
+                $track_wa_phone = get_theme_mod( 'contact_phone', '09120000000' );
+                $track_wa_clean = preg_replace( '/[^0-9]/', '', $track_wa_phone );
+                if ( strpos( $track_wa_clean, '09' ) === 0 ) {
+                    $track_wa_clean = '98' . substr( $track_wa_clean, 1 );
+                }
+                $track_wa_url = 'https://wa.me/' . $track_wa_clean . '?text=' . rawurlencode( 'سلام، درخواست پیگیری و استعلام سفارش از گالری رازجم را دارم.' );
+                ?>
+                <a href="<?php echo esc_url( $track_wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="btn-coastal-sand" style="font-size: 0.88rem; padding: 0.6rem 1.4rem;">
                     استعلام سریع در واتس‌اپ
                 </a>
             </div>
         </div>
 
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-            <?php if ( get_the_content() ) : ?>
+            <?php
+            $raw_content = get_the_content();
+            // Suppress duplicate woocommerce tracking shortcodes seeded in the post content
+            $filtered_content = str_replace( array( '[woocommerce_order_tracking]', '<!-- wp:woocommerce/order-tracking /-->', 'woocommerce_order_tracking' ), '', $raw_content );
+            $filtered_content = trim( apply_filters( 'the_content', $filtered_content ) );
+            if ( ! empty( $filtered_content ) ) : ?>
                 <div class="utility-content-text" style="background: #FFFFFF; padding: 2rem; border-radius: 16px; border: 1px solid var(--color-pebble-light); margin-top: 2rem;">
-                    <?php the_content(); ?>
+                    <?php echo $filtered_content; ?>
                 </div>
             <?php endif; ?>
         <?php endwhile; endif; ?>

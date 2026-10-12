@@ -69,7 +69,7 @@
 <?php endif; ?>
 
 <div class="mobile-overlay" id="mobileOverlay"></div>
-<nav class="mobile-drawer mobile-nav-drawer" id="mobileDrawer" aria-label="منوی موبایل رازجم">
+<nav class="mobile-drawer mobile-nav-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="منوی موبایل رازجم">
     
     <!-- Drawer Brand Header -->
     <div class="mobile-drawer-header">
@@ -167,7 +167,7 @@
             
             <!-- Right Column: Mobile Menu Toggle & Luxury Search Bar -->
             <div class="header-col header-col--right">
-                <button class="mobile-menu-toggle" id="openMobileMenuTrigger" aria-label="باز کردن منو">
+                <button class="mobile-menu-toggle" id="openMobileMenuTrigger" aria-label="باز کردن منو" aria-controls="mobileDrawer" aria-expanded="false">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
 
