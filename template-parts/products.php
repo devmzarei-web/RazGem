@@ -31,10 +31,10 @@ $theme_uri = get_template_directory_uri();
                 <div class="product-card__content">
                     <div class="product-authenticity-tag">
                         <span class="auth-dot"></span>
-                        <span>شناسنامه اصالت صدف و طلا</span>
+                        <span>شناسنامه اصالت صدف و مروارید</span>
                     </div>
                     <h3 class="product-title"><a href="/shop">مدال دست‌ساز صدف طبیعی و مروارید باروک</a></h3>
-                    <div class="product-meta">صدف طبیعی خلیج فارس | طلای ۱۸ عیار دست‌ساز</div>
+                    <div class="product-meta">صدف طبیعی خلیج فارس | اتصالات دست‌ساز آتلیه</div>
                     <div class="product-price">۴,۸۵۰,۰۰۰ <span>تومان</span></div>
                 </div>
             </article>
@@ -73,7 +73,7 @@ $theme_uri = get_template_directory_uri();
                         <span>فرم طبیعی تراش‌خورده</span>
                     </div>
                     <h3 class="product-title"><a href="/shop">دستبند دست‌ساز صدف مینیاتوری و سنگ ساحلی</a></h3>
-                    <div class="product-meta">صدف‌های تراش‌خورده طبیعی | قفل طلای ۱۸ عیار</div>
+                    <div class="product-meta">صدف‌های تراش‌خورده طبیعی | قفل مقاوم رنگ‌ثابت</div>
                     <div class="product-price">۲,۷۵۰,۰۰۰ <span>تومان</span></div>
                 </div>
             </article>

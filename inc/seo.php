@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function razgem_output_seo_structured_data() {
     $site_url  = home_url( '/' );
-    $site_name = get_bloginfo( 'name' ) ?: 'گالری طلا و مروارید رازجم';
+    $site_name = get_bloginfo( 'name' ) ?: 'گالری صدف و مروارید رازجم';
     $logo_url  = get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     $phone     = get_theme_mod( 'contact_phone', '۰۲۱-۹۱۰۰XXXX' );
     $address   = get_theme_mod( 'contact_address', 'تهران، نیاوران، خیابان عمار، پلاک ۱۲' );
@@ -60,7 +60,7 @@ function razgem_output_seo_structured_data() {
         'url'                => $site_url,
         'logo'               => $logo_url,
         'image'              => $logo_url,
-        'description'        => 'آتلیه و گالری تخصصی دست‌سازه‌های صدف طبیعی، مروارید باروک و طلای ۱۸ عیار رازجم با شناسنامه اصالت فیزیکی.',
+        'description'        => 'آتلیه و گالری تخصصی دست‌سازه‌های صدف طبیعی، مروارید باروک و گوهرهای ارگانیک رازجم با شناسنامه اصالت فیزیکی.',
         'priceRange'         => '$$$',
         'currenciesAccepted' => 'IRT, IRR',
         'paymentAccepted'    => 'شاپرک، کارت‌های عضو شبکه شتاب',
@@ -135,7 +135,7 @@ add_action( 'wp_head', 'razgem_output_seo_structured_data', 4 );
  */
 function razgem_output_seo_meta_tags() {
     $title       = wp_get_document_title();
-    $desc        = 'گالری طلا و مروارید رازجم؛ مجموعه انحصاری زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی خلیج فارس، مروارید باروک و طلای ۱۸ عیار.';
+    $desc        = 'گالری صدف و مروارید رازجم؛ مجموعه انحصاری زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی خلیج فارس، مروارید باروک و هنر اصیل ایرانی.';
     $current_url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) );
     $logo_url    = get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     $img_url     = $logo_url;
@@ -155,7 +155,7 @@ function razgem_output_seo_meta_tags() {
     <meta property="og:title" content="<?php echo esc_attr( $title ); ?>" />
     <meta property="og:description" content="<?php echo esc_attr( $desc ); ?>" />
     <meta property="og:url" content="<?php echo esc_url( $current_url ); ?>" />
-    <meta property="og:site_name" content="گالری طلا و مروارید رازجم" />
+    <meta property="og:site_name" content="گالری صدف و مروارید رازجم" />
     <meta property="og:image" content="<?php echo esc_url( $img_url ); ?>" />
     <meta property="og:locale" content="fa_IR" />
 

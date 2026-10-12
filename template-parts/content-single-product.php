@@ -30,7 +30,7 @@ if ( ! empty( $args['mock_product'] ) ) {
         'price_formatted' => $wc_p->get_price_html(),
         'old_price'       => '',
         'dimensions'      => $wc_p->get_attribute( 'pa_dimensions' ) ? $wc_p->get_attribute( 'pa_dimensions' ) : 'ابعاد اختصاصی در توضیحات',
-        'material'        => $wc_p->get_attribute( 'pa_material' ) ? $wc_p->get_attribute( 'pa_material' ) : 'صدف طبیعی دست‌تراش، یراق طلایی',
+        'material'        => $wc_p->get_attribute( 'pa_material' ) ? $wc_p->get_attribute( 'pa_material' ) : 'صدف طبیعی دست‌تراش، یراق ضدحساسیت',
         'color'           => $wc_p->get_attribute( 'pa_color' ) ? $wc_p->get_attribute( 'pa_color' ) : 'طبیعی بدون رنگ‌آمیزی شیمیایی',
         'desc'            => $wc_p->get_short_description() ? $wc_p->get_short_description() : $wc_p->get_description(),
         'img_primary'     => $main_img ? $main_img : get_template_directory_uri() . '/assets/images/products/r001-main.jpg',
@@ -66,7 +66,7 @@ $category        = esc_html( $p_data['category'] );
 $price_html      = ! empty( $p_data['price_formatted'] ) ? $p_data['price_formatted'] : '';
 $old_price       = ! empty( $p_data['old_price'] ) ? esc_html( $p_data['old_price'] ) : '';
 $dimensions      = ! empty( $p_data['dimensions'] ) ? esc_html( $p_data['dimensions'] ) : 'ابعاد در شناسنامه اثر';
-$material        = ! empty( $p_data['material'] ) ? esc_html( $p_data['material'] ) : 'صدف طبیعی دست‌تراش، یراق برنجی با آبکاری طلایی';
+$material        = ! empty( $p_data['material'] ) ? esc_html( $p_data['material'] ) : 'صدف طبیعی دست‌تراش، یراق ضدحساسیت رنگ‌ثابت';
 $color           = ! empty( $p_data['color'] ) ? esc_html( $p_data['color'] ) : 'طبیعی بدون رنگ شیمیایی';
 $desc            = ! empty( $p_data['desc'] ) ? esc_html( $p_data['desc'] ) : '';
 $img_primary     = esc_url( $p_data['img_primary'] );

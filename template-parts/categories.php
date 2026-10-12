@@ -39,22 +39,22 @@ if ( taxonomy_exists( 'product_cat' ) ) {
 if ( count( $categories_data ) < 3 ) {
     $categories_data = array(
         array(
-            'name'  => 'گردنبند و آویز طلا و مروارید باروک',
+            'name'  => 'گردنبند و آویز صدف و مروارید باروک',
             'count' => 'کالکشن فاخر',
             'link'  => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '/shop',
             'image' => get_template_directory_uri() . '/assets/images/spotlight-pendant.jpg',
             'badge' => 'ویژه فصل',
         ),
         array(
-            'name'  => 'گوشواره‌های دست‌ساز طلا و صدف',
+            'name'  => 'گوشواره‌های دست‌ساز صدف طبیعی',
             'count' => 'طراحی اختصاصی',
             'link'  => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '/shop',
             'image' => get_template_directory_uri() . '/assets/images/earrings-collection.jpg',
             'badge' => 'هنر دست',
         ),
         array(
-            'name'  => 'انگشترهای فاخر طلای ۱۸ عیار',
-            'count' => 'سنگ‌های قیمتی',
+            'name'  => 'انگشترهای فاخر دست‌ساز با صدف',
+            'count' => 'گوهرهای ارگانیک',
             'link'  => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '/shop',
             'image' => get_template_directory_uri() . '/assets/images/atelier-story.jpg',
             'badge' => 'سفارشی',
@@ -68,7 +68,7 @@ if ( count( $categories_data ) < 3 ) {
         
         <div class="razgem-section-heading">
             <span class="heading-eyebrow">دنیای ظرافت و هنر دست</span>
-            <h2 class="heading-title">کالکشن‌های اختصاصی طلا و مروارید رازجم</h2>
+            <h2 class="heading-title">کالکشن‌های اختصاصی صدف و مروارید رازجم</h2>
             <p class="heading-desc">انتخاب بر اساس سبک، نوع گوهر و طراحی منحصربه‌فرد دست‌ساز</p>
         </div>
 

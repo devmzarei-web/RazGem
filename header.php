@@ -13,21 +13,21 @@
     <?php
     $page_title = wp_get_document_title();
     $page_url   = is_front_page() ? home_url('/') : get_permalink();
-    $site_name  = 'گالری طلا و مروارید رازجم';
+    $site_name  = 'گالری صدف و مروارید رازجم';
     
     if ( is_front_page() ) {
-        $page_desc = 'گالری طلا و مروارید دست‌ساز رازجم - طراحی و ساخت زیورآلات فاخر طلا، مرواریدهای باروک طبیعی و سنگ‌های قیمتی اصیل با اصالت ایرانی و هنر دست';
+        $page_desc = 'گالری صدف و مروارید دست‌ساز رازجم - طراحی و ساخت زیورآلات فاخر صدف طبیعی، مرواریدهای باروک و گوهرهای ارگانیک با اصالت ایرانی و هنر دست';
         $og_type   = 'website';
         $og_image  = get_site_icon_url() ? get_site_icon_url() : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     } elseif ( is_singular() ) {
         global $post;
         $page_desc = has_excerpt($post->ID) ? wp_strip_all_tags(get_the_excerpt($post->ID)) : wp_strip_all_tags(wp_trim_words($post->post_content, 30));
-        $page_desc = !empty($page_desc) ? $page_desc : 'خرید آنلاین زیورآلات دست‌ساز فاخر طلا و مروارید با ضمانت اصالت و ارسال رایگان و بیمه شده از گالری رازجم';
+        $page_desc = !empty($page_desc) ? $page_desc : 'خرید آنلاین زیورآلات دست‌ساز فاخر صدف و مروارید با ضمانت اصالت و ارسال رایگان و بیمه شده از گالری رازجم';
         $og_type   = is_singular('product') ? 'product' : 'article';
         $thumb_id  = get_post_thumbnail_id($post->ID);
         $og_image  = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     } else {
-        $page_desc = get_bloginfo('description') ? get_bloginfo('description') : 'گالری طلا و مروارید دست‌ساز رازجم - زیورآلات طلا و مرواریدهای دست‌ساز طبیعی';
+        $page_desc = get_bloginfo('description') ? get_bloginfo('description') : 'گالری صدف و مروارید دست‌ساز رازجم - زیورآلات صدف طبیعی و مرواریدهای دست‌ساز ارگانیک';
         $og_type   = 'website';
         $og_image  = get_site_icon_url() ? get_site_icon_url() : get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     }
@@ -185,8 +185,8 @@
 
             <!-- Center Column: Grand Maison Logo -->
             <div class="header-col header-col--center header-logo">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری طلا و مروارید رازجم" class="logo-link">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری طلا و مروارید رازجم" class="site-logo-img">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="صفحه اصلی گالری صدف و مروارید رازجم" class="logo-link">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/Razgem-Logo-NoBg.png' ); ?>" alt="گالری صدف و مروارید رازجم" class="site-logo-img">
                 </a>
             </div>
 

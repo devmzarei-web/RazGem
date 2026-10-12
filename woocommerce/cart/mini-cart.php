@@ -127,7 +127,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
             </svg>
         </div>
         <h4>سبد خرید شما در حال حاضر خالی است</h4>
-        <p>از کالکشن‌های دست‌ساز طلا، مروارید باروک و سنگ‌های قیمتی دیدن فرمایید.</p>
+        <p>از کالکشن‌های دست‌ساز صدف طبیعی، مروارید باروک و گوهرهای ارگانیک دیدن فرمایید.</p>
         <a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink( 'shop' ) : home_url('/shop') ); ?>" class="btn-empty-cart-shop">
             مشاهده گالری زیورآلات
         </a>

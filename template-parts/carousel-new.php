@@ -10,10 +10,10 @@
                 <div class="carousel-card">
                     <div class="product-card__gallery">
                         <span class="product-badge product-badge--new">جدید</span>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-new-1.jpg" class="img-primary" alt="گردنبند طلا و مروارید باروک" onerror="this.style.display='none'">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-new-1.jpg" class="img-primary" alt="گردنبند صدف و مروارید باروک" onerror="this.style.display='none'">
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-title"><a href="#">گردنبند طلا و مروارید باروک</a></h3>
+                        <h3 class="product-title"><a href="#">گردنبند صدف و مروارید باروک</a></h3>
                         <div class="product-card__action-row">
                             <div class="product-price">۴,۴۵۰,۰۰۰ <span>تومان</span></div>
                             <button type="button" class="product-card-cart-btn" aria-label="افزودن به سبد خرید">
@@ -24,10 +24,10 @@
                 </div>
                 <div class="carousel-card">
                     <div class="product-card__gallery">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-new-2.jpg" class="img-primary" alt="انگشتر طلای ۱۸ عیار" onerror="this.style.display='none'">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-new-2.jpg" class="img-primary" alt="انگشتر دست‌ساز با صدف طبیعی" onerror="this.style.display='none'">
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-title"><a href="#">انگشتر طلای ۱۸ عیار با صدف</a></h3>
+                        <h3 class="product-title"><a href="#">انگشتر دست‌ساز با صدف طبیعی</a></h3>
                         <div class="product-card__action-row">
                             <div class="product-price">۳,۸۰۰,۰۰۰ <span>تومان</span></div>
                             <button type="button" class="product-card-cart-btn" aria-label="افزودن به سبد خرید">
@@ -56,7 +56,7 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/prod-new-4.jpg" class="img-primary" alt="دستبند مروارید طبیعی" onerror="this.style.display='none'">
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-title"><a href="#">دستبند مروارید طبیعی و طلا</a></h3>
+                        <h3 class="product-title"><a href="#">دستبند مروارید طبیعی و سنگ‌های ساحلی</a></h3>
                         <div class="product-card__action-row">
                             <div class="product-price">۹۵۰,۰۰۰ <span>تومان</span></div>
                             <button type="button" class="product-card-cart-btn" aria-label="افزودن به سبد خرید">

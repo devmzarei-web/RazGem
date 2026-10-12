@@ -23,8 +23,8 @@ $station_2_title  = get_theme_mod( 'atelier_title_2', 'میز شماره ۲: ت�
 $station_2_desc   = get_theme_mod( 'atelier_desc_2', 'تراش اختصاصی بدون استفاده از حرارت تخریب‌کننده و پرداخت میکروسکوپی با روغن‌های طبیعی جهت تجلی حداکثر تلألو.' );
 
 $station_3_img    = get_theme_mod( 'atelier_image_3', get_template_directory_uri() . '/assets/images/workstation-3.jpg' );
-$station_3_title  = get_theme_mod( 'atelier_title_3', 'میز شماره ۳: مهار در بستر طلای ۱۸ عیار' );
-$station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظریف، تعبیه پایه‌های طلای سفارشی و صدور شناسنامه فیزیکی ممهور برای هر اثر اختصاصی.' );
+$station_3_title  = get_theme_mod( 'atelier_title_3', 'میز شماره ۳: اتصال هنری و یراق‌آلات باکیفیت' );
+$station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظریف، تعبیه پایه‌های مقاوم ضدحساسیت و صدور شناسنامه فیزیکی ممهور برای هر اثر اختصاصی.' );
 ?>
 
 <main class="site-container utility-page about-us-experience" dir="rtl" role="main">
@@ -51,8 +51,8 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
             </div>
             <div class="stat-divider"></div>
             <div class="stat-pill">
-                <span class="stat-number">۱۸K</span>
-                <span class="stat-label">زرگری و رکاب‌های طلای اصیل</span>
+                <span class="stat-number">دست‌ساز</span>
+                <span class="stat-label">مخراج‌کاری و هنر اصیل آتلیه</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-pill">
@@ -134,9 +134,9 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
                 <div class="pillar-icon-box">
                     <span class="pillar-emoji">🛡️</span>
                 </div>
-                <h3 class="pillar-title">شناسنامه فیزیکی و زرگری دست‌ساز</h3>
+                <h3 class="pillar-title">شناسنامه فیزیکی و اصالت گوهرشناسی</h3>
                 <p class="pillar-desc">
-                    تمامی قطعات با اتصالات طلای ۱۸ عیار و نقره استرلینگ ۹۲۵، همراه با شناسنامه هولوگرام‌دار ممهور و بسته‌بندی مخملی ویژه تقدیم می‌شوند.
+                    تمامی قطعات با صدف‌های طبیعی اصل و مرواریدهای باروک، همراه با شناسنامه هولوگرام‌دار ممهور و بسته‌بندی مخملی ویژه تقدیم می‌شوند.
                 </p>
                 <div class="pillar-tag">ضمانت مادام‌العمر اصالت</div>
             </div>
@@ -148,7 +148,7 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
         <div class="section-title-wrap">
             <div class="badge-mini">پشت صحنه آتلیه</div>
             <h2 class="section-main-title">مسیر خلق؛ از بستر امواج تا درخشش بر تن شما</h2>
-            <p class="section-subtitle">فرآیند دقیق و چندمرحله‌ای استادکاران زرگر و گوهرتراش در کارگاه تخصصی رازجم</p>
+            <p class="section-subtitle">فرآیند دقیق و چندمرحله‌ای هنرمندان و گوهرتراشان در کارگاه تخصصی رازجم</p>
         </div>
 
         <div class="workstations-timeline">
@@ -202,11 +202,11 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
                     <span class="step-badge">مرحله سوم</span>
                 </div>
                 <div class="workstation-content">
-                    <span class="workstation-tag">زرگری فاخر و شناسنامه‌گذاری</span>
+                    <span class="workstation-tag">مونتاژ هنری و شناسنامه‌گذاری</span>
                     <h3 class="workstation-title"><?php echo esc_html( $station_3_title ); ?></h3>
                     <p class="workstation-desc"><?php echo esc_html( $station_3_desc ); ?></p>
                     <ul class="workstation-features">
-                        <li>نشاندن صدف بر رکاب طلای ۱۸ عیار با ایمنی ارگونومیک</li>
+                        <li>نشاندن صدف بر رکاب‌های دست‌ساز با ایمنی و استحکام ارگونومیک</li>
                         <li>ثبت کد انحصاری اثر و صدور سند گواهی گوهرشناسی</li>
                     </ul>
                 </div>
@@ -224,7 +224,7 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
                     <li><span class="icon-check">✓</span> صدف‌های اصیل و زنده‌ی خلیج فارس بدون رزین و پلاستیک</li>
                     <li><span class="icon-check">✓</span> تلألو رنگین‌کمانی طبیعی که با گذشت زمان محو نمی‌شود</li>
                     <li><span class="icon-check">✓</span> مرواریدهای باروک با فرم‌های مجسمه‌ای اختصاصی</li>
-                    <li><span class="icon-check">✓</span> اتصالات ضدحساسیت و طلای بادوام با ارزش ماندگار</li>
+                    <li><span class="icon-check">✓</span> یراق‌آلات و اتصالات ضدحساسیت رنگ‌ثابت با دوام و درخشش پایدار</li>
                     <li><span class="icon-check">✓</span> همراه با شناسنامه معتبر فیزیکی و کد ثبتی گالری</li>
                 </ul>
             </div>
@@ -247,9 +247,9 @@ $station_3_desc   = get_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظر
     <section class="about-cta-banner">
         <div class="cta-banner-content">
             <span class="cta-eyebrow">سفارش ساخت اختصاصی</span>
-            <h2 class="cta-title">ایده ذهنی خود را به شاهکاری از صدف و طلا بدل کنید</h2>
+            <h2 class="cta-title">ایده ذهنی خود را به شاهکاری از صدف و گوهر بدل کنید</h2>
             <p class="cta-desc">
-                آیا مایلید قطعه‌ای سفارشی با صدف، مروارید یا طلای دلخواه شما در آتلیه رازجم طراحی و ساخته شود؟ استادکاران ما آماده ارائه مشاوره مستقیم به شما هستند.
+                آیا مایلید قطعه‌ای سفارشی با صدف و مروارید دلخواه شما در آتلیه رازجم طراحی و ساخته شود؟ هنرمندان ما آماده ارائه مشاوره مستقیم به شما هستند.
             </p>
             <div class="cta-actions">
                 <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="btn-coastal-gold">

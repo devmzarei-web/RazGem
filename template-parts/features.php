@@ -14,8 +14,8 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 22V12h10"/></svg>
             </div>
             <div class="feature-card__info">
-                <h3>ضمانت طلای ۱۸ عیار</h3>
-                <p>شناسنامه اصالت طلا و مروارید طبیعی</p>
+                <h3>ضمانت اصالت صدف و مروارید</h3>
+                <p>شناسنامه اصالت صدف طبیعی و مروارید باروک</p>
             </div>
         </div>
         <div class="feature-card">

@@ -1786,7 +1786,7 @@ function razgem_mini_cart_item_qty_controls( $html, $cart_item, $cart_item_key )
    ========================================================================= */
 function razgem_output_structured_data() {
     $site_url  = home_url('/');
-    $site_name = 'گالری طلا و مروارید رازجم';
+    $site_name = 'گالری صدف و مروارید رازجم';
     $logo_url  = get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     $phone     = get_theme_mod('contact_phone', '۰۲۱-۹۱۰۰XXXX');
     $address   = get_theme_mod('contact_address', 'تهران، نیاوران، خیابان عمار، پلاک ۱۲');
@@ -1807,7 +1807,7 @@ function razgem_output_structured_data() {
         'url'             => $site_url,
         'logo'            => $logo_url,
         'image'           => $logo_url,
-        'description'     => 'گالری طلا و مروارید دست‌ساز رازجم؛ طراحی و ساخت زیورآلات فاخر طلا، مروارید باروک و سنگ‌های قیمتی اصیل.',
+        'description'     => 'گالری صدف و مروارید دست‌ساز رازجم؛ طراحی و ساخت زیورآلات فاخر صدف طبیعی، مروارید باروک و گوهرهای ارگانیک.',
         'priceRange'      => '$$$',
         'currenciesAccepted' => 'IRT, IRR',
         'paymentAccepted' => 'شاپرک، کارت‌های عضو شبکه شتاب',
@@ -1912,7 +1912,7 @@ function razgem_output_structured_data() {
             $image_url    = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : $logo_url;
             $description  = has_excerpt($product_id) ? wp_strip_all_tags(get_the_excerpt($product_id)) : wp_strip_all_tags(wp_trim_words(get_the_content(), 30));
             if ( empty($description) ) {
-                $description = 'زیورآلات دست‌ساز فاخر طلا و مروارید طبیعی از گالری رازجم با ضمانت اصالت و شناسنامه رسمی.';
+                $description = 'زیورآلات دست‌ساز فاخر صدف طبیعی و مروارید از گالری رازجم با ضمانت اصالت و شناسنامه رسمی.';
             }
 
             $product_schema = array(
@@ -1922,7 +1922,7 @@ function razgem_output_structured_data() {
                 'image'       => $image_url,
                 'description' => $description,
                 'sku'         => $product->get_sku() ? $product->get_sku() : 'RAZGEM-' . $product_id,
-                'category'    => 'زیورآلات دست‌ساز و طلا',
+                'category'    => 'زیورآلات دست‌ساز و صدف طبیعی',
                 'brand'       => array(
                     '@type' => 'Brand',
                     'name'  => 'گالری رازجم (RazGem)'
@@ -2033,10 +2033,10 @@ add_action( 'wp_enqueue_scripts', function() {
 add_filter( 'document_title_parts', 'razgem_custom_seo_titles', 999 );
 function razgem_custom_seo_titles( $title ) {
     if ( is_front_page() ) {
-        $title['title']   = 'گالری طلا و مروارید دست‌ساز رازجم';
-        $title['tagline'] = 'خرید آنلاین خاص‌ترین زیورآلات طلا، مروارید باروک و سنگ‌های قیمتی دست‌ساز';
+        $title['title']   = 'گالری صدف و مروارید دست‌ساز رازجم';
+        $title['tagline'] = 'خرید آنلاین خاص‌ترین زیورآلات صدف طبیعی، مروارید باروک و گوهرهای ارگانیک';
     } elseif ( function_exists( 'is_shop' ) && is_shop() ) {
-        $title['title']   = 'فروشگاه و کالکشن طلا و مروارید رازجم';
+        $title['title']   = 'فروشگاه و کالکشن صدف و مروارید رازجم';
         $title['site']    = 'گالری رازجم';
     }
     return $title;
@@ -2629,4 +2629,77 @@ function razgem_custom_sale_badge( $text, $post = null, $product = null ) {
 add_filter( 'woocommerce_price_format', 'razgem_force_price_format', 9999, 2 );
 function razgem_force_price_format( $format, $currency_pos ) {
     return '%1$s&nbsp;%2$s';
+}
+
+/* =========================================================================
+   50. PURGE GOLD & SILVER PROMISES FROM DATABASE CONTENT & THEME MODS
+   ========================================================================= */
+add_action( 'init', 'razgem_cleanup_gold_references_from_db', 30 );
+function razgem_cleanup_gold_references_from_db() {
+    if ( get_option( 'razgem_gold_cleaned_from_db_v2' ) ) return;
+
+    $policy_pages = array(
+        'terms' => array(
+            'طلای ۱۸ عیار و نقره استرلینگ ۹۲۵' => 'اتصالات هنری مقاوم و ضدحساسیت',
+            'طلای ۱۸ عیار' => 'اتصالات ضدحساسیت',
+            'عیار استاندارد' => 'ارزش گوهرشناسی مواد طبیعی',
+        ),
+        'about-us' => array(
+            'طلای ۱۸ عیار' => 'اتصالات ضدحساسیت',
+            'زرگری' => 'هنر دست‌ساز',
+            'نقره استرلینگ ۹۲۵' => 'اتصالات ضدحساسیت',
+            'شاهکاری از صدف و طلا' => 'شاهکاری از صدف و گوهر',
+            'طلا، مروارید یا طلای دلخواه' => 'صدف و مروارید دلخواه',
+        ),
+        'contact-us' => array(
+            'طلای ۱۸ عیار' => 'اتصالات ضدحساسیت',
+            'عیار طلا' => 'مشخصات کامل صدف',
+        ),
+        'faq' => array(
+            'طلای ۱۸ عیار' => 'اتصالات باکیفیت',
+        )
+    );
+
+    foreach ( $policy_pages as $slug => $replacements ) {
+        $page = get_page_by_path( $slug );
+        if ( $page && ! empty( $page->post_content ) ) {
+            $updated_content = $page->post_content;
+            foreach ( $replacements as $find => $replace ) {
+                $updated_content = str_replace( $find, $replace, $updated_content );
+            }
+            if ( $updated_content !== $page->post_content ) {
+                wp_update_post( array(
+                    'ID'           => $page->ID,
+                    'post_content' => $updated_content,
+                ) );
+            }
+        }
+    }
+
+    $tagline = get_theme_mod( 'footer_tagline' );
+    if ( $tagline && ( strpos( $tagline, 'طلا' ) !== false || strpos( $tagline, 'عیار' ) !== false ) ) {
+        set_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی اصل، مرواریدهای باروک خلیج فارس و هنر اصیل ایرانی.' );
+    }
+
+    $atelier_title = get_theme_mod( 'atelier_title' );
+    if ( $atelier_title && strpos( $atelier_title, 'طلا' ) !== false ) {
+        set_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری صدف و مروارید رازجم' );
+    }
+
+    $atelier_desc = get_theme_mod( 'atelier_desc' );
+    if ( $atelier_desc && ( strpos( $atelier_desc, 'طلا' ) !== false || strpos( $atelier_desc, 'عیار' ) !== false ) ) {
+        set_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا تراش دست‌ساز صدف‌های طبیعی.' );
+    }
+
+    $station_3 = get_theme_mod( 'atelier_title_3' );
+    if ( $station_3 && ( strpos( $station_3, 'طلا' ) !== false || strpos( $station_3, 'عیار' ) !== false ) ) {
+        set_theme_mod( 'atelier_title_3', 'میز شماره ۳: اتصال هنری و یراق‌آلات باکیفیت' );
+    }
+
+    $station_3_d = get_theme_mod( 'atelier_desc_3' );
+    if ( $station_3_d && ( strpos( $station_3_d, 'طلا' ) !== false || strpos( $station_3_d, 'عیار' ) !== false ) ) {
+        set_theme_mod( 'atelier_desc_3', 'مخراج‌کاری ظریف، تعبیه پایه‌های مقاوم ضدحساسیت و صدور شناسنامه فیزیکی ممهور برای هر اثر اختصاصی.' );
+    }
+
+    update_option( 'razgem_gold_cleaned_from_db_v2', true );
 }

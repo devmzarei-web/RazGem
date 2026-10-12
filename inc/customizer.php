@@ -358,7 +358,7 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'atelier_title', array(
-        'default'           => 'داستان هنر و ظرافت در گالری طلا و مروارید رازجم',
+        'default'           => 'داستان هنر و ظرافت در گالری صدف و مروارید رازجم',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'atelier_title', array(
@@ -368,7 +368,7 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'atelier_desc', array(
-        'default'           => 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا ریخته‌گری طلای ۱۸ عیار.',
+        'default'           => 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. از گزینش اصیل‌ترین مرواریدهای باروک تا تراش دست‌ساز صدف‌های طبیعی.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'atelier_desc', array(
@@ -470,7 +470,7 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'footer_tagline', array(
-        'default'           => 'آفرینش زیورآلات ماندگار از طلای ۱۸ عیار و مروارید اصل',
+        'default'           => 'آفرینش زیورآلات ماندگار از صدف طبیعی و مروارید اصل',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'footer_tagline', array(
@@ -480,7 +480,7 @@ function razgem_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'footer_copyright', array(
-        'default'           => 'تمامی حقوق مادی و معنوی برای گالری طلا و مروارید رازجم محفوظ است.',
+        'default'           => 'تمامی حقوق مادی و معنوی برای گالری صدف و مروارید رازجم محفوظ است.',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'footer_copyright', array(
@@ -733,7 +733,7 @@ function razgem_customize_register( $wp_customize ) {
         1 => array(
             'title' => 'گردنبند صدف تراش‌خورده و مروارید باروک',
             'tag'   => 'صدف طبیعی اصل خلیج فارس',
-            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، بر بستر طلای ۱۸ عیار دست‌ساز و زنجیر ظریف.',
+            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، اتصالات دست‌ساز آتلیه و زنجیر ظریف.',
             'price' => '۴,۸۵۰,۰۰۰ تومان',
             'url'   => '/shop',
             'model' => 'model-necklace-seashell.jpg',
@@ -751,7 +751,7 @@ function razgem_customize_register( $wp_customize ) {
         3 => array(
             'title' => 'دستبند زنجیری صدف و سنگ‌های ساحلی',
             'tag'   => 'دست‌ساز آتلیه رازجم',
-            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل طلای دست‌ساز.',
+            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل دست‌ساز مقاوم.',
             'price' => '۲,۷۵۰,۰۰۰ تومان',
             'url'   => '/shop',
             'model' => 'model-bracelet-pendant.jpg',
@@ -959,7 +959,7 @@ function razgem_get_showcase_items() {
         3 => array(
             'title' => 'گردنبند صدف تراش‌خورده و مروارید باروک',
             'tag'   => 'صدف طبیعی و مروارید باروک اصل',
-            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، بر بستر طلای ۱۸ عیار دست‌ساز و زنجیر ظریف.',
+            'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، اتصالات دست‌ساز آتلیه و زنجیر ظریف.',
             'price' => '۳,۶۵۰,۰۰۰ تومان',
             'url'   => function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-003' ) : home_url( '/?post_type=product&view_product=r-003' ),
             'model' => $theme_uri . '/assets/images/model-necklace-seashell.jpg',
@@ -968,7 +968,7 @@ function razgem_get_showcase_items() {
         4 => array(
             'title' => 'دستبند زنجیری صدف و سنگ‌های ساحلی',
             'tag'   => 'دست‌ساز آتلیه رازجم',
-            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل طلای دست‌ساز.',
+            'desc'  => 'ترکیب هنرمندانه صدف‌های تراش‌خورده مینیاتوری با سنگ‌های طبیعی و قفل دست‌ساز مقاوم.',
             'price' => '۲,۲۰۰,۰۰۰ تومان',
             'url'   => function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-005' ) : home_url( '/?post_type=product&view_product=r-005' ),
             'model' => $theme_uri . '/assets/images/model-bracelet-pendant.jpg',

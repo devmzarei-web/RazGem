@@ -60,8 +60,8 @@ get_header(); ?>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
-                    <span class="ribbon-icon" aria-hidden="true">⚖️</span>
-                    <span class="ribbon-text"><strong>طلای ۱۸ عیار</strong> و اتصالات مقاوم</span>
+                    <span class="ribbon-icon" aria-hidden="true">💎</span>
+                    <span class="ribbon-text"><strong>هنر دست‌ساز</strong> و اتصالات ضدحساسیت</span>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
