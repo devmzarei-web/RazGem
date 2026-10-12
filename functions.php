@@ -2538,6 +2538,29 @@ function razgem_fix_seeded_pages_design() {
     update_option( 'razgem_pages_fixed_v1', true );
 }
 
+add_action( 'init', 'razgem_assign_essential_page_templates' );
+function razgem_assign_essential_page_templates() {
+    if ( get_option( 'razgem_templates_assigned_v2' ) ) return;
+
+    $about_slugs = array( 'about-us', 'about' );
+    foreach ( $about_slugs as $slug ) {
+        $p = get_page_by_path( $slug );
+        if ( $p ) {
+            update_post_meta( $p->ID, '_wp_page_template', 'page-about.php' );
+        }
+    }
+
+    $contact_slugs = array( 'contact-us', 'contact' );
+    foreach ( $contact_slugs as $slug ) {
+        $p = get_page_by_path( $slug );
+        if ( $p ) {
+            update_post_meta( $p->ID, '_wp_page_template', 'page-contact.php' );
+        }
+    }
+
+    update_option( 'razgem_templates_assigned_v2', true );
+}
+
 /* =========================================================================
    CUSTOM WOOCOMMERCE SALE BADGE & PRICE FORMAT
    ========================================================================= */
