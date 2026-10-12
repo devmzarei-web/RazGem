@@ -492,6 +492,7 @@ function razgem_set_message_columns($columns) {
         'sender_name'  => 'فرستنده',
         'sender_phone' => 'شماره تماس',
         'msg_subject'  => 'موضوع اختصاصی',
+        'pref_channel' => 'روش پاسخگویی',
         'date'         => 'تاریخ ثبت'
     );
 }
@@ -509,6 +510,10 @@ function razgem_message_custom_column( $column, $post_id ) {
             $sub = get_post_meta( $post_id, 'msg_subject', true );
             echo $sub ? esc_html($sub) : '<i>بدون موضوع</i>';
             break;
+        case 'pref_channel' :
+            $ch = get_post_meta( $post_id, 'preferred_channel', true );
+            echo $ch ? '<span style="color:#2b4c3f;font-weight:600;">' . esc_html($ch) . '</span>' : '—';
+            break;
     }
 }
 
@@ -519,6 +524,7 @@ function razgem_handle_contact_form() {
     $phone   = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
     $subject = isset($_POST['subject']) ? sanitize_text_field($_POST['subject']) : '';
     $message = isset($_POST['message']) ? sanitize_textarea_field($_POST['message']) : '';
+    $channel = isset($_POST['preferred_channel']) ? sanitize_text_field($_POST['preferred_channel']) : '';
 
     if (empty($name) || empty($phone) || empty($message)) {
         wp_send_json_error('لطفاً فیلدهای ضروری (ستاره‌دار) را پر کنید.');
@@ -539,6 +545,9 @@ function razgem_handle_contact_form() {
         update_post_meta($post_id, 'sender_name', $name);
         update_post_meta($post_id, 'sender_phone', $phone);
         update_post_meta($post_id, 'msg_subject', $subject);
+        if (!empty($channel)) {
+            update_post_meta($post_id, 'preferred_channel', $channel);
+        }
         wp_send_json_success('پیام شما با موفقیت در سیستم ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.');
     } else {
         wp_send_json_error('خطا در برقراری ارتباط با دیتابیس. لطفاً مجدداً تلاش کنید.');
@@ -2540,7 +2549,7 @@ function razgem_fix_seeded_pages_design() {
 
 add_action( 'init', 'razgem_assign_essential_page_templates' );
 function razgem_assign_essential_page_templates() {
-    if ( get_option( 'razgem_templates_assigned_v2' ) ) return;
+    if ( get_option( 'razgem_templates_assigned_v3' ) ) return;
 
     $about_slugs = array( 'about-us', 'about' );
     foreach ( $about_slugs as $slug ) {
@@ -2555,10 +2564,24 @@ function razgem_assign_essential_page_templates() {
         $p = get_page_by_path( $slug );
         if ( $p ) {
             update_post_meta( $p->ID, '_wp_page_template', 'page-contact.php' );
+            if ( strpos( $p->post_content, 'razgem_contact_form' ) !== false || strpos( $p->post_content, 'razgem-contact-wrapper' ) !== false ) {
+                wp_update_post( array(
+                    'ID'           => $p->ID,
+                    'post_content' => ''
+                ) );
+            }
         }
     }
 
-    update_option( 'razgem_templates_assigned_v2', true );
+    $policy_slugs = array( 'terms', 'privacy', 'return-policy', 'returns', 'shipping-payment', 'shipping', 'faq' );
+    foreach ( $policy_slugs as $slug ) {
+        $p = get_page_by_path( $slug );
+        if ( $p ) {
+            update_post_meta( $p->ID, '_wp_page_template', 'page-policy.php' );
+        }
+    }
+
+    update_option( 'razgem_templates_assigned_v3', true );
 }
 
 /* =========================================================================

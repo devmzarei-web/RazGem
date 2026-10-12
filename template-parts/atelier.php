@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Artisan Atelier Section Template
  *

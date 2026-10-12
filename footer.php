@@ -1,4 +1,4 @@
-﻿<?php defined( 'ABSPATH' ) || exit; ?>
+<?php defined( 'ABSPATH' ) || exit; ?>
 
 <footer class="site-footer">
     <!-- Coastal Shoreline Waves & Seafoam Texture Overlay -->
@@ -40,17 +40,20 @@
                 <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>">فروشگاه زیورآلات</a></li>
                 <li><a href="<?php echo esc_url( razgem_shop_url() ); ?>?post_type=product&on_sale=1">کالکشن‌های برگزیده</a></li>
                 <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">مجله راز دریا و گوهر</a></li>
-                <li><a href="/track-order">پیگیری سفارشات</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/track-order' ) ); ?>">پیگیری سفارشات</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/about-us' ) ); ?>">درباره آتلیه رازجم</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>">تماس و مشاوره خرید</a></li>
             </ul>
         </nav>
 
         <nav class="footer-widget" aria-label="خدمات مشتریان">
-            <h4 class="footer-widget-title">خدمات مشتریان</h4>
+            <h4 class="footer-widget-title">خدمات مشتریان و مقررات</h4>
             <ul class="footer-links">
-                <li><a href="/faq">راهنمای سایز و سوالات متداول</a></li>
-                <li><a href="/terms#return-policy">ضمانت اصالت و بازگشت کالا</a></li>
-                <li><a href="/terms">شرایط و قوانین خرید</a></li>
-                <li><a href="/privacy">حریم خصوصی مشتریان</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/terms' ) ); ?>">شرایط و قوانین خرید</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/return-policy' ) ); ?>">ضمانت اصالت و بازگشت کالا (۷ روز)</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/shipping-payment' ) ); ?>">شیوه‌های پرداخت و ارسال امن</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/privacy' ) ); ?>">سیاست حفظ حریم خصوصی</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/faq' ) ); ?>">راهنمای سایز و سوالات متداول</a></li>
             </ul>
         </nav>
 

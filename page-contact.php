@@ -4,7 +4,7 @@
  * Template Post Type: page
  *
  * @package RazGem
- * @version 2.5.0
+ * @version 2.6.0
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
@@ -42,21 +42,7 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
         </p>
     </header>
 
-    <!-- 2. OPTIONAL WP EDITOR CONTENT (Manageable in WP Admin -> Pages -> Edit "Contact Us") -->
-    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php 
-        $raw_contact_content = get_the_content();
-        if ( ! empty( trim( $raw_contact_content ) ) ) : 
-        ?>
-            <section class="contact-editorial-notice">
-                <div class="contact-notice-inner">
-                    <?php the_content(); ?>
-                </div>
-            </section>
-        <?php endif; ?>
-    <?php endwhile; endif; ?>
-
-    <!-- 3. MAIN DUAL-WING CONCIERGE GRID -->
+    <!-- 2. MAIN DUAL-WING CONCIERGE GRID -->
     <div class="contact-concierge-grid">
 
         <!-- RIGHT WING: CONTACT TOUCHPOINTS & ATELIER INFO -->
@@ -168,35 +154,56 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
 
                 <form id="razgemContactForm" class="luxury-contact-form" novalidate>
                     <div class="form-grid-2">
-                        <!-- Full Name -->
+                        <!-- Full Name (No hardcoded real names) -->
                         <div class="luxury-form-group">
                             <label for="rg_full_name">نام و نام خانوادگی <span class="required-star">*</span></label>
-                            <input type="text" id="rg_full_name" name="full_name" class="luxury-input" placeholder="مثال: سارا رادمنش" required>
+                            <input type="text" id="rg_full_name" name="full_name" class="luxury-input" placeholder="نام و نام خانوادگی خود را بنویسید..." required>
                         </div>
 
                         <!-- Phone Number -->
                         <div class="luxury-form-group">
                             <label for="rg_phone">شماره تماس همراه <span class="required-star">*</span></label>
-                            <input type="tel" id="rg_phone" name="phone" class="luxury-input" placeholder="۰۹۱۲XXXXXXX" style="direction:ltr; text-align:right;" required>
+                            <input type="tel" id="rg_phone" name="phone" class="luxury-input" placeholder="شماره همراه (مانند ۰۹۱۲۳۴۵۶۷۸۹)" style="direction:ltr; text-align:right;" required>
                         </div>
                     </div>
 
-                    <!-- Subject / Inquire Type -->
-                    <div class="luxury-form-group">
-                        <label for="rg_subject">موضوع گفت‌وگو</label>
-                        <select id="rg_subject" name="subject" class="luxury-select">
-                            <option value="مشاوره خرید اثر">مشاوره خرید اثر و اصالت گوهر</option>
-                            <option value="سفارش ساخت اختصاصی">سفارش ساخت اختصاصی طرح دلخواه</option>
-                            <option value="پیگیری سفارش">پیگیری وضعیت سفارش ثبت‌شده</option>
-                            <option value="رزرو وقت بازدید حضوری">رزرو وقت بازدید حضوری از کارگاه</option>
-                            <option value="سایر موضوعات">سایر موارد و پیشنهادات</option>
-                        </select>
+                    <!-- Custom Dropdown Selectors Row -->
+                    <div class="form-grid-2">
+                        <!-- Selector 1: Subject / Inquiry Type -->
+                        <div class="luxury-form-group">
+                            <label for="rg_subject">موضوع گفت‌وگو <span class="required-star">*</span></label>
+                            <div class="custom-select-wrapper">
+                                <select id="rg_subject" name="subject" class="luxury-select" required>
+                                    <option value="" disabled selected>انتخاب موضوع پیام...</option>
+                                    <option value="مشاوره خرید اثر و اصالت گوهر">مشاوره خرید اثر و اصالت گوهر</option>
+                                    <option value="سفارش ساخت طرح دلخواه">سفارش ساخت طرح دلخواه (طلای ۱۸ عیار و صدف)</option>
+                                    <option value="پیگیری سفارش و مرسوله">پیگیری وضعیت سفارش و مرسوله پستی</option>
+                                    <option value="رزرو وقت بازدید حضوری">رزرو وقت بازدید حضوری از آتلیه</option>
+                                    <option value="همکاری یا سایر موضوعات">همکاری تجاری یا سایر سوالات عمومی</option>
+                                </select>
+                                <span class="select-chevron-icon" aria-hidden="true">▾</span>
+                            </div>
+                        </div>
+
+                        <!-- Selector 2: Preferred Response Channel -->
+                        <div class="luxury-form-group">
+                            <label for="rg_pref_channel">روش ترجیحی پاسخگویی</label>
+                            <div class="custom-select-wrapper">
+                                <select id="rg_pref_channel" name="preferred_channel" class="luxury-select">
+                                    <option value="پیام و گفت‌وگو در واتس‌اپ" selected>پیام و گفت‌وگو در واتس‌اپ</option>
+                                    <option value="تماس مستقیم تلفنی">تماس مستقیم تلفنی</option>
+                                    <option value="ارسال پیامک (SMS)">ارسال پیامک (SMS)</option>
+                                    <option value="پست الکترونیک (Email)">پست الکترونیک (Email)</option>
+                                </select>
+                                <span class="select-chevron-icon" aria-hidden="true">▾</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Message Body -->
                     <div class="luxury-form-group">
                         <label for="rg_message">شرح پیام یا مشخصات سفارش <span class="required-star">*</span></label>
-                        <textarea id="rg_message" name="message" class="luxury-textarea" rows="5" placeholder="پیام یا طرح مد نظر خود را بنویسید..." required></textarea>
+                        <textarea id="rg_message" name="message" class="luxury-textarea" rows="5" placeholder="پیام یا طرح مد نظر خود را به صورت کامل بنویسید..." required></textarea>
                     </div>
 
                     <!-- Response Toast Div -->
@@ -218,52 +225,76 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
 
     </div>
 
-    <!-- 4. QUICK CONCIERGE FAQ SECTION -->
-    <section class="contact-faq-section">
-        <div class="section-title-wrap">
-            <span class="badge-mini">پاسخ به سوالات پرتکرار</span>
-            <h2 class="section-main-title">آنچه ممکن است برایتان سوال باشد</h2>
-            <p class="section-subtitle">پاسخ سریع به متداول‌ترین پرسش‌های خریداران و علاقه‌مندان آثار رازجم</p>
+    <!-- 3. REDESIGNED LUXURY FAQ ACCORDION SECTION (Pristine UI & Padding) -->
+    <section class="contact-faq-section" aria-label="پرسش‌های متداول مشتریان">
+        <div class="faq-header-wrap">
+            <span class="faq-badge-mini">پاسخ سریع به سوالات خریداران</span>
+            <h2 class="faq-main-title">آنچه ممکن است برایتان سوال باشد</h2>
+            <p class="faq-subtitle">پاسخ‌های شفاف و رسمی درباره سفارش‌های اختصاصی، اصالت، ارسال و ابعاد آثار</p>
         </div>
 
-        <div class="faq-accordion-grid">
-            <details class="faq-item">
-                <summary class="faq-question">
-                    <span>مدت زمان ساخت زیورآلات سفارشی اختصاصی چقدر است؟</span>
-                    <span class="faq-toggle">+</span>
+        <div class="faq-accordion-stack">
+            <!-- FAQ Item 1 -->
+            <details class="luxury-faq-card">
+                <summary class="luxury-faq-trigger">
+                    <div class="faq-title-group">
+                        <span class="faq-category-chip">💎 سفارش اختصاصی</span>
+                        <span class="faq-question-text">مدت زمان ساخت زیورآلات سفارشی اختصاصی چقدر است؟</span>
+                    </div>
+                    <div class="faq-icon-bubble" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </summary>
-                <div class="faq-answer">
-                    <p>فرآیند گزینش صدف، تراش دستی اختصاصی، ساخت رکاب طلای ۱۸ عیار و پرداخت نهایی معمولاً بین ۷ الی ۱۰ روز کاری زمان می‌برد. در صورت نیاز به تحویل فوری جهت هدیه، می‌توانید با پشتیبانی هماهنگ فرمایید.</p>
+                <div class="luxury-faq-drawer">
+                    <p>فرآیند پایش و گزینش صدف، تراش دستی فرم ارگانیک، طراحی سه‌بعدی و ریخته‌گری رکاب طلای ۱۸ عیار و پرداخت میکروسکوپی نهایی معمولاً بین <strong>۷ الی ۱۰ روز کاری</strong> زمان می‌برد. در صورت نیاز به تحویل فوری جهت مناسبت‌ها یا هدیه، می‌توانید در هنگام ثبت پیام هماهنگ فرمایید.</p>
                 </div>
             </details>
 
-            <details class="faq-item">
-                <summary class="faq-question">
-                    <span>آیا صدف‌ها و مرواریدها شناسنامه فیزیکی اصالت دارند؟</span>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ Item 2 -->
+            <details class="luxury-faq-card">
+                <summary class="luxury-faq-trigger">
+                    <div class="faq-title-group">
+                        <span class="faq-category-chip">🛡️ اصالت و شناسنامه</span>
+                        <span class="faq-question-text">آیا صدف‌ها و مرواریدها دارای شناسنامه رسمی اصالت هستند؟</span>
+                    </div>
+                    <div class="faq-icon-bubble" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </summary>
-                <div class="faq-answer">
-                    <p>بله، تمامی آثار گالری رازجم همراه با شناسنامه رسمی گوهرشناسی ممهور، هولوگرام ضدجعل و ضمانت اصالت ۱۰۰٪ طبیعی بودن صدف و مروارید در بسته‌بندی نفیس هدیه تقدیم می‌شوند.</p>
+                <div class="luxury-faq-drawer">
+                    <p>بله، صددرصد آثار گالری رازجم با <strong>شناسنامه فیزیکی معتبر ممهور</strong>، هولوگرام رسمی ضدجعل و درج مشخصات عیار طلا، وزن و گونه صدف در بسته‌بندی نفیس هدیه تقدیم می‌شوند. اصالت ارگانیک و طبیعی بودن صدف و مروارید باروک به صورت مادام‌العمر ضمانت می‌گردد.</p>
                 </div>
             </details>
 
-            <details class="faq-item">
-                <summary class="faq-question">
-                    <span>آیا امکان سفارش دستبند یا گردنبند با اندازه و سایز اختصاصی وجود دارد؟</span>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ Item 3 -->
+            <details class="luxury-faq-card">
+                <summary class="luxury-faq-trigger">
+                    <div class="faq-title-group">
+                        <span class="faq-category-chip">📏 سایز و ابعاد</span>
+                        <span class="faq-question-text">آیا امکان سفارش دستبند یا گردنبند با اندازه و سایز اختصاصی وجود دارد؟</span>
+                    </div>
+                    <div class="faq-icon-bubble" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </summary>
-                <div class="faq-answer">
-                    <p>کاملاً؛ در هنگام ثبت سفارش یا از طریق گفت‌وگو در واتس‌اپ، اندازه دور مچ یا طول زنجیر مد نظر خود را اعلام بفرمایید تا اثر دقیقاً متناسب با سایز اختصاصی شما ساخته شود.</p>
+                <div class="luxury-faq-drawer">
+                    <p>کاملاً؛ شما می‌توانید اندازه دقیق دور مچ، قطر انگشت یا طول دلخواه زنجیر گردنبند را در فرم پیام یا از طریق واتس‌اپ اعلام فرمایید. استادکاران ما اثر را دقیقاً با ارگونومی و سایز سفارشی شما مهندسی و آماده خواهند کرد.</p>
                 </div>
             </details>
 
-            <details class="faq-item">
-                <summary class="faq-question">
-                    <span>نحوه و شرایط ارسال به شهرستان‌ها چگونه است؟</span>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ Item 4 -->
+            <details class="luxury-faq-card">
+                <summary class="luxury-faq-trigger">
+                    <div class="faq-title-group">
+                        <span class="faq-category-chip">🚚 ارسال و بیمه</span>
+                        <span class="faq-question-text">نحوه و شرایط ارسال مرسولات به سراسر کشور چگونه است؟</span>
+                    </div>
+                    <div class="faq-icon-bubble" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </summary>
-                <div class="faq-answer">
-                    <p>کلیه سفارش‌های ارسالی به سراسر کشور با پست پیشتاز ویژه، همراه با بیمه کامل ارزش ریالی کالا و بسته‌بندی امنیتی ارسال می‌شوند و کد رهگیری پستی بلافاصله پس از تحویل به پست پیامک می‌گردد.</p>
+                <div class="luxury-faq-drawer">
+                    <p>ارسال تمامی سفارش‌ها با <strong>پست پیشتاز ویژه همراه با بیمه کامل ارزش ریالی کالا</strong> انجام می‌شود. برای سفارش‌های بالای ۳ میلیون تومان، ارسال به سراسر کشور رایگان بوده و کد رهگیری پستی بلافاصله پس از تحویل به پست از طریق پیامک برای شما ارسال می‌گردد.</p>
                 </div>
             </details>
         </div>
@@ -273,7 +304,7 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
 
 <style>
 /* =========================================================================
-   CONTACT US EXPERIENCE - COASTAL CONCIERGE STYLING
+   CONTACT US EXPERIENCE - COASTAL CONCIERGE STYLING (V2.6)
    ========================================================================= */
 .contact-experience {
     padding-top: 3.5rem;
@@ -316,23 +347,7 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     max-width: 680px;
 }
 
-/* 2. Notice Inner */
-.contact-editorial-notice {
-    max-width: 900px;
-    margin: 0 auto 3rem auto;
-}
-.contact-notice-inner {
-    background: #FFFFFF;
-    border: 1px solid var(--color-pebble-light, #EAE3DA);
-    padding: 2rem 2.5rem;
-    border-radius: 20px;
-    font-size: 1rem;
-    line-height: 2;
-    color: #3B5366;
-    box-shadow: 0 10px 30px rgba(27, 51, 71, 0.03);
-}
-
-/* 3. Main Concierge Grid */
+/* 2. Main Concierge Grid */
 .contact-concierge-grid {
     display: grid;
     grid-template-columns: 1fr 1.15fr;
@@ -497,11 +512,43 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
 .required-star {
     color: #C0392B;
 }
+
+/* Custom Dropdown Styling */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+.luxury-select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0.95rem 1.1rem 0.95rem 2.5rem;
+    border: 1.5px solid var(--color-pebble-light, #EAE3DA);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-marine-deep, #1B3347);
+    background: #FAF8F5;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.select-chevron-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #D4AF37;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
 .luxury-input,
-.luxury-select,
 .luxury-textarea {
     width: 100%;
-    padding: 0.9rem 1.1rem;
+    padding: 0.95rem 1.1rem;
     border: 1.5px solid var(--color-pebble-light, #EAE3DA);
     border-radius: 14px;
     font-family: inherit;
@@ -534,7 +581,7 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     background: #1B3347;
     color: #FAF8F5;
     border: none;
-    padding: 1.1rem 2rem;
+    padding: 1.15rem 2rem;
     border-radius: 14px;
     font-family: inherit;
     font-size: 1.05rem;
@@ -579,60 +626,159 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     color: #C0392B;
 }
 
-/* 4. FAQ Section */
+/* =========================================================================
+   3. PRISTINE LUXURY FAQ ACCORDION (Fixed double plus, balanced padding)
+   ========================================================================= */
 .contact-faq-section {
-    max-width: 860px;
+    max-width: 920px;
     margin: 0 auto;
+    padding-top: 2rem;
 }
-.faq-accordion-grid {
+.faq-header-wrap {
+    text-align: center;
+    margin-bottom: 2.8rem;
+}
+.faq-badge-mini {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #9E7D3B;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 0.35rem 1.2rem;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+}
+.faq-main-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-marine-deep, #1B3347);
+    margin: 0 0 0.8rem 0;
+    line-height: 1.4;
+}
+.faq-subtitle {
+    font-size: 1rem;
+    color: var(--color-marine-muted, #566E80);
+    margin: 0;
+    line-height: 1.8;
+}
+
+.faq-accordion-stack {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
-.faq-item {
+
+/* The Card */
+.luxury-faq-card {
     background: #FFFFFF;
     border: 1px solid var(--color-pebble-light, #EAE3DA);
-    border-radius: 16px;
-    padding: 1.2rem 1.6rem;
-    box-shadow: 0 4px 15px rgba(27, 51, 71, 0.02);
-    transition: border-color 0.2s ease;
+    border-radius: 20px;
+    box-shadow: 0 4px 18px rgba(27, 51, 71, 0.03);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.faq-item[open] {
+.luxury-faq-card:hover {
     border-color: #D4AF37;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.1);
 }
-.faq-question {
-    list-style: none;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-marine-deep, #1B3347);
+.luxury-faq-card[open] {
+    border-color: #D4AF37;
+    background: #FAF8F5;
+    box-shadow: 0 12px 35px rgba(27, 51, 71, 0.07);
+}
+
+/* The Trigger (Summary) */
+.luxury-faq-trigger {
+    list-style: none !important;
+    list-style-type: none !important;
     cursor: pointer;
+    padding: 1.4rem 1.8rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1.5rem;
+    user-select: none;
+    outline: none;
+}
+/* Complete suppression of all native browser summary markers */
+.luxury-faq-trigger::-webkit-details-marker,
+.luxury-faq-trigger::marker {
+    display: none !important;
+    content: "" !important;
+    font-size: 0 !important;
+}
+
+.faq-title-group {
+    display: flex;
+    align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
-.faq-question::-webkit-details-marker {
-    display: none;
+.faq-category-chip {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #9E7D3B;
+    background: #FAF6F0;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 0.3rem 0.85rem;
+    border-radius: 8px;
+    white-space: nowrap;
 }
-.faq-toggle {
-    font-size: 1.3rem;
-    color: #D4AF37;
+.luxury-faq-card[open] .faq-category-chip {
+    background: #FFFFFF;
+}
+.faq-question-text {
+    font-size: 1.08rem;
     font-weight: 800;
+    color: var(--color-marine-deep, #1B3347);
+    line-height: 1.5;
 }
-.faq-item[open] .faq-toggle {
-    transform: rotate(45deg);
+
+/* Elegant Rotating Chevron Bubble */
+.faq-icon-bubble {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #FAF6F0;
+    border: 1px solid var(--color-pebble-light, #EAE3DA);
+    color: #1B3347;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.35s ease, background-color 0.25s ease, color 0.25s ease;
 }
-.faq-answer {
-    padding-top: 1rem;
-    font-size: 0.95rem;
-    line-height: 2;
-    color: var(--color-marine-muted, #566E80);
-    border-top: 1px solid rgba(234, 227, 218, 0.6);
-    margin-top: 0.8rem;
+.luxury-faq-card:hover .faq-icon-bubble {
+    border-color: #D4AF37;
+    color: #9E7D3B;
 }
-.faq-answer p {
+.luxury-faq-card[open] .faq-icon-bubble {
+    transform: rotate(180deg);
+    background: #1B3347;
+    border-color: #1B3347;
+    color: #FAF8F5;
+}
+
+/* The Answer Drawer */
+.luxury-faq-drawer {
+    padding: 0 1.8rem 1.6rem 1.8rem;
+    font-size: 1rem;
+    line-height: 2.1;
+    color: #3B5366;
+    border-top: 1px dashed rgba(212, 175, 55, 0.3);
+    margin-top: 0.2rem;
+    padding-top: 1.2rem;
+    animation: faqFadeIn 0.3s ease;
+}
+.luxury-faq-drawer p {
     margin: 0;
+}
+@keyframes faqFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
@@ -650,6 +796,19 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     .contact-hero-title {
         font-size: 2rem;
     }
+    .faq-main-title {
+        font-size: 1.7rem;
+    }
+    .luxury-faq-trigger {
+        padding: 1.2rem 1.4rem;
+        gap: 1rem;
+    }
+    .luxury-faq-drawer {
+        padding: 0 1.4rem 1.4rem 1.4rem;
+    }
+    .faq-title-group {
+        gap: 0.6rem;
+    }
 }
 </style>
 
@@ -666,9 +825,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const fullName = document.getElementById('rg_full_name').value.trim();
             const phone = document.getElementById('rg_phone').value.trim();
             const message = document.getElementById('rg_message').value.trim();
+            const subject = document.getElementById('rg_subject').value;
 
-            if (!fullName || !phone || !message) {
-                showResponse('لطفاً تمامی فیلدهای ستاره‌دار را تکمیل فرمایید.', 'error');
+            if (!fullName || !phone || !message || !subject) {
+                showResponse('لطفاً تمامی فیلدهای ستاره‌دار (نام، شماره، موضوع و متن پیام) را تکمیل فرمایید.', 'error');
                 return;
             }
 
