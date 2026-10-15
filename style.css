@@ -8610,7 +8610,7 @@ form.variations_form select,
 @media (max-width: 992px) {
   .single-product-page {
     padding-top: 0.5rem !important;
-    padding-bottom: 140px !important;
+    padding-bottom: 1rem !important;
   }
 
   .mobile-sticky-buy-bar {
@@ -13978,26 +13978,270 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
   }
 
   /* -------------------------------------------------------------------------
-     2. DUAL HAMBURGER & TOP MOBILE HEADER (US2 / T009)
+     2. LUXURY MOBILE HEADER, CLEAN HAMBURGER & DEDICATED SEARCH (US2 / T009)
      ------------------------------------------------------------------------- */
+  .header-nav-bar {
+    display: none !important;
+  }
+
+  .site-header {
+    box-shadow: 0 2px 12px rgba(27, 51, 71, 0.05) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 999 !important;
+    background: #FFFFFF !important;
+  }
+
+  .header-main-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0.35rem 0 !important;
+    min-height: 52px !important;
+    gap: 0.4rem !important;
+  }
+
+  .header-col--right {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    gap: 0 !important;
+  }
+
+  .header-col--right .header-search-wrap {
+    display: none !important;
+  }
+
   .mobile-menu-toggle {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 42px !important;
-    height: 42px !important;
-    border-radius: 10px !important;
-    background: rgba(212, 175, 55, 0.08) !important;
-    border: 1px solid rgba(212, 175, 55, 0.25) !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    border: none !important;
     color: var(--color-marine-deep, #1B3347) !important;
     cursor: pointer !important;
     -webkit-tap-highlight-color: transparent !important;
     transition: background 0.2s ease, transform 0.2s ease !important;
   }
 
+  .mobile-menu-toggle svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
   .mobile-menu-toggle:active {
-    transform: scale(0.94) !important;
-    background: rgba(212, 175, 55, 0.16) !important;
+    background: rgba(27, 51, 71, 0.06) !important;
+    transform: scale(0.92) !important;
+  }
+
+  .header-col--center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .header-logo .logo-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .site-logo-img {
+    height: 38px !important;
+    max-height: 38px !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+
+  .header-col--left {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+  }
+
+  .account-dropdown-wrapper {
+    display: none !important;
+  }
+
+  .mobile-search-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    border: none !important;
+    color: var(--color-marine-deep, #1B3347) !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
+  }
+
+  .mobile-search-toggle svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .mobile-search-toggle:active {
+    background: rgba(27, 51, 71, 0.06) !important;
+    transform: scale(0.92) !important;
+  }
+
+  .cart-icon-wrapper {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    border: none !important;
+    color: var(--color-marine-deep, #1B3347) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
+  }
+
+  .cart-icon-wrapper:active {
+    background: rgba(27, 51, 71, 0.06) !important;
+    transform: scale(0.92) !important;
+  }
+
+  .cart-icon-wrapper .action-label {
+    display: none !important;
+  }
+
+  .cart-icon-box {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .cart-icon-box svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .cart-count {
+    position: absolute !important;
+    top: -5px !important;
+    right: -7px !important;
+    background: var(--color-sand, #D4AF37) !important;
+    color: #1B3347 !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    line-height: 17px !important;
+    padding: 0 3px !important;
+    border-radius: 9px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1.5px solid #FFFFFF !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Expandable Live Search Bar */
+  .mobile-search-bar {
+    display: block !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease !important;
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(27, 51, 71, 0.08);
+    padding: 0 0.5rem;
+  }
+
+  .mobile-search-bar.is-open {
+    max-height: 60px;
+    opacity: 1 !important;
+    padding: 0.45rem 0.5rem 0.55rem 0.5rem !important;
+  }
+
+  .mobile-search-bar-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile-search-bar-input {
+    width: 100% !important;
+    height: 38px !important;
+    padding: 0 2.2rem 0 2.2rem !important;
+    background: var(--color-canvas, #F9F8F6) !important;
+    border: 1px solid var(--color-pebble-light, #E3E8EC) !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    font-family: inherit !important;
+    color: var(--color-marine-deep, #1B3347) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .mobile-search-bar-input:focus {
+    border-color: var(--color-sand, #D4AF37) !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12) !important;
+  }
+
+  .mobile-search-bar .search-icon-decor {
+    position: absolute;
+    right: 12px;
+    color: #8C9BA5;
+    pointer-events: none;
+  }
+
+  .mobile-search-bar-close {
+    position: absolute;
+    left: 8px;
+    background: transparent;
+    border: none;
+    color: #8C9BA5;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-search-bar .live-search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid rgba(27, 51, 71, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(27, 51, 71, 0.12);
+    z-index: 99999;
+    max-height: 320px;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .mobile-search-bar .live-search-results.active {
+    display: block !important;
   }
 
   /* -------------------------------------------------------------------------
@@ -14149,6 +14393,205 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     overflow: hidden !important;
     touch-action: none !important;
   }
+
+  /* -------------------------------------------------------------------------
+     6. MOBILE 2-COLUMN LUXURY FOOTER REDESIGN (50%+ Height Reduction)
+     ------------------------------------------------------------------------- */
+  .footer-main-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem 1rem !important;
+    text-align: right !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Widget 1: Brand / Tagline / Socials (Full-width, centered) */
+  .footer-brand-widget {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-bottom: 1.2rem !important;
+    border-bottom: 1px solid rgba(170, 205, 220, 0.15) !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .footer-brand-widget .footer-logo-img {
+    height: 44px !important;
+    max-height: 44px !important;
+    margin: 0 auto 0.6rem !important;
+  }
+
+  .footer-brand-widget .footer-about-text {
+    font-size: 0.78rem !important;
+    line-height: 1.7 !important;
+    text-align: center !important;
+    max-width: 360px !important;
+    margin: 0 auto 0.8rem !important;
+    color: rgba(243, 227, 208, 0.85) !important;
+  }
+
+  .footer-brand-widget .social-icons {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+  }
+
+  .footer-brand-widget .social-icons a {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Widgets 2 & 3: Quick Links & Customer Service (Side-by-side 2 columns) */
+  .footer-widget:nth-of-type(2),
+  .footer-widget:nth-of-type(3) {
+    grid-column: span 1 !important;
+    text-align: right !important;
+  }
+
+  .footer-widget-title {
+    font-size: 0.88rem !important;
+    margin-bottom: 0.75rem !important;
+    padding-bottom: 0.35rem !important;
+    color: var(--color-sand, #F3E3D0) !important;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.3) !important;
+    display: inline-block !important;
+  }
+
+  .footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.55rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  .footer-links li a {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+    color: var(--color-seafoam, #AACDDC) !important;
+    text-decoration: none !important;
+  }
+
+  /* Widget 4: Contact Us & Enamad (Full-width, compact 2-column info layout) */
+  .footer-contact-widget {
+    grid-column: 1 / -1 !important;
+    text-align: right !important;
+    border-top: 1px solid rgba(170, 205, 220, 0.15) !important;
+    padding-top: 1.25rem !important;
+    margin-top: 0.2rem !important;
+  }
+
+  .footer-contact-widget .footer-widget-title {
+    font-size: 0.88rem !important;
+    display: block !important;
+    text-align: center !important;
+    border-bottom: none !important;
+    margin-bottom: 0.85rem !important;
+    color: var(--color-sand, #F3E3D0) !important;
+  }
+
+  .footer-contact-widget .contact-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem 0.5rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  .footer-contact-widget .contact-list li {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 0.4rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    color: var(--color-sand, #F3E3D0) !important;
+  }
+
+  .footer-contact-widget .contact-list li:nth-child(2) {
+    grid-column: 1 / -1 !important;
+  }
+
+  .footer-contact-widget .contact-list svg {
+    width: 14px !important;
+    height: 14px !important;
+    margin-top: 2px !important;
+    flex-shrink: 0 !important;
+    color: var(--color-seafoam, #AACDDC) !important;
+  }
+
+  .footer-contact-widget .trust-seals {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+    width: 100% !important;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    padding: 1.2rem 0 calc(1.2rem + env(safe-area-inset-bottom, 0px)) !important;
+    border-top: 1px solid rgba(170, 205, 220, 0.1) !important;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 0.35rem !important;
+  }
+
+  .footer-copyright {
+    font-size: 0.72rem !important;
+    line-height: 1.6 !important;
+    opacity: 0.8 !important;
+  }
+
+  .footer-creator {
+    font-size: 0.72rem !important;
+    opacity: 0.8 !important;
+  }
+
+  /* -------------------------------------------------------------------------
+     7. SINGLE-PRODUCT COMMENT SECTION GAP ELIMINATION
+     ------------------------------------------------------------------------- */
+  .single-product-page {
+    padding-bottom: 0.75rem !important;
+  }
+
+  .product-bottom-sections {
+    margin-top: 1.25rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  #reviews,
+  .comments-area-editorial {
+    margin-top: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+    padding-bottom: 0 !important;
+  }
+
+  .comments-area-editorial .comment-respond,
+  #review_form_wrapper {
+    margin-bottom: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .comments-area-editorial .form-submit,
+  #review_form_wrapper .form-submit {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .site-footer {
+    margin-top: 1.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px)) !important;
+  }
 }
 
 /* Compact phones (<= 480px) */
@@ -14188,6 +14631,15 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 /* Strict Desktop Protection (>= 992px) */
 @media (min-width: 992px) {
   .magic-bottom-nav {
+    display: none !important;
+  }
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+  .mobile-search-toggle {
+    display: none !important;
+  }
+  .mobile-search-bar {
     display: none !important;
   }
 }

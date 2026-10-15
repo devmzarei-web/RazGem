@@ -145,20 +145,54 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // --- 1. Mobile Menu Logic ---
-    const openMenuBtn = document.getElementById('openMobileMenu');
-    const closeMenuBtn = document.getElementById('closeMobileMenu');
     const drawerMenu = document.getElementById('mobileDrawer');
     const overlayMenu = document.getElementById('mobileOverlay');
+    const closeMenuBtn = document.getElementById('closeMobileMenu');
 
-    function toggleMenu() {
+    function toggleMenu(e) {
+        if (e) e.preventDefault();
         if(drawerMenu) drawerMenu.classList.toggle('active');
         if(overlayMenu) overlayMenu.classList.toggle('active');
         document.body.style.overflow = drawerMenu && drawerMenu.classList.contains('active') ? 'hidden' : '';
     }
 
-    if(openMenuBtn) openMenuBtn.addEventListener('click', toggleMenu);
+    document.querySelectorAll('#openMobileMenu, #openMobileMenuTrigger, .mobile-menu-toggle').forEach(btn => {
+        btn.addEventListener('click', toggleMenu);
+    });
     if(closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
     if(overlayMenu) overlayMenu.addEventListener('click', toggleMenu);
+
+    // --- 1.5. Mobile Search Bar Dropdown Toggle ---
+    const mobileSearchTrigger = document.getElementById('mobileSearchTrigger');
+    const mobileSearchBar = document.getElementById('mobileSearchBar');
+    const mobileSearchClose = document.getElementById('mobileSearchClose');
+
+    if (mobileSearchTrigger && mobileSearchBar) {
+        mobileSearchTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isOpen = mobileSearchBar.classList.toggle('is-open');
+            mobileSearchBar.setAttribute('aria-hidden', !isOpen);
+            if (isOpen) {
+                const searchInp = mobileSearchBar.querySelector('.mobile-search-bar-input');
+                if (searchInp) setTimeout(() => searchInp.focus(), 120);
+            }
+        });
+    }
+
+    if (mobileSearchClose && mobileSearchBar) {
+        mobileSearchClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            mobileSearchBar.classList.remove('is-open');
+            mobileSearchBar.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileSearchBar && mobileSearchBar.classList.contains('is-open')) {
+            mobileSearchBar.classList.remove('is-open');
+            mobileSearchBar.setAttribute('aria-hidden', 'true');
+        }
+    });
 
 
     // --- 2. Event Delegation for Mini Cart & Add to Cart Flying Animation ---

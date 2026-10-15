@@ -215,6 +215,11 @@
                         <?php endif; ?>
                     </div>
 
+                    <!-- Mobile Search Trigger Button (Mobile Only) -->
+                    <button class="action-item mobile-search-toggle" id="mobileSearchTrigger" aria-label="جستجو در آثار" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    </button>
+
                     <button id="openMiniCart" class="action-item cart-icon-wrapper" aria-label="سبد خرید" type="button">
                         <div class="cart-icon-box">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
@@ -227,6 +232,19 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- Tier 1.5: Expandable Mobile Live Search Bar -->
+        <div class="mobile-search-bar" id="mobileSearchBar" aria-hidden="true">
+            <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-form mobile-search-bar-form" role="search">
+                <svg class="search-icon-decor" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" placeholder="جستجو در آثار صدف، مروارید و گوهر..." name="s" class="search-input mobile-search-bar-input" autocomplete="off" aria-label="جستجو در آثار رازجم">
+                <button type="button" class="mobile-search-bar-close" id="mobileSearchClose" aria-label="بستن جستجو">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <input type="hidden" name="post_type" value="product" />
+                <div class="live-search-results"></div>
+            </form>
         </div>
     </div>
 
