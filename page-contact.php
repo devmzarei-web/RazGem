@@ -139,28 +139,19 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
 
                 <!-- VIP Direct Messenger Concierge (Telegram, Instagram, Rubika) -->
                 <div class="concierge-messenger-channels-box">
-                    <span class="messenger-box-title">ارتباط مستقیم با مدیران در پیام‌رسان‌ها:</span>
+                    <span class="messenger-box-title">ارتباط مستقیم در شبکه‌های اجتماعی:</span>
                     <div class="messenger-buttons-grid">
                         <a href="<?php echo esc_url( $contact_telegram ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--telegram">
-                            <img src="<?php echo esc_url( $icon_dir . 'telegram.png' ); ?>" alt="تلگرام">
-                            <div class="channel-text">
-                                <span class="channel-role">مدیر تلگرام</span>
-                                <span class="channel-handle">ارتباط مستقیم ↶</span>
-                            </div>
+                            <img src="<?php echo esc_url( $icon_dir . 'telegram.png?v=3' ); ?>" alt="تلگرام">
+                            <span class="channel-name">تلگرام</span>
                         </a>
                         <a href="<?php echo esc_url( $contact_instagram ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--instagram">
-                            <img src="<?php echo esc_url( $icon_dir . 'instagram.png' ); ?>" alt="اینستاگرام">
-                            <div class="channel-text">
-                                <span class="channel-role">مدیر اینستاگرام</span>
-                                <span class="channel-handle">razgem.ir@ ↶</span>
-                            </div>
+                            <img src="<?php echo esc_url( $icon_dir . 'instagram.png?v=3' ); ?>" alt="اینستاگرام">
+                            <span class="channel-name">اینستاگرام</span>
                         </a>
                         <a href="<?php echo esc_url( $contact_rubika ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--rubika">
-                            <img src="<?php echo esc_url( $icon_dir . 'Rubika.png' ); ?>" alt="روبیکا">
-                            <div class="channel-text">
-                                <span class="channel-role">مدیر روبیکا</span>
-                                <span class="channel-handle">raz_gem@ ↶</span>
-                            </div>
+                            <img src="<?php echo esc_url( $icon_dir . 'Rubika.png?v=3' ); ?>" alt="روبیکا">
+                            <span class="channel-name">روبیکا</span>
                         </a>
                     </div>
                     <span class="messenger-helper-text">مشاوره آنلاین تصاویر مدل‌ها، راهنمای سایز و موجودی کارگاه</span>
@@ -499,16 +490,16 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     gap: 0.75rem;
 }
 .btn-concierge-channel {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.55rem;
-    padding: 0.75rem 0.6rem;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.25s ease;
-    border: 1px solid rgba(27, 51, 71, 0.08);
-    box-shadow: 0 4px 12px rgba(27, 51, 71, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 14px rgba(27, 51, 71, 0.08);
 }
 .btn-concierge-channel img {
     width: 24px;
@@ -516,21 +507,10 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     object-fit: contain;
     flex-shrink: 0;
 }
-.btn-concierge-channel .channel-text {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    line-height: 1.3;
-}
-.btn-concierge-channel .channel-role {
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: #FFFFFF;
-}
-.btn-concierge-channel .channel-handle {
-    font-size: 0.72rem;
-    opacity: 0.92;
-    color: #FFFFFF;
+.btn-concierge-channel .channel-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FFFFFF !important;
 }
 .btn-channel--telegram {
     background: linear-gradient(135deg, #0088cc, #24A1DE);

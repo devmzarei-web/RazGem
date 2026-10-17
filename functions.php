@@ -2747,20 +2747,20 @@ function razgem_render_natural_disclaimer( $context = 'product' ) {
         </div>
         <div class="disclaimer-compact-channels">
             <?php if ( $telegram ) : ?>
-                <a href="<?php echo esc_url( $telegram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-telegram" title="مدیر تلگرام">
-                    <img src="<?php echo esc_url( $icon_dir . 'telegram.png' ); ?>" alt="تلگرام" width="14" height="14">
+                <a href="<?php echo esc_url( $telegram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-telegram" title="تلگرام">
+                    <img src="<?php echo esc_url( $icon_dir . 'telegram.png?v=3' ); ?>" alt="تلگرام" width="14" height="14">
                     <span>تلگرام</span>
                 </a>
             <?php endif; ?>
             <?php if ( $instagram ) : ?>
-                <a href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-instagram" title="مدیر اینستاگرام">
-                    <img src="<?php echo esc_url( $icon_dir . 'instagram.png' ); ?>" alt="اینستاگرام" width="14" height="14">
+                <a href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-instagram" title="اینستاگرام">
+                    <img src="<?php echo esc_url( $icon_dir . 'instagram.png?v=3' ); ?>" alt="اینستاگرام" width="14" height="14">
                     <span>اینستاگرام</span>
                 </a>
             <?php endif; ?>
             <?php if ( $rubika ) : ?>
-                <a href="<?php echo esc_url( $rubika ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-rubika" title="مدیر روبیکا">
-                    <img src="<?php echo esc_url( $icon_dir . 'Rubika.png' ); ?>" alt="روبیکا" width="14" height="14">
+                <a href="<?php echo esc_url( $rubika ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-rubika" title="روبیکا">
+                    <img src="<?php echo esc_url( $icon_dir . 'Rubika.png?v=3' ); ?>" alt="روبیکا" width="14" height="14">
                     <span>روبیکا</span>
                 </a>
             <?php endif; ?>

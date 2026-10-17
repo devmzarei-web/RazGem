@@ -119,6 +119,11 @@ get_header(); ?>
             </div>
 
             <div class="product-buy-box">
+                <!-- Natural Pearl & Shell Disclaimer Box (FR / User Request) -->
+                <?php if ( function_exists('razgem_render_natural_disclaimer') ) : ?>
+                    <?php razgem_render_natural_disclaimer('product'); ?>
+                <?php endif; ?>
+
                 <div class="stock-status-wrapper">
                     <?php echo wc_get_stock_html( $product ); ?>
                 </div>
@@ -130,11 +135,6 @@ get_header(); ?>
                 <div class="add-to-cart-wrapper">
                     <?php woocommerce_template_single_add_to_cart(); ?>
                 </div>
-
-                <!-- Natural Pearl & Shell Disclaimer Box (FR / User Request) -->
-                <?php if ( function_exists('razgem_render_natural_disclaimer') ) : ?>
-                    <?php razgem_render_natural_disclaimer('product'); ?>
-                <?php endif; ?>
 
                 <div class="product-shortlink-box">
                     <div class="shortlink-header">

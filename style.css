@@ -13602,12 +13602,37 @@ html, body {
     background: var(--color-slate-dark, #1B3347);
     margin-top: -1px;
 }
-.woocommerce-breadcrumb a {
-    color: rgba(255,255,255,0.7) !important;
+.shop-coastal-mini-hero .woocommerce-breadcrumb a {
+    color: rgba(255,255,255,0.85) !important;
     text-decoration: none;
 }
-.woocommerce-breadcrumb a:hover {
+.shop-coastal-mini-hero .woocommerce-breadcrumb a:hover {
     color: #fff !important;
+}
+
+/* Global Breadcrumb Styling (Single Product & Shop Pages) */
+.product-breadcrumbs,
+.shop-breadcrumbs,
+.woocommerce-breadcrumb {
+    color: #556B7D !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+}
+
+.woocommerce-breadcrumb a,
+.product-breadcrumbs a,
+.shop-breadcrumbs a {
+    color: var(--color-marine-deep, #1B3347) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: color 0.2s ease !important;
+}
+
+.woocommerce-breadcrumb a:hover,
+.product-breadcrumbs a:hover,
+.shop-breadcrumbs a:hover {
+    color: var(--color-gold-dark, #A67C1E) !important;
 }
 
 
@@ -14963,34 +14988,47 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
   line-height: 1.35;
 }
 
-.natural-gem-disclaimer--compact .disclaimer-compact-desc {
+.natural-gem-disclaimer--compact .disclaimer-compact-desc,
+.natural-gem-disclaimer-box .disclaimer-body {
   font-size: 0.74rem;
-  line-height: 1.55;
-  color: #566E80;
+  line-height: 1.75;
+  color: #4A5B69;
+  text-align: justify !important;
+  text-justify: inter-word !important;
 }
 
 .natural-gem-disclaimer--compact .disclaimer-compact-channels {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  padding-right: 1.5rem;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin-top: 0.5rem !important;
+  box-sizing: border-box !important;
 }
 
 .compact-channel-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.22rem 0.55rem;
-  border-radius: 12px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-decoration: none;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.35rem !important;
+  padding: 0.35rem 0.2rem !important;
+  border-radius: 12px !important;
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
   background: #FFFFFF;
   border: 1px solid rgba(27, 51, 71, 0.12);
   color: var(--color-marine-deep, #1B3347);
   box-shadow: 0 1px 4px rgba(27, 51, 71, 0.04);
   transition: all 0.2s ease;
+  box-sizing: border-box !important;
 }
 
 .compact-channel-pill img {
@@ -15033,12 +15071,53 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
   color: #FFFFFF;
 }
 
+/* 2-Column Grid for Mobile Only (User Request) */
 @media (max-width: 600px) {
   .product-trust-badges-grid {
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.45rem !important;
+  }
+  .trust-badge-card {
+    padding: 0.4rem 0.45rem !important;
+    gap: 0.35rem !important;
+    min-height: 44px !important;
+  }
+  .trust-badge-card svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+  }
+  .trust-badge-card .badge-text-wrap {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.1rem !important;
+  }
+  .trust-badge-card .badge-label {
+    font-size: 0.62rem !important;
+  }
+  .trust-badge-card .badge-val {
+    font-size: 0.68rem !important;
+  }
+  .product-center-trust-section .ring-size-guide-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.78rem !important;
   }
   .natural-gem-disclaimer--compact .disclaimer-compact-channels {
-    padding-right: 0;
+    flex-wrap: nowrap !important;
+    padding-right: 0 !important;
+  }
+  .compact-channel-pill {
+    padding: 0.32rem 0.15rem !important;
+    font-size: 0.7rem !important;
+    gap: 0.25rem !important;
+  }
+  .compact-channel-pill img {
+    width: 13px !important;
+    height: 13px !important;
   }
 }
