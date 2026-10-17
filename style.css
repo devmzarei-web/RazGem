@@ -15132,3 +15132,57 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     height: 13px !important;
   }
 }
+
+/* Tracking Page Channels Styling (Prevent any oversized icons) */
+.track-channel-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  padding: 0.45rem 0.95rem !important;
+  border-radius: 20px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  color: #FFFFFF !important;
+  transition: all 0.25s ease !important;
+}
+
+.track-channel-btn img {
+  width: 18px !important;
+  height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.track-channel--telegram {
+  background: linear-gradient(135deg, #0088cc, #24A1DE) !important;
+}
+
+.track-channel--telegram:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(36, 161, 222, 0.35) !important;
+}
+
+.track-channel--instagram {
+  background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045) !important;
+}
+
+.track-channel--instagram:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.35) !important;
+}
+
+.track-channel--rubika {
+  background: linear-gradient(135deg, #4A148C, #7B1FA2) !important;
+}
+
+.track-channel--rubika:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(123, 31, 162, 0.35) !important;
+}

@@ -60,16 +60,16 @@ get_header();
                 $track_icon_dir  = get_template_directory_uri() . '/assets/icons/';
                 ?>
                 <div class="track-social-buttons" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                    <a href="<?php echo esc_url( $track_telegram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--telegram">
-                        <img src="<?php echo esc_url( $track_icon_dir . 'telegram.png?v=3' ); ?>" alt="تلگرام" width="16" height="16">
+                    <a href="<?php echo esc_url( $track_telegram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--telegram" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.95rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-decoration: none; color: #FFFFFF !important; background: linear-gradient(135deg, #0088cc, #24A1DE); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'telegram.png?v=3' ); ?>" alt="تلگرام" width="18" height="18" style="width: 18px !important; height: 18px !important; min-width: 18px !important; max-width: 18px !important; object-fit: contain !important; vertical-align: middle !important; display: inline-block !important;">
                         <span>تلگرام</span>
                     </a>
-                    <a href="<?php echo esc_url( $track_instagram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--instagram">
-                        <img src="<?php echo esc_url( $track_icon_dir . 'instagram.png?v=3' ); ?>" alt="اینستاگرام" width="16" height="16">
+                    <a href="<?php echo esc_url( $track_instagram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--instagram" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.95rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-decoration: none; color: #FFFFFF !important; background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'instagram.png?v=3' ); ?>" alt="اینستاگرام" width="18" height="18" style="width: 18px !important; height: 18px !important; min-width: 18px !important; max-width: 18px !important; object-fit: contain !important; vertical-align: middle !important; display: inline-block !important;">
                         <span>اینستاگرام</span>
                     </a>
-                    <a href="<?php echo esc_url( $track_rubika ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--rubika">
-                        <img src="<?php echo esc_url( $track_icon_dir . 'Rubika.png?v=3' ); ?>" alt="روبیکا" width="16" height="16">
+                    <a href="<?php echo esc_url( $track_rubika ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--rubika" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.95rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-decoration: none; color: #FFFFFF !important; background: linear-gradient(135deg, #4A148C, #7B1FA2); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'Rubika.png?v=3' ); ?>" alt="روبیکا" width="18" height="18" style="width: 18px !important; height: 18px !important; min-width: 18px !important; max-width: 18px !important; object-fit: contain !important; vertical-align: middle !important; display: inline-block !important;">
                         <span>روبیکا</span>
                     </a>
                 </div>
@@ -91,5 +91,64 @@ get_header();
 
     </div>
 </main>
+
+<style>
+.track-channel-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    padding: 0.45rem 0.95rem !important;
+    border-radius: 20px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+.track-channel-btn img {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+.track-channel--telegram {
+    background: linear-gradient(135deg, #0088cc, #24A1DE) !important;
+}
+.track-channel--telegram:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(36, 161, 222, 0.35) !important;
+}
+.track-channel--instagram {
+    background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045) !important;
+}
+.track-channel--instagram:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(225, 48, 108, 0.35) !important;
+}
+.track-channel--rubika {
+    background: linear-gradient(135deg, #4A148C, #7B1FA2) !important;
+}
+.track-channel--rubika:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(123, 31, 162, 0.35) !important;
+}
+@media (max-width: 600px) {
+    .track-support-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .track-social-buttons {
+        width: 100% !important;
+        justify-content: flex-start !important;
+    }
+}
+</style>
 
 <?php get_footer(); ?>
