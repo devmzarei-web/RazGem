@@ -17,7 +17,12 @@ $contact_email   = get_theme_mod( 'contact_email', 'info@razgem.ir' );
 $contact_address = get_theme_mod( 'contact_address', 'تهران، نیاوران، خیابان عمار، پلاک ۱۲، واحد ۳' );
 $contact_hours   = get_theme_mod( 'contact_hours', '۱۰ الی ۲۲ (شنبه تا پنج‌شنبه)' );
 
-// Calculate WhatsApp Link
+$contact_telegram  = get_theme_mod( 'social_telegram', 'https://t.me/+989007423055' );
+$contact_instagram = get_theme_mod( 'social_instagram', 'https://instagram.com/razgem.ir' );
+$contact_rubika    = get_theme_mod( 'social_rubika', 'https://rubika.ir/raz_gem' );
+$icon_dir          = get_template_directory_uri() . '/assets/icons/';
+
+// Calculate WhatsApp Link (Fallback)
 $wa_phone_raw = ! empty( $contact_phone_2 ) ? $contact_phone_2 : ( ! empty( $contact_phone ) ? $contact_phone : '09120000000' );
 $wa_phone_clean = preg_replace( '/[^0-9]/', '', $wa_phone_raw );
 if ( strpos( $wa_phone_clean, '09' ) === 0 ) {
@@ -132,13 +137,33 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
                     <?php endif; ?>
                 </ul>
 
-                <!-- VIP Direct WhatsApp Concierge Button -->
-                <div class="whatsapp-concierge-box">
-                    <a href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-concierge">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.187-2.59-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.311.045-.698.059-1.146-.086-.285-.093-.655-.234-1.157-.456-2.152-.952-3.559-3.155-3.666-3.298-.107-.144-.873-1.16-.873-2.213 0-1.053.552-1.572.748-1.785.197-.214.43-.267.573-.267.144 0 .287.003.411.009.135.005.316-.051.493.376.183.441.624 1.52.678 1.631.054.111.09.241.018.385-.072.144-.108.234-.216.36-.107.126-.227.28-.324.376-.108.107-.221.224-.095.441.126.216.559.923 1.2 1.494.825.735 1.521.963 1.737 1.07.216.107.342.09.469-.054.126-.144.538-.628.682-.843.144-.216.288-.18.484-.108.198.072 1.254.592 1.469.7.216.108.36.162.414.252.054.09.054.522-.09.927z"></path></svg>
-                        <span>ارتباط مستقیم و فوری در واتس‌اپ</span>
-                    </a>
-                    <span class="wa-helper-text">مشاوره آنلاین تصاویر مدل‌ها، راهنمای سایز و موجودی کارگاه</span>
+                <!-- VIP Direct Messenger Concierge (Telegram, Instagram, Rubika) -->
+                <div class="concierge-messenger-channels-box">
+                    <span class="messenger-box-title">ارتباط مستقیم با مدیران در پیام‌رسان‌ها:</span>
+                    <div class="messenger-buttons-grid">
+                        <a href="<?php echo esc_url( $contact_telegram ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--telegram">
+                            <img src="<?php echo esc_url( $icon_dir . 'telegram.png' ); ?>" alt="تلگرام">
+                            <div class="channel-text">
+                                <span class="channel-role">مدیر تلگرام</span>
+                                <span class="channel-handle">ارتباط مستقیم ↶</span>
+                            </div>
+                        </a>
+                        <a href="<?php echo esc_url( $contact_instagram ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--instagram">
+                            <img src="<?php echo esc_url( $icon_dir . 'instagram.png' ); ?>" alt="اینستاگرام">
+                            <div class="channel-text">
+                                <span class="channel-role">مدیر اینستاگرام</span>
+                                <span class="channel-handle">razgem.ir@ ↶</span>
+                            </div>
+                        </a>
+                        <a href="<?php echo esc_url( $contact_rubika ); ?>" target="_blank" rel="noopener noreferrer" class="btn-concierge-channel btn-channel--rubika">
+                            <img src="<?php echo esc_url( $icon_dir . 'Rubika.png' ); ?>" alt="روبیکا">
+                            <div class="channel-text">
+                                <span class="channel-role">مدیر روبیکا</span>
+                                <span class="channel-handle">raz_gem@ ↶</span>
+                            </div>
+                        </a>
+                    </div>
+                    <span class="messenger-helper-text">مشاوره آنلاین تصاویر مدل‌ها، راهنمای سایز و موجودی کارگاه</span>
                 </div>
             </div>
         </div>
@@ -452,40 +477,96 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     margin-top: 0.2rem;
 }
 
-/* WhatsApp Concierge Box */
-.whatsapp-concierge-box {
+/* Direct Messenger Channels Box (Telegram, Instagram, Rubika) */
+.concierge-messenger-channels-box {
     background: #FAF6F0;
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.28);
     border-radius: 18px;
-    padding: 1.5rem;
-    text-align: center;
+    padding: 1.4rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.8rem;
+    text-align: center;
 }
-.btn-whatsapp-concierge {
+.messenger-box-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-marine-deep, #1B3347);
+}
+.messenger-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+.btn-concierge-channel {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
-    background: #25D366;
-    color: #FFFFFF !important;
-    padding: 0.9rem 1.5rem;
-    border-radius: 14px;
-    font-size: 1rem;
-    font-weight: 700;
+    gap: 0.55rem;
+    padding: 0.75rem 0.6rem;
+    border-radius: 12px;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+    border: 1px solid rgba(27, 51, 71, 0.08);
+    box-shadow: 0 4px 12px rgba(27, 51, 71, 0.05);
 }
-.btn-whatsapp-concierge:hover {
-    background: #1EBE5D;
+.btn-concierge-channel img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.btn-concierge-channel .channel-text {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    line-height: 1.3;
+}
+.btn-concierge-channel .channel-role {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+.btn-concierge-channel .channel-handle {
+    font-size: 0.72rem;
+    opacity: 0.92;
+    color: #FFFFFF;
+}
+.btn-channel--telegram {
+    background: linear-gradient(135deg, #0088cc, #24A1DE);
+}
+.btn-channel--telegram:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(37, 211, 102, 0.35);
+    box-shadow: 0 8px 20px rgba(36, 161, 222, 0.35);
 }
-.wa-helper-text {
+.btn-channel--instagram {
+    background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045);
+}
+.btn-channel--instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(225, 48, 108, 0.35);
+}
+.btn-channel--rubika {
+    background: linear-gradient(135deg, #4A148C, #7B1FA2);
+}
+.btn-channel--rubika:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(123, 31, 162, 0.35);
+}
+.messenger-helper-text {
     font-size: 0.8rem;
     color: var(--color-marine-muted, #566E80);
+}
+
+@media (max-width: 600px) {
+    .messenger-buttons-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+    .btn-concierge-channel {
+        padding: 0.75rem 1rem;
+        justify-content: flex-start;
+    }
 }
 
 /* Luxury Form */

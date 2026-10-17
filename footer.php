@@ -102,29 +102,6 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <span>ساعت پاسخگویی: <?php echo esc_html( get_theme_mod( 'contact_hours', '۱۰ الی ۲۲' ) ); ?></span>
                 </li>
-
-                <!-- Direct Manager Channels (Hyperlinked with Local Icons) -->
-                <?php if ( $social_telegram ) : ?>
-                    <li class="contact-channel-item">
-                        <img src="<?php echo esc_url($icon_dir . 'telegram.png'); ?>" alt="تلگرام" class="contact-channel-icon" width="18" height="18">
-                        <span class="contact-channel-title">مدیر تلگرام↶</span>
-                        <a href="<?php echo esc_url($social_telegram); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">ارتباط در تلگرام</a>
-                    </li>
-                <?php endif; ?>
-                <?php if ( $social_instagram ) : ?>
-                    <li class="contact-channel-item">
-                        <img src="<?php echo esc_url($icon_dir . 'instagram.png'); ?>" alt="اینستاگرام" class="contact-channel-icon" width="18" height="18">
-                        <span class="contact-channel-title">مدیر اینستاگرام↶</span>
-                        <a href="<?php echo esc_url($social_instagram); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">razgem.ir@</a>
-                    </li>
-                <?php endif; ?>
-                <?php if ( $social_rubika ) : ?>
-                    <li class="contact-channel-item">
-                        <img src="<?php echo esc_url($icon_dir . 'Rubika.png'); ?>" alt="روبیکا" class="contact-channel-icon" width="18" height="18">
-                        <span class="contact-channel-title">مدیر روبیکا↶</span>
-                        <a href="<?php echo esc_url($social_rubika); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">raz_gem@</a>
-                    </li>
-                <?php endif; ?>
             </ul>
             
             <div class="trust-seals">

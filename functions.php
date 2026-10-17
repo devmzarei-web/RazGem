@@ -2735,7 +2735,38 @@ function razgem_render_natural_disclaimer( $context = 'product' ) {
     $rubika    = get_theme_mod( 'social_rubika', 'https://rubika.ir/raz_gem' );
     $icon_dir  = get_template_directory_uri() . '/assets/icons/';
 
+    if ( 'product' === $context ) :
     ?>
+    <div class="natural-gem-disclaimer-box natural-gem-disclaimer--compact" dir="rtl">
+        <div class="disclaimer-compact-body">
+            <span class="disclaimer-compact-icon" aria-hidden="true">🦪</span>
+            <div class="disclaimer-compact-text">
+                <span class="disclaimer-compact-title"><?php echo esc_html( $title ); ?></span>
+                <span class="disclaimer-compact-desc"><?php echo esc_html( $text ); ?></span>
+            </div>
+        </div>
+        <div class="disclaimer-compact-channels">
+            <?php if ( $telegram ) : ?>
+                <a href="<?php echo esc_url( $telegram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-telegram" title="مدیر تلگرام">
+                    <img src="<?php echo esc_url( $icon_dir . 'telegram.png' ); ?>" alt="تلگرام" width="14" height="14">
+                    <span>تلگرام</span>
+                </a>
+            <?php endif; ?>
+            <?php if ( $instagram ) : ?>
+                <a href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-instagram" title="مدیر اینستاگرام">
+                    <img src="<?php echo esc_url( $icon_dir . 'instagram.png' ); ?>" alt="اینستاگرام" width="14" height="14">
+                    <span>اینستاگرام</span>
+                </a>
+            <?php endif; ?>
+            <?php if ( $rubika ) : ?>
+                <a href="<?php echo esc_url( $rubika ); ?>" target="_blank" rel="noopener noreferrer" class="compact-channel-pill pill-rubika" title="مدیر روبیکا">
+                    <img src="<?php echo esc_url( $icon_dir . 'Rubika.png' ); ?>" alt="روبیکا" width="14" height="14">
+                    <span>روبیکا</span>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php else : ?>
     <div class="natural-gem-disclaimer-box natural-gem-disclaimer--<?php echo esc_attr( $context ); ?>" dir="rtl">
         <div class="disclaimer-header">
             <span class="disclaimer-icon">🦪</span>
@@ -2765,7 +2796,7 @@ function razgem_render_natural_disclaimer( $context = 'product' ) {
             <?php endif; ?>
         </div>
     </div>
-    <?php
+    <?php endif;
 }
 
 add_action( 'init', 'razgem_seed_terms_natural_disclaimer_v1', 35 );

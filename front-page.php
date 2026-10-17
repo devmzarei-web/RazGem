@@ -99,9 +99,9 @@ get_header(); ?>
                 if ( function_exists( 'wc_get_products' ) ) {
                     $wc_catalog_query = new WP_Query( array(
                         'post_type'      => 'product',
-                        'posts_per_page' => 12,
-                        'orderby'        => 'menu_order title',
-                        'order'          => 'ASC',
+                        'posts_per_page' => 24,
+                        'orderby'        => 'date',
+                        'order'          => 'DESC',
                         'status'         => 'publish',
                     ) );
 
