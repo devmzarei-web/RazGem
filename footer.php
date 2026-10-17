@@ -11,24 +11,31 @@
             <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی اصل، مرواریدهای باروک خلیج فارس و هنر اصیل ایرانی.' ) ); ?></p>
             
             <?php
-            $social_instagram = get_theme_mod('social_instagram', '#');
-            $social_telegram  = get_theme_mod('social_telegram', '#');
-            $social_whatsapp  = get_theme_mod('social_whatsapp', '#');
+            $social_telegram  = get_theme_mod('social_telegram', 'https://t.me/+989007423055');
+            $social_instagram = get_theme_mod('social_instagram', 'https://instagram.com/razgem.ir');
+            $social_rubika    = get_theme_mod('social_rubika', 'https://rubika.ir/raz_gem');
+            $social_whatsapp  = get_theme_mod('social_whatsapp', '');
+            $icon_dir         = get_template_directory_uri() . '/assets/icons/';
             ?>
             <div class="social-icons">
-                <?php if ($social_instagram) : ?>
-                    <a href="<?php echo esc_url($social_instagram); ?>" aria-label="اینستاگرام رازجم" target="_blank" rel="noopener noreferrer">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <?php if ($social_telegram) : ?>
+                    <a href="<?php echo esc_url($social_telegram); ?>" aria-label="مدیر تلگرام رازجم" target="_blank" rel="noopener noreferrer">
+                        <img src="<?php echo esc_url($icon_dir . 'telegram.png'); ?>" alt="تلگرام" class="footer-social-png" width="22" height="22">
                     </a>
                 <?php endif; ?>
-                <?php if ($social_telegram) : ?>
-                    <a href="<?php echo esc_url($social_telegram); ?>" aria-label="تلگرام رازجم" target="_blank" rel="noopener noreferrer">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <?php if ($social_instagram) : ?>
+                    <a href="<?php echo esc_url($social_instagram); ?>" aria-label="مدیر اینستاگرام رازجم" target="_blank" rel="noopener noreferrer">
+                        <img src="<?php echo esc_url($icon_dir . 'instagram.png'); ?>" alt="اینستاگرام" class="footer-social-png" width="22" height="22">
+                    </a>
+                <?php endif; ?>
+                <?php if ($social_rubika) : ?>
+                    <a href="<?php echo esc_url($social_rubika); ?>" aria-label="مدیر روبیکا رازجم" target="_blank" rel="noopener noreferrer">
+                        <img src="<?php echo esc_url($icon_dir . 'Rubika.png'); ?>" alt="روبیکا" class="footer-social-png" width="22" height="22">
                     </a>
                 <?php endif; ?>
                 <?php if ($social_whatsapp) : ?>
                     <a href="<?php echo esc_url($social_whatsapp); ?>" aria-label="واتس‌اپ رازجم" target="_blank" rel="noopener noreferrer">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <img src="<?php echo esc_url($icon_dir . 'whatsapp.png'); ?>" alt="واتس‌اپ" class="footer-social-png" width="22" height="22">
                     </a>
                 <?php endif; ?>
             </div>
@@ -95,6 +102,29 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <span>ساعت پاسخگویی: <?php echo esc_html( get_theme_mod( 'contact_hours', '۱۰ الی ۲۲' ) ); ?></span>
                 </li>
+
+                <!-- Direct Manager Channels (Hyperlinked with Local Icons) -->
+                <?php if ( $social_telegram ) : ?>
+                    <li class="contact-channel-item">
+                        <img src="<?php echo esc_url($icon_dir . 'telegram.png'); ?>" alt="تلگرام" class="contact-channel-icon" width="18" height="18">
+                        <span class="contact-channel-title">مدیر تلگرام↶</span>
+                        <a href="<?php echo esc_url($social_telegram); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">ارتباط در تلگرام</a>
+                    </li>
+                <?php endif; ?>
+                <?php if ( $social_instagram ) : ?>
+                    <li class="contact-channel-item">
+                        <img src="<?php echo esc_url($icon_dir . 'instagram.png'); ?>" alt="اینستاگرام" class="contact-channel-icon" width="18" height="18">
+                        <span class="contact-channel-title">مدیر اینستاگرام↶</span>
+                        <a href="<?php echo esc_url($social_instagram); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">razgem.ir@</a>
+                    </li>
+                <?php endif; ?>
+                <?php if ( $social_rubika ) : ?>
+                    <li class="contact-channel-item">
+                        <img src="<?php echo esc_url($icon_dir . 'Rubika.png'); ?>" alt="روبیکا" class="contact-channel-icon" width="18" height="18">
+                        <span class="contact-channel-title">مدیر روبیکا↶</span>
+                        <a href="<?php echo esc_url($social_rubika); ?>" target="_blank" rel="noopener noreferrer" class="contact-channel-link">raz_gem@</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             
             <div class="trust-seals">

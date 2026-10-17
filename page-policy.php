@@ -58,6 +58,10 @@ $current_slug = get_post_field( 'post_name', get_post() );
     <!-- 3. MAIN EDITORIAL POLICY BODY -->
     <div class="policy-content-wrapper">
         <article class="policy-card">
+            <?php if ( $current_slug === 'terms' && function_exists('razgem_render_natural_disclaimer') ) : ?>
+                <?php razgem_render_natural_disclaimer('terms'); ?>
+            <?php endif; ?>
+
             <?php while ( have_posts() ) : the_post(); ?>
                 <div class="policy-editorial-body">
                     <?php the_content(); ?>

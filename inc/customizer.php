@@ -535,38 +535,96 @@ function razgem_customize_register( $wp_customize ) {
     // 5. SOCIAL MEDIA & MESSAGING
     // -------------------------------------------------------------------------
     $wp_customize->add_section( 'razgem_social_section', array(
-        'title'    => 'شبکه‌های اجتماعی (Social Media)',
-        'priority' => 33,
+        'title'       => 'ارتباط با مدیران و شبکه‌های اجتماعی',
+        'priority'    => 33,
+        'description' => 'تنظیم لینک‌های ارتباط با مدیران گالری در تلگرام، اینستاگرام، روبیکا و واتس‌اپ',
     ) );
 
-    $wp_customize->add_setting( 'social_instagram', array(
-        'default'           => '#',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'social_instagram', array(
-        'label'   => 'لینک اینستاگرام گالری رازجم',
-        'section' => 'razgem_social_section',
-        'type'    => 'url',
-    ) );
-
+    // Telegram Manager
     $wp_customize->add_setting( 'social_telegram', array(
-        'default'           => '#',
+        'default'           => 'https://t.me/+989007423055',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'social_telegram', array(
-        'label'   => 'لینک تلگرام گالری رازجم',
-        'section' => 'razgem_social_section',
-        'type'    => 'url',
+        'label'       => 'لینک مدیر تلگرام (Telegram)',
+        'section'     => 'razgem_social_section',
+        'type'        => 'url',
+        'description' => 'لینک حساب یا کانال مدیر در تلگرام (نمایش در فوتر و اطلاعیه محصول)',
     ) );
 
+    // Instagram Manager
+    $wp_customize->add_setting( 'social_instagram', array(
+        'default'           => 'https://instagram.com/razgem.ir',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'social_instagram', array(
+        'label'       => 'لینک مدیر اینستاگرام (Instagram)',
+        'section'     => 'razgem_social_section',
+        'type'        => 'url',
+        'description' => 'آدرس صفحه رسمی اینستاگرام گالری رازجم',
+    ) );
+
+    // Rubika Manager
+    $wp_customize->add_setting( 'social_rubika', array(
+        'default'           => 'https://rubika.ir/raz_gem',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'social_rubika', array(
+        'label'       => 'لینک مدیر روبیکا (Rubika)',
+        'section'     => 'razgem_social_section',
+        'type'        => 'url',
+        'description' => 'لینک کانال یا ارتباط با مدیر در روبیکا',
+    ) );
+
+    // WhatsApp Manager
     $wp_customize->add_setting( 'social_whatsapp', array(
-        'default'           => '#',
+        'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'social_whatsapp', array(
-        'label'   => 'لینک واتس‌اپ گالری رازجم',
-        'section' => 'razgem_social_section',
-        'type'    => 'url',
+        'label'       => 'لینک واتس‌اپ گالری رازجم (اختیاری)',
+        'section'     => 'razgem_social_section',
+        'type'        => 'url',
+    ) );
+
+    // -------------------------------------------------------------------------
+    // 5.5. NATURAL SHELL & PEARL DISCLAIMER (اطلاعیه اصالت صدف‌ها و مرواریدها)
+    // -------------------------------------------------------------------------
+    $wp_customize->add_section( 'razgem_disclaimer_section', array(
+        'title'       => 'اطلاعیه اصالت صدف‌های طبیعی (Disclaimer)',
+        'priority'    => 34,
+        'description' => 'مدیریت متن تذکر طبیعی‌بودن صدف‌ها و مرواریدها در صفحه محصول و قوانین و مقررات',
+    ) );
+
+    $wp_customize->add_setting( 'natural_disclaimer_enable', array(
+        'default'           => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ) );
+    $wp_customize->add_control( 'natural_disclaimer_enable', array(
+        'label'   => 'فعال‌سازی نمایش اطلاعیه اصالت و استعلام موجودی',
+        'section' => 'razgem_disclaimer_section',
+        'type'    => 'checkbox',
+    ) );
+
+    $wp_customize->add_setting( 'natural_disclaimer_title', array(
+        'default'           => 'اصالت گوهر و تفاوت طبیعی هر قطعه:',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'natural_disclaimer_title', array(
+        'label'   => 'عنوان اطلاعیه',
+        'section' => 'razgem_disclaimer_section',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'natural_disclaimer_text', array(
+        'default'           => 'به‌دلیل طبیعی‌بودن صدف‌ها و مرواریدها، رنگ و شکل هر قطعه ممکن است اندکی با تصویر متفاوت باشد. برای مشاهده تصویر موجودی پیش از سفارش پیام دهید:',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+    $wp_customize->add_control( 'natural_disclaimer_text', array(
+        'label'       => 'متن اطلاعیه اصالت',
+        'section'     => 'razgem_disclaimer_section',
+        'type'        => 'textarea',
+        'description' => 'لینک‌های تلگرام، اینستاگرام و روبیکا با آیکون‌های رسمی خود به صورت خودکار به انتهای این متن اضافه می‌شوند.',
     ) );
 
     // Bale Notification Bot

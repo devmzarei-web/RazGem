@@ -14643,3 +14643,193 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     display: none !important;
   }
 }
+
+/* =========================================================================
+   52. NATURAL SHELL & PEARL DISCLAIMER & CONTACT HYPERLINKS
+   ========================================================================= */
+
+/* Natural Pearl & Shell Disclaimer Box (Product Page & Terms) */
+.natural-gem-disclaimer-box {
+  background: rgba(212, 175, 55, 0.07);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  color: var(--color-marine-deep, #1B3347);
+  font-family: inherit;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.natural-gem-disclaimer-box:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.1);
+}
+
+.natural-gem-disclaimer-box .disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.natural-gem-disclaimer-box .disclaimer-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.natural-gem-disclaimer-box .disclaimer-title {
+  font-family: var(--font-heading, "Morabba", serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-marine-deep, #1B3347);
+}
+
+.natural-gem-disclaimer-box .disclaimer-body {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: #374A58;
+  margin: 0 0 0.85rem 0;
+}
+
+.natural-gem-disclaimer-box .disclaimer-channels {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.disclaimer-channel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: #FFFFFF;
+  border: 1px solid rgba(27, 51, 71, 0.12);
+  color: var(--color-marine-deep, #1B3347);
+  box-shadow: 0 2px 8px rgba(27, 51, 71, 0.04);
+  transition: all 0.2s ease;
+}
+
+.disclaimer-channel-pill img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.disclaimer-channel-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 51, 71, 0.1);
+}
+
+.disclaimer-channel-pill.channel-telegram:hover {
+  border-color: #0088cc;
+  color: #0088cc;
+}
+
+.disclaimer-channel-pill.channel-instagram:hover {
+  border-color: #E1306C;
+  color: #E1306C;
+}
+
+.disclaimer-channel-pill.channel-rubika:hover {
+  border-color: #7928CA;
+  color: #7928CA;
+}
+
+/* Terms Page Specific Modifier */
+.natural-gem-disclaimer--terms {
+  margin-bottom: 2.2rem;
+  background: #FAF8F5;
+  border-right: 4px solid var(--color-sand, #D4AF37);
+  border-radius: 12px;
+  padding: 1.3rem 1.6rem;
+}
+
+/* Footer Social Icons with PNGs */
+.footer-social-png {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.social-icons a {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.social-icons a:hover .footer-social-png {
+  transform: scale(1.08);
+}
+
+/* Footer Contact Channel Items (Direct Manager Links) */
+.contact-channel-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-top: 0.25rem !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+}
+
+.contact-channel-icon {
+  width: 18px !important;
+  height: 18px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  border-radius: 4px !important;
+}
+
+.contact-channel-title {
+  color: var(--color-sand, #F3E3D0) !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+}
+
+.contact-channel-link {
+  color: var(--color-seafoam, #AACDDC) !important;
+  text-decoration: underline !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
+}
+
+.contact-channel-link:hover {
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+}
+
+/* Mobile Adjustments for Contact Channel Items */
+@media (max-width: 768px) {
+  .footer-contact-widget .contact-list .contact-channel-item {
+    font-size: 0.76rem !important;
+    gap: 0.35rem !important;
+  }
+  .contact-channel-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .contact-channel-title {
+    font-size: 0.74rem !important;
+  }
+  .contact-channel-link {
+    font-size: 0.74rem !important;
+  }
+  .natural-gem-disclaimer-box {
+    padding: 0.85rem 1rem;
+    margin: 1rem 0;
+  }
+  .natural-gem-disclaimer-box .disclaimer-body {
+    font-size: 0.82rem;
+  }
+  .disclaimer-channel-pill {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.76rem;
+  }
+}

@@ -2716,3 +2716,82 @@ function razgem_cleanup_gold_references_from_db() {
 
     update_option( 'razgem_gold_cleaned_from_db_v2', true );
 }
+
+/* =========================================================================
+   51. NATURAL SHELL & PEARL DISCLAIMER RENDERER & TERMS SEEDER
+   ========================================================================= */
+
+/**
+ * Render the Natural Shell & Pearl Disclaimer with Manager Links
+ */
+function razgem_render_natural_disclaimer( $context = 'product' ) {
+    $enabled = get_theme_mod( 'natural_disclaimer_enable', true );
+    if ( ! $enabled ) return;
+
+    $title     = get_theme_mod( 'natural_disclaimer_title', 'اصالت گوهر و تفاوت طبیعی هر قطعه:' );
+    $text      = get_theme_mod( 'natural_disclaimer_text', 'به‌دلیل طبیعی‌بودن صدف‌ها و مرواریدها، رنگ و شکل هر قطعه ممکن است اندکی با تصویر متفاوت باشد. برای مشاهده تصویر موجودی پیش از سفارش پیام دهید:' );
+    $telegram  = get_theme_mod( 'social_telegram', 'https://t.me/+989007423055' );
+    $instagram = get_theme_mod( 'social_instagram', 'https://instagram.com/razgem.ir' );
+    $rubika    = get_theme_mod( 'social_rubika', 'https://rubika.ir/raz_gem' );
+    $icon_dir  = get_template_directory_uri() . '/assets/icons/';
+
+    ?>
+    <div class="natural-gem-disclaimer-box natural-gem-disclaimer--<?php echo esc_attr( $context ); ?>" dir="rtl">
+        <div class="disclaimer-header">
+            <span class="disclaimer-icon">🦪</span>
+            <strong class="disclaimer-title"><?php echo esc_html( $title ); ?></strong>
+        </div>
+        <p class="disclaimer-body">
+            <?php echo esc_html( $text ); ?>
+        </p>
+        <div class="disclaimer-channels">
+            <?php if ( $telegram ) : ?>
+                <a href="<?php echo esc_url( $telegram ); ?>" target="_blank" rel="noopener noreferrer" class="disclaimer-channel-pill channel-telegram">
+                    <img src="<?php echo esc_url( $icon_dir . 'telegram.png' ); ?>" alt="تلگرام" width="18" height="18">
+                    <span>تلگرام</span>
+                </a>
+            <?php endif; ?>
+            <?php if ( $instagram ) : ?>
+                <a href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" class="disclaimer-channel-pill channel-instagram">
+                    <img src="<?php echo esc_url( $icon_dir . 'instagram.png' ); ?>" alt="اینستاگرام" width="18" height="18">
+                    <span>اینستاگرام</span>
+                </a>
+            <?php endif; ?>
+            <?php if ( $rubika ) : ?>
+                <a href="<?php echo esc_url( $rubika ); ?>" target="_blank" rel="noopener noreferrer" class="disclaimer-channel-pill channel-rubika">
+                    <img src="<?php echo esc_url( $icon_dir . 'Rubika.png' ); ?>" alt="روبیکا" width="18" height="18">
+                    <span>روبیکا</span>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+}
+
+add_action( 'init', 'razgem_seed_terms_natural_disclaimer_v1', 35 );
+function razgem_seed_terms_natural_disclaimer_v1() {
+    if ( get_option( 'razgem_terms_disclaimer_seeded_v1' ) ) return;
+
+    $terms_page = get_page_by_path( 'terms' );
+    if ( $terms_page && ! empty( $terms_page->post_content ) ) {
+        if ( strpos( $terms_page->post_content, 'طبیعی‌بودن صدف‌ها' ) === false ) {
+            $disclaimer_html = "<!-- Natural Gem & Pearl Disclaimer -->\n" .
+                '<div class="policy-callout policy-callout--natural-gem">' .
+                '<strong>تذکر ویژه در خصوص ماهیت طبیعی صدف‌ها و مرواریدها:</strong>' .
+                '<p>به‌دلیل طبیعی‌بودن صدف‌ها و مرواریدها، رنگ و شکل هر قطعه ممکن است اندکی با تصویر متفاوت باشد. برای مشاهده تصویر موجودی پیش از سفارش پیام دهید: ' .
+                '<a href="https://t.me/+989007423055" target="_blank" rel="noopener noreferrer">تلگرام</a> ، ' .
+                '<a href="https://instagram.com/razgem.ir" target="_blank" rel="noopener noreferrer">اینستاگرام</a> ، ' .
+                '<a href="https://rubika.ir/raz_gem" target="_blank" rel="noopener noreferrer">روبیکا</a>' .
+                '</p></div>' . "\n\n";
+
+            $updated_content = $disclaimer_html . $terms_page->post_content;
+            wp_update_post( array(
+                'ID'           => $terms_page->ID,
+                'post_content' => $updated_content,
+            ) );
+        }
+    }
+
+    update_option( 'razgem_terms_disclaimer_seeded_v1', true );
+}
+
