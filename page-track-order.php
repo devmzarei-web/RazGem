@@ -48,22 +48,31 @@ get_header();
                 </button>
             </form>
 
-            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--color-pebble-light); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div class="track-support-bar" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--color-pebble-light); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                     <span style="font-size: 1.3rem;">💬</span>
-                    <span style="font-size: 0.92rem; color: var(--color-marine-muted);">کد رهگیری خود را دریافت نکرده‌اید؟</span>
+                    <span style="font-size: 0.92rem; font-weight: 600; color: var(--color-marine-muted);">کد رهگیری خود را دریافت نکرده‌اید؟ استعلام مستقیم:</span>
                 </div>
                 <?php
-                $track_wa_phone = get_theme_mod( 'contact_phone', '09120000000' );
-                $track_wa_clean = preg_replace( '/[^0-9]/', '', $track_wa_phone );
-                if ( strpos( $track_wa_clean, '09' ) === 0 ) {
-                    $track_wa_clean = '98' . substr( $track_wa_clean, 1 );
-                }
-                $track_wa_url = 'https://wa.me/' . $track_wa_clean . '?text=' . rawurlencode( 'سلام، درخواست پیگیری و استعلام سفارش از گالری رازجم را دارم.' );
+                $track_telegram  = get_theme_mod( 'social_telegram', 'https://t.me/+989007423055' );
+                $track_instagram = get_theme_mod( 'social_instagram', 'https://instagram.com/razgem.ir' );
+                $track_rubika    = get_theme_mod( 'social_rubika', 'https://rubika.ir/raz_gem' );
+                $track_icon_dir  = get_template_directory_uri() . '/assets/icons/';
                 ?>
-                <a href="<?php echo esc_url( $track_wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="btn-coastal-sand" style="font-size: 0.88rem; padding: 0.6rem 1.4rem;">
-                    استعلام سریع در واتس‌اپ
-                </a>
+                <div class="track-social-buttons" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <a href="<?php echo esc_url( $track_telegram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--telegram">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'telegram.png?v=3' ); ?>" alt="تلگرام" width="16" height="16">
+                        <span>تلگرام</span>
+                    </a>
+                    <a href="<?php echo esc_url( $track_instagram ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--instagram">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'instagram.png?v=3' ); ?>" alt="اینستاگرام" width="16" height="16">
+                        <span>اینستاگرام</span>
+                    </a>
+                    <a href="<?php echo esc_url( $track_rubika ); ?>" target="_blank" rel="noopener noreferrer" class="track-channel-btn track-channel--rubika">
+                        <img src="<?php echo esc_url( $track_icon_dir . 'Rubika.png?v=3' ); ?>" alt="روبیکا" width="16" height="16">
+                        <span>روبیکا</span>
+                    </a>
+                </div>
             </div>
         </div>
 

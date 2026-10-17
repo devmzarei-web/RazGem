@@ -369,7 +369,13 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     grid-template-columns: 1fr 1.15fr;
     gap: 2.5rem;
     margin-bottom: 5.5rem;
-    align-items: start;
+    align-items: stretch;
+}
+.concierge-info-wing,
+.concierge-form-wing {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .concierge-card {
     background: #FFFFFF;
@@ -377,6 +383,14 @@ $wa_url = 'https://wa.me/' . $wa_phone_clean . '?text=' . rawurlencode( 'سلا�
     border-radius: 26px;
     padding: 3rem 2.8rem;
     box-shadow: 0 15px 45px rgba(27, 51, 71, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.concierge-messenger-channels-box {
+    margin-top: auto;
 }
 .card-eyebrow {
     display: inline-block;

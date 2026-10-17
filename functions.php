@@ -2799,30 +2799,34 @@ function razgem_render_natural_disclaimer( $context = 'product' ) {
     <?php endif;
 }
 
-add_action( 'init', 'razgem_seed_terms_natural_disclaimer_v1', 35 );
-function razgem_seed_terms_natural_disclaimer_v1() {
-    if ( get_option( 'razgem_terms_disclaimer_seeded_v1' ) ) return;
-
+/**
+ * Remove duplicate static disclaimer callout from terms post content
+ * Since page-policy.php dynamically renders razgem_render_natural_disclaimer('terms')
+ */
+add_action( 'init', 'razgem_cleanup_duplicate_terms_disclaimer', 35 );
+function razgem_cleanup_duplicate_terms_disclaimer() {
     $terms_page = get_page_by_path( 'terms' );
     if ( $terms_page && ! empty( $terms_page->post_content ) ) {
-        if ( strpos( $terms_page->post_content, 'طبیعی‌بودن صدف‌ها' ) === false ) {
-            $disclaimer_html = "<!-- Natural Gem & Pearl Disclaimer -->\n" .
-                '<div class="policy-callout policy-callout--natural-gem">' .
-                '<strong>تذکر ویژه در خصوص ماهیت طبیعی صدف‌ها و مرواریدها:</strong>' .
-                '<p>به‌دلیل طبیعی‌بودن صدف‌ها و مرواریدها، رنگ و شکل هر قطعه ممکن است اندکی با تصویر متفاوت باشد. برای مشاهده تصویر موجودی پیش از سفارش پیام دهید: ' .
-                '<a href="https://t.me/+989007423055" target="_blank" rel="noopener noreferrer">تلگرام</a> ، ' .
-                '<a href="https://instagram.com/razgem.ir" target="_blank" rel="noopener noreferrer">اینستاگرام</a> ، ' .
-                '<a href="https://rubika.ir/raz_gem" target="_blank" rel="noopener noreferrer">روبیکا</a>' .
-                '</p></div>' . "\n\n";
-
-            $updated_content = $disclaimer_html . $terms_page->post_content;
-            wp_update_post( array(
-                'ID'           => $terms_page->ID,
-                'post_content' => $updated_content,
-            ) );
+        if ( strpos( $terms_page->post_content, 'policy-callout--natural-gem' ) !== false || strpos( $terms_page->post_content, 'طبیعی‌بودن صدف‌ها' ) !== false ) {
+            $cleaned = preg_replace( '/<!-- Natural Gem & Pearl Disclaimer -->\s*<div class="policy-callout policy-callout--natural-gem">.*?<\/div>\s*/s', '', $terms_page->post_content );
+            $cleaned = preg_replace( '/<div class="policy-callout policy-callout--natural-gem">.*?<\/div>\s*/s', '', $cleaned );
+            if ( $cleaned !== $terms_page->post_content ) {
+                wp_update_post( array(
+                    'ID'           => $terms_page->ID,
+                    'post_content' => $cleaned,
+                ) );
+            }
         }
     }
+}
 
-    update_option( 'razgem_terms_disclaimer_seeded_v1', true );
+// Runtime filter fallback to guarantee no duplicate
+add_filter( 'the_content', 'razgem_filter_terms_duplicate_disclaimer', 5 );
+function razgem_filter_terms_duplicate_disclaimer( $content ) {
+    if ( is_page( 'terms' ) || ( function_exists('get_post_field') && get_post_field('post_name') === 'terms' ) ) {
+        $content = preg_replace( '/<!-- Natural Gem & Pearl Disclaimer -->\s*<div class="policy-callout policy-callout--natural-gem">.*?<\/div>\s*/s', '', $content );
+        $content = preg_replace( '/<div class="policy-callout policy-callout--natural-gem">.*?<\/div>\s*/s', '', $content );
+    }
+    return $content;
 }
 

@@ -15011,15 +15011,14 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 }
 
 .compact-channel-pill {
-  flex: 1 1 0 !important;
   min-width: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0.35rem !important;
-  padding: 0.35rem 0.2rem !important;
+  gap: 0.25rem !important;
+  padding: 0.35rem 0.35rem !important;
   border-radius: 12px !important;
-  font-size: 0.74rem !important;
+  font-size: 0.72rem !important;
   font-weight: 700 !important;
   white-space: nowrap !important;
   text-decoration: none !important;
@@ -15039,6 +15038,7 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 }
 
 .compact-channel-pill.pill-telegram {
+  flex: 0.88 1 0 !important;
   color: #0088cc;
   border-color: rgba(0, 136, 204, 0.28);
   background: #F0F8FD;
@@ -15050,6 +15050,8 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 }
 
 .compact-channel-pill.pill-instagram {
+  flex: 1.25 1 0 !important;
+  padding: 0.35rem 0.5rem !important;
   color: #C13584;
   border-color: rgba(193, 53, 132, 0.28);
   background: #FDF4F8;
@@ -15061,6 +15063,7 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 }
 
 .compact-channel-pill.pill-rubika {
+  flex: 0.88 1 0 !important;
   color: #6A1B9A;
   border-color: rgba(106, 27, 154, 0.28);
   background: #F8F2FA;
@@ -15069,6 +15072,11 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 .compact-channel-pill.pill-rubika:hover {
   background: #6A1B9A;
   color: #FFFFFF;
+}
+
+/* Guarantee duplicate static callout is hidden on policy page */
+.policy-card .policy-editorial-body .policy-callout--natural-gem {
+  display: none !important;
 }
 
 /* 2-Column Grid for Mobile Only (User Request) */
@@ -15112,9 +15120,12 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     padding-right: 0 !important;
   }
   .compact-channel-pill {
-    padding: 0.32rem 0.15rem !important;
-    font-size: 0.7rem !important;
-    gap: 0.25rem !important;
+    padding: 0.32rem 0.22rem !important;
+    font-size: 0.68rem !important;
+    gap: 0.2rem !important;
+  }
+  .compact-channel-pill.pill-instagram {
+    padding: 0.32rem 0.38rem !important;
   }
   .compact-channel-pill img {
     width: 13px !important;
