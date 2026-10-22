@@ -134,10 +134,6 @@ get_header(); ?>
                     <?php razgem_render_natural_disclaimer('product'); ?>
                 <?php endif; ?>
 
-                <div class="stock-status-wrapper">
-                    <?php echo wc_get_stock_html( $product ); ?>
-                </div>
-
                 <div class="product-price-box">
                     <?php echo $product->get_price_html(); ?>
                 </div>
