@@ -11,6 +11,55 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Custom sanitizer for eNamad HTML embed code.
+ * Preserves essential Enamad verification attributes (referrerpolicy, code, style, target)
+ * without stripping them, which would otherwise invalidate merchant trust validation.
+ *
+ * @param string $content Raw HTML string.
+ * @return string Sanitized HTML.
+ */
+function razgem_sanitize_enamad_code( $content ) {
+    if ( empty( $content ) ) {
+        return '';
+    }
+
+    $allowed_tags = array(
+        'a' => array(
+            'href'           => true,
+            'title'          => true,
+            'target'         => true,
+            'rel'            => true,
+            'referrerpolicy' => true,
+            'class'          => true,
+            'id'             => true,
+        ),
+        'img' => array(
+            'src'            => true,
+            'alt'            => true,
+            'title'          => true,
+            'width'          => true,
+            'height'         => true,
+            'style'          => true,
+            'referrerpolicy' => true,
+            'code'           => true,
+            'id'             => true,
+            'class'          => true,
+        ),
+        'div' => array(
+            'class' => true,
+            'id'    => true,
+            'style' => true,
+        ),
+        'span' => array(
+            'class' => true,
+            'id'    => true,
+        ),
+    );
+
+    return wp_kses( $content, $allowed_tags );
+}
+
+/**
  * Register Customizer settings, sections, and panels.
  *
  * @param WP_Customize_Manager $wp_customize Customizer manager instance.
@@ -522,7 +571,7 @@ function razgem_customize_register( $wp_customize ) {
 
     $wp_customize->add_setting( 'enamad_code', array(
         'default'           => '',
-        'sanitize_callback' => 'wp_kses_post',
+        'sanitize_callback' => 'razgem_sanitize_enamad_code',
     ) );
     $wp_customize->add_control( 'enamad_code', array(
         'label'       => 'کد اختصاصی اینماد (HTML)',

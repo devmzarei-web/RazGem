@@ -108,11 +108,22 @@
                 <?php 
                 $enamad_custom = get_theme_mod( 'enamad_code', '' );
                 if ( ! empty( $enamad_custom ) ) {
-                    echo wp_kses_post( $enamad_custom );
+                    $has_seal_wrapper = ( strpos( $enamad_custom, 'footer-trust-seal' ) !== false );
+                    if ( ! $has_seal_wrapper ) {
+                        echo '<div class="footer-trust-seal">';
+                    }
+                    if ( function_exists( 'razgem_sanitize_enamad_code' ) ) {
+                        echo razgem_sanitize_enamad_code( $enamad_custom ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    } else {
+                        echo wp_kses_post( $enamad_custom );
+                    }
+                    if ( ! $has_seal_wrapper ) {
+                        echo '</div>';
+                    }
                 } else {
                 ?>
                 <div class="footer-trust-seal">
-                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=749338&code=eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P' alt='' style='cursor:pointer' code='eHMQh1R4W5rR5dVPEZqhX9DI5VXbTU9P'></a>
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=8322807&Code=EkmPqDTAfKBcazxFx94rkzgoY66mwJZd'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=8322807&Code=EkmPqDTAfKBcazxFx94rkzgoY66mwJZd' alt='نماد تجارت الکترونیکی گالری رازجم' style='cursor:pointer' code='EkmPqDTAfKBcazxFx94rkzgoY66mwJZd'></a>
                 </div>
                 <?php } ?>
             </div>
