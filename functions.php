@@ -463,6 +463,58 @@ function razgem_live_search_ajax() {
 add_filter( 'woocommerce_reset_variations_link', '__return_empty_string' );
 add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
+/**
+ * Auto-fallback variation price to parent product price if not explicitly set.
+ * Prevents WooCommerce from hiding variations and showing "Out of stock"
+ * when store managers forget to set individual prices on every variation.
+ */
+add_filter( 'woocommerce_product_variation_get_regular_price', 'razgem_variation_fallback_price', 10, 2 );
+add_filter( 'woocommerce_product_variation_get_price', 'razgem_variation_fallback_price', 10, 2 );
+
+function razgem_variation_fallback_price( $price, $variation ) {
+    if ( '' === $price || null === $price || false === $price ) {
+        $parent_id = $variation->get_parent_id();
+        if ( $parent_id ) {
+            $parent = wc_get_product( $parent_id );
+            if ( $parent ) {
+                $parent_price = $parent->get_regular_price();
+                if ( '' !== $parent_price ) {
+                    return $parent_price;
+                }
+            }
+        }
+    }
+    return $price;
+}
+
+add_filter( 'woocommerce_variation_is_purchasable', 'razgem_variation_always_purchasable', 10, 2 );
+function razgem_variation_always_purchasable( $purchasable, $variation ) {
+    if ( ! $purchasable ) {
+        $parent_id = $variation->get_parent_id();
+        if ( $parent_id ) {
+            $parent = wc_get_product( $parent_id );
+            if ( $parent && '' !== $parent->get_price() ) {
+                return true;
+            }
+        }
+    }
+    return $purchasable;
+}
+
+add_filter( 'woocommerce_variation_is_active', 'razgem_variation_always_active', 10, 2 );
+function razgem_variation_always_active( $active, $variation ) {
+    if ( ! $active ) {
+        $parent_id = $variation->get_parent_id();
+        if ( $parent_id ) {
+            $parent = wc_get_product( $parent_id );
+            if ( $parent && '' !== $parent->get_price() ) {
+                return true;
+            }
+        }
+    }
+    return $active;
+}
+
 function razgem_clean_phone( $phone ) {
     $persian = array('۰','۱','۲','۳','۴','۵','۶','۷','۸','۹');
     $english = array('0','1','2','3','4','5','6','7','8','9');

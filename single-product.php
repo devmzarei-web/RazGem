@@ -44,14 +44,24 @@ get_header(); ?>
                     <img id="mainProductImage" src="<?php echo esc_url($main_image_url); ?>" data-original-src="<?php echo esc_url($main_image_url); ?>" alt="<?php echo esc_attr(the_title_attribute('echo=0')); ?>">
                 </div>
                 
-                <?php if ( $attachment_ids ) : ?>
+                <?php 
+                $model_id = get_post_meta( $product->get_id(), '_razgem_model_image', true );
+                $model_url = $model_id ? ( is_numeric( $model_id ) ? wp_get_attachment_image_url( (int) $model_id, 'full' ) : esc_url( $model_id ) ) : '';
+
+                if ( $attachment_ids || $model_url ) : ?>
                     <div class="thumbnail-row">
                         <img src="<?php echo esc_url($main_image_url); ?>" class="gallery-thumb active-thumb" onclick="swapImage(this, '<?php echo esc_url($main_image_url); ?>')" alt="Thumbnail">
-                        <?php foreach ( $attachment_ids as $attachment_id ) : 
-                            $thumb_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-                        ?>
-                            <img src="<?php echo esc_url($thumb_url); ?>" class="gallery-thumb" onclick="swapImage(this, '<?php echo esc_url($thumb_url); ?>')" alt="Thumbnail">
-                        <?php endforeach; ?>
+                        <?php if ( $model_url && $model_url !== $main_image_url ) : ?>
+                            <img src="<?php echo esc_url($model_url); ?>" class="gallery-thumb thumb-model" onclick="swapImage(this, '<?php echo esc_url($model_url); ?>')" alt="استایل بر تن مدل" title="استایل بر تن مدل">
+                        <?php endif; ?>
+                        <?php if ( $attachment_ids ) : ?>
+                            <?php foreach ( $attachment_ids as $attachment_id ) : 
+                                $thumb_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+                                if ( $thumb_url === $model_url ) continue;
+                            ?>
+                                <img src="<?php echo esc_url($thumb_url); ?>" class="gallery-thumb" onclick="swapImage(this, '<?php echo esc_url($thumb_url); ?>')" alt="Thumbnail">
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>
