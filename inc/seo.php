@@ -42,7 +42,7 @@ function razgem_output_seo_structured_data() {
         'name'            => $site_name,
         'url'             => $site_url,
         'inLanguage'      => 'fa-IR',
-        'description'     => 'فروشگاه تخصصی زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی اصل و مرواریدهای باروک خلیج فارس',
+        'description'     => 'فروشگاه تخصصی زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی اصل و مرواریدهای باروک',
         'potentialAction' => array(
             '@type'       => 'SearchAction',
             'target'      => $site_url . '?s={search_term_string}&post_type=product',
@@ -135,7 +135,7 @@ add_action( 'wp_head', 'razgem_output_seo_structured_data', 4 );
  */
 function razgem_output_seo_meta_tags() {
     $title       = wp_get_document_title();
-    $desc        = 'گالری صدف و مروارید رازجم؛ مجموعه انحصاری زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی خلیج فارس، مروارید باروک و هنر اصیل ایرانی.';
+    $desc        = 'گالری صدف و مروارید رازجم؛ مجموعه انحصاری زیورآلات و تابلوهای دکوراتیو دست‌ساز با صدف‌های طبیعی وارداتی، مروارید باروک و هنر اصیل ایرانی.';
     $current_url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) );
     $logo_url    = get_template_directory_uri() . '/assets/images/Razgem-Logo.png';
     $img_url     = $logo_url;

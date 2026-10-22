@@ -8453,7 +8453,8 @@ form.variations_form select,
 }
 
 /* SWATCH CONTAINER - ONE LINE FLEX WRAPPER */
-.golkhane-swatch-wrapper {
+.golkhane-swatch-wrapper,
+.razgem-swatch-wrapper {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 0.6rem !important;
@@ -8461,6 +8462,53 @@ form.variations_form select,
   align-items: center !important;
   justify-content: flex-start !important;
   width: 100% !important;
+}
+.razgem-swatch-wrapper::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* NUMBERED PILLS (1 to 20 grid) */
+.swatch-grid-numbers {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+  max-width: 420px !important;
+}
+
+.swatch-number-pill {
+  flex: 0 0 calc(20% - 0.45rem) !important;
+  min-width: 44px !important;
+  max-width: 62px !important;
+  height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  background: #ffffff !important;
+  color: var(--color-slate, #1A3038) !important;
+  border: 1.5px solid var(--color-border, #E2E8F0) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  user-select: none !important;
+  touch-action: manipulation !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+.swatch-number-pill:hover {
+  border-color: var(--color-gold, #D4AF37) !important;
+  color: var(--color-gold, #D4AF37) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.15) !important;
+}
+
+.swatch-number-pill.active {
+  background: var(--color-gold, #D4AF37) !important;
+  color: #ffffff !important;
+  border-color: var(--color-gold, #D4AF37) !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35) !important;
+  transform: scale(1.05) !important;
 }
 .golkhane-swatch-wrapper::-webkit-scrollbar {
   display: none !important;
@@ -15185,4 +15233,202 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 .track-channel--rubika:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(123, 31, 162, 0.35) !important;
+}
+
+/* STELLA CARD HOVER DEPTH (User Story 2 / Task T013) */
+.stella-media-arch {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.stella-img-hover {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0 !important;
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+.stella-product-card:hover .stella-img-hover {
+  opacity: 1 !important;
+  transform: scale(1.05) !important;
+}
+
+/* =========================================================================
+   MOBILE READABILITY & TOUCH ERGONOMICS (User Story 3 / Tasks T014-T017)
+   Addresses employer feedback: mobile photos and texts being too small.
+   ========================================================================= */
+@media (max-width: 768px) {
+  /* T014: Enhanced Mobile Typography */
+  .product-headline-title {
+    font-size: 1.5rem !important;
+    line-height: 1.45 !important;
+    font-weight: 800 !important;
+    color: var(--color-marine-deep, #0E1B26) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .product-lead-desc {
+    font-size: 0.98rem !important;
+    line-height: 1.8 !important;
+    color: #2D3748 !important;
+  }
+
+  .specs-title {
+    font-size: 1.05rem !important;
+    padding-bottom: 0.8rem !important;
+  }
+
+  .coastal-specs-matrix th {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    color: #334155 !important;
+    padding: 0.7rem 0.4rem !important;
+    width: 38% !important;
+  }
+
+  .coastal-specs-matrix td {
+    font-size: 0.95rem !important;
+    color: #0F172A !important;
+    padding: 0.7rem 0.4rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .coastal-specs-matrix .spec-highlight {
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    color: var(--color-slate, #1B3347) !important;
+  }
+
+  /* T015: Gallery & Thumbnail Sizing */
+  .product-main-stage {
+    border-radius: var(--radius-lg, 24px) !important;
+    overflow: hidden !important;
+  }
+
+  .main-display-img {
+    max-height: 420px !important;
+    min-height: 280px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .product-thumbs-strip {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem !important;
+    margin-top: 0.85rem !important;
+  }
+
+  .thumb-btn {
+    padding: 0.45rem 0.85rem !important;
+    min-height: 54px !important;
+    border-radius: 12px !important;
+    gap: 0.65rem !important;
+  }
+
+  .thumb-btn img {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .thumb-btn .thumb-label {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+  }
+
+  /* T016: Badges, Stock & Disclaimers */
+  .product-badge-row {
+    gap: 0.6rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  .vitrine-badge {
+    font-size: 0.84rem !important;
+    padding: 0.4rem 0.9rem !important;
+    font-weight: 700 !important;
+  }
+
+  .stock-status-pill {
+    font-size: 0.92rem !important;
+    padding: 0.55rem 1.1rem !important;
+  }
+
+  .razgem-disclaimer-box,
+  .razgem-disclaimer-card {
+    font-size: 0.92rem !important;
+    line-height: 1.75 !important;
+    padding: 1rem 1.15rem !important;
+  }
+
+  /* T017: Action Button Touch Targets */
+  .product-pricing-box {
+    padding: 1.25rem !important;
+    margin-top: 0.8rem !important;
+  }
+
+  .price-amount {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+  }
+
+  .btn-coastal-add-cart,
+  .razgem-ajax-add-to-cart {
+    min-height: 52px !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    padding: 0.85rem 1.5rem !important;
+  }
+
+  .sticky-buy-btn {
+    min-height: 50px !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+  }
+}
+
+/* REAL-TIME STOCK STATUS STYLING (User Story 4 / Task T020) */
+.stock-dot--green,
+.stock-status-pill.in-stock .stock-dot {
+  background: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+}
+.stock-dot--amber,
+.stock-status-pill.low-stock .stock-dot {
+  background: #F59E0B !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25) !important;
+  animation: pulseAmber 1.8s infinite !important;
+}
+.stock-dot--red,
+.stock-status-pill.out-of-stock .stock-dot {
+  background: #EF4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+.stock-status-pill.low-stock {
+  background: #FFFBEB !important;
+  color: #B45309 !important;
+  border: 1px solid #FDE68A !important;
+}
+
+.stock-status-pill.out-of-stock {
+  background: #FEF2F2 !important;
+  color: #B91C1C !important;
+  border: 1px solid #FECACA !important;
+}
+
+@keyframes pulseAmber {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.75;
+  }
 }

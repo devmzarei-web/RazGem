@@ -17,7 +17,7 @@ $theme_uri = get_template_directory_uri();
 $promos = array(
     array(
         'title'    => 'تابلوهای دکوراتیو صدف و توتیا',
-        'subtitle' => 'طبیعت زنده خلیج فارس بر دیوار خانه شما',
+        'subtitle' => 'طبیعت زنده دریا بر دیوار خانه شما',
         'image'    => $theme_uri . '/assets/images/products/r003-front.png',
         'url'      => home_url( '/shop/?category=ocean-wall-art' ),
         'alt'      => 'تابلوهای دکوراتیو صدف طبیعی و توتیای دریایی رازجم',

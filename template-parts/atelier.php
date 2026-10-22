@@ -8,7 +8,7 @@
 // Customizer Options
 $atelier_badge    = get_theme_mod( 'atelier_badge', 'کارگاه اختصاصی' );
 $atelier_title    = get_theme_mod( 'atelier_title', 'داستان هنر و ظرافت در گالری رازجم' );
-$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. گزینش اصیل‌ترین مرواریدها و تراش اختصاصی صدف‌های طبیعی خلیج فارس.' );
+$atelier_desc     = get_theme_mod( 'atelier_desc', 'هر اثر در گالری رازجم روایتی یگانه از تلاقی دستان هنرمند و طبیعت است. گزینش اصیل‌ترین مرواریدها و تراش اختصاصی صدف‌های طبیعی وارداتی.' );
 $atelier_btn_text = get_theme_mod( 'atelier_btn_text', 'مشاوره و ساخت سفارش اختصاصی' );
 $atelier_btn_url  = get_theme_mod( 'atelier_btn_url', '/contact' );
 
@@ -20,7 +20,7 @@ $stations = array(
         'id'    => 1,
         'image' => get_theme_mod( 'atelier_image_1', '' ) ?: $theme_uri . '/assets/images/workstation-1.jpg',
         'title' => 'انتخاب و تراش صدف طبیعی',
-        'desc'  => 'برش، صیقل و فرم‌دهی دستی صدف‌های طبیعی خلیج فارس بدون رنگ‌آمیزی شیمیایی',
+        'desc'  => 'برش، صیقل و فرم‌دهی دستی صدف‌های طبیعی وارداتی بدون رنگ‌آمیزی شیمیایی',
     ),
     array(
         'id'    => 2,

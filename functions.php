@@ -175,6 +175,22 @@ function razgem_persian_numbers( $price ) {
     }
     return implode('', $parts);
 }
+/**
+ * Format any number or string into Persian numerals.
+ *
+ * @param int|string $number
+ * @return string
+ */
+function razgem_format_persian_number( $number ) {
+    return razgem_persian_numbers( (string) $number );
+}
+
+if ( ! function_exists( 'razgem_to_persian_num' ) ) {
+    function razgem_to_persian_num( $number ) {
+        return razgem_format_persian_number( $number );
+    }
+}
+
 add_filter('wc_price', 'razgem_persian_numbers', 100);
 add_filter('woocommerce_get_price_html', 'razgem_persian_numbers', 100);
 add_filter('woocommerce_cart_item_price', 'razgem_persian_numbers', 100);
@@ -1484,12 +1500,20 @@ function razgem_swatches_script() {
                 const name = ($select.attr('name') || '').toLowerCase();
                 const labelText = ($select.closest('tr').find('label').text() || '').toLowerCase();
                 const isColorAttr = name.includes('color') || name.includes('رنگ') || labelText.includes('رنگ') || labelText.includes('color');
+                const isNumberAttr = name.includes('piece_number') || name.includes('number') || name.includes('عدد') || name.includes('شماره') || name.includes('پلاک') || labelText.includes('عدد') || labelText.includes('شماره') || labelText.includes('پلاک');
+                const isSetTypeAttr = name.includes('set_type') || name.includes('ست') || name.includes('سرویس') || labelText.includes('ست') || labelText.includes('سرویس');
+                const isSizeAttr = name.includes('size') || name.includes('ابعاد') || name.includes('سایز') || labelText.includes('سایز') || labelText.includes('ابعاد');
                 const currentVal = $select.val();
 
+                $wrapper.addClass('razgem-swatch-wrapper golkhane-swatch-wrapper');
+                if (isNumberAttr) {
+                    $wrapper.addClass('swatch-grid-numbers');
+                }
+
                 const validOpts = $select.find('option').filter(function() { return $(this).val(); });
-                if (validOpts.length > 3) {
+                if (validOpts.length > 3 && !isNumberAttr) {
                     $wrapper.addClass('swatch-compact-many');
-                } else {
+                } else if (!isNumberAttr) {
                     $wrapper.removeClass('swatch-compact-many');
                 }
 
@@ -1504,7 +1528,9 @@ function razgem_swatches_script() {
                         const colorStyle = getSwatchBgStyle(text, val);
 
                         $swatch = $('<div></div>').attr('data-value', val);
-                        if (isColorAttr || colorStyle) {
+                        if (isNumberAttr) {
+                            $swatch.addClass('swatch-number-pill').text(text).attr('title', 'شماره قطعه ' + text);
+                        } else if (isColorAttr || colorStyle) {
                             $swatch.addClass('swatch-color-circle').attr('title', text);
                             if (colorStyle) {
                                 if (colorStyle.isGradient) {
@@ -1530,7 +1556,7 @@ function razgem_swatches_script() {
                                 $(this).removeClass('active');
                                 $select.val('').trigger('change');
                             } else {
-                                $wrapper.find('.swatch-color-circle, .swatch-text-pill').removeClass('active');
+                                $wrapper.find('.swatch-color-circle, .swatch-text-pill, .swatch-number-pill').removeClass('active');
                                 $(this).addClass('active');
                                 $select.val(val).trigger('change');
                             }
@@ -2691,7 +2717,7 @@ function razgem_cleanup_gold_references_from_db() {
 
     $tagline = get_theme_mod( 'footer_tagline' );
     if ( $tagline && ( strpos( $tagline, 'طلا' ) !== false || strpos( $tagline, 'عیار' ) !== false ) ) {
-        set_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی اصل، مرواریدهای باروک خلیج فارس و هنر اصیل ایرانی.' );
+        set_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی وارداتی اصل، مرواریدهای باروک و هنر اصیل ایرانی.' );
     }
 
     $atelier_title = get_theme_mod( 'atelier_title' );

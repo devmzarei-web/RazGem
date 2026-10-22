@@ -51,7 +51,7 @@ get_header(); ?>
             <div class="ribbon-inner">
                 <div class="ribbon-item">
                     <span class="ribbon-icon" aria-hidden="true">🦪</span>
-                    <span class="ribbon-text"><strong>صدف ۱۰۰٪ طبیعی</strong> خلیج فارس</span>
+                    <span class="ribbon-text"><strong>صدف‌های طبیعی</strong> وارداتی اصل</span>
                 </div>
                 <div class="ribbon-divider" aria-hidden="true"></div>
                 <div class="ribbon-item">
@@ -99,7 +99,7 @@ get_header(); ?>
                 if ( function_exists( 'wc_get_products' ) ) {
                     $wc_catalog_query = new WP_Query( array(
                         'post_type'      => 'product',
-                        'posts_per_page' => 24,
+                        'posts_per_page' => 12,
                         'orderby'        => 'date',
                         'order'          => 'DESC',
                         'status'         => 'publish',
@@ -258,7 +258,7 @@ get_header(); ?>
 
             <div class="vitrine-footer-cta" style="text-align: center; margin-top: 2.5rem;">
                 <a href="<?php echo esc_url( razgem_shop_url() ); ?>" class="btn-coastal-slate pearl-shimmer-hover" style="border-radius: 9999px; padding: 0.85rem 2.2rem;">
-                    <span><?php esc_html_e( 'مشاهده کلکسیون کامل فروشگاه (۸ شاهکار دست‌ساز)', 'razgem' ); ?></span>
+                    <span><?php esc_html_e( 'مشاهده همه آثار و زیورآلات آتلیه رازجم', 'razgem' ); ?></span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
                 </a>
             </div>

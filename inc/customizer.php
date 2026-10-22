@@ -839,7 +839,7 @@ function razgem_customize_register( $wp_customize ) {
     $default_showcase_items = array(
         1 => array(
             'title' => 'گردنبند صدف تراش‌خورده و مروارید باروک',
-            'tag'   => 'صدف طبیعی اصل خلیج فارس',
+            'tag'   => 'صدف‌های طبیعی وارداتی اصل',
             'desc'  => 'تراش ارگانیک صدف طبیعی با آویز مروارید باروک اصل، اتصالات دست‌ساز آتلیه و زنجیر ظریف.',
             'price' => '۴,۸۵۰,۰۰۰ تومان',
             'url'   => '/shop',
@@ -983,7 +983,7 @@ function razgem_get_hero_banners() {
                 'url'   => esc_url( get_theme_mod( 'hero_slide_3_url', '/product/r-004/' ) ),
                 'alt'   => sanitize_text_field( get_theme_mod( 'hero_slide_3_alt', 'تابلو توتیای دریایی سه بعدی دست‌ساز کد R-004 - شاهکار طبیعی دریا' ) ),
                 'badge' => 'سه‌بعدی و طبیعی',
-                'title' => 'تابلو توتیای دریایی خلیج فارس',
+                'title' => 'تابلو توتیای دریایی طبیعی',
             ),
         ),
         'promo_top' => array(
@@ -1047,7 +1047,7 @@ function razgem_get_showcase_items() {
     $defaults = array(
         1 => array(
             'title' => 'گوشواره هنری دست‌ساز با صدف طبیعی کد R-001',
-            'tag'   => 'صدف طبیعی دست‌تراش خلیج فارس',
+            'tag'   => 'صدف‌های طبیعی دست‌تراش وارداتی',
             'desc'  => 'تراش و فرم‌دهی دستی صدف طبیعی بدون رنگ‌آمیزی با درخشش مرجانی اصیل و اتصالات برنجی طلایی (ابعاد 4.8 × 4.3 سانتی‌متر).',
             'price' => '۱,۸۵۰,۰۰۰ تومان',
             'url'   => function_exists( 'razgem_product_url' ) ? razgem_product_url( 'r-001' ) : home_url( '/?post_type=product&view_product=r-001' ),

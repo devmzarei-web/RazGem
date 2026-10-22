@@ -74,6 +74,12 @@ $img_dimensions  = ! empty( $p_data['img_hover'] ) ? esc_url( $p_data['img_hover
 $tag             = ! empty( $p_data['tag'] ) ? esc_html( $p_data['tag'] ) : 'صدف طبیعی اصل';
 $badge           = ! empty( $p_data['badge'] ) ? esc_html( $p_data['badge'] ) : 'دست‌ساز';
 
+// Fetch model try-on lifestyle photo (User Story 2 / Tasks T011-T012)
+$img_model = '';
+if ( function_exists( 'razgem_get_product_model_image_url' ) ) {
+    $img_model = razgem_get_product_model_image_url( $wc_id, $id );
+}
+
 // Prepare WhatsApp Link with Pre-filled Persian Message
 $whatsapp_phone = get_theme_mod( 'contact_phone', '09120000000' );
 $whatsapp_clean = preg_replace( '/[^0-9]/', '', $whatsapp_phone );
@@ -110,6 +116,7 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
                          src="<?php echo $img_primary; ?>" 
                          data-main-src="<?php echo $img_primary; ?>"
                          data-dim-src="<?php echo $img_dimensions; ?>"
+                         data-model-src="<?php echo esc_url( $img_model ); ?>"
                          alt="<?php echo esc_attr( $title ); ?>" 
                          class="main-display-img">
                 </div>
@@ -142,9 +149,20 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
                     <span class="thumb-label">نمای استودیو</span>
                 </button>
 
-                <?php if ( ! empty( $img_dimensions ) && $img_dimensions !== $img_primary ) : ?>
+                <?php if ( ! empty( $img_model ) && $img_model !== $img_primary ) : ?>
                     <button type="button" 
-                            class="thumb-btn" 
+                            class="thumb-btn thumb-btn--model" 
+                            data-target-src="<?php echo esc_url( $img_model ); ?>"
+                            data-mode="model"
+                            aria-label="نمای استایل بر تن مدل">
+                        <img src="<?php echo esc_url( $img_model ); ?>" alt="نمای بر تن مدل">
+                        <span class="thumb-label">استایل بر تن مدل</span>
+                    </button>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $img_dimensions ) && $img_dimensions !== $img_primary && $img_dimensions !== $img_model ) : ?>
+                    <button type="button" 
+                            class="thumb-btn thumb-btn--dim" 
                             data-target-src="<?php echo $img_dimensions; ?>"
                             data-mode="dimensions"
                             aria-label="نمای خط‌کش و ابعاد سانتیمتری">
@@ -176,10 +194,36 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
                 </h3>
                 <table class="coastal-specs-matrix">
                     <tbody>
-                        <tr>
-                            <th scope="row">ابعاد سانتیمتری:</th>
-                            <td><strong class="spec-highlight"><?php echo $dimensions; ?></strong></td>
-                        </tr>
+                        <?php 
+                        $dim_earrings = $wc_id ? get_post_meta( $wc_id, '_razgem_dim_earrings', true ) : '';
+                        $dim_bracelet = $wc_id ? get_post_meta( $wc_id, '_razgem_dim_bracelet', true ) : '';
+                        $dim_necklace = $wc_id ? get_post_meta( $wc_id, '_razgem_dim_necklace', true ) : '';
+                        
+                        if ( ! empty( $dim_earrings ) || ! empty( $dim_bracelet ) || ! empty( $dim_necklace ) ) : 
+                            if ( ! empty( $dim_necklace ) ) : ?>
+                                <tr>
+                                    <th scope="row">طول گردنبند:</th>
+                                    <td><strong class="spec-highlight"><?php echo esc_html( $dim_necklace ); ?></strong></td>
+                                </tr>
+                            <?php endif; 
+                            if ( ! empty( $dim_bracelet ) ) : ?>
+                                <tr>
+                                    <th scope="row">طول دستبند:</th>
+                                    <td><strong class="spec-highlight"><?php echo esc_html( $dim_bracelet ); ?></strong></td>
+                                </tr>
+                            <?php endif; 
+                            if ( ! empty( $dim_earrings ) ) : ?>
+                                <tr>
+                                    <th scope="row">ابعاد گوشواره:</th>
+                                    <td><strong class="spec-highlight"><?php echo esc_html( $dim_earrings ); ?></strong></td>
+                                </tr>
+                            <?php endif; 
+                        else : ?>
+                            <tr>
+                                <th scope="row">ابعاد و سایز:</th>
+                                <td><strong class="spec-highlight"><?php echo $dimensions; ?></strong></td>
+                            </tr>
+                        <?php endif; ?>
                         <tr>
                             <th scope="row">متریال و گوهر:</th>
                             <td><?php echo $material; ?></td>
@@ -210,10 +254,41 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
                     <?php endif; ?>
                 </div>
 
-                <div class="stock-status-pill in-stock">
-                    <span class="stock-dot"></span>
-                    <span>موجود در آتلیه (آماده ارسال فوری)</span>
-                </div>
+                <?php 
+                $is_manage_stock = false;
+                $stock_qty       = null;
+                $stock_status    = 'instock';
+
+                if ( $wc_id && function_exists( 'wc_get_product' ) ) {
+                    $wc_prod_obj = wc_get_product( $wc_id );
+                    if ( $wc_prod_obj ) {
+                        $is_manage_stock = $wc_prod_obj->get_manage_stock();
+                        $stock_qty       = $wc_prod_obj->get_stock_quantity();
+                        $stock_status    = $wc_prod_obj->get_stock_status();
+                    }
+                }
+
+                if ( 'outofstock' === $stock_status || ( $is_manage_stock && ! is_null( $stock_qty ) && $stock_qty <= 0 ) ) : ?>
+                    <div class="stock-status-pill out-of-stock">
+                        <span class="stock-dot stock-dot--red"></span>
+                        <span>ناموجود (امکان سفارش ساخت در آتلیه)</span>
+                    </div>
+                <?php elseif ( $is_manage_stock && ! is_null( $stock_qty ) && $stock_qty <= 2 ) : ?>
+                    <div class="stock-status-pill low-stock">
+                        <span class="stock-dot stock-dot--amber"></span>
+                        <span>تنها <?php echo esc_html( function_exists( 'razgem_format_persian_number' ) ? razgem_format_persian_number( $stock_qty ) : $stock_qty ); ?> عدد در انبار باقی مانده - اولویت با اولین سفارش</span>
+                    </div>
+                <?php elseif ( $is_manage_stock && ! is_null( $stock_qty ) ) : ?>
+                    <div class="stock-status-pill in-stock">
+                        <span class="stock-dot stock-dot--green"></span>
+                        <span>موجودی در انبار: <?php echo esc_html( function_exists( 'razgem_format_persian_number' ) ? razgem_format_persian_number( $stock_qty ) : $stock_qty ); ?> عدد</span>
+                    </div>
+                <?php else : ?>
+                    <div class="stock-status-pill in-stock">
+                        <span class="stock-dot stock-dot--green"></span>
+                        <span>موجود در آتلیه (آماده ارسال فوری)</span>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- Dual Action Cluster: Add to Cart (Fly Parabolic) + WhatsApp Consultation -->
@@ -347,23 +422,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const dimSrc = mainImg.getAttribute('data-dim-src');
     let isShowingDimensions = false;
 
-    function setDisplayImage(src, isDim) {
+    function setDisplayImage(src, mode) {
         mainImg.style.opacity = '0.4';
         setTimeout(() => {
             mainImg.src = src;
             mainImg.style.opacity = '1';
         }, 150);
 
-        isShowingDimensions = isDim;
-        toggleBtn.setAttribute('aria-pressed', isDim ? 'true' : 'false');
+        isShowingDimensions = (mode === 'dimensions');
+        toggleBtn.setAttribute('aria-pressed', isShowingDimensions ? 'true' : 'false');
         
         if (toggleText) {
-            toggleText.textContent = isDim ? 'مشاهده تصویر استودیویی' : 'مشاهده خط‌کش و ابعاد دقیق';
+            toggleText.textContent = isShowingDimensions ? 'مشاهده تصویر استودیویی' : 'مشاهده خط‌کش و ابعاد دقیق';
         }
 
-        thumbButtons.forEach(btn => {
-            const mode = btn.getAttribute('data-mode');
-            if ((isDim && mode === 'dimensions') || (!isDim && mode === 'main')) {
+        const allThumbs = document.querySelectorAll('.product-thumbs-strip .thumb-btn');
+        allThumbs.forEach(btn => {
+            if (btn.getAttribute('data-target-src') === src) {
                 btn.classList.add('is-active');
             } else {
                 btn.classList.remove('is-active');
@@ -373,15 +448,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     toggleBtn.addEventListener('click', function () {
         if (!dimSrc || dimSrc === mainSrc) return;
-        setDisplayImage(isShowingDimensions ? mainSrc : dimSrc, !isShowingDimensions);
+        setDisplayImage(isShowingDimensions ? mainSrc : dimSrc, isShowingDimensions ? 'main' : 'dimensions');
     });
 
-    thumbButtons.forEach(btn => {
+    document.querySelectorAll('.product-thumbs-strip .thumb-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             const targetSrc = this.getAttribute('data-target-src');
-            const mode = this.getAttribute('data-mode');
+            const mode = this.getAttribute('data-mode') || 'main';
             if (targetSrc) {
-                setDisplayImage(targetSrc, mode === 'dimensions');
+                setDisplayImage(targetSrc, mode);
             }
         });
     });

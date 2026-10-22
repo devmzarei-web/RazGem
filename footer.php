@@ -8,7 +8,7 @@
         
         <div class="footer-widget footer-brand-widget">
             <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/Razgem-Logo-NoBg.png" alt="RazGem Logo" class="footer-logo-img" onerror="this.style.display='none'">
-            <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی اصل، مرواریدهای باروک خلیج فارس و هنر اصیل ایرانی.' ) ); ?></p>
+            <p class="footer-about-text"><?php echo esc_html( get_theme_mod( 'footer_tagline', 'گالری دست‌ساز رازجم؛ شکوه بی‌انتهای طبیعت در تلاقی صدف‌های طبیعی وارداتی اصل، مرواریدهای باروک و هنر اصیل ایرانی.' ) ); ?></p>
             
             <?php
             $social_telegram  = get_theme_mod('social_telegram', 'https://t.me/+989007423055');

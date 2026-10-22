@@ -17,7 +17,7 @@ $theme_uri = get_template_directory_uri();
         <div class="section-header">
             <span class="heading-eyebrow">هنر دست و شگفتی طبیعت</span>
             <h2 class="heading-title">جدیدترین زیورآلات صدف و مروارید رازجم</h2>
-            <p class="heading-desc">طراحی ارگانیک، اصالت صدف طبیعی خلیج فارس و درخشش تکرارناپذیر مرواریدهای باروک</p>
+            <p class="heading-desc">طراحی ارگانیک، اصالت صدف‌های طبیعی وارداتی و درخشش تکرارناپذیر مرواریدهای باروک</p>
         </div>
         
         <div class="products-grid">
@@ -34,7 +34,7 @@ $theme_uri = get_template_directory_uri();
                         <span>شناسنامه اصالت صدف و مروارید</span>
                     </div>
                     <h3 class="product-title"><a href="/shop">مدال دست‌ساز صدف طبیعی و مروارید باروک</a></h3>
-                    <div class="product-meta">صدف طبیعی خلیج فارس | اتصالات دست‌ساز آتلیه</div>
+                    <div class="product-meta">صدف‌های طبیعی وارداتی | اتصالات دست‌ساز آتلیه</div>
                     <div class="product-price">۴,۸۵۰,۰۰۰ <span>تومان</span></div>
                 </div>
             </article>

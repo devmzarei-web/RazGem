@@ -11,7 +11,7 @@
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/mag-1.jpg" alt="Article 1" onerror="this.style.display='none'">
                 </div>
                 <div class="magazine-body">
-                    <h3><a href="#">چگونه اصالت صدف‌های طبیعی خلیج فارس را بشناسیم؟</a></h3>
+                    <h3><a href="#">چگونه اصالت صدف‌های طبیعی وارداتی را بشناسیم؟</a></h3>
                     <p>بررسی ویژگی‌های صدف‌های طبیعی دست‌تراش، تلألو رنگین‌کمانی طبیعی و تمایز آن با صدف‌های مصنوعی و رزینی.</p>
                 </div>
             </div>

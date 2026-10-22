@@ -152,7 +152,7 @@ class RazGem_Admin_Product_Guide {
                     <ul style="line-height: 1.8; color: #4B5563; font-size: 0.92rem; padding-right: 1.2rem;">
                         <li>قالب رازجم فیلدهای اختصاصی زیر را در صفحه تک‌محصول به صورت ویترین لوکس نمایش می‌دهد:
                             <br>• <strong>ابعاد (Dimensions):</strong> به سانتی‌متر؛ مثال: <code>۴.۸ × ۴.۳ سانتی‌متر</code> (ذخیره در زمینه دلخواه <code>_razgem_dimensions</code>)
-                            <br>• <strong>متریال:</strong> <code>صدف طبیعی خلیج فارس، مروارید باروک اصل، اتصالات ضدحساسیت</code> (در <code>_razgem_materials</code>)
+                            <br>• <strong>متریال:</strong> <code>صدف‌های طبیعی وارداتی، مروارید باروک اصل، اتصالات ضدحساسیت</code> (در <code>_razgem_materials</code>)
                             <br>• <strong>وزن تقریبی:</strong> مثال: <code>۸.۵ گرم</code> (در <code>_razgem_weight</code>)
                         </li>
                     </ul>

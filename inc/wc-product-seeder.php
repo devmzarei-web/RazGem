@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+define( 'RAZGEM_ATTRIBUTES_VERSION', '1.0.0' );
+
 class RazGem_WC_Product_Seeder {
 
     /**
@@ -35,6 +37,10 @@ class RazGem_WC_Product_Seeder {
 
     private function __construct() {
         $this->init_catalog();
+
+        // Hook attribute registration and seeding (US1 / Tasks T001-T005)
+        add_action( 'admin_init', [ $this, 'maybe_seed_global_attributes' ], 15 );
+        add_action( 'after_switch_theme', [ $this, 'maybe_seed_global_attributes' ], 15 );
 
         // Register admin hooks
         add_action( 'admin_init', [ $this, 'handle_manual_sync_request' ] );
@@ -68,9 +74,9 @@ class RazGem_WC_Product_Seeder {
                 'tags'        => [ 'دست‌ساز', 'صدف طبیعی', 'مروارید باروک', 'کالکشن اقیانوس' ],
                 'dimensions'  => '۴.۸ × ۴.۳ سانتی‌متر',
                 'weight'      => '۸.۵ گرم',
-                'materials'   => 'صدف طبیعی تراش‌خورده مرجانی، مروارید باروک خلیج فارس، اتصالات برنجی با آبکاری طلایی',
-                'origin'      => 'خلیج فارس، تراش اختصاصی آتلیه رازجم',
-                'short_desc'  => 'گوشواره دست‌ساز از صدف طبیعی خلیج فارس مزین به مروارید باروک با تلألو رنگین‌کمانی و یراق زرین ضدحساسیت.',
+                'materials'   => 'صدف طبیعی تراش‌خورده مرجانی، مروارید باروک اصل، اتصالات برنجی با آبکاری طلایی',
+                'origin'      => 'طبیعی وارداتی، تراش اختصاصی آتلیه رازجم',
+                'short_desc'  => 'گوشواره دست‌ساز از صدف‌های طبیعی وارداتی مزین به مروارید باروک با تلألو رنگین‌کمانی و یراق زرین ضدحساسیت.',
                 'content'     => 'این گوشواره با صدف طبیعی ساخته شده که توسط هنرمند با دست تراش و فرم داده شده است. رنگ صدف کاملاً طبیعی است و تنها برای نمایان‌تر شدن زیبایی، بافت و درخشش طبیعی سطح آن جلا خورده است. یراق و اتصالات برنجی به رنگ طلایی نیز جلوه‌ای گرم، ظریف و هنری به این اثر بخشیده است. به همراه شناسنامه اصالت فیزیکی و جعبه لوکس کادویی رازجم تقدیم می‌گردد.',
                 'image_file'  => 'products/Product-r001-testcard.png',
                 'model_file'  => 'products/Product-r001-testcard.png',
@@ -106,7 +112,7 @@ class RazGem_WC_Product_Seeder {
                 'tags'        => [ 'دست‌ساز', 'تابلو صدف', 'طرح خورشید', 'دکوراتیو دریا' ],
                 'dimensions'  => '۳۰ × ۳۰ × ۶ سانتی‌متر',
                 'weight'      => '۱۸۰۰ گرم',
-                'materials'   => 'صدف‌های مخروطی طبیعی خلیج فارس، پنل چوبی عمیق دست‌ساز با شاسی مستحکم',
+                'materials'   => 'صدف‌های مخروطی طبیعی وارداتی، پنل چوبی عمیق دست‌ساز با شاسی مستحکم',
                 'origin'      => 'سواحل جنوب، آتلیه هنر دریا رازجم',
                 'short_desc'  => 'تابلو صدف دریایی طرح خورشید دست‌ساز با صدف‌های مخروطی طبیعی و تلألو ارگانیک روی پنل چوبی عمیق.',
                 'content'     => 'تابلو دیواری هنری دست‌ساز با صدف‌های مخروطی طبیعی سواحل جنوب در چیدمان هندسی خورشیدی. بستر چوبی به رنگ گردویی تیره یا سفید صدفی جلا خورده تا عمق و بازی سایه‌روشن صدف‌ها به زیبایی نمایان شود. اثری لوکس و ارگانیک برای فضاهای مدرن و اصیل به همراه شناسنامه اصالت آتلیه رازجم.',
@@ -133,9 +139,9 @@ class RazGem_WC_Product_Seeder {
                 'dimensions'  => '۳۰ × ۳۰ × ۱۰ سانتی‌متر',
                 'weight'      => '۱۴۰۵ گرم',
                 'materials'   => 'توتیای طبیعی دریایی دست‌چین، پنل چوبی عمیق دست‌ساز',
-                'origin'      => 'خلیج فارس، آتلیه تخصصی رازجم',
+                'origin'      => 'طبیعی وارداتی، آتلیه تخصصی رازجم',
                 'short_desc'  => 'تابلو دیواری سه بعدی فاخر مزین به توتیاهای طبیعی دریایی با هندسه شگفت‌انگیز و برجسته طبیعت دریا.',
-                'content'     => 'تابلو توتیای دریایی سه بعدی دست‌ساز با توتیاهای طبیعی خلیج فارس. جلوه‌ای بی‌نظیر از بافت، ظرافت و هندسه ارگانیک دریا در قاب چوبی لوکس. هر قطعه توتیا به دقت انتخاب و با دست بر بستر چوب سوار شده است.',
+                'content'     => 'تابلو توتیای دریایی سه بعدی دست‌ساز با توتیاهای طبیعی دریا. جلوه‌ای بی‌نظیر از بافت، ظرافت و هندسه ارگانیک دریا در قاب چوبی لوکس. هر قطعه توتیا به دقت انتخاب و با دست بر بستر چوب سوار شده است.',
                 'image_file'  => 'r004-main.png',
                 'model_file'  => 'r004-scale.png',
                 'dim_file'    => 'r004-white.png',
@@ -441,7 +447,7 @@ class RazGem_WC_Product_Seeder {
             [
                 'slug'        => 'shell-earrings',
                 'name'        => 'گوشواره صدف طبیعی',
-                'description' => 'مجموعه گوشواره‌های هنری دست‌ساز با صدف‌های طبیعی خلیج فارس و یراق‌های طلایی ضدحساسیت.',
+                'description' => 'مجموعه گوشواره‌های هنری دست‌ساز با صدف‌های طبیعی وارداتی و یراق‌های طلایی ضدحساسیت.',
             ],
             [
                 'slug'        => 'ocean-wall-art',
@@ -466,7 +472,7 @@ class RazGem_WC_Product_Seeder {
             [
                 'slug'        => 'baroque-pearls',
                 'name'        => 'مروارید باروک و زیورآلات خاص',
-                'description' => 'آثار هنری فاخر با گوهر ناب مروارید باروک خلیج فارس و سفارش‌های اختصاصی.',
+                'description' => 'آثار هنری فاخر با گوهر ناب مروارید باروک اصل و سفارش‌های اختصاصی.',
             ],
         ];
 
@@ -719,6 +725,128 @@ class RazGem_WC_Product_Seeder {
     /**
      * Ensure WordPress media uploader is loaded on product edit screens.
      */
+/**
+     * Register a WooCommerce global product attribute taxonomy safely.
+     *
+     * @param string $name Attribute label (Persian)
+     * @param string $slug Attribute taxonomy slug (without 'pa_')
+     * @param string $type Display type ('select')
+     * @return int Attribute ID
+     */
+    public function register_wc_attribute( $name, $slug, $type = 'select' ) {
+        if ( ! function_exists( 'wc_create_attribute' ) ) {
+            return 0;
+        }
+
+        $existing_id = function_exists( 'wc_attribute_taxonomy_id_by_name' ) ? wc_attribute_taxonomy_id_by_name( $slug ) : 0;
+        if ( $existing_id ) {
+            return (int) $existing_id;
+        }
+
+        $args = array(
+            'name'         => $name,
+            'slug'         => $slug,
+            'type'         => $type,
+            'order_by'     => 'menu_order',
+            'has_archives' => false,
+        );
+
+        $id = wc_create_attribute( $args );
+
+        $taxonomy_name = 'pa_' . $slug;
+        if ( ! taxonomy_exists( $taxonomy_name ) ) {
+            register_taxonomy(
+                $taxonomy_name,
+                apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+                apply_filters( 'woocommerce_taxonomy_args_' . $taxonomy_name, array(
+                    'hierarchical' => false,
+                    'show_ui'      => false,
+                    'query_var'    => true,
+                    'rewrite'      => false,
+                ) )
+            );
+        }
+
+        return is_wp_error( $id ) ? 0 : (int) $id;
+    }
+
+    /**
+     * Programmatically seed all essential RazGem jewelry product attributes and terms.
+     * (T003 & T004: Hardware color, Set type, Physical size/length, Numbers 1-20, Colors)
+     */
+    public function seed_attribute_terms() {
+        if ( ! $this->is_woocommerce_active() ) {
+            return;
+        }
+
+        $attributes = array(
+            'hardware' => array(
+                'label' => 'رنگ اتصالات',
+                'terms' => array( 'طلایی', 'نقره‌ای' ),
+            ),
+            'set_type' => array(
+                'label' => 'نوع سفارش / اقلام ست',
+                'terms' => array( 'سرویس کامل', 'گردنبند', 'دستبند', 'گوشواره' ),
+            ),
+            'size' => array(
+                'label' => 'سایز و طول',
+                'terms' => array( 'فری‌سایز قابل تنظیم', '۴۰ سانتی‌متر', '۴۵ سانتی‌متر', '۵۰ سانتی‌متر', '۱۸ سانتی‌متر (رگلاژدار)' ),
+            ),
+            'piece_number' => array(
+                'label' => 'شماره قطعه / پلاک',
+                'terms' => array(
+                    '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰',
+                    '۱۱', '۱۲', '۱۳', '۱۴', '۱۵', '۱۶', '۱۷', '۱۸', '۱۹', '۲۰'
+                ),
+            ),
+            'color' => array(
+                'label' => 'رنگ‌بندی',
+                'terms' => array( 'مشکی', 'سفید', 'صدفی', 'طلایی', 'نقره‌ای', 'قرمز', 'صورتی', 'آبی', 'فیروزه‌ای', 'سبز' ),
+            ),
+        );
+
+        foreach ( $attributes as $slug => $data ) {
+            $this->register_wc_attribute( $data['label'], $slug, 'select' );
+            $taxonomy = 'pa_' . $slug;
+
+            if ( ! taxonomy_exists( $taxonomy ) ) {
+                register_taxonomy(
+                    $taxonomy,
+                    array( 'product' ),
+                    array(
+                        'hierarchical' => false,
+                        'show_ui'      => false,
+                        'query_var'    => true,
+                        'rewrite'      => false,
+                    )
+                );
+            }
+
+            foreach ( $data['terms'] as $term_name ) {
+                if ( ! term_exists( $term_name, $taxonomy ) ) {
+                    wp_insert_term( $term_name, $taxonomy, array(
+                        'slug' => sanitize_title( $term_name ),
+                    ) );
+                }
+            }
+        }
+    }
+
+    /**
+     * Automatic self-healing check on admin_init.
+     * (T005)
+     */
+    public function maybe_seed_global_attributes() {
+        if ( ! $this->is_woocommerce_active() ) {
+            return;
+        }
+        if ( get_option( 'razgem_attributes_seeded_v1' ) ) {
+            return;
+        }
+        $this->seed_attribute_terms();
+        update_option( 'razgem_attributes_seeded_v1', true );
+    }
+
     public function enqueue_admin_media_scripts( $hook ) {
         if ( in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
             global $post_type;
@@ -731,3 +859,14 @@ class RazGem_WC_Product_Seeder {
 
 // Initialize on load
 RazGem_WC_Product_Seeder::get_instance();
+
+/**
+ * Global helper function to trigger attribute seeding.
+ */
+if ( ! function_exists( 'razgem_register_global_attributes' ) ) {
+    function razgem_register_global_attributes() {
+        if ( class_exists( 'RazGem_WC_Product_Seeder' ) ) {
+            RazGem_WC_Product_Seeder::get_instance()->seed_attribute_terms();
+        }
+    }
+}
