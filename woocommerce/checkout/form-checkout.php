@@ -21,13 +21,31 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 <div class="razgem-checkout-wrapper" dir="rtl">
     
+    <!-- Checkout Process Steps Bar -->
+    <div class="checkout-process-steps">
+        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="process-step is-completed">
+            <span class="step-badge">✓</span>
+            <span class="step-title"><?php esc_html_e( 'سبد خرید', 'razgem' ); ?></span>
+        </a>
+        <div class="step-divider is-completed"></div>
+        <div class="process-step is-active">
+            <span class="step-badge">۲</span>
+            <span class="step-title"><?php esc_html_e( 'مشخصات و آدرس تحویل', 'razgem' ); ?></span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="process-step is-active">
+            <span class="step-badge">۳</span>
+            <span class="step-title"><?php esc_html_e( 'پرداخت و ثبت نهایی', 'razgem' ); ?></span>
+        </div>
+    </div>
+
     <div class="checkout-trust-banner">
         <div class="trust-banner-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span>ضمانت اصالت صدف طبیعی و مروارید باروک اصل</span>
         </div>
         <div class="trust-banner-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
             <span>ارسال رایگان و بیمه شده به سراسر ایران</span>
         </div>
         <div class="trust-banner-item">
@@ -51,7 +69,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     <div class="checkout-billing-fields" id="customer_details">
                         <div class="checkout-section-header">
                             <span class="step-num">۱</span>
-                            <h3><?php esc_html_e( 'مشخصات تحویل‌گیرنده و آدرس ارسال', 'razgem' ); ?></h3>
+                            <h3><?php esc_html_e( 'مشخصات تحویل‌گیرنده و نشانی پستی', 'razgem' ); ?></h3>
                         </div>
                         <?php do_action( 'woocommerce_checkout_billing' ); ?>
                     </div>
@@ -70,7 +88,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                 <div class="checkout-summary-card">
                     <div class="checkout-section-header">
                         <span class="step-num">۲</span>
-                        <h3 id="order_review_heading"><?php esc_html_e( 'خلاصه سفارش و پرداخت', 'razgem' ); ?></h3>
+                        <h3 id="order_review_heading"><?php esc_html_e( 'خلاصه سفارش و درگاه پرداخت', 'razgem' ); ?></h3>
                     </div>
 
                     <?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>

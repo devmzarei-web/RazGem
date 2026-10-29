@@ -296,18 +296,28 @@ function razgem_default_checkout_country() {
 
 add_filter( 'woocommerce_default_address_fields' , 'razgem_custom_default_address_fields' );
 function razgem_custom_default_address_fields( $fields ) {
-    $fields['first_name']['label'] = 'نام';
-    $fields['last_name']['label'] = 'نام خانوادگی';
-    $fields['company']['label'] = 'نام شرکت';
-    $fields['country']['label'] = 'کشور';
-    $fields['address_1']['label'] = 'آدرس کامل پستی';
-    $fields['address_1']['placeholder'] = 'نام خیابان، کوچه، پلاک...';
-    $fields['address_2']['label'] = 'واحد / طبقه';
-    $fields['address_2']['placeholder'] = 'شماره واحد، طبقه...';
-    $fields['address_2']['label_class'] = array();
-    $fields['city']['label'] = 'شهر';
-    $fields['state']['label'] = 'استان';
-    $fields['postcode']['label'] = 'کد پستی ۱۰ رقمی';
+    $fields['first_name']['label']       = 'نام';
+    $fields['first_name']['placeholder'] = 'مثلاً: محمد';
+    $fields['last_name']['label']        = 'نام خانوادگی';
+    $fields['last_name']['placeholder']  = 'مثلاً: زارعی';
+    $fields['company']['label']          = 'نام شرکت (اختیاری)';
+    $fields['country']['label']          = 'کشور';
+    $fields['country']['default']        = 'IR';
+    $fields['state']['label']            = 'استان';
+    $fields['state']['placeholder']      = 'انتخاب استان...';
+    $fields['state']['label_class']      = array();
+    $fields['city']['label']             = 'شهر';
+    $fields['city']['placeholder']       = 'نام شهر...';
+    $fields['city']['label_class']       = array();
+    $fields['address_1']['label']        = 'نشانی کامل پستی';
+    $fields['address_1']['placeholder']  = 'نام خیابان، کوچه، پلاک، زنگ...';
+    $fields['address_1']['label_class']  = array();
+    $fields['address_2']['label']        = 'واحد / طبقه (اختیاری)';
+    $fields['address_2']['placeholder']  = 'شماره واحد یا طبقه...';
+    $fields['address_2']['label_class']  = array();
+    $fields['postcode']['label']         = 'کد پستی ۱۰ رقمی';
+    $fields['postcode']['placeholder']   = 'کد پستی معتبر ۱۰ رقمی بدون خط تیره';
+    $fields['postcode']['label_class']   = array();
     return $fields;
 }
 
@@ -315,31 +325,60 @@ add_filter('woocommerce_checkout_fields', 'razgem_optimize_checkout_fields', 999
 function razgem_optimize_checkout_fields($fields) {
     unset($fields['billing']['billing_company']);
 
-    $fields['billing']['billing_first_name']['priority'] = 10;
-    $fields['billing']['billing_first_name']['class'] = array('form-row-first');
-    $fields['billing']['billing_last_name']['priority'] = 20;
-    $fields['billing']['billing_last_name']['class'] = array('form-row-last');
-    $fields['billing']['billing_phone']['label'] = 'شماره موبایل';
-    $fields['billing']['billing_phone']['required'] = true; 
-    $fields['billing']['billing_phone']['priority'] = 30;
-    $fields['billing']['billing_phone']['class'] = array('form-row-first');
-    $fields['billing']['billing_email']['label'] = 'آدرس ایمیل';
-    $fields['billing']['billing_email']['required'] = false; 
-    $fields['billing']['billing_email']['priority'] = 40;
-    $fields['billing']['billing_email']['class'] = array('form-row-last');
-    $fields['billing']['billing_state']['priority'] = 50;
-    $fields['billing']['billing_state']['class'] = array('form-row-first');
-    $fields['billing']['billing_city']['priority'] = 60;
-    $fields['billing']['billing_city']['class'] = array('form-row-last');
-    $fields['billing']['billing_address_1']['priority'] = 70;
-    $fields['billing']['billing_address_1']['class'] = array('form-row-wide');
-    $fields['billing']['billing_address_2']['priority'] = 80;
-    $fields['billing']['billing_address_2']['class'] = array('form-row-first');
-    $fields['billing']['billing_postcode']['priority'] = 90;
-    $fields['billing']['billing_postcode']['class'] = array('form-row-last');
+    $fields['billing']['billing_first_name']['label']       = 'نام';
+    $fields['billing']['billing_first_name']['placeholder'] = 'مثلاً: محمد';
+    $fields['billing']['billing_first_name']['priority']    = 10;
+    $fields['billing']['billing_first_name']['class']       = array('form-row-first');
 
-    $fields['order']['order_comments']['label'] = 'یادداشت سفارش';
-    $fields['order']['order_comments']['placeholder'] = 'اگر نکته خاصی برای زمان تحویل یا بسته‌بندی دارید اینجا بنویسید...';
+    $fields['billing']['billing_last_name']['label']        = 'نام خانوادگی';
+    $fields['billing']['billing_last_name']['placeholder']  = 'مثلاً: زارعی';
+    $fields['billing']['billing_last_name']['priority']     = 20;
+    $fields['billing']['billing_last_name']['class']        = array('form-row-last');
+
+    $fields['billing']['billing_phone']['label']            = 'شماره موبایل (جهت هماهنگی و پیامک ارسال)';
+    $fields['billing']['billing_phone']['placeholder']      = '۰۹۱۲۳۴۵۶۷۸۹';
+    $fields['billing']['billing_phone']['required']         = true; 
+    $fields['billing']['billing_phone']['priority']         = 30;
+    $fields['billing']['billing_phone']['class']            = array('form-row-first');
+
+    $fields['billing']['billing_email']['label']            = 'آدرس ایمیل (اختیاری)';
+    $fields['billing']['billing_email']['placeholder']      = 'name@example.com';
+    $fields['billing']['billing_email']['required']         = false; 
+    $fields['billing']['billing_email']['priority']         = 40;
+    $fields['billing']['billing_email']['class']            = array('form-row-last');
+
+    $fields['billing']['billing_state']['label']            = 'استان';
+    $fields['billing']['billing_state']['placeholder']      = 'انتخاب استان...';
+    $fields['billing']['billing_state']['label_class']      = array();
+    $fields['billing']['billing_state']['priority']         = 50;
+    $fields['billing']['billing_state']['class']            = array('form-row-first');
+
+    $fields['billing']['billing_city']['label']             = 'شهر';
+    $fields['billing']['billing_city']['placeholder']       = 'نام شهر...';
+    $fields['billing']['billing_city']['label_class']       = array();
+    $fields['billing']['billing_city']['priority']          = 60;
+    $fields['billing']['billing_city']['class']             = array('form-row-last');
+
+    $fields['billing']['billing_address_1']['label']        = 'نشانی کامل پستی';
+    $fields['billing']['billing_address_1']['placeholder']  = 'نام خیابان، کوچه، پلاک، زنگ...';
+    $fields['billing']['billing_address_1']['label_class']  = array();
+    $fields['billing']['billing_address_1']['priority']     = 70;
+    $fields['billing']['billing_address_1']['class']        = array('form-row-wide');
+
+    $fields['billing']['billing_address_2']['label']        = 'واحد / طبقه (اختیاری)';
+    $fields['billing']['billing_address_2']['placeholder']  = 'شماره واحد یا طبقه...';
+    $fields['billing']['billing_address_2']['label_class']  = array();
+    $fields['billing']['billing_address_2']['priority']     = 80;
+    $fields['billing']['billing_address_2']['class']        = array('form-row-first');
+
+    $fields['billing']['billing_postcode']['label']         = 'کد پستی ۱۰ رقمی';
+    $fields['billing']['billing_postcode']['placeholder']   = 'کد پستی ۱۰ رقمی بدون خط تیره';
+    $fields['billing']['billing_postcode']['label_class']   = array();
+    $fields['billing']['billing_postcode']['priority']      = 90;
+    $fields['billing']['billing_postcode']['class']         = array('form-row-last');
+
+    $fields['order']['order_comments']['label']             = 'یادداشت سفارش (اختیاری)';
+    $fields['order']['order_comments']['placeholder']       = 'اگر نکته خاصی برای زمان تحویل یا بسته‌بندی هدیه دارید اینجا بنویسید...';
     
     return $fields;
 }
