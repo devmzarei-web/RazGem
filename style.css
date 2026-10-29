@@ -11203,12 +11203,21 @@ a.reset_variations {
   width: auto !important;
   overflow: visible !important;
   position: static !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  min-height: 24px !important;
   font-size: 0.92rem !important;
   font-weight: 700 !important;
   color: #0E1B26 !important;
   margin-bottom: 0.5rem !important;
   text-align: right !important;
+}
+.woocommerce-checkout .form-row label .optional {
+  color: #94A3B8 !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  margin-right: 0.25rem !important;
 }
 .woocommerce-checkout .form-row label .required {
   color: #EF4444 !important;
@@ -16019,4 +16028,37 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
     transform: scale(1.25);
     opacity: 0.75;
   }
+}
+
+/* Gutenberg Cart Block luxury styling fallback */
+.wp-block-woocommerce-cart,
+.wc-block-cart {
+  max-width: 1240px !important;
+  margin: 1.5rem auto 4rem auto !important;
+  padding: 0 1rem !important;
+  direction: rtl !important;
+  font-family: var(--font-body, "IranYekanX", sans-serif) !important;
+}
+.wc-block-cart__title {
+  font-family: var(--font-heading, "Morabba", serif) !important;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  color: #0E1B26 !important;
+  margin-bottom: 1.5rem !important;
+  text-align: right !important;
+}
+.wc-block-cart__submit-button {
+  background: linear-gradient(135deg, #D4AF37 0%, #B89228 100%) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  border-radius: 12px !important;
+  height: 52px !important;
+  font-size: 1.05rem !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+.wc-block-cart__submit-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.4) !important;
 }
