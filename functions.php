@@ -2908,3 +2908,106 @@ function razgem_filter_terms_duplicate_disclaimer( $content ) {
     return $content;
 }
 
+/* =========================================================================
+   37. ZIBAL PAYMENT GATEWAY INTEGRATION & AUTO-CONFIGURATION
+   ========================================================================= */
+
+/**
+ * Load Zibal Payment Gateway class.
+ */
+function razgem_load_zibal_gateway() {
+    if ( class_exists( 'WC_Payment_Gateway' ) && ! class_exists( 'WC_Gateway_Zibal' ) ) {
+        require_once get_template_directory() . '/inc/gateways/class-wc-gateway-zibal.php';
+    }
+}
+add_action( 'plugins_loaded', 'razgem_load_zibal_gateway', 15 );
+add_action( 'after_setup_theme', 'razgem_load_zibal_gateway', 15 );
+
+/**
+ * Register Zibal Gateway in WooCommerce payment methods.
+ */
+function razgem_register_zibal_gateway( $methods ) {
+    if ( ! is_array( $methods ) ) {
+        $methods = array();
+    }
+    if ( ! in_array( 'WC_Gateway_Zibal', $methods, true ) ) {
+        $methods[] = 'WC_Gateway_Zibal';
+    }
+    return $methods;
+}
+add_filter( 'woocommerce_payment_gateways', 'razgem_register_zibal_gateway' );
+
+/**
+ * Automatically configure Zibal merchant code and enable it in WooCommerce settings.
+ */
+function razgem_auto_configure_zibal_gateway() {
+    $opt_name = 'woocommerce_WC_Gateway_Zibal_settings';
+    $settings = get_option( $opt_name, array() );
+    $merchant = '6adb6b3f4caaab4eb0a91751';
+
+    $needs_update = false;
+    if ( empty( $settings ) || ! is_array( $settings ) ) {
+        $settings = array(
+            'enabled'         => 'yes',
+            'title'           => 'پرداخت امن اینترنتی زیبال (کارت‌های شتاب)',
+            'description'     => 'پرداخت امن و سریع با کلیه کارت‌های عضو شبکه شتاب از طریق درگاه رسمی زیبال',
+            'pin'             => $merchant,
+            'sandbox'         => 'no',
+            'success_massage' => 'با تشکر از شما. سفارش شما با موفقیت پرداخت شد. کد پیگیری: {transaction_id}',
+            'failed_massage'  => 'پرداخت شما ناموفق بوده است یا لغو شد. در صورت کسر وجه از حساب، ظرف ۷۲ ساعت توسط بانک بازگردانده می‌شود. کد خطا: {fault}',
+        );
+        $needs_update = true;
+    } else {
+        if ( empty( $settings['pin'] ) || 'zibal' === $settings['pin'] ) {
+            $settings['pin'] = $merchant;
+            $needs_update = true;
+        }
+        if ( empty( $settings['enabled'] ) || 'no' === $settings['enabled'] ) {
+            $settings['enabled'] = 'yes';
+            $needs_update = true;
+        }
+        if ( ! empty( $settings['sandbox'] ) && 'yes' === $settings['sandbox'] ) {
+            $settings['sandbox'] = 'no';
+            $needs_update = true;
+        }
+    }
+
+    if ( $needs_update ) {
+        update_option( $opt_name, $settings );
+    }
+}
+add_action( 'init', 'razgem_auto_configure_zibal_gateway', 1 );
+
+/**
+ * Runtime filter failsafe for Zibal settings to ensure merchant code is always active.
+ */
+function razgem_filter_zibal_gateway_settings( $settings ) {
+    $merchant = '6adb6b3f4caaab4eb0a91751';
+    if ( ! is_array( $settings ) ) {
+        $settings = array();
+    }
+    if ( empty( $settings['pin'] ) || 'zibal' === $settings['pin'] ) {
+        $settings['pin'] = $merchant;
+    }
+    if ( empty( $settings['enabled'] ) ) {
+        $settings['enabled'] = 'yes';
+    }
+    if ( empty( $settings['sandbox'] ) || 'yes' === $settings['sandbox'] ) {
+        $settings['sandbox'] = 'no';
+    }
+    return $settings;
+}
+add_filter( 'option_woocommerce_WC_Gateway_Zibal_settings', 'razgem_filter_zibal_gateway_settings' );
+
+/**
+ * Set Zibal as the default selected payment gateway on checkout if available.
+ */
+function razgem_set_default_zibal_gateway() {
+    if ( function_exists( 'is_checkout' ) && is_checkout() && ! is_order_received_page() ) {
+        if ( isset( WC()->session ) && ! WC()->session->get( 'chosen_payment_method' ) ) {
+            WC()->session->set( 'chosen_payment_method', 'WC_Gateway_Zibal' );
+        }
+    }
+}
+add_action( 'template_redirect', 'razgem_set_default_zibal_gateway' );
+
