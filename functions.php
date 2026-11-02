@@ -1178,7 +1178,7 @@ function razgem_melipayamak_error_message( $code ) {
         '0'    => 'نام کاربری یا رمز عبور / ApiKey ملی‌پیامک صحیح نمی‌باشد.',
         '2'    => 'اعتبار ریالی یا پیامکی حساب ملی‌پیامک کافی نمی‌باشد.',
         '6'    => 'سامانه پیامک در حال بروزرسانی می‌باشد.',
-        '7'    => 'متن پیامک حاوی کلمات فیلتر شده است.',
+        '7'    => 'متن پیامک در فیلترینگ خودکار سامانه ملی‌پیامک قرار گرفته است. لطفاً از طریق تیکت در پنل ملی‌پیامک درخواست خروج الگوی ۵۷۴۲۰۳ از فیلتر خودکار را ثبت نمایید.',
         '10'   => 'کاربر مورد نظر در سامانه پیامک فعال نمی‌باشد.',
         '11'   => 'پیامک ارسال نشد.',
         '12'   => 'مدارک و احراز هویت پنل ملی‌پیامک کامل نمی‌باشد.',
@@ -1198,8 +1198,8 @@ function razgem_melipayamak_error_message( $code ) {
  * Dual-engine: REST API (Primary via wp_remote_post) + SOAP (Fallback if SoapClient available).
  */
 function razgem_send_melipayamak_pattern_sms( $phone, $otp_code ) {
-    $username = get_option( 'razgem_melipayamak_username', defined( 'MELIPAYAMAK_USERNAME' ) ? MELIPAYAMAK_USERNAME : '9192306288' );
-    $password = get_option( 'razgem_melipayamak_password', defined( 'MELIPAYAMAK_PASSWORD' ) ? MELIPAYAMAK_PASSWORD : ( defined( 'MELIPAYAMAK_APIKEY' ) ? MELIPAYAMAK_APIKEY : '7f18bfcd-5e3d-4435-8357-4b51eb62c0fa' ) );
+    $username = get_option( 'razgem_melipayamak_username', defined( 'MELIPAYAMAK_USERNAME' ) ? MELIPAYAMAK_USERNAME : '989171409304' );
+    $password = get_option( 'razgem_melipayamak_password', defined( 'MELIPAYAMAK_APIKEY' ) ? MELIPAYAMAK_APIKEY : ( defined( 'MELIPAYAMAK_PASSWORD' ) ? MELIPAYAMAK_PASSWORD : 'cdfeb707-ac7e-4533-af8c-2ca8c6ed786d' ) );
     $body_id  = intval( get_option( 'razgem_melipayamak_body_id', 574203 ) );
 
     // 1. Primary: REST API (https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber)
@@ -1227,8 +1227,10 @@ function razgem_send_melipayamak_pattern_sms( $phone, $otp_code ) {
             $ret_status = isset( $json['RetStatus'] ) ? intval( $json['RetStatus'] ) : 0;
             $val        = isset( $json['Value'] ) ? trim( strval( $json['Value'] ) ) : '';
 
-            // RetStatus 1 indicates success according to Melipayamak REST manual
-            if ( 1 === $ret_status || ( is_numeric( $val ) && strlen( $val ) > 10 ) ) {
+            // According to Melipayamak manual: A successful send returns a RecID >= 10 digits in Value.
+            // Small numbers like '7', '0', '2' are error codes even if RetStatus is 1.
+            $is_success = ( is_numeric( $val ) && strlen( $val ) >= 10 );
+            if ( $is_success ) {
                 return array(
                     'success' => true,
                     'rec_id'  => $val,
@@ -1295,6 +1297,23 @@ function razgem_send_melipayamak_pattern_sms( $phone, $otp_code ) {
 /**
  * AJAX Handler: Send OTP Code to Mobile Phone.
  */
+
+add_action( 'init', 'razgem_sync_melipayamak_default_credentials', 5 );
+function razgem_sync_melipayamak_default_credentials() {
+    $cur_user = get_option( 'razgem_melipayamak_username' );
+    if ( empty( $cur_user ) || '9192306288' === $cur_user ) {
+        update_option( 'razgem_melipayamak_username', '989171409304' );
+    }
+    $cur_pass = get_option( 'razgem_melipayamak_password' );
+    if ( empty( $cur_pass ) || '7f18bfcd-5e3d-4435-8357-4b51eb62c0fa' === $cur_pass ) {
+        update_option( 'razgem_melipayamak_password', 'cdfeb707-ac7e-4533-af8c-2ca8c6ed786d' );
+    }
+    $cur_body = get_option( 'razgem_melipayamak_body_id' );
+    if ( empty( $cur_body ) || 482609 === intval( $cur_body ) ) {
+        update_option( 'razgem_melipayamak_body_id', 574203 );
+    }
+}
+
 add_action( 'wp_ajax_razgem_send_otp', 'razgem_send_otp_handler' );
 add_action( 'wp_ajax_nopriv_razgem_send_otp', 'razgem_send_otp_handler' );
 add_action( 'wp_ajax_golkhane_send_otp', 'razgem_send_otp_handler' );
@@ -1440,8 +1459,8 @@ function razgem_render_melipayamak_admin_page() {
         $saved = true;
     }
 
-    $username = get_option( 'razgem_melipayamak_username', '9192306288' );
-    $password = get_option( 'razgem_melipayamak_password', '7f18bfcd-5e3d-4435-8357-4b51eb62c0fa' );
+    $username = get_option( 'razgem_melipayamak_username', '989171409304' );
+    $password = get_option( 'razgem_melipayamak_password', 'cdfeb707-ac7e-4533-af8c-2ca8c6ed786d' );
     $body_id  = get_option( 'razgem_melipayamak_body_id', 574203 );
     ?>
     <div class="wrap" dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 820px; margin-top: 20px;">
