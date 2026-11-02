@@ -1133,280 +1133,843 @@ function razgem_clean_required_field_error( $error_message, $field_label ) {
 }
 
 /* =========================================================================
-   20. MELLIPAYAMAK OTP LOGIN SYSTEM
+   20. MELLIPAYAMAK OTP LOGIN SYSTEM (Pattern BodyID: 574203)
    ========================================================================= */
-add_action('wp_ajax_nopriv_razgem_send_otp', 'razgem_send_otp_handler');
-function razgem_send_otp_handler() {
-    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
-    if (!preg_match('/^09[0-9]{9}$/', $phone)) {
-        wp_send_json_error('شماره موبایل نامعتبر است.');
+
+/**
+ * Clean and normalize Iranian mobile phone numbers.
+ * Supports Persian & Arabic numerals, +98, 0098, 98 prefixes.
+ */
+function razgem_clean_and_normalize_phone( $phone ) {
+    $persian = array( '۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹' );
+    $arabic  = array( '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩' );
+    $english = array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' );
+
+    $phone = str_replace( $persian, $english, (string) $phone );
+    $phone = str_replace( $arabic, $english, $phone );
+    $phone = preg_replace( '/[^0-9]/', '', $phone );
+
+    if ( strpos( $phone, '0098' ) === 0 ) {
+        $phone = '0' . substr( $phone, 4 );
+    } elseif ( strpos( $phone, '98' ) === 0 && strlen( $phone ) === 12 ) {
+        $phone = '0' . substr( $phone, 2 );
+    } elseif ( strlen( $phone ) === 10 && strpos( $phone, '9' ) === 0 ) {
+        $phone = '0' . $phone;
     }
 
-    $otp_code = wp_rand(10000, 99999);
-    set_transient('otp_' . $phone, $otp_code, 120);
-
-    try {
-        if (!class_exists('SoapClient')) {
-            wp_send_json_error('اکستنشن SOAP روی سرور فعال نیست.');
-        }
-
-        ini_set("soap.wsdl_cache_enabled", "0");
-        $sms = new SoapClient("http://api.payamak-panel.com/post/Send.asmx?wsdl", array("encoding" => "UTF-8"));
-        
-        $data = array(
-            "username" => "9192306288",
-            "password" => "7f18bfcd-5e3d-4435-8357-4b51eb62c0fa", 
-            "text"     => array(strval($otp_code)),
-            "to"       => $phone,
-            "bodyId"   => 482609
-        );
-        
-        $result = $sms->SendByBaseNumber($data)->SendByBaseNumberResult;
-
-        if (is_numeric($result) && strlen(strval($result)) < 10) {
-            wp_send_json_error('خطا از سمت درگاه پیامک. کد خطا: ' . $result);
-        }
-
-    } catch (Exception $e) {
-        wp_send_json_error('خطای سرور: ' . $e->getMessage());
-    }
-
-    wp_send_json_success('کد تایید با موفقیت ارسال شد.');
+    return $phone;
 }
 
-add_action('wp_ajax_login_by_otp', 'razgem_verify_otp_handler');
-add_action('wp_ajax_nopriv_razgem_verify_otp', 'razgem_verify_otp_handler');
+/**
+ * Translate Melipayamak return codes into Persian messages based on official documentation.
+ */
+function razgem_melipayamak_error_message( $code ) {
+    $errors = array(
+        '-110' => 'الزام استفاده از ApiKey به جای رمز عبور در پنل ملی‌پیامک.',
+        '-109' => 'الزام تنظیم IP مجاز برای استفاده از API در پنل ملی‌پیامک.',
+        '-108' => 'مسدود شدن IP به دلیل تلاش‌های ناموفق در سامانه پیامک.',
+        '-10'  => 'ممنوعیت ارسال لینک در متغیرهای پیامک.',
+        '-6'   => 'خطای داخلی سامانه ملی‌پیامک. لطفاً با پشتیبانی ملی‌پیامک تماس بگیرید.',
+        '-5'   => 'متن ارسالی با متغیرهای مشخص شده در الگوی ۵۷۴۲۰۳ همخوانی ندارد.',
+        '-4'   => 'کد الگوی ارسالی (۵۷۴۲۰۳) صحیح نیست یا هنوز توسط مدیریت تایید نشده است.',
+        '-3'   => 'خط خدماتی ارسالی در سیستم تعریف نشده است.',
+        '-2'   => 'محدودیت تعداد شماره (ارسال تک‌شماره‌ای).',
+        '-1'   => 'دسترسی برای استفاده از وب‌سرویس در پنل ملی‌پیامک غیرفعال است.',
+        '0'    => 'نام کاربری یا رمز عبور / ApiKey ملی‌پیامک صحیح نمی‌باشد.',
+        '2'    => 'اعتبار ریالی یا پیامکی حساب ملی‌پیامک کافی نمی‌باشد.',
+        '6'    => 'سامانه پیامک در حال بروزرسانی می‌باشد.',
+        '7'    => 'متن پیامک حاوی کلمات فیلتر شده است.',
+        '10'   => 'کاربر مورد نظر در سامانه پیامک فعال نمی‌باشد.',
+        '11'   => 'پیامک ارسال نشد.',
+        '12'   => 'مدارک و احراز هویت پنل ملی‌پیامک کامل نمی‌باشد.',
+        '18'   => 'شماره موبایل وارد شده معتبر نمی‌باشد.',
+        '19'   => 'سقف محدودیت روزانه ارسال پیامک وب‌سرویس تکمیل شده است.',
+    );
+
+    $code_str = strval( $code );
+    if ( isset( $errors[ $code_str ] ) ) {
+        return $errors[ $code_str ];
+    }
+    return 'خطا از سمت درگاه پیامک (کد خطا: ' . esc_html( $code_str ) . '). لطفاً اطلاعات وب‌سرویس را در پنل ملی‌پیامک بررسی نمایید.';
+}
+
+/**
+ * Send OTP verification SMS using Melipayamak Pattern Service (BodyID: 574203).
+ * Dual-engine: REST API (Primary via wp_remote_post) + SOAP (Fallback if SoapClient available).
+ */
+function razgem_send_melipayamak_pattern_sms( $phone, $otp_code ) {
+    $username = get_option( 'razgem_melipayamak_username', defined( 'MELIPAYAMAK_USERNAME' ) ? MELIPAYAMAK_USERNAME : '9192306288' );
+    $password = get_option( 'razgem_melipayamak_password', defined( 'MELIPAYAMAK_PASSWORD' ) ? MELIPAYAMAK_PASSWORD : ( defined( 'MELIPAYAMAK_APIKEY' ) ? MELIPAYAMAK_APIKEY : '7f18bfcd-5e3d-4435-8357-4b51eb62c0fa' ) );
+    $body_id  = intval( get_option( 'razgem_melipayamak_body_id', 574203 ) );
+
+    // 1. Primary: REST API (https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber)
+    $rest_url = 'https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber';
+    $payload  = array(
+        'username' => $username,
+        'password' => $password,
+        'text'     => strval( $otp_code ),
+        'to'       => $phone,
+        'bodyId'   => $body_id,
+    );
+
+    $response = wp_remote_post( $rest_url, array(
+        'headers'     => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+        'body'        => wp_json_encode( $payload ),
+        'timeout'     => 12,
+        'sslverify'   => false,
+    ) );
+
+    if ( ! is_wp_error( $response ) ) {
+        $body = wp_remote_retrieve_body( $response );
+        $json = json_decode( $body, true );
+
+        if ( is_array( $json ) ) {
+            $ret_status = isset( $json['RetStatus'] ) ? intval( $json['RetStatus'] ) : 0;
+            $val        = isset( $json['Value'] ) ? trim( strval( $json['Value'] ) ) : '';
+
+            // RetStatus 1 indicates success according to Melipayamak REST manual
+            if ( 1 === $ret_status || ( is_numeric( $val ) && strlen( $val ) > 10 ) ) {
+                return array(
+                    'success' => true,
+                    'rec_id'  => $val,
+                    'method'  => 'REST',
+                );
+            }
+
+            // If error, return translated message
+            $error_code = is_numeric( $val ) ? $val : ( isset( $json['RetStatus'] ) ? $json['RetStatus'] : 'error' );
+            return array(
+                'success' => false,
+                'message' => razgem_melipayamak_error_message( $error_code ),
+                'raw'     => $json,
+            );
+        }
+    }
+
+    // 2. Secondary Fallback: SOAP SendByBaseNumber
+    if ( class_exists( 'SoapClient' ) ) {
+        try {
+            ini_set( 'soap.wsdl_cache_enabled', '0' );
+            $soap = new SoapClient( 'http://api.payamak-panel.com/post/Send.asmx?wsdl', array(
+                'encoding'           => 'UTF-8',
+                'connection_timeout' => 10,
+                'exceptions'         => true,
+            ) );
+
+            $soap_data = array(
+                'username' => $username,
+                'password' => $password,
+                'text'     => array( strval( $otp_code ) ),
+                'to'       => $phone,
+                'bodyId'   => $body_id,
+            );
+
+            $result = $soap->SendByBaseNumber( $soap_data )->SendByBaseNumberResult;
+
+            if ( is_numeric( $result ) && strlen( strval( $result ) ) > 10 ) {
+                return array(
+                    'success' => true,
+                    'rec_id'  => $result,
+                    'method'  => 'SOAP',
+                );
+            }
+
+            return array(
+                'success' => false,
+                'message' => razgem_melipayamak_error_message( $result ),
+            );
+        } catch ( Exception $e ) {
+            return array(
+                'success' => false,
+                'message' => 'خطای ارتباط با سرور پیامک: ' . $e->getMessage(),
+            );
+        }
+    }
+
+    return array(
+        'success' => false,
+        'message' => 'امکان برقراری ارتباط با وب‌سرویس پیامک وجود ندارد. لطفاً تنظیمات هاست یا پنل ملی‌پیامک را بررسی کنید.',
+    );
+}
+
+/**
+ * AJAX Handler: Send OTP Code to Mobile Phone.
+ */
+add_action( 'wp_ajax_razgem_send_otp', 'razgem_send_otp_handler' );
+add_action( 'wp_ajax_nopriv_razgem_send_otp', 'razgem_send_otp_handler' );
+add_action( 'wp_ajax_golkhane_send_otp', 'razgem_send_otp_handler' );
+add_action( 'wp_ajax_nopriv_golkhane_send_otp', 'razgem_send_otp_handler' );
+function razgem_send_otp_handler() {
+    $raw_phone = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
+    $phone     = razgem_clean_and_normalize_phone( $raw_phone );
+
+    if ( ! preg_match( '/^09[0-9]{9}$/', $phone ) ) {
+        wp_send_json_error( 'شماره موبایل وارد شده نامعتبر است. لطفاً شماره را به فرمت ۰۹۱۲۳۴۵۶۷۸۹ وارد فرمایید.' );
+    }
+
+    // Rate limiting: enforce 45s cooldown per phone number
+    $rate_transient = 'otp_rate_' . $phone;
+    if ( get_transient( $rate_transient ) ) {
+        wp_send_json_error( 'کد تایید اخیراً برای این شماره ارسال شده است. لطفاً تا پایان زمان‌سنج منتظر بمانید.' );
+    }
+
+    // Generate secure 5-digit verification code
+    $otp_code = wp_rand( 10000, 99999 );
+    set_transient( 'otp_' . $phone, $otp_code, 120 ); // 2 minutes valid
+    set_transient( $rate_transient, 1, 45 );          // 45s resend cooldown
+
+    $send_result = razgem_send_melipayamak_pattern_sms( $phone, $otp_code );
+
+    if ( ! empty( $send_result['success'] ) ) {
+        wp_send_json_success( array(
+            'message' => 'کد تایید با موفقیت به شماره ' . $phone . ' پیامک شد.',
+            'phone'   => $phone,
+        ) );
+    } else {
+        $err = ! empty( $send_result['message'] ) ? $send_result['message'] : 'خطا در ارسال پیامک تایید.';
+        wp_send_json_error( $err );
+    }
+}
+
+/**
+ * AJAX Handler: Verify OTP Code and Authenticate User.
+ */
+add_action( 'wp_ajax_razgem_verify_otp', 'razgem_verify_otp_handler' );
+add_action( 'wp_ajax_nopriv_razgem_verify_otp', 'razgem_verify_otp_handler' );
+add_action( 'wp_ajax_golkhane_verify_otp', 'razgem_verify_otp_handler' );
+add_action( 'wp_ajax_nopriv_golkhane_verify_otp', 'razgem_verify_otp_handler' );
+add_action( 'wp_ajax_login_by_otp', 'razgem_verify_otp_handler' );
 function razgem_verify_otp_handler() {
-    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
-    $code  = isset($_POST['code']) ? sanitize_text_field($_POST['code']) : '';
+    $raw_phone = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
+    $phone     = razgem_clean_and_normalize_phone( $raw_phone );
 
-    $saved_code = get_transient('otp_' . $phone);
+    $raw_code = isset( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '';
+    $code     = razgem_clean_and_normalize_phone( $raw_code );
 
-    if (!$saved_code || $saved_code !== $code) {
-        wp_send_json_error('کد وارد شده نامعتبر یا منقضی شده است.');
+    if ( empty( $phone ) || empty( $code ) ) {
+        wp_send_json_error( 'لطفاً شماره موبایل و کد ۵ رقمی را وارد نمایید.' );
     }
 
-    delete_transient('otp_' . $phone);
+    $saved_code = get_transient( 'otp_' . $phone );
 
-    $user = get_user_by('login', $phone);
-    if (!$user) {
-        $user_id = wp_create_user($phone, wp_generate_password(16, false));
-        $user = get_user_by('id', $user_id);
-        update_user_meta($user_id, 'billing_phone', $phone);
+    if ( ! $saved_code || strval( $saved_code ) !== strval( $code ) ) {
+        wp_send_json_error( 'کد تایید وارد شده نامعتبر است یا مهلت استفاده از آن به پایان رسیده است.' );
     }
 
-    wp_set_current_user($user->ID);
-    wp_set_auth_cookie($user->ID, true);
+    // Code verified: delete transient immediately
+    delete_transient( 'otp_' . $phone );
+    delete_transient( 'otp_rate_' . $phone );
 
-    wp_send_json_success('ورود موفقیت‌آمیز بود.');
+    // Find existing user by login or billing_phone meta
+    $user = get_user_by( 'login', $phone );
+    if ( ! $user ) {
+        $users_by_phone = get_users( array(
+            'meta_key'   => 'billing_phone',
+            'meta_value' => $phone,
+            'number'     => 1,
+        ) );
+        if ( ! empty( $users_by_phone ) ) {
+            $user = $users_by_phone[0];
+        }
+    }
+
+    // If new customer, register account automatically
+    if ( ! $user ) {
+        $safe_email = $phone . '@razgem.ir';
+        $user_id    = wp_create_user( $phone, wp_generate_password( 20, false ), $safe_email );
+
+        if ( is_wp_error( $user_id ) ) {
+            wp_send_json_error( 'خطا در ایجاد حساب کاربری: ' . $user_id->get_error_message() );
+        }
+
+        $user = get_user_by( 'id', $user_id );
+        wp_update_user( array(
+            'ID'           => $user_id,
+            'display_name' => 'کاربر ' . substr( $phone, -4 ),
+            'role'         => 'customer',
+        ) );
+        update_user_meta( $user_id, 'billing_phone', $phone );
+    }
+
+    // Log the user in
+    wp_set_current_user( $user->ID );
+    wp_set_auth_cookie( $user->ID, true );
+    do_action( 'wp_login', $user->user_login, $user );
+
+    // Determine smart redirect destination
+    $redirect_url = function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'dashboard' ) : home_url( '/my-account' );
+    if ( ! empty( $_POST['redirect_to'] ) ) {
+        $redirect_url = esc_url_raw( wp_unslash( $_POST['redirect_to'] ) );
+    } elseif ( function_exists( 'WC' ) && WC()->cart && ! WC()->cart->is_empty() ) {
+        if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+            $redirect_url = wc_get_checkout_url();
+        }
+    }
+
+    wp_send_json_success( array(
+        'message'  => 'ورود موفقیت‌آمیز بود. در حال هدایت...',
+        'redirect' => $redirect_url,
+    ) );
+}
+
+/**
+ * Admin Settings Page for Melipayamak OTP Configuration & Live Testing.
+ */
+function razgem_melipayamak_admin_menu() {
+    add_submenu_page(
+        'woocommerce',
+        'تنظیمات ملی‌پیامک (OTP)',
+        'تنظیمات ملی‌پیامک (OTP)',
+        'manage_woocommerce',
+        'razgem-melipayamak',
+        'razgem_render_melipayamak_admin_page'
+    );
+}
+add_action( 'admin_menu', 'razgem_melipayamak_admin_menu' );
+
+function razgem_render_melipayamak_admin_page() {
+    if ( ! current_user_can( 'manage_woocommerce' ) ) {
+        return;
+    }
+
+    $saved = false;
+    if ( isset( $_POST['razgem_save_melipayamak'] ) && check_admin_referer( 'razgem_melipayamak_nonce' ) ) {
+        update_option( 'razgem_melipayamak_username', sanitize_text_field( wp_unslash( $_POST['melipayamak_username'] ) ) );
+        update_option( 'razgem_melipayamak_password', sanitize_text_field( wp_unslash( $_POST['melipayamak_password'] ) ) );
+        update_option( 'razgem_melipayamak_body_id', intval( $_POST['melipayamak_body_id'] ) );
+        $saved = true;
+    }
+
+    $username = get_option( 'razgem_melipayamak_username', '9192306288' );
+    $password = get_option( 'razgem_melipayamak_password', '7f18bfcd-5e3d-4435-8357-4b51eb62c0fa' );
+    $body_id  = get_option( 'razgem_melipayamak_body_id', 574203 );
+    ?>
+    <div class="wrap" dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 820px; margin-top: 20px;">
+        <h1 style="color: #A67C1E; font-weight: 800; margin-bottom: 1.5rem;">⚙️ تنظیمات وب‌سرویس ملی‌پیامک رازجم (ورود فقط با OTP)</h1>
+
+        <?php if ( $saved ) : ?>
+            <div class="notice notice-success is-dismissible" style="padding: 10px 15px;">
+                <p><strong>تنظیمات با موفقیت ذخیره شد.</strong></p>
+            </div>
+        <?php endif; ?>
+
+        <div style="background: #fff; border: 1px solid #ccd0d4; border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-bottom: 25px;">
+            <form method="post" action="">
+                <?php wp_nonce_field( 'razgem_melipayamak_nonce' ); ?>
+                
+                <table class="form-table" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row"><label for="melipayamak_username">نام کاربری ملی‌پیامک (Username)</label></th>
+                            <td>
+                                <input name="melipayamak_username" type="text" id="melipayamak_username" value="<?php echo esc_attr( $username ); ?>" class="regular-text" dir="ltr" placeholder="مثال: 0912... یا شماره پنل">
+                                <p class="description">شماره یا نام کاربری ورود به پنل ملی‌پیامک شما.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="melipayamak_password">کلمه عبور یا کلید دسترسی (Password / ApiKey)</label></th>
+                            <td>
+                                <input name="melipayamak_password" type="text" id="melipayamak_password" value="<?php echo esc_attr( $password ); ?>" class="regular-text" dir="ltr" placeholder="رمز عبور یا کلید API">
+                                <p class="description">کلمه عبور پنل یا ApiKey اختصاصی که در منوی وب‌سرویس ملی‌پیامک دریافت کرده‌اید.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="melipayamak_body_id">کد الگوی وب‌سرویس خدماتی (Body ID)</label></th>
+                            <td>
+                                <input name="melipayamak_body_id" type="number" id="melipayamak_body_id" value="<?php echo esc_attr( $body_id ); ?>" class="small-text" dir="ltr">
+                                <p class="description">کد متن پیش‌فرض خدماتی تایید شده در سامانه ملی‌پیامک (پیش‌فرض: <strong>۵۷۴۲۰۳</strong>).</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="submit" style="margin-top: 20px;">
+                    <button type="submit" name="razgem_save_melipayamak" class="button button-primary" style="background:#A67C1E; border-color:#8e6614; padding: 4px 20px; font-weight: bold;">ذخیره تنظیمات ملی‌پیامک</button>
+                </p>
+            </form>
+        </div>
+
+        <!-- Live SMS Test Box -->
+        <div style="background: #faf8f5; border: 1px solid #E8E0D5; border-radius: 8px; padding: 25px;">
+            <h3 style="margin-top: 0; color: #0E1B26;">🧪 ابزار تست زنده ارسال پیامک با الگوی ۵۷۴۲۰۳</h3>
+            <p style="color: #64748B;">برای اطمینان از صحت اطلاعات و اتصال به درگاه، شماره موبایل خود را وارد کرده و دکمه تست را بزنید:</p>
+            
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+                <input type="text" id="test_sms_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr" style="height: 38px; width: 220px; border-radius: 6px; border: 1px solid #CBD5E1; padding: 0 10px;">
+                <button type="button" id="btn_run_sms_test" class="button" style="background: #0E1B26; color: #fff; height: 38px; padding: 0 16px; border-radius: 6px;">ارسال پیامک آزمایشی</button>
+            </div>
+            <div id="test_sms_result" style="font-size: 13px; line-height: 1.6; min-height: 24px;"></div>
+        </div>
+
+        <script>
+        document.getElementById('btn_run_sms_test').addEventListener('click', function() {
+            var phone = document.getElementById('test_sms_phone').value.trim();
+            var resBox = document.getElementById('test_sms_result');
+            if (!phone) {
+                resBox.innerHTML = '<span style="color:red;">لطفاً یک شماره موبایل برای تست وارد نمایید.</span>';
+                return;
+            }
+            resBox.innerHTML = '<span style="color:#A67C1E;">در حال برقراری ارتباط با وب‌سرویس ملی‌پیامک...</span>';
+            this.disabled = true;
+
+            var fd = new URLSearchParams();
+            fd.append('action', 'razgem_send_otp');
+            fd.append('phone', phone);
+
+            fetch('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', { method: 'POST', body: fd })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    resBox.innerHTML = '<span style="color:green; font-weight:bold;">✅ ارسال موفقیت‌آمیز بود! پیامک تایید با الگوی ۵۷۴۲۰۳ ارسال گردید.</span>';
+                } else {
+                    resBox.innerHTML = '<span style="color:red; font-weight:bold;">❌ خطا: ' + (data.data || 'خطای ناشناخته') + '</span>';
+                }
+            })
+            .catch(function(err) {
+                resBox.innerHTML = '<span style="color:red;">خطای شبکه: ' + err.message + '</span>';
+            })
+            .finally(function() {
+                document.getElementById('btn_run_sms_test').disabled = false;
+            });
+        });
+        </script>
+    </div>
+    <?php
 }
 
 /* =========================================================================
-   21. FRONTEND OTP MODAL & JS LOGIC
+   21. FRONTEND OTP MODAL & UNIFIED JS LOGIC
    ========================================================================= */
-add_action('wp_footer', 'razgem_frontend_otp_modal', 999);
+add_action( 'wp_footer', 'razgem_frontend_otp_modal', 999 );
 function razgem_frontend_otp_modal() {
-    if (is_user_logged_in()) return; 
+    if ( is_user_logged_in() ) {
+        return;
+    }
     ?>
+    <!-- Global Floating OTP Authentication Modal -->
     <div class="otp-overlay" id="otpOverlay"></div>
-    <div class="otp-modal" id="otpModal">
-        <button class="otp-close" id="otpClose" aria-label="بستن">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <div class="otp-modal" id="otpModal" role="dialog" aria-modal="true" aria-labelledby="modalOtpTitle">
+        <button class="otp-close" id="otpClose" aria-label="<?php esc_attr_e( 'بستن', 'razgem' ); ?>">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
         
         <div class="otp-header">
-            <h3 class="otp-title">ورود / ثبت‌نام</h3>
-            <p class="otp-subtitle" id="otpSubtitle">لطفاً شماره موبایل خود را وارد کنید.</p>
+            <h3 class="otp-title" id="modalOtpTitle"><?php esc_html_e( 'ورود یا عضویت سریع', 'razgem' ); ?></h3>
+            <p class="otp-subtitle" id="otpSubtitle"><?php esc_html_e( 'شماره موبایل خود را وارد نمایید تا کد تایید پیامک شود.', 'razgem' ); ?></p>
         </div>
 
+        <!-- Step 1: Phone -->
         <div class="otp-step active" id="otpStepPhone">
-            <input type="tel" id="otpPhoneInput" class="otp-input-main" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr" maxlength="11" autocomplete="off">
-            <button class="button otp-btn-main" id="btnSendOtp" type="button">دریافت کد تایید</button>
-            <p class="otp-msg" id="otpMsgPhone"></p>
+            <div class="otp-phone-input-wrap" style="margin-bottom: 1.2rem;">
+                <input type="tel" id="otpPhoneInput" class="otp-phone-input" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr" maxlength="14" autocomplete="tel">
+                <span class="otp-phone-prefix" dir="ltr">+۹۸</span>
+            </div>
+            <button class="button razgem-otp-submit-btn" id="btnSendOtp" type="button">
+                <span><?php esc_html_e( 'دریافت کد تایید پیامکی', 'razgem' ); ?></span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="otp-notice-box" id="otpMsgPhone"></p>
         </div>
 
+        <!-- Step 2: Code -->
         <div class="otp-step" id="otpStepCode">
-            <div class="otp-digit-group" dir="ltr">
-                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off">
-                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off">
-                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off">
-                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off">
-                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off">
+            <div class="otp-digit-group" dir="ltr" id="modalDigitGroup">
+                <input type="tel" class="otp-digit" maxlength="1" autocomplete="one-time-code" inputmode="numeric">
+                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off" inputmode="numeric">
+                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off" inputmode="numeric">
+                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off" inputmode="numeric">
+                <input type="tel" class="otp-digit" maxlength="1" autocomplete="off" inputmode="numeric">
             </div>
-            <button class="button otp-btn-main" id="btnVerifyOtp" type="button">تایید و ورود</button>
+            <button class="button razgem-otp-submit-btn" id="btnVerifyOtp" type="button">
+                <span><?php esc_html_e( 'تایید و ورود به حساب', 'razgem' ); ?></span>
+            </button>
             
-            <div class="otp-timer-wrap">
-                <span id="otpTimerText">ارسال مجدد کد تا <span id="otpCountdown">02:00</span></span>
-                <button class="otp-resend-btn" id="btnResendOtp" type="button" style="display:none;">ارسال مجدد کد</button>
+            <div class="otp-timer-container">
+                <span id="otpTimerText">ارسال مجدد کد پس از <span id="otpCountdown">02:00</span></span>
+                <button class="otp-resend-link" id="btnResendOtp" type="button" style="display:none;">
+                    <?php esc_html_e( 'ارسال مجدد کد تایید', 'razgem' ); ?>
+                </button>
             </div>
-            <p class="otp-msg" id="otpMsgCode"></p>
+            <p class="otp-notice-box" id="otpMsgCode"></p>
         </div>
     </div>
 
+    <!-- Unified OTP Authentication Controller Script -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const oldForms = document.querySelectorAll('.u-columns.col2-set, form.login, form.register, #customer_login');
-        oldForms.forEach(form => {
-            form.style.display = 'none'; 
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        const ajaxUrl = '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>';
 
-        const myAccountContainer = document.querySelector('.woocommerce-account .woocommerce');
-        if (myAccountContainer && !document.querySelector('.woocommerce-MyAccount-navigation')) {
-            const loginCard = document.createElement('div');
-            loginCard.className = 'app-login-card';
-            loginCard.innerHTML = `
-                <h2>ورود به گالری رازجم</h2>
-                <p>جهت پیگیری سفارشات و مدیریت حساب، وارد شوید.</p>
-                <button class="button open-otp-modal-btn" type="button" style="width:100%; height:52px; font-size:1.05rem;">ورود با شماره موبایل</button>
-            `;
-            myAccountContainer.prepend(loginCard);
+        // Auto convert Persian and Arabic numerals to English
+        function toEnglishDigits(str) {
+            if (!str) return '';
+            const fa = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            const ar = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+            for (let i = 0; i < 10; i++) {
+                str = str.replace(new RegExp(fa[i], 'g'), i).replace(new RegExp(ar[i], 'g'), i);
+            }
+            return str;
         }
 
+        // Clean phone number
+        function cleanPhone(raw) {
+            let p = toEnglishDigits(raw).replace(/[^0-9]/g, '');
+            if (p.startsWith('0098')) p = '0' + p.substring(4);
+            else if (p.startsWith('98') && p.length === 12) p = '0' + p.substring(2);
+            else if (p.length === 10 && p.startsWith('9')) p = '0' + p;
+            return p;
+        }
+
+        // Shared Countdown Timer Controller
+        function createTimer(displayEl, textWrapEl, resendBtnEl) {
+            let interval = null;
+            return {
+                start: function(seconds) {
+                    clearInterval(interval);
+                    let rem = seconds;
+                    if (resendBtnEl) resendBtnEl.style.display = 'none';
+                    if (textWrapEl) textWrapEl.style.display = 'inline';
+
+                    interval = setInterval(function() {
+                        let m = Math.floor(rem / 60);
+                        let s = rem % 60;
+                        if (displayEl) {
+                            displayEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+                        }
+                        if (--rem < 0) {
+                            clearInterval(interval);
+                            if (textWrapEl) textWrapEl.style.display = 'none';
+                            if (resendBtnEl) resendBtnEl.style.display = 'inline-block';
+                        }
+                    }, 1000);
+                },
+                stop: function() {
+                    clearInterval(interval);
+                }
+            };
+        }
+
+        // Setup digit group inputs (jumping, backspace, paste)
+        function initDigitGroup(digits, onComplete) {
+            digits.forEach(function(digit, idx) {
+                digit.addEventListener('input', function(e) {
+                    let val = toEnglishDigits(e.target.value).replace(/[^0-9]/g, '');
+                    if (val.length > 1) {
+                        // User pasted multi-digit string
+                        let chars = val.split('');
+                        chars.forEach(function(ch, cIdx) {
+                            if (idx + cIdx < digits.length) {
+                                digits[idx + cIdx].value = ch;
+                            }
+                        });
+                        let nextFocus = Math.min(idx + chars.length, digits.length - 1);
+                        digits[nextFocus].focus();
+                        if (digits[digits.length - 1].value && onComplete) onComplete();
+                        return;
+                    }
+                    e.target.value = val;
+                    if (val && idx < digits.length - 1) {
+                        digits[idx + 1].focus();
+                    }
+                    // If last digit filled, auto submit
+                    let full = Array.from(digits).every(function(d) { return d.value !== ''; });
+                    if (full && onComplete) {
+                        onComplete();
+                    }
+                });
+
+                digit.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+                        digits[idx - 1].focus();
+                    } else if (e.key === 'Enter') {
+                        if (onComplete) onComplete();
+                    }
+                });
+
+                digit.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    let pasteData = (e.clipboardData || window.clipboardData).getData('text');
+                    let clean = toEnglishDigits(pasteData).replace(/[^0-9]/g, '');
+                    clean.split('').slice(0, 5).forEach(function(c, i) {
+                        if (digits[i]) digits[i].value = c;
+                    });
+                    let targetFocus = Math.min(clean.length, digits.length - 1);
+                    if (digits[targetFocus]) digits[targetFocus].focus();
+                    if (clean.length >= 5 && onComplete) onComplete();
+                });
+            });
+        }
+
+        // -------------------------------------------------------------
+        // A. GLOBAL FLOATING MODAL LOGIC
+        // -------------------------------------------------------------
         const overlay = document.getElementById('otpOverlay');
         const modal = document.getElementById('otpModal');
         const closeBtn = document.getElementById('otpClose');
+        const phoneInput = document.getElementById('otpPhoneInput');
+        const btnSend = document.getElementById('btnSendOtp');
+        const btnVerify = document.getElementById('btnVerifyOtp');
+        const btnResend = document.getElementById('btnResendOtp');
+        const modalDigits = document.querySelectorAll('#modalDigitGroup .otp-digit');
+        const msgPhone = document.getElementById('otpMsgPhone');
+        const msgCode = document.getElementById('otpMsgCode');
 
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.open-otp-modal-btn') || e.target.closest('.showlogin')) {
-                e.preventDefault();
+        const modalTimer = createTimer(
+            document.getElementById('otpCountdown'),
+            document.getElementById('otpTimerText'),
+            btnResend
+        );
+
+        function openModal() {
+            if (overlay && modal) {
                 overlay.classList.add('active');
                 modal.classList.add('active');
-                setTimeout(() => document.getElementById('otpPhoneInput').focus(), 100);
+                if (phoneInput) setTimeout(function() { phoneInput.focus(); }, 120);
             }
-        });
-
-        closeBtn.addEventListener('click', () => {
-            overlay.classList.remove('active');
-            modal.classList.remove('active');
-        });
-        overlay.addEventListener('click', () => closeBtn.click());
-
-        let countdownInterval;
-        const ajaxUrl = '<?php echo admin_url("admin-ajax.php"); ?>';
-        
-        document.getElementById('btnSendOtp').addEventListener('click', function() {
-            const phone = document.getElementById('otpPhoneInput').value.trim();
-            const msgBox = document.getElementById('otpMsgPhone');
-            
-            if(!/^09[0-9]{9}$/.test(phone)) {
-                msgBox.innerText = 'شماره موبایل وارد شده صحیح نیست.';
-                msgBox.classList.add('error');
-                return;
-            }
-            
-            this.innerText = 'در حال ارسال...';
-            this.style.opacity = '0.7';
-            msgBox.innerText = '';
-
-            const formData = new URLSearchParams();
-            formData.append('action', 'razgem_send_otp');
-            formData.append('phone', phone);
-
-            fetch(ajaxUrl, { method: 'POST', body: formData })
-            .then(res => res.json())
-            .then(res => {
-                if(res.success) {
-                    document.getElementById('otpStepPhone').classList.remove('active');
-                    document.getElementById('otpStepCode').classList.add('active');
-                    document.getElementById('otpSubtitle').innerText = `کد ۵ رقمی به ${phone} پیامک شد.`;
-                    startTimer(120);
-                    document.querySelector('.otp-digit').focus();
-                } else {
-                    msgBox.innerText = res.data;
-                    msgBox.classList.add('error');
-                }
-            }).finally(() => {
-                this.innerText = 'دریافت کد تایید';
-                this.style.opacity = '1';
-            });
-        });
-
-        const digits = document.querySelectorAll('.otp-digit');
-        digits.forEach((digit, index) => {
-            digit.addEventListener('input', (e) => {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                if(e.target.value && index < digits.length - 1) {
-                    digits[index + 1].focus();
-                }
-            });
-            digit.addEventListener('keydown', (e) => {
-                if(e.key === 'Backspace' && !e.target.value && index > 0) {
-                    digits[index - 1].focus();
-                } else if(e.key === 'Enter') {
-                    document.getElementById('btnVerifyOtp').click();
-                }
-            });
-        });
-
-        document.getElementById('btnVerifyOtp').addEventListener('click', function() {
-            const phone = document.getElementById('otpPhoneInput').value.trim();
-            let code = '';
-            digits.forEach(d => code += d.value);
-            const msgBox = document.getElementById('otpMsgCode');
-
-            if(code.length !== 5) {
-                msgBox.innerText = 'لطفاً کد ۵ رقمی را کامل وارد کنید.';
-                msgBox.classList.add('error');
-                return;
-            }
-
-            this.innerText = 'در حال بررسی...';
-            this.style.opacity = '0.7';
-            msgBox.innerText = '';
-
-            const formData = new URLSearchParams();
-            formData.append('action', 'razgem_verify_otp');
-            formData.append('phone', phone);
-            formData.append('code', code);
-
-            fetch(ajaxUrl, { method: 'POST', body: formData })
-            .then(res => res.json())
-            .then(res => {
-                if(res.success) {
-                    msgBox.innerText = 'تایید شد! در حال انتقال...';
-                    msgBox.classList.remove('error');
-                    msgBox.style.color = '#27ae60';
-                    setTimeout(() => window.location.reload(), 800);
-                } else {
-                    msgBox.innerText = res.data;
-                    msgBox.classList.add('error');
-                    digits.forEach(d => d.value = '');
-                    digits[0].focus();
-                }
-            }).finally(() => {
-                this.innerText = 'تایید و ورود';
-                this.style.opacity = '1';
-            });
-        });
-
-        function startTimer(duration) {
-            let timer = duration;
-            const display = document.getElementById('otpCountdown');
-            const textWrap = document.getElementById('otpTimerText');
-            const resendBtn = document.getElementById('btnResendOtp');
-            
-            resendBtn.style.display = 'none';
-            textWrap.style.display = 'inline';
-            
-            clearInterval(countdownInterval);
-            countdownInterval = setInterval(() => {
-                let minutes = parseInt(timer / 60, 10);
-                let seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    clearInterval(countdownInterval);
-                    textWrap.style.display = 'none';
-                    resendBtn.style.display = 'inline-block';
-                }
-            }, 1000);
         }
 
-        document.getElementById('btnResendOtp').addEventListener('click', () => {
-            document.getElementById('btnSendOtp').click();
+        function closeModal() {
+            if (overlay && modal) {
+                overlay.classList.remove('active');
+                modal.classList.remove('active');
+            }
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (overlay) overlay.addEventListener('click', closeModal);
+
+        // Intercept all login triggers across site
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.open-otp-modal-btn') || e.target.closest('.showlogin')) {
+                e.preventDefault();
+                openModal();
+            }
         });
+
+        initDigitGroup(modalDigits, function() {
+            if (btnVerify) btnVerify.click();
+        });
+
+        if (btnSend && phoneInput) {
+            btnSend.addEventListener('click', function() {
+                let p = cleanPhone(phoneInput.value);
+                if (!/^09[0-9]{9}$/.test(p)) {
+                    msgPhone.textContent = 'لطفاً شماره موبایل ۱۱ رقمی معتبر (مانند ۰۹۱۲۳۴۵۶۷۸۹) وارد کنید.';
+                    msgPhone.className = 'otp-notice-box error';
+                    return;
+                }
+
+                btnSend.disabled = true;
+                btnSend.querySelector('span').textContent = 'در حال ارسال پیامک...';
+                msgPhone.textContent = '';
+
+                let fd = new URLSearchParams();
+                fd.append('action', 'razgem_send_otp');
+                fd.append('phone', p);
+
+                fetch(ajaxUrl, { method: 'POST', body: fd })
+                .then(function(r) { return r.json(); })
+                .then(function(res) {
+                    if (res.success) {
+                        document.getElementById('otpStepPhone').classList.remove('active');
+                        document.getElementById('otpStepCode').classList.add('active');
+                        document.getElementById('otpSubtitle').textContent = 'کد ۵ رقمی تایید به شماره ' + p + ' پیامک شد.';
+                        modalTimer.start(120);
+                        if (modalDigits[0]) modalDigits[0].focus();
+                    } else {
+                        msgPhone.textContent = res.data || 'خطا در ارسال پیامک.';
+                        msgPhone.className = 'otp-notice-box error';
+                    }
+                })
+                .catch(function(err) {
+                    msgPhone.textContent = 'خطا در اتصال به شبکه. لطفاً مجدداً تلاش کنید.';
+                    msgPhone.className = 'otp-notice-box error';
+                })
+                .finally(function() {
+                    btnSend.disabled = false;
+                    btnSend.querySelector('span').textContent = 'دریافت کد تایید پیامکی';
+                });
+            });
+        }
+
+        if (btnVerify && phoneInput) {
+            btnVerify.addEventListener('click', function() {
+                let p = cleanPhone(phoneInput.value);
+                let code = '';
+                modalDigits.forEach(function(d) { code += toEnglishDigits(d.value); });
+
+                if (code.length !== 5) {
+                    msgCode.textContent = 'لطفاً کد ۵ رقمی را به طور کامل وارد نمایید.';
+                    msgCode.className = 'otp-notice-box error';
+                    return;
+                }
+
+                btnVerify.disabled = true;
+                btnVerify.querySelector('span').textContent = 'در حال بررسی کد...';
+                msgCode.textContent = '';
+
+                let fd = new URLSearchParams();
+                fd.append('action', 'razgem_verify_otp');
+                fd.append('phone', p);
+                fd.append('code', code);
+
+                fetch(ajaxUrl, { method: 'POST', body: fd })
+                .then(function(r) { return r.json(); })
+                .then(function(res) {
+                    if (res.success) {
+                        msgCode.textContent = 'تایید شد! در حال هدایت به حساب کاربری...';
+                        msgCode.className = 'otp-notice-box success';
+                        setTimeout(function() {
+                            window.location.href = res.data.redirect || window.location.href;
+                        }, 700);
+                    } else {
+                        msgCode.textContent = res.data || 'کد وارد شده نامعتبر است.';
+                        msgCode.className = 'otp-notice-box error';
+                        modalDigits.forEach(function(d) { d.value = ''; });
+                        if (modalDigits[0]) modalDigits[0].focus();
+                    }
+                })
+                .catch(function(err) {
+                    msgCode.textContent = 'خطای شبکه در بررسی کد تایید.';
+                    msgCode.className = 'otp-notice-box error';
+                })
+                .finally(function() {
+                    btnVerify.disabled = false;
+                    btnVerify.querySelector('span').textContent = 'تایید و ورود به حساب';
+                });
+            });
+        }
+
+        if (btnResend) {
+            btnResend.addEventListener('click', function() {
+                if (btnSend) btnSend.click();
+            });
+        }
+
+        // -------------------------------------------------------------
+        // B. DEDICATED /my-account/ PAGE CONTROLLER
+        // -------------------------------------------------------------
+        const pagePhoneInput = document.getElementById('razgemPagePhoneInput');
+        const btnPageSend = document.getElementById('btnPageSendOtp');
+        const btnPageVerify = document.getElementById('btnPageVerifyOtp');
+        const btnPageResend = document.getElementById('btnPageResendOtp');
+        const btnPageChange = document.getElementById('btnPageChangePhone');
+        const pageDigits = document.querySelectorAll('#pageDigitGroup .otp-page-digit');
+        const msgPagePhone = document.getElementById('msgPagePhone');
+        const msgPageCode = document.getElementById('msgPageCode');
+
+        if (pagePhoneInput && btnPageSend) {
+            const pageTimer = createTimer(
+                document.getElementById('pageOtpCountdown'),
+                document.getElementById('pageOtpTimerText'),
+                btnPageResend
+            );
+
+            initDigitGroup(pageDigits, function() {
+                if (btnPageVerify) btnPageVerify.click();
+            });
+
+            btnPageSend.addEventListener('click', function() {
+                let p = cleanPhone(pagePhoneInput.value);
+                if (!/^09[0-9]{9}$/.test(p)) {
+                    msgPagePhone.textContent = 'لطفاً شماره موبایل ۱۱ رقمی معتبر (مانند ۰۹۱۲۳۴۵۶۷۸۹) وارد کنید.';
+                    msgPagePhone.className = 'otp-notice-box error';
+                    return;
+                }
+
+                btnPageSend.disabled = true;
+                btnPageSend.querySelector('span').textContent = 'در حال ارسال پیامک...';
+                msgPagePhone.textContent = '';
+
+                let fd = new URLSearchParams();
+                fd.append('action', 'razgem_send_otp');
+                fd.append('phone', p);
+
+                fetch(ajaxUrl, { method: 'POST', body: fd })
+                .then(function(r) { return r.json(); })
+                .then(function(res) {
+                    if (res.success) {
+                        document.getElementById('razgemPageStepPhone').classList.remove('active');
+                        document.getElementById('razgemPageStepCode').classList.add('active');
+                        document.getElementById('razgemPageOtpSubtitle').textContent = 'کد ۵ رقمی تایید به شماره ' + p + ' ارسال شد.';
+                        pageTimer.start(120);
+                        if (pageDigits[0]) pageDigits[0].focus();
+                    } else {
+                        msgPagePhone.textContent = res.data || 'خطا در ارسال پیامک.';
+                        msgPagePhone.className = 'otp-notice-box error';
+                    }
+                })
+                .catch(function(err) {
+                    msgPagePhone.textContent = 'خطا در اتصال به شبکه.';
+                    msgPagePhone.className = 'otp-notice-box error';
+                })
+                .finally(function() {
+                    btnPageSend.disabled = false;
+                    btnPageSend.querySelector('span').textContent = 'دریافت کد تایید پیامکی';
+                });
+            });
+
+            if (btnPageVerify) {
+                btnPageVerify.addEventListener('click', function() {
+                    let p = cleanPhone(pagePhoneInput.value);
+                    let code = '';
+                    pageDigits.forEach(function(d) { code += toEnglishDigits(d.value); });
+
+                    if (code.length !== 5) {
+                        msgPageCode.textContent = 'لطفاً کد ۵ رقمی را به طور کامل وارد نمایید.';
+                        msgPageCode.className = 'otp-notice-box error';
+                        return;
+                    }
+
+                    btnPageVerify.disabled = true;
+                    btnPageVerify.querySelector('span').textContent = 'در حال بررسی کد...';
+                    msgPageCode.textContent = '';
+
+                    let fd = new URLSearchParams();
+                    fd.append('action', 'razgem_verify_otp');
+                    fd.append('phone', p);
+                    fd.append('code', code);
+
+                    fetch(ajaxUrl, { method: 'POST', body: fd })
+                    .then(function(r) { return r.json(); })
+                    .then(function(res) {
+                        if (res.success) {
+                            msgPageCode.textContent = 'تایید شد! در حال انتقال به پیشخوان...';
+                            msgPageCode.className = 'otp-notice-box success';
+                            setTimeout(function() {
+                                window.location.href = res.data.redirect || window.location.href;
+                            }, 700);
+                        } else {
+                            msgPageCode.textContent = res.data || 'کد وارد شده نامعتبر است.';
+                            msgPageCode.className = 'otp-notice-box error';
+                            pageDigits.forEach(function(d) { d.value = ''; });
+                            if (pageDigits[0]) pageDigits[0].focus();
+                        }
+                    })
+                    .catch(function(err) {
+                        msgPageCode.textContent = 'خطای شبکه در بررسی کد تایید.';
+                        msgPageCode.className = 'otp-notice-box error';
+                    })
+                    .finally(function() {
+                        btnPageVerify.disabled = false;
+                        btnPageVerify.querySelector('span').textContent = 'تایید و ورود به حساب';
+                    });
+                });
+            }
+
+            if (btnPageResend) {
+                btnPageResend.addEventListener('click', function() {
+                    if (btnPageSend) btnPageSend.click();
+                });
+            }
+
+            if (btnPageChange) {
+                btnPageChange.addEventListener('click', function() {
+                    document.getElementById('razgemPageStepCode').classList.remove('active');
+                    document.getElementById('razgemPageStepPhone').classList.add('active');
+                    pagePhoneInput.focus();
+                });
+            }
+        }
     });
     </script>
     <?php

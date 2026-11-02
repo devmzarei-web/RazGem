@@ -16062,3 +16062,286 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
   transform: translateY(-2px) !important;
   box-shadow: 0 12px 28px rgba(212, 175, 55, 0.4) !important;
 }
+
+/* =========================================================================
+   RAZGEM LUXURY OTP AUTHENTICATION (PAGE & MODAL)
+   ========================================================================= */
+.razgem-otp-page-wrapper {
+  max-width: 480px !important;
+  margin: 3.5rem auto 5.5rem auto !important;
+  padding: 0 1rem !important;
+  direction: rtl !important;
+}
+
+.razgem-otp-card {
+  background: #ffffff !important;
+  border: 1.5px solid #E8E0D5 !important;
+  border-radius: 24px !important;
+  padding: 3rem 2.4rem !important;
+  box-shadow: 0 12px 45px rgba(14, 27, 38, 0.06) !important;
+  text-align: center !important;
+}
+
+.otp-card-header {
+  margin-bottom: 2.2rem !important;
+}
+
+.otp-brand-logo {
+  display: inline-block !important;
+  margin-bottom: 1.2rem !important;
+}
+
+.otp-logo-img {
+  max-width: 145px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.otp-card-title {
+  font-family: var(--font-heading, "Morabba", serif) !important;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  color: #0E1B26 !important;
+  margin: 0 0 0.65rem 0 !important;
+}
+
+.otp-card-subtitle {
+  font-size: 0.92rem !important;
+  color: #64748B !important;
+  line-height: 1.75 !important;
+  margin: 0 auto !important;
+  max-width: 380px !important;
+}
+
+.razgem-otp-step {
+  display: none;
+  animation: appFadeIn 0.3s ease-out forwards;
+}
+
+.razgem-otp-step.active {
+  display: block !important;
+}
+
+.otp-field-group {
+  margin-bottom: 1.5rem !important;
+  text-align: right !important;
+}
+
+.otp-field-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  color: #0E1B26 !important;
+  margin-bottom: 0.65rem !important;
+}
+
+.otp-field-label .required-star {
+  color: #EF4444 !important;
+}
+
+.otp-phone-input-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.otp-phone-input {
+  width: 100% !important;
+  height: 52px !important;
+  padding: 0 1.2rem 0 4.4rem !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 12px !important;
+  background: #FAF8F5 !important;
+  font-family: var(--font-body, "IranYekanX", sans-serif) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #0E1B26 !important;
+  letter-spacing: 1.5px !important;
+  text-align: left !important;
+  direction: ltr !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+
+.otp-phone-input:focus {
+  outline: none !important;
+  border-color: #D4AF37 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3.5px rgba(212, 175, 55, 0.2) !important;
+}
+
+.otp-phone-prefix {
+  position: absolute !important;
+  left: 12px !important;
+  background: #E8E0D5 !important;
+  color: #554433 !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  padding: 0.25rem 0.65rem !important;
+  border-radius: 6px !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.razgem-otp-submit-btn {
+  width: 100% !important;
+  height: 52px !important;
+  background: linear-gradient(135deg, #D4AF37 0%, #A67C1E 100%) !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  border-radius: 12px !important;
+  border: none !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3) !important;
+  transition: all 0.25s ease !important;
+  margin-bottom: 1.2rem !important;
+}
+
+.razgem-otp-submit-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.4) !important;
+}
+
+.razgem-otp-submit-btn:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.otp-notice-box {
+  min-height: 24px !important;
+  font-size: 0.88rem !important;
+  margin-top: 0.5rem !important;
+  line-height: 1.6 !important;
+  transition: all 0.25s ease !important;
+}
+
+.otp-notice-box.error {
+  color: #DC2626 !important;
+  font-weight: 700 !important;
+}
+
+.otp-notice-box.success {
+  color: #16A34A !important;
+  font-weight: 700 !important;
+}
+
+.otp-step2-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.btn-change-phone {
+  background: none !important;
+  border: none !important;
+  color: #A67C1E !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-change-phone:hover {
+  background: #FAF8F5 !important;
+  color: #785810 !important;
+}
+
+.otp-digit-group {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.65rem !important;
+  direction: ltr !important;
+  margin: 1.2rem 0 1.8rem 0 !important;
+}
+
+.otp-digit,
+.otp-page-digit {
+  width: 52px !important;
+  height: 56px !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 12px !important;
+  background: #FAF8F5 !important;
+  text-align: center !important;
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  color: #0E1B26 !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+}
+
+.otp-digit:focus,
+.otp-page-digit:focus {
+  outline: none !important;
+  border-color: #D4AF37 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3.5px rgba(212, 175, 55, 0.2) !important;
+}
+
+.otp-timer-container {
+  font-size: 0.88rem !important;
+  color: #64748B !important;
+  margin: 0.8rem 0 1.2rem 0 !important;
+}
+
+.otp-timer-container span#pageOtpCountdown,
+.otp-timer-container span#otpCountdown {
+  font-weight: 800 !important;
+  color: #0E1B26 !important;
+}
+
+.otp-resend-link {
+  background: none !important;
+  border: none !important;
+  color: #A67C1E !important;
+  font-weight: 800 !important;
+  font-size: 0.88rem !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+}
+
+.otp-resend-link:hover {
+  color: #785810 !important;
+}
+
+.otp-trust-footer {
+  margin-top: 2.2rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px dashed #E8E0D5 !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1.4rem !important;
+  flex-wrap: wrap !important;
+}
+
+.trust-pill {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  font-size: 0.8rem !important;
+  color: #64748B !important;
+  font-weight: 600 !important;
+}
+
+/* Ensure standard password login forms are hidden on checkout in favor of OTP modal */
+.woocommerce-checkout form.woocommerce-form-login,
+.woocommerce-checkout form.login:not(.razgem-otp-form) {
+  display: none !important;
+}
