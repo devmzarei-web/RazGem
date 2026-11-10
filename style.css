@@ -4051,7 +4051,7 @@ body.archive.woocommerce .shop-main-content ul.products {
 .woocommerce-tabs ul.tabs li.active a {
   color: var(--color-dark);
 }
-.woocommerce-Tabs-panel h2 {
+.woocommerce-Tabs-panel > h2:first-child {
   display: none;
 }
 .woocommerce-Tabs-panel {
@@ -16344,4 +16344,561 @@ textarea.floating-input:not(:placeholder-shown) ~ .floating-label {
 .woocommerce-checkout form.woocommerce-form-login,
 .woocommerce-checkout form.login:not(.razgem-otp-form) {
   display: none !important;
+}
+
+/* =========================================================================
+   54. SINGLE PRODUCT DESCRIPTION EDITORIAL & ADMIN IMAGE SHOWCASE
+   Fixes unstyled, full-width images added by admins to product descriptions
+   and provides a cohesive luxury editorial frame, grid & lightbox experience.
+   ========================================================================= */
+
+/* 54.1 Luxury Card Container for Single Product Tabs */
+.single-product-page .woocommerce-tabs.wc-tabs-wrapper {
+  background: #FFFFFF;
+  border: 1px solid var(--color-pebble-light, #EAE3DA);
+  border-radius: 20px;
+  padding: 1.75rem 2.25rem 2.25rem;
+  box-shadow: 0 10px 34px rgba(27, 51, 71, 0.045);
+  margin-bottom: 2.25rem;
+}
+
+.single-product-page .woocommerce-tabs ul.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid var(--color-pebble-light, #EAE3DA);
+  margin: 0 0 1.85rem 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.single-product-page .woocommerce-tabs ul.tabs li {
+  padding: 0 0 0.85rem 0;
+  margin-bottom: -1px;
+  border-bottom: 2.5px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.single-product-page .woocommerce-tabs ul.tabs li.active {
+  border-bottom-color: var(--color-gold, #C59B27);
+}
+
+.single-product-page .woocommerce-tabs ul.tabs li a {
+  font-family: var(--font-heading, "Peyda", "Morabba", serif);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #7E93A2;
+  transition: color 0.25s ease;
+}
+
+.single-product-page .woocommerce-tabs ul.tabs li.active a,
+.single-product-page .woocommerce-tabs ul.tabs li a:hover {
+  color: var(--color-marine-deep, #1B3347);
+}
+
+/* 54.2 Editorial Typography & Content Flow Inside Product Descriptions */
+#tab-description,
+.woocommerce-Tabs-panel--description,
+.product-description-editorial {
+  font-size: 0.98rem;
+  line-height: 2.05;
+  color: #2C3E50;
+  text-align: justify;
+  overflow: hidden;
+}
+
+#tab-description::after,
+.woocommerce-Tabs-panel--description::after,
+.product-short-desc::after,
+.product-lead-desc::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#tab-description p,
+.woocommerce-Tabs-panel--description p,
+.product-description-editorial p {
+  margin-bottom: 1.15rem;
+}
+
+#tab-description p:last-child,
+.woocommerce-Tabs-panel--description p:last-child,
+.product-description-editorial p:last-child {
+  margin-bottom: 0;
+}
+
+#tab-description h2,
+#tab-description h3,
+#tab-description h4,
+#tab-description h5,
+.woocommerce-Tabs-panel--description h2,
+.woocommerce-Tabs-panel--description h3,
+.woocommerce-Tabs-panel--description h4,
+.product-description-editorial h2,
+.product-description-editorial h3,
+.product-description-editorial h4 {
+  font-family: var(--font-heading, "Peyda", "Morabba", serif);
+  color: var(--color-marine-deep, #1B3347);
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 1.85rem 0 0.85rem;
+  padding-right: 0.85rem;
+  border-right: 3.5px solid var(--color-gold, #C59B27);
+}
+
+#tab-description h2,
+.woocommerce-Tabs-panel--description h2 {
+  font-size: 1.28rem;
+}
+
+#tab-description h3,
+.woocommerce-Tabs-panel--description h3 {
+  font-size: 1.14rem;
+}
+
+#tab-description h4,
+.woocommerce-Tabs-panel--description h4 {
+  font-size: 1.04rem;
+  border-right-width: 2.5px;
+}
+
+#tab-description ul,
+#tab-description ol,
+.woocommerce-Tabs-panel--description ul,
+.woocommerce-Tabs-panel--description ol,
+.product-short-desc ul,
+.product-short-desc ol,
+.product-lead-desc ul,
+.product-lead-desc ol {
+  margin: 0.85rem 0 1.35rem 0;
+  padding-right: 1.5rem;
+}
+
+#tab-description ul,
+.woocommerce-Tabs-panel--description ul,
+.product-short-desc ul,
+.product-lead-desc ul {
+  list-style: disc;
+}
+
+#tab-description ol,
+.woocommerce-Tabs-panel--description ol,
+.product-short-desc ol,
+.product-lead-desc ol {
+  list-style: decimal;
+}
+
+#tab-description li,
+.woocommerce-Tabs-panel--description li,
+.product-short-desc li,
+.product-lead-desc li {
+  margin-bottom: 0.45rem;
+  line-height: 1.9;
+}
+
+#tab-description li::marker,
+.woocommerce-Tabs-panel--description li::marker,
+.product-short-desc li::marker,
+.product-lead-desc li::marker {
+  color: var(--color-gold, #C59B27);
+  font-weight: 700;
+}
+
+#tab-description blockquote,
+.woocommerce-Tabs-panel--description blockquote {
+  border-right: 3.5px solid var(--color-gold, #C59B27);
+  background: #FAF8F5;
+  padding: 1.15rem 1.4rem;
+  margin: 1.5rem 0;
+  border-radius: 12px 4px 4px 12px;
+  color: var(--color-marine-deep, #1B3347);
+  font-style: italic;
+  line-height: 1.95;
+}
+
+/* 54.3 Admin-Added Images: Override Global 100% Stretch & Apply Luxury Frame */
+#tab-description img,
+.woocommerce-Tabs-panel--description img,
+.woocommerce-Tabs-panel img,
+.product-description-editorial img {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 580px) !important;
+  max-height: 460px !important;
+  object-fit: contain !important;
+  display: block;
+  margin: 1.75rem auto;
+  padding: 8px;
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF8F5 100%);
+  border: 1px solid rgba(197, 155, 39, 0.28);
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(27, 51, 71, 0.07), 0 2px 6px rgba(197, 155, 39, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: zoom-in;
+}
+
+#tab-description img:hover,
+.woocommerce-Tabs-panel--description img:hover,
+.product-description-editorial img:hover {
+  transform: translateY(-3px);
+  border-color: rgba(197, 155, 39, 0.55);
+  box-shadow: 0 14px 36px rgba(27, 51, 71, 0.12), 0 4px 12px rgba(197, 155, 39, 0.1);
+}
+
+/* Short Description Images (Compact Center Column Fit) */
+.product-short-desc img,
+.woocommerce-product-details__short-description img,
+.product-lead-desc img {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 340px) !important;
+  max-height: 280px !important;
+  object-fit: contain !important;
+  display: block;
+  margin: 1rem auto;
+  padding: 6px;
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF8F5 100%);
+  border: 1px solid rgba(197, 155, 39, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(27, 51, 71, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: zoom-in;
+}
+
+.product-short-desc img:hover,
+.woocommerce-product-details__short-description img:hover,
+.product-lead-desc img:hover {
+  transform: translateY(-2px);
+  border-color: rgba(197, 155, 39, 0.55);
+  box-shadow: 0 10px 26px rgba(27, 51, 71, 0.11);
+}
+
+/* 54.4 WordPress Image Size Classes Support */
+#tab-description img.size-thumbnail,
+.woocommerce-Tabs-panel img.size-thumbnail {
+  max-width: 180px !important;
+  max-height: 180px !important;
+}
+
+#tab-description img.size-medium,
+.woocommerce-Tabs-panel img.size-medium {
+  max-width: min(100%, 360px) !important;
+  max-height: 360px !important;
+}
+
+#tab-description img.size-large,
+.woocommerce-Tabs-panel img.size-large,
+#tab-description img.size-full,
+.woocommerce-Tabs-panel img.size-full {
+  max-width: min(100%, 580px) !important;
+  max-height: 460px !important;
+}
+
+/* 54.5 WordPress Alignment Classes (RTL-Aware) */
+#tab-description .aligncenter,
+.woocommerce-Tabs-panel .aligncenter,
+.product-short-desc .aligncenter {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+  clear: both;
+}
+
+#tab-description .alignright,
+.woocommerce-Tabs-panel .alignright {
+  float: right !important;
+  margin: 0.4rem 0 1.25rem 1.75rem !important;
+  max-width: min(46%, 360px) !important;
+}
+
+#tab-description .alignleft,
+.woocommerce-Tabs-panel .alignleft {
+  float: left !important;
+  margin: 0.4rem 1.75rem 1.25rem 0 !important;
+  max-width: min(46%, 360px) !important;
+}
+
+/* 54.6 Figures, Captions & Enhanced Description Showcase Cards */
+#tab-description figure,
+#tab-description .wp-caption,
+#tab-description .wp-block-image,
+#tab-description .razgem-desc-figure,
+.woocommerce-Tabs-panel figure,
+.woocommerce-Tabs-panel .wp-caption,
+.woocommerce-Tabs-panel .wp-block-image,
+.woocommerce-Tabs-panel .razgem-desc-figure,
+.product-short-desc .razgem-desc-figure,
+.product-lead-desc .razgem-desc-figure {
+  position: relative;
+  display: table;
+  width: auto !important;
+  max-width: min(100%, 600px) !important;
+  margin: 1.85rem auto;
+  padding: 10px;
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF8F5 100%);
+  border: 1px solid rgba(197, 155, 39, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(27, 51, 71, 0.07), 0 2px 6px rgba(197, 155, 39, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.product-short-desc .razgem-desc-figure,
+.product-lead-desc .razgem-desc-figure {
+  max-width: min(100%, 350px) !important;
+  margin: 1rem auto;
+  padding: 7px;
+  border-radius: 14px;
+}
+
+#tab-description figure:hover,
+#tab-description .wp-caption:hover,
+#tab-description .razgem-desc-figure:hover,
+.woocommerce-Tabs-panel .razgem-desc-figure:hover {
+  transform: translateY(-3px);
+  border-color: rgba(197, 155, 39, 0.55);
+  box-shadow: 0 15px 38px rgba(27, 51, 71, 0.12), 0 4px 12px rgba(197, 155, 39, 0.1);
+}
+
+/* Reset nested img frame when wrapped inside a styled figure/caption container */
+#tab-description figure img,
+#tab-description .wp-caption img,
+#tab-description .wp-block-image img,
+#tab-description .razgem-desc-figure img,
+.woocommerce-Tabs-panel figure img,
+.woocommerce-Tabs-panel .wp-caption img,
+.woocommerce-Tabs-panel .razgem-desc-figure img,
+.product-short-desc .razgem-desc-figure img,
+.product-lead-desc .razgem-desc-figure img {
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+  transform: none !important;
+}
+
+#tab-description figcaption,
+#tab-description .wp-caption-text,
+#tab-description .razgem-desc-caption,
+.woocommerce-Tabs-panel figcaption,
+.woocommerce-Tabs-panel .wp-caption-text,
+.woocommerce-Tabs-panel .razgem-desc-caption,
+.product-short-desc .razgem-desc-caption,
+.product-lead-desc .razgem-desc-caption {
+  display: table-caption;
+  caption-side: bottom;
+  padding: 0.65rem 0.75rem 0.25rem;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--color-marine-muted, #566E80);
+  text-align: center;
+  font-weight: 500;
+  background: linear-gradient(180deg, rgba(250, 248, 245, 0) 0%, rgba(250, 248, 245, 0.9) 100%);
+  border-radius: 0 0 14px 14px;
+}
+
+/* Subtle Zoom Badge Indicator on Description Figures */
+.razgem-desc-zoom-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(27, 51, 71, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FAF8F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  pointer-events: none;
+  z-index: 2;
+  border: 1px solid rgba(243, 227, 208, 0.35);
+}
+
+.razgem-desc-figure:hover .razgem-desc-zoom-badge,
+.razgem-desc-media-card:hover .razgem-desc-zoom-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 54.7 Multi-Image Showcase Grid (Auto-Grouped & WP Galleries) */
+#tab-description .gallery,
+#tab-description .wp-block-gallery,
+.woocommerce-Tabs-panel .gallery,
+.woocommerce-Tabs-panel .wp-block-gallery,
+.razgem-desc-media-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  max-width: 880px;
+  margin: 2rem auto !important;
+  padding: 0 !important;
+  list-style: none !important;
+  clear: both;
+}
+
+.razgem-desc-media-grid.razgem-desc-media-grid--2,
+#tab-description .gallery.gallery-columns-2,
+#tab-description .wp-block-gallery.columns-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 760px;
+}
+
+#tab-description .gallery .gallery-item,
+#tab-description .wp-block-gallery .wp-block-image,
+.razgem-desc-media-card {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 8px !important;
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF8F5 100%);
+  border: 1px solid rgba(197, 155, 39, 0.28);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(27, 51, 71, 0.065);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+#tab-description .gallery .gallery-item:hover,
+#tab-description .wp-block-gallery .wp-block-image:hover,
+.razgem-desc-media-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(197, 155, 39, 0.55);
+  box-shadow: 0 14px 34px rgba(27, 51, 71, 0.12);
+}
+
+#tab-description .gallery .gallery-item img,
+#tab-description .wp-block-gallery .wp-block-image img,
+.razgem-desc-media-card img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 280px !important;
+  max-height: 280px !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 11px !important;
+  box-shadow: none !important;
+  background: #FAF8F5 !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.razgem-desc-media-card:hover img {
+  transform: scale(1.03) !important;
+}
+
+/* 54.8 Responsive Mobile Layout for Product Description & Media */
+@media (max-width: 768px) {
+  .single-product-page .woocommerce-tabs.wc-tabs-wrapper {
+    padding: 1.25rem 1.1rem 1.5rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+  }
+
+  .single-product-page .woocommerce-tabs ul.tabs {
+    gap: 1.25rem;
+    margin-bottom: 1.25rem !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .single-product-page .woocommerce-tabs ul.tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .single-product-page .woocommerce-tabs ul.tabs li a {
+    font-size: 1rem;
+  }
+
+  #tab-description,
+  .woocommerce-Tabs-panel--description {
+    font-size: 0.94rem;
+    line-height: 1.95;
+  }
+
+  #tab-description .alignright,
+  #tab-description .alignleft,
+  .woocommerce-Tabs-panel .alignright,
+  .woocommerce-Tabs-panel .alignleft {
+    float: none !important;
+    display: block !important;
+    margin: 1.25rem auto !important;
+    max-width: 100% !important;
+  }
+
+  #tab-description img,
+  .woocommerce-Tabs-panel--description img,
+  .woocommerce-Tabs-panel img {
+    max-width: 100% !important;
+    max-height: 360px !important;
+    margin: 1.25rem auto;
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  #tab-description figure,
+  #tab-description .wp-caption,
+  #tab-description .razgem-desc-figure,
+  .woocommerce-Tabs-panel .razgem-desc-figure {
+    max-width: 100% !important;
+    margin: 1.25rem auto;
+    padding: 7px;
+    border-radius: 14px;
+  }
+
+  .razgem-desc-zoom-badge {
+    opacity: 0.9;
+    transform: scale(0.92);
+    top: 14px;
+    left: 14px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .razgem-desc-media-grid,
+  .razgem-desc-media-grid.razgem-desc-media-grid--2,
+  #tab-description .gallery,
+  #tab-description .wp-block-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem;
+    margin: 1.35rem auto !important;
+  }
+
+  #tab-description .gallery .gallery-item img,
+  #tab-description .wp-block-gallery .wp-block-image img,
+  .razgem-desc-media-card img {
+    height: 180px !important;
+    max-height: 180px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .razgem-desc-media-grid,
+  .razgem-desc-media-grid.razgem-desc-media-grid--2,
+  #tab-description .gallery,
+  #tab-description .wp-block-gallery {
+    grid-template-columns: 1fr !important;
+  }
+
+  #tab-description .gallery .gallery-item img,
+  #tab-description .wp-block-gallery .wp-block-image img,
+  .razgem-desc-media-card img {
+    height: 230px !important;
+    max-height: 230px !important;
+  }
 }

@@ -68,7 +68,7 @@ $old_price       = ! empty( $p_data['old_price'] ) ? esc_html( $p_data['old_pric
 $dimensions      = ! empty( $p_data['dimensions'] ) ? esc_html( $p_data['dimensions'] ) : 'ابعاد در شناسنامه اثر';
 $material        = ! empty( $p_data['material'] ) ? esc_html( $p_data['material'] ) : 'صدف طبیعی دست‌تراش، یراق ضدحساسیت رنگ‌ثابت';
 $color           = ! empty( $p_data['color'] ) ? esc_html( $p_data['color'] ) : 'طبیعی بدون رنگ شیمیایی';
-$desc            = ! empty( $p_data['desc'] ) ? esc_html( $p_data['desc'] ) : '';
+$desc            = ! empty( $p_data['desc'] ) ? wp_kses_post( wpautop( $p_data['desc'] ) ) : '';
 $img_primary     = esc_url( $p_data['img_primary'] );
 $img_dimensions  = ! empty( $p_data['img_hover'] ) ? esc_url( $p_data['img_hover'] ) : $img_primary;
 $tag             = ! empty( $p_data['tag'] ) ? esc_html( $p_data['tag'] ) : 'صدف طبیعی اصل';
@@ -184,7 +184,7 @@ $wa_url  = 'https://wa.me/' . $whatsapp_clean . '?text=' . rawurlencode( $wa_tex
 
             <h1 class="product-headline-title"><?php echo $title; ?></h1>
 
-            <p class="product-lead-desc"><?php echo $desc; ?></p>
+            <div class="product-lead-desc"><?php echo $desc; ?></div>
 
             <!-- Authentic Specification Matrix -->
             <div class="specs-matrix-card">

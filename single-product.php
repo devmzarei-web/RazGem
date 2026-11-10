@@ -600,6 +600,13 @@ get_header(); ?>
                 images.push(src);
             }
         });
+        const descImgs = document.querySelectorAll('#tab-description img, .woocommerce-Tabs-panel--description img, .product-short-desc img');
+        descImgs.forEach(img => {
+            const fullSrc = img.getAttribute('data-large_image') || img.getAttribute('data-full-url') || img.src;
+            if (fullSrc && !images.includes(fullSrc)) {
+                images.push(fullSrc);
+            }
+        });
         return images;
     }
 
@@ -619,12 +626,19 @@ get_header(); ?>
         if (idx !== -1) currentLightboxIndex = idx;
     };
 
-    window.openLightbox = function(index) {
+    window.openLightbox = function(indexOrSrc) {
         const images = getGalleryImages();
         if (!images.length) return;
 
-        if (typeof index === 'number') {
-            currentLightboxIndex = index;
+        if (typeof indexOrSrc === 'number') {
+            currentLightboxIndex = indexOrSrc;
+        } else if (typeof indexOrSrc === 'string' && indexOrSrc) {
+            let idx = images.indexOf(indexOrSrc);
+            if (idx === -1) {
+                images.push(indexOrSrc);
+                idx = images.length - 1;
+            }
+            currentLightboxIndex = idx;
         } else {
             const mainImg = document.getElementById('mainProductImage');
             const currentSrc = mainImg ? mainImg.src : '';
@@ -763,6 +777,132 @@ get_header(); ?>
             } catch(e) {}
         }
     };
+
+    // Enhance Admin-Added Description Images (Showcase Framing, Multi-Image Grids & Lightbox)
+    document.addEventListener('DOMContentLoaded', function() {
+        const zoomIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>';
+        const descContainers = document.querySelectorAll('#tab-description, .woocommerce-Tabs-panel--description, .product-short-desc');
+
+        function isMeaningfulCaption(text) {
+            if (!text) return false;
+            const t = text.trim();
+            if (t.length < 3) return false;
+            if (/^(img|image|photo|pic|dsc|screenshot|untitled|thumbnail|r-\d+)[\w\-\.\s]*$/i.test(t)) return false;
+            if (/\.(jpe?g|png|webp|gif|svg)$/i.test(t)) return false;
+            return true;
+        }
+
+        function getFullImgSrc(img) {
+            if (!img) return '';
+            const parentLink = img.closest('a');
+            if (parentLink && parentLink.href && /\.(jpe?g|png|webp|gif)(\?.*)?$/i.test(parentLink.href)) {
+                return parentLink.href;
+            }
+            return img.getAttribute('data-large_image') || img.getAttribute('data-full-url') || img.src || '';
+        }
+
+        function createZoomBadge() {
+            const badge = document.createElement('span');
+            badge.className = 'razgem-desc-zoom-badge';
+            badge.setAttribute('aria-hidden', 'true');
+            badge.innerHTML = zoomIconSvg;
+            return badge;
+        }
+
+        descContainers.forEach(container => {
+            // 1. Convert paragraphs containing multiple images (and no text) into a responsive showcase grid
+            const paragraphs = Array.from(container.querySelectorAll('p'));
+            paragraphs.forEach(p => {
+                const imgs = Array.from(p.querySelectorAll('img'));
+                if (imgs.length >= 2 && p.textContent.trim().length === 0) {
+                    const grid = document.createElement('div');
+                    grid.className = 'razgem-desc-media-grid' + (imgs.length === 2 ? ' razgem-desc-media-grid--2' : '');
+                    imgs.forEach(img => {
+                        const card = document.createElement('figure');
+                        card.className = 'razgem-desc-media-card';
+                        const fullUrl = getFullImgSrc(img);
+                        if (fullUrl) img.setAttribute('data-full-url', fullUrl);
+                        card.appendChild(img);
+                        card.appendChild(createZoomBadge());
+                        const capText = img.getAttribute('title') || img.getAttribute('alt') || '';
+                        if (isMeaningfulCaption(capText)) {
+                            const cap = document.createElement('figcaption');
+                            cap.className = 'razgem-desc-caption';
+                            cap.textContent = capText.trim();
+                            card.appendChild(cap);
+                        }
+                        grid.appendChild(card);
+                    });
+                    p.replaceWith(grid);
+                }
+            });
+
+            // 2. Wrap remaining standalone images in a luxury figure frame with zoom badge
+            const standaloneImgs = Array.from(container.querySelectorAll('img')).filter(img => {
+                return !img.closest('.razgem-desc-media-card, .razgem-desc-figure, .gallery, .wp-block-gallery');
+            });
+
+            standaloneImgs.forEach(img => {
+                const fullUrl = getFullImgSrc(img);
+                if (fullUrl) img.setAttribute('data-full-url', fullUrl);
+
+                const existingFig = img.closest('figure, .wp-caption, .wp-block-image');
+                if (existingFig) {
+                    existingFig.classList.add('razgem-desc-figure');
+                    if (!existingFig.querySelector('.razgem-desc-zoom-badge')) {
+                        existingFig.appendChild(createZoomBadge());
+                    }
+                    return;
+                }
+
+                const fig = document.createElement('figure');
+                fig.className = 'razgem-desc-figure';
+                if (img.classList.contains('alignright')) fig.classList.add('alignright');
+                if (img.classList.contains('alignleft')) fig.classList.add('alignleft');
+                if (img.classList.contains('aligncenter')) fig.classList.add('aligncenter');
+
+                const parentAnchor = img.parentElement && img.parentElement.tagName === 'A' ? img.parentElement : null;
+                const targetNode = (parentAnchor && parentAnchor.children.length === 1) ? parentAnchor : img;
+                const parentP = targetNode.parentElement && targetNode.parentElement.tagName === 'P' ? targetNode.parentElement : null;
+
+                if (parentP && parentP.textContent.trim().length === 0 && parentP.children.length === 1) {
+                    parentP.replaceWith(fig);
+                } else {
+                    targetNode.parentNode.insertBefore(fig, targetNode);
+                }
+
+                fig.appendChild(img);
+                fig.appendChild(createZoomBadge());
+
+                const capText = img.getAttribute('title') || '';
+                if (isMeaningfulCaption(capText)) {
+                    const cap = document.createElement('figcaption');
+                    cap.className = 'razgem-desc-caption';
+                    cap.textContent = capText.trim();
+                    fig.appendChild(cap);
+                }
+            });
+
+            // 3. Attach Lightbox Trigger on Description Images
+            container.addEventListener('click', function(e) {
+                const clickedImg = e.target.closest('img');
+                if (!clickedImg) return;
+                const parentLink = clickedImg.closest('a');
+                if (parentLink) {
+                    const href = parentLink.getAttribute('href') || '';
+                    if (!href || href === '#' || /\.(jpe?g|png|webp|gif)(\?.*)?$/i.test(href)) {
+                        e.preventDefault();
+                    } else {
+                        return;
+                    }
+                }
+                const srcToOpen = getFullImgSrc(clickedImg);
+                if (srcToOpen && typeof window.openLightbox === 'function') {
+                    window.openLightbox(srcToOpen);
+                }
+            });
+        });
+    });
 })();
 </script>
 
