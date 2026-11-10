@@ -34,9 +34,6 @@ if ( empty( $categories ) ) {
                              loading="lazy">
                     </div>
                     <span class="category-bubble-title"><?php echo esc_html( $cat['short_name'] ); ?></span>
-                    <?php if ( ! empty( $cat['count'] ) ) : ?>
-                        <span class="category-bubble-count"><?php echo esc_html( $cat['count'] ); ?></span>
-                    <?php endif; ?>
                 </a>
             <?php endforeach; ?>
         </nav>

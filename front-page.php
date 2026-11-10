@@ -73,23 +73,10 @@ get_header(); ?>
     </section>
 
     <!-- =======================================================================
-         5. MULTI-CATEGORY TABBED VITRINE (Instant Client-Side Filtering)
+         5. HANDCRAFTED CATALOG VITRINE GRID
          ======================================================================= -->
     <section id="handcrafted-catalog" class="razgem-vitrine-section">
         <div class="site-container">
-            <div class="vitrine-header" style="margin-bottom: 1.5rem;">
-                <!-- Titles removed to reduce words before products based on user feedback -->
-                
-                <!-- Quick Category Filter Tabs -->
-                <div class="vitrine-tabs" role="tablist" aria-label="<?php esc_attr_e( 'فیلتر دسته‌بندی آثار', 'razgem' ); ?>">
-                    <button type="button" class="vitrine-tab-btn is-active" data-category="all" role="tab" aria-selected="true"><?php esc_html_e( 'همه آثار', 'razgem' ); ?></button>
-                    <button type="button" class="vitrine-tab-btn" data-category="earrings" role="tab" aria-selected="false"><?php esc_html_e( 'گوشواره صدف', 'razgem' ); ?></button>
-                    <button type="button" class="vitrine-tab-btn" data-category="ocean-wall-art" role="tab" aria-selected="false"><?php esc_html_e( 'تابلو و دکوراتیو', 'razgem' ); ?></button>
-                    <button type="button" class="vitrine-tab-btn" data-category="necklaces" role="tab" aria-selected="false"><?php esc_html_e( 'گردنبند و چوکر', 'razgem' ); ?></button>
-                    <button type="button" class="vitrine-tab-btn" data-category="bracelets-rings" role="tab" aria-selected="false"><?php esc_html_e( 'دستبند و انگشتر', 'razgem' ); ?></button>
-                </div>
-            </div>
-
             <!-- 4-Column Showcase Grid -->
             <div class="vitrine-grid" id="razgemVitrineGrid">
                 <?php
